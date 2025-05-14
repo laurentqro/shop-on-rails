@@ -81,9 +81,10 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    host: 10.0.0.3
     database: shop_production
     username: shop
-    password: <%= ENV["SHOP_DATABASE_PASSWORD"] %>
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: shop_production_cache
