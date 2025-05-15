@@ -2,7 +2,7 @@ class RegistrationsController < ApplicationController
   # If Authentication concern is not in ApplicationController, include it:
   # include Authentication
   # Or, if it's already in ApplicationController, ensure this controller allows unauthenticated access for new/create
-  allow_unauthenticated_access only: [:new, :create] # Use this if Authentication concern's before_action :require_authentication is in ApplicationController
+  allow_unauthenticated_access only: [ :new, :create ] # Use this if Authentication concern's before_action :require_authentication is in ApplicationController
 
   def new
     @user = User.new
@@ -22,6 +22,6 @@ class RegistrationsController < ApplicationController
   private
 
   def user_params
-    params.expect(user: [:email_address, :password, :password_confirmation])
+    params.expect(user: [ :email_address, :password, :password_confirmation ])
   end
 end
