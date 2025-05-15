@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "products#index"
 
-  resources :products, only: [:index, :show]
+  resources :products, only: [:index, :show], path: "product"
   resource :session
   resources :passwords, param: :token
   resource :registration, only: [:new, :create], path: "register", path_names: { new: "" }

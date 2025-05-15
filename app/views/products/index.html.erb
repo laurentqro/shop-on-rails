@@ -4,9 +4,9 @@
       <div class="card bg-base-100 shadow-sm">
         <figure class="max-w-[600px] max-h-[600px]">
           <% if product.image.attached? %>
-            <%= image_tag product.image.variant(resize_to_fill: [600, 600]), class: "w-full h-full object-cover rounded-lg shadow-md", alt: product.name %>
+            <%= image_tag product.image.variant(resize_to_limit: [400, 400]), class: "w-full h-full object-cover rounded-lg shadow-md", alt: product.name %>
           <% else %>
-            <div class="w-full h-[400px] lg:h-[600px] bg-gray-200 shadow-md flex items-center justify-center">
+            <div class="w-full h-[400px] lg:h-[400px] bg-gray-200 shadow-md flex items-center justify-center">
               <span class="text-gray-500">Image not available</span>
             </div>
           <% end %>
@@ -15,10 +15,13 @@
           <h2 class="card-title">
             <%= product.name %>
         </h2>
-        <div class="badge badge-secondary"><%= ["NEW", "FEATURED", "BEST SELLER"].sample %></div>
-        <p><%= product.description %></p>
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline">£<%= product.price %></div>
+        <% if product.featured? %>
+          <div class="badge badge-secondary absolute top-2 right-2 z-10">FEATURED</div>
+        <% end %>
+        <div class="card-actions justify-start">
+          <div class="text-base badge badge-secondary">
+            <%= number_to_currency product.price %>
+          </div>
         </div>
       </div>
     </div>

@@ -54,7 +54,15 @@ module Admin
 
       # Only allow a list of trusted parameters through.
       def product_params
-        params.expect(product: [ :name, :description, :price, :category_id, :image ])
+        params.expect(product: [
+          :name,
+          :description,
+          :price,
+          :category_id,
+          :image,
+          :colour,
+          :featured
+        ])
       end
   end
 end
