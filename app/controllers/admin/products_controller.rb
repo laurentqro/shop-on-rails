@@ -49,7 +49,7 @@ module Admin
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_product
-        @product = Product.find(params.expect(:id))
+        @product = Product.find_by!(slug: params.expect(:id))
       end
 
       # Only allow a list of trusted parameters through.

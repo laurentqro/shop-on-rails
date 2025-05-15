@@ -1,12 +1,15 @@
 one:
   name: "Product 1"
+  sku: "BUBL-POP-11"
   description: "Description 1"
   price: 100
   active: true
   category: :one
+  slug: "product-1"
 
 two:
   name: "Product 2"
+  sku: "BUBL-POP-12"
   description: "Description 2"
   price: 200
   active: false
