@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg-emerald-400">
+<html class="h-full bg-emerald-400">
   <head>
     <title><%= content_for(:title) || "Shop" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,9 +22,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="h-full">
+    <%= render "shared/navbar" %>
+
+    <main class="container mx-auto p-5">
       <%= yield %>
     </main>
+    <%= render "shared/footer" %>
   </body>
 </html>
