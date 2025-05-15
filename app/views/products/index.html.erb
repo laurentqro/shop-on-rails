@@ -3,13 +3,17 @@
     <%= link_to product_path(product) do %>
       <div class="card bg-base-100 shadow-sm">
         <figure>
-          <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes" />
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">
-          <%= product.name %>
+          <% if product.image.attached? %>
+            <%= image_tag product.image.variant(resize_to_limit: [600, 600]), class: "w-full h-auto object-contain rounded-lg shadow-md", alt: product.name %>
+          <% else %>
+            <div class="w-full h-[400px] lg:h-[600px] bg-gray-200 shadow-md flex items-center justify-center">
+              <span class="text-gray-500">Image not available</span>
+            </div>
+          <% end %>
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">
+            <%= product.name %>
         </h2>
         <div class="badge badge-secondary"><%= ["NEW", "FEATURED", "BEST SELLER"].sample %></div>
         <p><%= product.description %></p>
