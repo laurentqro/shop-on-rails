@@ -1,0 +1,13 @@
+one:
+  name: "Product 1"
+  description: "Description 1"
+  price: 100
+  active: true
+  category: :one
+
+two:
+  name: "Product 2"
+  description: "Description 2"
+  price: 200
+  active: false
+  category: :two
