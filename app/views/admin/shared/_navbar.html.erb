@@ -7,9 +7,9 @@
   <div class="flex items-center gap-2">
     <% if authenticated? %>
       <span class="text-sm">Hello, <%= Current.user.email_address %></span>
-      <%= button_to "Log Out", session_path, method: :delete, class: "btn btn-outline btn-sm" %>
+      <%= button_to "Sign Out", session_path, method: :delete, class: "btn btn-outline btn-sm" %>
     <% else %>
-      <%= link_to "Login", new_session_path, class: "btn btn-outline btn-sm" %>
+      <%= link_to "Sign In", new_session_path, class: "btn btn-outline btn-sm" %>
       <%= link_to "Sign Up", new_registration_path, class: "btn btn-outline btn-sm" %>
     <% end %>
   </div>
