@@ -2,9 +2,9 @@
   <% @products.each do |product| %>
     <%= link_to product_path(product) do %>
       <div class="card bg-base-100 shadow-sm">
-        <figure>
+        <figure class="max-w-[600px] max-h-[600px]">
           <% if product.image.attached? %>
-            <%= image_tag product.image.variant(resize_to_limit: [600, 600]), class: "w-full h-auto object-contain rounded-lg shadow-md", alt: product.name %>
+            <%= image_tag product.image.variant(resize_to_fill: [600, 600]), class: "w-full h-full object-cover rounded-lg shadow-md", alt: product.name %>
           <% else %>
             <div class="w-full h-[400px] lg:h-[600px] bg-gray-200 shadow-md flex items-center justify-center">
               <span class="text-gray-500">Image not available</span>
