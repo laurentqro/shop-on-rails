@@ -25,7 +25,7 @@ module Admin
       @product = Product.new(product_params)
 
       if @product.save
-        redirect_to @product, notice: "Product was successfully created."
+        redirect_to admin_products_path, notice: "Product was successfully created."
       else
         render :new, status: :unprocessable_entity
       end
@@ -34,7 +34,7 @@ module Admin
     # PATCH/PUT /products/1
     def update
       if @product.update(product_params)
-        redirect_to @product, notice: "Product was successfully updated.", status: :see_other
+        redirect_to admin_products_path, notice: "Product was successfully updated.", status: :see_other
       else
         render :edit, status: :unprocessable_entity
       end
@@ -43,7 +43,7 @@ module Admin
     # DELETE /products/1
     def destroy
       @product.destroy!
-      redirect_to products_path, notice: "Product was successfully destroyed.", status: :see_other
+      redirect_to admin_products_path, notice: "Product was successfully destroyed.", status: :see_other
     end
 
     private

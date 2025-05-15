@@ -1,7 +1,8 @@
-<% content_for :title, "Editing product" %>
+<% content_for :title, "Editing #{@product.name}" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing product</h1>
+<div class="w-full bg-base-100 p-5 rounded-lg">
+  <h1 class="font-bold text-4xl">Editing <%= @product.sku %></h1>
+  <p class="text-sm text-gray-500"><%= @product.name %></p>
 
   <%= render "form", product: @product %>
 
