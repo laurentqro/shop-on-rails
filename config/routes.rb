@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resource :session
   resources :passwords, param: :token
+  resource :registration, only: [:new, :create], path: "register", path_names: { new: "" }
 
   namespace :admin do
     get "/", to: "products#index"
