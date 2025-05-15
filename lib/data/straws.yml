@@ -1,0 +1,85 @@
+---
+- name: 6 x 150mm Bamboo Pulp Straws
+  diameter_in_mm: 6
+  height_in_mm: 150
+  sku: BB-PULP-15
+  pac_size: 5000
+  colour: Natural/Beige
+  price: 70
+- name: 6 x 200mm Bamboo Pulp Straws
+  diameter_in_mm: 6
+  height_in_mm: 200
+  sku: BB-PULP-20
+  pac_size: 5000
+  colour: Natural/Beige
+  price: 75
+- name: 8 x 200mm Bamboo Pulp Straws
+  diameter_in_mm: 8
+  height_in_mm: 200
+  sku: BB-PULP-JUM
+  pac_size: 5000
+  colour: Natural/Beige
+  price: 108.3
+- name: 10 x 200mm Bamboo Pulp Straws
+  diameter_in_mm: 10
+  height_in_mm: 200
+  sku: BB-PULP-10M
+  pac_size: 3600
+  colour: Natural/Beige
+  price: 134
+- name: 10 x 210mm Bamboo Boba Pulp Straws (Wrapped)
+  diameter_in_mm: 10
+  height_in_mm: 210
+  sku: BB-PULP-BOB
+  pac_size: 2400
+  colour: Natural/Beige
+  price: 114.2
+- name: 6 x 150mm Bamboo Fibre Straws
+  diameter_in_mm: 6
+  height_in_mm: 150
+  sku: BB-FBRBL-15
+  pac_size: 2500
+  colour: Black
+  price: 56.4
+- name: 6 x 200mm Bamboo Fibre Straws
+  diameter_in_mm: 6
+  height_in_mm: 200
+  sku: BB-FBRBL-20
+  pac_size: 2500
+  colour: Black
+  price: 65.8
+- name: 6 x 150mm Bamboo Fibre Straws
+  diameter_in_mm: 6
+  height_in_mm: 150
+  sku: BB-FBRN-15
+  pac_size: 2500
+  colour: Natural/Beige
+  price: 56.4
+- name: 6 x 200mm Bamboo Fibre Straws
+  diameter_in_mm: 6
+  height_in_mm: 200
+  sku: BB-FBRN-20
+  pac_size: 2500
+  colour: Natural/Beige
+  price: 65.8
+- name: 6 x 150mm Agave Straws
+  diameter_in_mm: 6
+  height_in_mm: 150
+  sku: PK-BOX-15
+  pac_size: 2500
+  colour: Natural/Brown
+  price: 57.5
+- name: 6 x 210mm Agave Straws
+  diameter_in_mm: 6
+  height_in_mm: 210
+  sku: PK-BOX-21
+  pac_size: 2500
+  colour: Natural/Brown
+  price: 68.5
+- name: 8 x 210mm Agave Straws
+  diameter_in_mm: 8
+  height_in_mm: 210
+  sku: PK-JUM-21
+  pac_size: 2500
+  colour: Natural/Brown
+  price: 76.3

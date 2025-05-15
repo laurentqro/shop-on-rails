@@ -1,0 +1,56 @@
+---
+- name: 80mm Paper Sip Lid for Hot Cup
+  colour: White
+  sku: PAPL80
+  pac_size: 1000
+  price: 43.75
+  diameter_in_mm: 80
+- name: 90mm Paper Sip Lid for Hot Cup
+  colour: White
+  sku: PAPL90
+  pac_size: 1000
+  price: 48.39
+  diameter_in_mm: 90
+- name: 4oz Recyclable Sip Lid for Hot Cup
+  colour: Black
+  sku: PLPC62B
+  pac_size: 1000
+  price: 48.39
+  diameter_in_mm: 62
+- name: 4oz Recyclable Sip Lid for Hot Cup
+  colour: White
+  sku: PLPC62W
+  pac_size: 1000
+  price: 25.63
+  diameter_in_mm: 62
+- name: 80mm Recyclable Sip Lid for Hot Cup
+  colour: White
+  sku: PLPC80W
+  pac_size: 1000
+  price: 25.63
+  diameter_in_mm: 80
+- name: 90mm Recyclable Sip Lid for Hot Cup
+  colour: White
+  sku: PLPC90W
+  pac_size: 1000
+  price: 21.96
+- name: 80mm Recyclable Sip Lid for Hot Cup
+  colour: Black
+  sku: PLPC80B
+  pac_size: 1000
+  price: 22.96
+- name: 90mm Recyclable Sip Lid for Hot Cup
+  colour: Black
+  sku: PLPC90B
+  pac_size: 1000
+  price: 25.68
+- name: Wooden Coffee Stirrers 140mm
+  colour: Natural
+  sku: WCS14
+  pac_size: 1000
+  price: 2.89
+- name: Recyclable 2-Cup Carrier Trays
+  colour: Natural
+  sku: RCC2C
+  pac_size: 360
+  price: 25.95

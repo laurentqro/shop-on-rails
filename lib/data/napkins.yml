@@ -1,0 +1,87 @@
+---
+- colour: Natural/Beige
+  pac_size: 2400
+  price: 36.4
+  name: Bamboo Cocktail Napkins 25cm x 25cm
+  width_in_mm: 250
+  height_in_mm: 250
+  sku: BB-BOX-NAP
+- colour: White
+  pac_size: 2000
+  price: 23.54
+  name: Paper Cocktail Napkins 24cm x 24cm
+  width_in_mm: 240
+  height_in_mm: 240
+  sku: PCNWH
+- colour: Black
+  pac_size: 2000
+  price: 24.32
+  name: Paper Cocktail Napkins 24cm x 24cm
+  width_in_mm: 240
+  height_in_mm: 240
+  sku: PCNBL
+- colour: White
+  pac_size: 2000
+  price: 46.36
+  name: 4-fold 2-ply Dinner Napkins 40cm x 40cm
+  width_in_mm: 400
+  height_in_mm: 400
+  sku: 4FDINWH
+- colour: Black
+  pac_size: 2000
+  price: 66.52
+  name: 4-fold 2-ply Dinner Napkins 40cm x 40cm
+  width_in_mm: 400
+  height_in_mm: 400
+  sku: 4FDINBL
+- colour: Grey
+  pac_size: 2000
+  price: 59.37
+  name: 4-fold 2-ply Dinner Napkins 40cm x 40cm
+  width_in_mm: 400
+  height_in_mm: 400
+  sku: 4FDINGR
+- colour: White
+  pac_size: 2000
+  price: 48.32
+  name: 8-fold 3-ply Dinner Napkins 40cm x 40cm
+  width_in_mm: 400
+  height_in_mm: 400
+  sku: 8FDINWH
+- colour: Grey
+  pac_size: 2000
+  price: 59.56
+  name: 8-fold 3-ply Dinner Napkins 40cm x 40cm
+  width_in_mm: 400
+  height_in_mm: 400
+  sku: 8FDINGR
+- colour: White
+  pac_size: 500
+  price: 41.39
+  name: 8-fold Luxury Airlaid Napkin / Hand Towel
+  sku: 8FAIRWH
+- colour: White
+  pac_size: 500
+  price: 41.39
+  name: 4-fold Luxury Airlaid Napkin / Hand Towel
+  sku: 4FAIRWH
+- colour: Black
+  pac_size: 500
+  price: 61.37
+  name: 8-fold Luxury Airlaid Napkin / Hand Towel
+  sku: 8FAIRBL
+- colour: Black
+  pac_size: 500
+  price: 61.37
+  name: 4-fold Luxury Airlaid Napkin / Hand Towel
+  sku: 4FAIRBL
+- colour: Grey
+  pac_size: 500
+  price: 61.37
+  name: 8-fold Luxury Airlaid Napkin / Hand Towel
+  sku: 8FAIRGR
+- colour: Grey
+  pac_size: 500
+  price: 61.37
+  name: 4-fold Luxury Airlaid Napkin / Hand Towel
+  sku: 4FAIRGR

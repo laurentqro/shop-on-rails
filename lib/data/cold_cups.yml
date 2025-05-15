@@ -1,0 +1,61 @@
+---
+- name: 8oz/237ml  rPET Recyclable Cup
+  colour: Clear
+  sku: 8RPTRC
+  pac_size: 1000
+  price: 30.80
+- name: 12oz/355ml rPET Recyclable Cup
+  colour: Clear
+  sku: 12RPTRC
+  pac_size: 1000
+  price: 44.53
+- name: 16oz/473ml rPET Recyclable Cup
+  colour: Clear
+  sku: 16RPTRC
+  pac_size: 1000
+  price: 47.52
+- name: 20oz/591ml rPET Recyclable Cup
+  colour: Clear
+  sku: 20RPTRC
+  pac_size: 1000
+  price: 66.00
+- name: 12oz-20oz Compatible rPET Dome Lid
+  colour: Clear
+  sku: RPTDL
+  pac_size: 1000
+  price: 23.76
+- name: 12oz-20oz Compatible rPET Flat Lid
+  colour: Clear
+  sku: RPTFL
+  pac_size: 1000
+  price: 21.49
+- name: 8oz/237ml Home Compostable Paper Cup
+  colour: White
+  sku: 8HMCPC
+  pac_size: 1000
+  price: 31.12
+- name: 12oz/355ml Home Compostable Paper Cup
+  colour: White
+  sku: 12HMCPC
+  pac_size: 1000
+  price: 38.74
+- name: 16oz/473ml Home Compostable Paper Cup
+  colour: White
+  sku: 16HMCPC
+  pac_size: 1000
+  price: 45.95
+- name: 20oz/591ml Home Compostable Paper Cup
+  colour: White
+  sku: 20HMCPC
+  pac_size: 1000
+  price: 54.63
+- name: 1/2-Pint to Line Home Compostable Paper Cup UKCA Marked
+  colour: White
+  sku: UKMRHFP
+  pac_size: 1000
+  price: 99.00
+- name: Pint to Line Home Compostable Paper Cup UKCA Marked
+  colour: White
+  sku: UKMRFP
+  pac_size: 1000
+  price: 115.00
