@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   namespace :admin do
-    get "/", to: "pages#index"
+    get "/", to: "products#index"
     resources :products
   end
 

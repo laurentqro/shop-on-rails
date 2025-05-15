@@ -1,8 +1,9 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <% @products.each do |product| %>
-    <div class="card bg-base-100 shadow-sm">
-      <figure>
-        <img
+    <%= link_to product_path(product) do %>
+      <div class="card bg-base-100 shadow-sm">
+        <figure>
+          <img
           src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
           alt="Shoes" />
       </figure>
@@ -17,5 +18,6 @@
         </div>
       </div>
     </div>
+    <% end %>
   <% end %>
 </div>
