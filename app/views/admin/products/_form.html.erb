@@ -1,0 +1,77 @@
+<%= form_with(model: product, class: "contents") do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul class="list-disc ml-6">
+        <% product.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :active %>
+    <%= form.check_box :active, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2", {"border-gray-400 focus:outline-blue-600": product.errors[:active].none?, "border-red-400 focus:outline-red-600": product.errors[:active].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :featured %>
+    <%= form.check_box :featured, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2", {"border-gray-400 focus:outline-blue-600": product.errors[:featured].none?, "border-red-400 focus:outline-red-600": product.errors[:featured].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:name].none?, "border-red-400 focus:outline-red-600": product.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:description].none?, "border-red-400 focus:outline-red-600": product.errors[:description].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :price %>
+    <%= form.number_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:price].none?, "border-red-400 focus:outline-red-600": product.errors[:price].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :category %>
+    <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:category].none?, "border-red-400 focus:outline-red-600": product.errors[:category].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :image %>
+    <%= form.file_field :image, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:image].none?, "border-red-400 focus:outline-red-600": product.errors[:image].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :slug %>
+    <%= form.text_field :slug, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:slug].none?, "border-red-400 focus:outline-red-600": product.errors[:slug].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :meta_title %>
+    <%= form.text_field :meta_title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:meta_title].none?, "border-red-400 focus:outline-red-600": product.errors[:meta_title].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :meta_description %>
+    <%= form.text_field :meta_description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:meta_description].none?, "border-red-400 focus:outline-red-600": product.errors[:meta_description].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :meta_keywords %>
+    <%= form.text_field :meta_keywords, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:meta_keywords].none?, "border-red-400 focus:outline-red-600": product.errors[:meta_keywords].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :meta_image %>
+    <%= form.file_field :meta_image, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:meta_image].none?, "border-red-400 focus:outline-red-600": product.errors[:meta_image].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
