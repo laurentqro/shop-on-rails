@@ -1,6 +1,6 @@
 <% content_for :title, "#{@product.name} | #{@product.category.name}" %>
 
-<div class="container mx-auto p-4">
+<div class="container mx-auto p-4 text-gray-100">
   <% if notice.present? %>
     <div class="alert alert-success shadow-lg mb-5">
       <div>
@@ -11,9 +11,9 @@
   <% end %>
 
   <div class="card lg:card-side bg-base-100 shadow-xl">
-    <figure class="p-4 lg:w-1/2 flex flex-col bg-white">
+    <figure class="lg:w-1/2 h-1/2 w-full bg-white">
       <% if @product.image.attached? %>
-        <%= image_tag @product.image.variant(resize_to_limit: [400, 600]), class: "rounded-lg shadow-md", alt: @product.name %>
+        <%= image_tag @product.image.variant(resize_to_limit: [400, 400]), alt: @product.name %>
       <% else %>
         <div class="w-full h-[400px] lg:h-[600px] bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
           <span class="text-gray-500">Image not available</span>
@@ -22,16 +22,14 @@
     </figure>
 
     <div class="card-body lg:w-1/2">
-      <p class="text-sm text-gray-500 uppercase"><%= @product.category.name %></p>
+      <p class="text-sm text-gray-300 uppercase"><%= @product.category.name %></p>
       <h1 class="card-title text-3xl lg:text-4xl"><%= @product.name %></h1>
 
-      <%# Price %>
       <div class="my-2">
         <span class="text-2xl lg:text-3xl font-semibold text-secondary"><%= number_to_currency @product.price %></span>
       </div>
-      <p class="text-xs text-gray-600 mb-4">4 interest-free payments of <%= number_to_currency(@product.price / 4) %> with <span class="font-bold">Klarna</span>. or <span class="font-bold">afterpay</span></p>
+      <p class="text-xs mb-4">4 interest-free payments of <%= number_to_currency(@product.price / 4) %> with <span class="font-bold">Klarna</span>. or <span class="font-bold">afterpay</span></p>
 
-      <%# Color Selector Placeholder %>
       <div class="mb-4">
         <h3 class="text-md font-semibold mb-2">Color: <span class="font-normal" id="selected_color_name">Black</span></h3>
         <div class="flex space-x-2">
@@ -46,17 +44,16 @@
         <span class="font-bold">● 50% Off Archive Sales.</span> Discount applied in cart.
       </div>
 
-      <%# Quantity & Add to Cart %>
       <div class="card-actions items-center space-x-3 my-4">
         <div class="join">
           <button class="btn join-item btn-outline btn-sm" onclick="updateQuantity(-1)">-</button>
           <input type="text" id="quantity_input" value="1" class="input input-sm input-bordered join-item w-12 text-center" />
           <button class="btn join-item btn-outline btn-sm" onclick="updateQuantity(1)">+</button>
         </div>
-        <button class="btn btn-primary flex-grow" id="add-to-cart-button">Add to Cart</button>
+
+        <%= button_to "Add to basket", cart_cart_items_path, params: { cart_item: { product_slug: @product.slug, quantity: 1 } }, method: :post, class: "btn btn-primary w-full" %>
       </div>
 
-      <%# Description %>
       <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
         <input type="checkbox" id="product_description_toggle" class="peer" />
         <div class="collapse-title text-lg font-medium peer-checked:bg-base-200">
@@ -67,7 +64,6 @@
         </div>
       </div>
 
-      <%# JavaScript for color selector and quantity (can be moved to a JS file) %>
       <script>
         document.addEventListener('DOMContentLoaded', () => {
           const colorButtons = document.querySelectorAll('button[data-color-name]');

@@ -1,30 +1,33 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <% @products.each do |product| %>
-    <%= link_to product_path(product) do %>
-      <div class="card bg-base-100 shadow-sm">
-        <figure class="max-w-[600px] max-h-[600px]">
-          <% if product.image.attached? %>
-            <%= image_tag product.image.variant(resize_to_limit: [400, 400]), class: "w-full h-full object-cover rounded-lg shadow-md", alt: product.name %>
-          <% else %>
-            <div class="w-full h-[400px] lg:h-[400px] bg-gray-200 shadow-md flex items-center justify-center">
-              <span class="text-gray-500">Image not available</span>
-            </div>
+    <div class="card shadow-sm bg-base-100">
+      <figure class="max-w-[600px] max-h-[600px] bg-white">
+        <% if product.image.attached? %>
+          <%= link_to product_path(product) do %>
+            <%= image_tag product.image.variant(resize_to_limit: [400, 400]), class: "w-full h-full object-cover rounded-lg", alt: product.name %>
           <% end %>
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">
+        <% else %>
+          <div class="w-full h-[400px] lg:h-[400px] bg-gray-200 shadow-md flex items-center justify-center">
+            <span class="text-gray-500">Image not available</span>
+          </div>
+        <% end %>
+      </figure>
+      <div class="card-body text-gray-100">
+        <h2 class="card-title">
+          <%= link_to product_path(product) do %>
             <%= product.name %>
+          <% end %>
         </h2>
         <% if product.featured? %>
           <div class="badge badge-secondary absolute top-2 right-2 z-10">FEATURED</div>
         <% end %>
-        <div class="card-actions justify-start">
+        <div class="card-actions justify-between items-center mt-2">
           <div class="text-base badge badge-secondary">
             <%= number_to_currency product.price %>
           </div>
+          <%= button_to "Add to basket", cart_cart_items_path, params: { cart_item: { product_slug: product.slug, quantity: 1 } }, method: :post, class: "btn btn-primary btn-sm" %>
         </div>
       </div>
     </div>
-    <% end %>
   <% end %>
 </div>
