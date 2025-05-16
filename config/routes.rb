@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resource :registration, only: [ :new, :create ], path: "signup", path_names: { new: "" }
 
+  resource :cart, only: [ :show, :destroy ] do
+    resource :cart_items, only: [ :create, :update, :destroy ]
+  end
+
   namespace :admin do
     get "/", to: "products#index"
     resources :products

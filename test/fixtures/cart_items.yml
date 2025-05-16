@@ -3,11 +3,11 @@
 one:
   cart: one
   product: one
-  quantity: 1
+  quantity: 2
   price: 10
 
 two:
   cart: two
   product: two
-  quantity: 1
-  price: 20
+  quantity: 3
+  price: 30
