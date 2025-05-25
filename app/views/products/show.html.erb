@@ -35,14 +35,18 @@
         <span class="font-bold">● 50% Off Archive Sales.</span> Discount applied in cart.
       </div>
 
-      <div class="card-actions items-center space-x-3 my-4">
+      <div class="card-actions items-center space-x-3 my-4" x-data="{ quantity: 1 }">
         <div class="join">
-          <button class="btn join-item btn-outline btn-sm" onclick="updateQuantity(-1)">-</button>
-          <input type="text" id="quantity_input" value="1" class="input input-sm input-bordered join-item w-12 text-center" />
-          <button class="btn join-item btn-outline btn-sm" onclick="updateQuantity(1)">+</button>
+          <button class="btn join-item btn-outline btn-sm" @click="quantity = Math.max(1, quantity - 1)">-</button>
+          <input type="text" x-model="quantity" class="input input-sm input-bordered join-item w-12 text-center" />
+          <button class="btn join-item btn-outline btn-sm" @click="quantity = quantity + 1">+</button>
         </div>
 
-        <%= button_to "Add to basket", cart_cart_items_path, params: { cart_item: { product_slug: @product.slug, quantity: 1 } }, method: :post, class: "btn btn-primary w-full" %>
+        <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: true do |f| %>
+          <%= f.hidden_field :product_slug, name: "cart_item[product_slug]", value: @product.slug %>
+          <input type="hidden" name="cart_item[quantity]" x-bind:value="quantity" />
+          <%= f.submit "Add to basket", class: "btn btn-primary w-full" %>
+        <% end %>
       </div>
 
       <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
@@ -54,37 +58,6 @@
           <p class="pt-4 text-sm"><%= @product.description %></p>
         </div>
       </div>
-
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const colorButtons = document.querySelectorAll('button[data-color-name]');
-          const selectedColorNameDisplay = document.getElementById('selected_color_name');
-
-          colorButtons.forEach(button => {
-            button.addEventListener('click', () => {
-              if (selectedColorNameDisplay) {
-                selectedColorNameDisplay.textContent = button.dataset.colorName;
-              }
-              colorButtons.forEach(btn => {
-                btn.classList.remove('border-primary', 'ring-2', 'ring-primary');
-                btn.classList.add('border-base-300', 'hover:border-neutral-focus');
-              });
-              button.classList.remove('border-base-300', 'hover:border-neutral-focus');
-              button.classList.add('border-primary', 'ring-2', 'ring-primary');
-            });
-          });
-        });
-
-        function updateQuantity(change) {
-          const quantityInput = document.getElementById('quantity_input');
-          let currentValue = parseInt(quantityInput.value);
-          currentValue += change;
-          if (currentValue < 1) {
-            currentValue = 1;
-          }
-          quantityInput.value = currentValue;
-        }
-      </script>
     </div>
   </div>
 </div>
