@@ -3,43 +3,50 @@ class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:update, :destroy]
 
   # POST /cart/cart_items
-  # Adds a product to the current cart.
-  # If the product is already in the cart, increments the quantity.
   def create
     product = Product.find_by!(slug: cart_item_params[:product_slug])
     @cart_item = @cart.cart_items.find_or_initialize_by(product: product)
 
     if @cart_item.new_record?
-      # New item for the cart
       @cart_item.quantity = cart_item_params[:quantity].to_i || 1
-      @cart_item.price = product.price # Capture current price
+      @cart_item.price = product.price
     else
-      # Item already exists, increment quantity
       @cart_item.quantity += (cart_item_params[:quantity].to_i || 1)
     end
 
     if @cart_item.save
-      redirect_to cart_path, notice: "#{product.name} added to cart."
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to cart_path, notice: "#{product.name} added to cart." }
+      end
     else
-      # This path might be tricky to reach directly if just adding from product page.
-      # Consider where to redirect or what to render if save fails.
-      # For now, redirecting back or to product page with an alert.
-      redirect_back fallback_location: product_path(product), alert: "Could not add item to cart: #{@cart_item.errors.full_messages.join(', ')}"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back fallback_location: product_path(product), alert: "Could not add item to cart: #{@cart_item.errors.full_messages.join(', ')}" }
+      end
     end
   end
 
   # PATCH/PUT /cart/cart_items/:id
-  # Updates the quantity of an item in the cart.
   def update
     new_quantity = cart_item_params[:quantity].to_i
     if new_quantity <= 0
       # If quantity is zero or less, remove the item instead
       @cart_item.destroy
-      redirect_to cart_path, notice: 'Item removed from cart.'
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to cart_path, notice: 'Item removed from cart.' }
+      end
     elsif @cart_item.update(quantity: new_quantity)
-      redirect_to cart_path, notice: 'Cart updated.'
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to cart_path, notice: 'Cart updated.' }
+      end
     else
-      redirect_to cart_path, alert: "Could not update cart: #{@cart_item.errors.full_messages.join(', ')}"
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("basket_counter", partial: "shared/basket_counter") }
+        format.html { redirect_to cart_path, alert: "Could not update cart: #{@cart_item.errors.full_messages.join(', ')}" }
+      end
     end
   end
 
@@ -48,10 +55,15 @@ class CartItemsController < ApplicationController
   def destroy
     product_name = @cart_item.product.name
     if @cart_item.destroy
-      redirect_to cart_path, notice: "#{product_name} removed from cart."
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to cart_path, notice: "#{product_name} removed from cart." }
+      end
     else
-      # Should ideally not fail, but good to handle
-      redirect_to cart_path, alert: "Could not remove item: #{@cart_item.errors.full_messages.join(', ')}"
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to cart_path, alert: "Could not remove item: #{@cart_item.errors.full_messages.join(', ')}" }
+      end
     end
   end
 

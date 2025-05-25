@@ -25,7 +25,7 @@
           <div class="text-base badge badge-secondary">
             <%= number_to_currency product.price %>
           </div>
-          <%= button_to "Add to basket", cart_cart_items_path, params: { cart_item: { product_slug: product.slug, quantity: 1 } }, method: :post, class: "btn btn-primary btn-sm" %>
+          <%= button_to "Add to basket", cart_cart_items_path, params: { cart_item: { product_slug: product.slug, quantity: 1 } }, method: :post, class: "btn btn-primary btn-sm", local: false %>
         </div>
       </div>
     </div>

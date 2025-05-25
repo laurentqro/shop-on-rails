@@ -42,7 +42,7 @@
           <button class="btn join-item btn-outline btn-sm" @click="quantity = quantity + 1">+</button>
         </div>
 
-        <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: true do |f| %>
+        <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: false do |f| %>
           <%= f.hidden_field :product_slug, name: "cart_item[product_slug]", value: @product.slug %>
           <input type="hidden" name="cart_item[quantity]" x-bind:value="quantity" />
           <%= f.submit "Add to basket", class: "btn btn-primary w-full" %>
