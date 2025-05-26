@@ -1,9 +1,13 @@
-<%= turbo_stream.replace "cart_items_list" do %>
-  <%= render partial: "cart_items/cart_items_list", locals: { cart: Current.cart } %>
-<% end %>
+<%= turbo_stream.remove @cart_item %>
 
 <%= turbo_stream.replace "basket_counter" do %>
   <%= render partial: "shared/basket_counter", locals: { cart_items_count: Current.cart.cart_items.sum(:quantity) } %>
 <% end %>
 
-<%# <%= turbo_stream.prepend "flash_messages", partial: "shared/flash_message", locals: { type: :notice, message: "#{@cart_item.product.name} removed from cart." } %> 
+<%= turbo_stream.update "subtotal" do %>
+  <%= number_to_currency(Current.cart.subtotal) %>
+<% end %>
+
+<%= turbo_stream.update "grand_total" do %>
+  <%= number_to_currency(Current.cart.total_price) %>
+<% end %>

@@ -12,8 +12,8 @@
           </div>
         <% end %>
       </figure>
-      <div class="card-body text-gray-100">
-        <h2 class="card-title">
+      <div class="card-body text-gray-100 text-center">
+        <h2 class="card-title justify-center">
           <%= link_to product_path(product) do %>
             <%= product.name %>
           <% end %>
@@ -21,11 +21,10 @@
         <% if product.featured? %>
           <div class="badge badge-secondary absolute top-2 right-2 z-10">FEATURED</div>
         <% end %>
-        <div class="card-actions justify-between items-center mt-2">
-          <div class="text-base badge badge-secondary">
+        <div class="card-actions justify-center items-center mt-2">
+          <div class="text-base">
             <%= number_to_currency product.price %>
           </div>
-          <%= button_to "Add to basket", cart_cart_items_path, params: { cart_item: { product_slug: product.slug, quantity: 1 } }, method: :post, class: "btn btn-primary btn-sm", local: false %>
         </div>
       </div>
     </div>
