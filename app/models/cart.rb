@@ -18,6 +18,6 @@ class Cart < ApplicationRecord
   end
 
   def total_amount
-    cart_items.sum { |item| item.total_amount }
+    subtotal_amount + vat_amount
   end
 end

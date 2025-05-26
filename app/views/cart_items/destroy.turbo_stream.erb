@@ -6,6 +6,10 @@
   <%= render partial: "shared/basket_counter", locals: { cart_items_count: Current.cart.items_count } %>
 <% end %>
 
+<%= turbo_stream.update "vat" do %>
+  <%= number_to_currency(Current.cart.vat_amount) %>
+<% end %>
+
 <%= turbo_stream.update "subtotal" do %>
   <%= number_to_currency(Current.cart.subtotal_amount) %>
 <% end %>
