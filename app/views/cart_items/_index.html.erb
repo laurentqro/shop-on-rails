@@ -1,72 +1,69 @@
 <div class="container mx-auto px-4 py-8 text-gray-800">
-  <h1 class="text-3xl font-bold text-center mb-8">Your Shopping Basket</h1>
+  <%= turbo_frame_tag "cart" do %>
+    <% if Current.cart && Current.cart.cart_items.any? %>
+      <h1 class="text-3xl font-bold text-center mb-8">Your Shopping Basket</h1>
 
-  <% if Current.cart && Current.cart.cart_items.any? %>
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-      <div class="hidden md:grid grid-cols-6 gap-4 items-center p-4 border-b font-semibold text-gray-600">
-        <div class="col-span-2">Product</div>
-        <div class="text-center">Price</div>
-        <div class="text-center">Quantity</div>
-        <div class="text-right">Total</div>
-      </div>
-
-      <%= turbo_frame_tag "cart_items_list" do %>
-        <% Current.cart.cart_items.each do |cart_item| %>
-          <%= render cart_item %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <div class="mt-8 flex flex-col md:flex-row justify-between items-start gap-8">
-      <div class="w-full md:w-1/2 lg:w-1/3">
-        <%# Coupon Code / Notes - Placeholder %>
-        <%# <h3 class="text-xl font-semibold mb-4">Discount Codes</h3> %>
-        <%# <div class="flex"> %>
-        <%#   <input type="text" placeholder="Enter coupon code" class="input input-bordered flex-grow mr-2"> %>
-        <%#   <button class="btn btn-secondary">Apply</button> %>
-        <%# </div> %>
-      </div>
-
-      <div class="w-full md:w-1/2 lg:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-6">Basket Summary</h2>
-
-        <div class="flex justify-between mb-3 text-gray-700">
-          <span>Subtotal</span>
-          <span id="subtotal">
-            <%= number_to_currency(Current.cart.total_price) %>
-          </span>
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="hidden md:grid grid-cols-6 gap-4 items-center p-4 border-b font-semibold text-gray-600">
+          <div class="col-span-2">Product</div>
+          <div class="text-center">Price</div>
+          <div class="text-center">Quantity</div>
+          <div class="text-right">Total</div>
         </div>
 
-        <%# <div class="flex justify-between mb-3 text-gray-700 border-t pt-3"> %>
-        <%#   <span>Shipping</span> %>
-        <%#   <span>Calculate at checkout</span> %>
-        <%# </div> %>
+        <%= render Current.cart.cart_items %>
+      </div>
 
-        <div class="flex justify-between text-xl font-bold text-gray-800 border-t pt-4 mt-4">
-          <span>Grand Total</span>
-          <span id="grand_total">
-            <%= number_to_currency(Current.cart.total_price) %>
-          </span>
+      <div class="mt-8 flex flex-col md:flex-row justify-between items-start gap-8">
+        <div class="w-full md:w-1/2 lg:w-1/3">
+          <%# Coupon Code / Notes - Placeholder %>
+          <%# <h3 class="text-xl font-semibold mb-4">Discount Codes</h3> %>
+          <%# <div class="flex"> %>
+          <%#   <input type="text" placeholder="Enter coupon code" class="input input-bordered flex-grow mr-2"> %>
+          <%#   <button class="btn btn-secondary">Apply</button> %>
+          <%# </div> %>
         </div>
 
-        <div class="mt-8">
-          <%= link_to "Proceed to Checkout", "#", class: "btn btn-primary btn-block text-lg" %> <%# Replace # with checkout_path %>
-        </div>
-        <div class="text-center mt-12">
-          <%= link_to "Continue Shopping", products_path, class: "link text-primary-500 hover:text-primary-600 font-semibold" %>
+        <div class="w-full md:w-1/2 lg:w-1/3 bg-gray-100 p-6 rounded-lg shadow-md">
+          <h2 class="text-2xl font-semibold mb-6">Basket Summary</h2>
+
+          <div class="flex justify-between mb-3 text-gray-700">
+            <span>Subtotal</span>
+            <span id="subtotal">
+              <%= number_to_currency(Current.cart.subtotal) %>
+            </span>
+          </div>
+
+          <%# <div class="flex justify-between mb-3 text-gray-700 border-t pt-3"> %>
+          <%#   <span>Shipping</span> %>
+          <%#   <span>Calculate at checkout</span> %>
+          <%# </div> %>
+
+          <div class="flex justify-between text-xl font-bold text-gray-800 border-t pt-4 mt-4">
+            <span>Grand Total</span>
+            <span id="grand_total">
+              <%= number_to_currency(Current.cart.total_price) %>
+            </span>
+          </div>
+
+          <div class="mt-8">
+            <%= link_to "Proceed to Checkout", "#", class: "btn btn-primary btn-block text-lg" %> <%# Replace # with checkout_path %>
+          </div>
+          <div class="text-center mt-12">
+            <%= link_to "Continue Shopping", products_path, class: "link text-primary-500 hover:text-primary-600 font-semibold", data: { turbo: false } %>
+          </div>
         </div>
       </div>
-    </div>
-  <% else %>
-    <div class="text-center py-20">
-      <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-      <h2 class="mt-4 text-2xl font-semibold text-gray-700">Your cart is empty.</h2>
-      <p class="mt-2 text-gray-500">Looks like you haven't added anything to your cart yet.</p>
-      <div class="mt-6">
-        <%= link_to "Start Shopping", products_path, class: "btn btn-primary" %>
+    <% else %>
+      <div class="text-center py-20 bg-white rounded-lg shadow-md p-8">
+        <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <h2 class="mt-4 text-2xl font-semibold text-gray-700">Your shopping basket is empty</h2>
+        <div class="mt-6">
+          <%= link_to "Start Shopping", products_path, class: "btn btn-primary" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

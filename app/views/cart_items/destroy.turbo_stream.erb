@@ -1,4 +1,6 @@
-<%= turbo_stream.remove @cart_item %>
+<%= turbo_stream.update "cart" do %>
+  <%= render partial: "cart_items/index" %>
+<% end %>
 
 <%= turbo_stream.replace "basket_counter" do %>
   <%= render partial: "shared/basket_counter", locals: { cart_items_count: Current.cart.cart_items.sum(:quantity) } %>

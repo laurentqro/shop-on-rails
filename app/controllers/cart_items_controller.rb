@@ -52,23 +52,11 @@ class CartItemsController < ApplicationController
 
   # DELETE /cart/cart_items/:id
   def destroy
-    if @cart_item.destroy
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to cart_path, notice: "#{@cart_item.product.name} removed from cart." }
-      end
-    else
-      respond_to do |format|
-        format.turbo_stream do
-          # Example: Render a Turbo Stream to show an error message, if needed.
-          # Or, render the frame again with errors (less common for destroy).
-          # For now, let's assume the HTML fallback is sufficient for errors not caught by model validations.
-          # You might want to add a specific Turbo Stream error handling if the destroy fails rarely.
-          flash.now[:alert] = "Could not remove item: #{@cart_item.errors.full_messages.join(', ')}"
-          render turbo_stream: turbo_stream.prepend("flash_messages", partial: "shared/flash", locals: { flash: flash })
-        end
-        format.html { redirect_to cart_path, alert: "Could not remove item: #{@cart_item.errors.full_messages.join(', ')}" }
-      end
+    @cart_item.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to cart_path, notice: "#{@cart_item.product.name} removed from cart.", status: :see_other }
     end
   end
 

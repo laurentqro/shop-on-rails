@@ -19,8 +19,10 @@
   </head>
 
   <body class="h-full">
+    <%= tag.div notice, class: "alert alert-info", data: { turbo_temporary: true } if notice %>
+    <%= tag.div alert, class: "alert alert-error", data: { turbo_temporary: true } if alert %>
+
     <%= render "shared/navbar" %>
-    <%= render "shared/notice" %>
 
     <main class="container mx-auto p-5">
       <%= yield %>

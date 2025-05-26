@@ -57,7 +57,6 @@
           <button type="button" @click="quantity = Math.max(1, Number(quantity) - 1)" class="btn join-item btn-outline btn-sm">-</button>
           <%= form.text_field :quantity, class: "input input-sm input-bordered join-item w-12 text-center bg-white border-black", "x-model.number": "quantity" %>
           <button type="button" @click="quantity = Number(quantity) + 1" class="btn join-item btn-outline btn-sm">+</button>
-          <span class="loading loading-spinner loading-xs ml-2" x-show="loading" style="display: none;"></span>
         </div>
       <% end %>
     </div>
