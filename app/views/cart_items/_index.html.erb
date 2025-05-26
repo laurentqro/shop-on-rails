@@ -28,6 +28,18 @@
           <h2 class="text-2xl font-semibold mb-6">Basket Summary</h2>
 
           <div class="flex justify-between mb-3 text-gray-700">
+            <span>Shipping</span>
+            <span>Calculate at checkout</span>
+          </div>
+
+          <div class="flex justify-between mb-3 text-gray-700">
+            <span>VAT <%= Cart::VAT_RATE * 100 %>%</span>
+            <span id="vat">
+              <%= number_to_currency(Current.cart.vat_amount) %>
+            </span>
+          </div>
+
+          <div class="flex justify-between mb-3 text-gray-700">
             <span>Subtotal</span>
             <span id="subtotal">
               <%= number_to_currency(Current.cart.subtotal_amount) %>
@@ -40,9 +52,9 @@
           <%# </div> %>
 
           <div class="flex justify-between text-xl font-bold text-gray-800 border-t pt-4 mt-4">
-            <span>Grand Total</span>
+            <span>Total</span>
             <span id="grand_total">
-              <%= number_to_currency(Current.cart.total_amount) %>
+              <%= number_to_currency(Current.cart.subtotal_amount + Current.cart.vat_amount) %>
             </span>
           </div>
 

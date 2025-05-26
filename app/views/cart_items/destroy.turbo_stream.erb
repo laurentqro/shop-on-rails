@@ -7,7 +7,7 @@
 <% end %>
 
 <%= turbo_stream.update "subtotal" do %>
-  <%= number_to_currency(Current.cart.subtotal) %>
+  <%= number_to_currency(Current.cart.subtotal_amount) %>
 <% end %>
 
 <%= turbo_stream.update "grand_total" do %>
