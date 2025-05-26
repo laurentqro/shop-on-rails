@@ -7,11 +7,11 @@ class Cart < ApplicationRecord
     cart_items.sum { |item| item.quantity }
   end
 
-  def subtotal
-    cart_items.sum { |item| item.price * item.quantity }
+  def subtotal_amount
+    cart_items.sum { |item| item.subtotal_amount }
   end
 
-  def total_price
-    cart_items.sum { |item| item.price * item.quantity }
+  def total_amount
+    cart_items.sum { |item| item.total_amount }
   end
 end
