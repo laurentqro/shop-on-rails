@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :cart_items, only: [ :create, :update, :destroy ], path_names: { edit: '' }
   end
 
+  resource :checkout, only: [ :show ]
+
   namespace :admin do
     get "/", to: "products#index"
     resources :products
