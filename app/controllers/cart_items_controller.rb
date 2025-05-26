@@ -1,6 +1,6 @@
 class CartItemsController < ApplicationController
   before_action :set_cart
-  before_action :set_cart_item, only: [:update, :destroy]
+  before_action :set_cart_item, only: [ :update, :destroy ]
 
   # POST /cart/cart_items
   def create
@@ -35,12 +35,12 @@ class CartItemsController < ApplicationController
       @cart_item.destroy
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to cart_path, notice: 'Item removed from cart.' }
+        format.html { redirect_to cart_path, notice: "Item removed from cart." }
       end
     elsif @cart_item.update(quantity: new_quantity)
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to cart_path, notice: 'Cart updated.' }
+        format.html { redirect_to cart_path, notice: "Cart updated." }
       end
     else
       respond_to do |format|

@@ -11,7 +11,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "default scope should return active products" do
-    assert_equal [@product_one], Product.all
+    assert_equal [ @product_one ], Product.all
   end
 
   test "should validate presence of name" do

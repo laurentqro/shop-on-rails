@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resource :registration, only: [ :new, :create ], path: "signup", path_names: { new: "" }
 
   resource :cart, only: [ :show, :destroy ] do
-    resources :cart_items, only: [ :create, :update, :destroy ], path_names: { edit: '' }
+    resources :cart_items, only: [ :create, :update, :destroy ], path_names: { edit: "" }
   end
 
   resource :checkout, only: [ :show ]
