@@ -28,13 +28,14 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Install packages needed to build gems and Node.js
+# Install packages needed to build gems and Bun
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives && \
-    npm install -g npm@latest
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config curl unzip && \
+    curl -fsSL https://bun.sh/install | bash && \
+    ln -s /root/.bun/bin/bun /usr/local/bin/bun && \
+    ln -s /root/.bun/bin/bun /usr/local/bin/npm && \
+    ln -s /root/.bun/bin/bunx /usr/local/bin/npx && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -42,11 +43,11 @@ RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
-# Install Node.js dependencies
+# Install Node.js dependencies with Bun
 COPY package.json ./
 
-# Install with updated npm and ensure native modules are available
-RUN npm install --include=dev --force
+# Use Bun to install dependencies (it handles native modules better)
+RUN bun install
 
 # Copy application code
 COPY . .
