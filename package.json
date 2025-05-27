@@ -1,0 +1,21 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:laurentqro/shop-on-rails.git",
+  "author": "Laurent Curau <github@lqro.slmail.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "rollup": "^4.41.1",
+    "tailwindcss": "^4.1.7",
+    "vite": "^6.3.5",
+    "vite-plugin-rails": "^0.5.0"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.13",
+    "@rails/activestorage": "^8.0.200",
+    "daisyui": "^5.0.38"
+  }
+}
