@@ -1,8 +1,8 @@
 <% content_for :title, "#{@product.name} | #{@product.category.name}" %>
 
-<div class="container mx-auto p-4 text-gray-100">
-  <div class="card lg:card-side bg-base-100 shadow-xl">
-    <figure class="lg:w-1/2 h-1/2 w-full bg-white">
+<div class="container mx-auto py-8 min-h-screen">
+  <div class="card lg:card-side bg-base-100 shadow-sm">
+    <figure class="lg:w-1/2">
       <% if @product.image.attached? %>
         <%= image_tag @product.image.variant(resize_to_limit: [400, 400]), alt: @product.name %>
       <% else %>
@@ -11,51 +11,23 @@
         </div>
       <% end %>
     </figure>
+    <div class="card-body">
+      <h2 class="card-title text-3xl lg:text-4xl"><%= @product.name %></h2>
+      <p class="text-2xl lg:text-3xl font-semibold text-secondary"><%= number_to_currency @product.price %></p>
 
-    <div class="card-body lg:w-1/2">
-      <p class="text-sm text-gray-300 uppercase"><%= @product.category.name %></p>
-      <h1 class="card-title text-3xl lg:text-4xl"><%= @product.name %></h1>
-
-      <div class="my-2">
-        <span class="text-2xl lg:text-3xl font-semibold text-secondary"><%= number_to_currency @product.price %></span>
-      </div>
-      <p class="text-xs mb-4">4 interest-free payments of <%= number_to_currency(@product.price / 4) %> with <span class="font-bold">Klarna</span>. or <span class="font-bold">afterpay</span></p>
-
-      <div class="mb-4">
-        <h3 class="text-md font-semibold mb-2">Color: <span class="font-normal" id="selected_color_name">Black</span></h3>
-        <div class="flex space-x-2">
-          <button class="w-8 h-8 rounded-full bg-black border-2 border-primary ring-2 ring-primary focus:outline-none" aria-label="Black" data-color-name="Black"></button>
-          <button class="w-8 h-8 rounded-full bg-white border-2 border-base-300 hover:border-neutral-focus focus:outline-none focus:ring-2 focus:ring-primary" aria-label="White" data-color-name="White"></button>
-          <%# Add more dynamic colors here %>
-        </div>
-      </div>
-
-      <%# Sale Banner Placeholder - if applicable %>
-      <div class="p-3 bg-success-content text-success rounded-md text-sm my-4">
-        <span class="font-bold">● 50% Off Archive Sales.</span> Discount applied in cart.
-      </div>
-
-      <div class="card-actions items-center space-x-3 my-4" x-data="{ quantity: 1 }">
+      <div class="card-actions justify-center space-x-3 my-4" x-data="{ quantity: 1 }">
         <div class="join">
-          <button class="btn join-item btn-outline btn-sm" @click="quantity = Math.max(1, quantity - 1)">-</button>
-          <input type="text" x-model="quantity" class="input input-sm input-bordered join-item w-12 text-center" />
-          <button class="btn join-item btn-outline btn-sm" @click="quantity = quantity + 1">+</button>
+          <button class="btn btn-square btn-primary btn-lg" @click="quantity = Math.max(1, quantity - 1)">-</button>
+          <input type="text" x-model="quantity" class="font-mono input input-lg w-12 text-center" />
+          <button class="btn btn-square btn-primary btn-lg" @click="quantity = quantity + 1">+</button>
         </div>
 
-        <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: false do |f| %>
-          <%= f.hidden_field :product_slug, name: "cart_item[product_slug]", value: @product.slug %>
-          <input type="hidden" name="cart_item[quantity]" x-bind:value="quantity" />
-          <%= f.submit "Add to basket", class: "btn btn-primary w-full" %>
-        <% end %>
-      </div>
-
-      <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
-        <input type="checkbox" id="product_description_toggle" class="peer" />
-        <div class="collapse-title text-lg font-medium peer-checked:bg-base-200">
-          Description
-        </div>
-        <div class="collapse-content peer-checked:bg-base-200">
-          <p class="pt-4 text-sm"><%= @product.description %></p>
+        <div>
+          <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: false do |f| %>
+            <%= f.hidden_field :product_slug, name: "cart_item[product_slug]", value: @product.slug %>
+            <input type="hidden" name="cart_item[quantity]" x-bind:value="quantity" />
+            <%= f.submit "Add to basket", class: "btn btn-primary btn-lg" %>
+          <% end %>
         </div>
       </div>
     </div>

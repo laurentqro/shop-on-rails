@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html class="h-full bg-emerald-300 text-gray-100">
+<html class="h-full bg-base-100 text-base-content" data-theme="light">
   <head>
-    <title><%= content_for(:title) || "Shop" %></title>
+    <title><%= content_for(:title) || "Afida Shop" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,11 +23,26 @@
     <%= tag.div alert, class: "alert alert-error", data: { turbo_temporary: true } if alert %>
 
     <%= render "shared/navbar" %>
-    <%= render "shared/notice" %>
 
     <main class="container mx-auto p-5 flex-grow">
       <%= yield %>
     </main>
+
+    <footer class="bg-base-200 min-h-32 items-center p-4 border-t border-b border-base-300">
+      <div class="flex justify-around items-center">
+        <div>
+          <img src="https://placehold.co/150x50/black/white?text=dpd+local" alt="dpd local" class="h-12">
+        </div>
+
+        <div>
+          <img src="https://placehold.co/150x50/black/white?text=Trust+Pilot" alt="Trust Pilot" class="h-12">
+        </div>
+
+        <div>
+          <img src="https://placehold.co/150x50/black/white?text=Google+Reviews" alt="Google Reviews" class="h-12">
+        </div>
+      </div>
+    </footer>
 
     <%= render "shared/footer" %>
 

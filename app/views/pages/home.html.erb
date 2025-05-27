@@ -1,0 +1,132 @@
+<div class="hero rounded shadow-md min-h-96 bg-cover bg-center mb-16" style="background-image: url(<%= image_path("hero.png") %>);">
+  <div class="hero-content">
+    <div>
+      <h1 class="mb-5 text-5xl text-neutral font-bold w-2/3">Eco-Friendly Catering Supplies</h1>
+      <p class="mb-5 w-1/2">Sustainable products for cafes, restaurants, and events</p>
+      <%= link_to "Shop Now", shop_path, class: "btn btn-lg btn-primary" %>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "pizza-boxes.png", alt: "Best Sellers" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Best Sellers</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "ice-cream-cups.png", alt: "New Arrivals" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">New Arrivals</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "cups-lids.png", alt: "Cups & Lids" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Cups & Lids</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "straws.png", alt: "Straws" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Straws</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "napkins.png", alt: "Napkins" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Napkins</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "hot-cups.png", alt: "Hot Cups" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Hot Cups</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "ice-cream-cups.png", alt: "Ice Cream Cups" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Ice Cream Cups</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "pizza-boxes.png", alt: "Pizza Boxes" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Pizza Boxes</h2>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "cold-cups.png", alt: "Cold Cups" %>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">Cold Cups</h2>
+    </div>
+  </div>
+</div>
+
+<div class="divider divider-neutral mt-24">
+  <h2 class="text-3xl font-bold">Featured Products</h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8">
+  <% @featured_products.each do |product| %>
+    <div class="card bg-base-100 shadow-md">
+      <figure>
+        <% if product.image.attached? %>
+          <%= image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name %>
+        <% else %>
+          <div class="w-full h-[300px] bg-gray-200 shadow-md flex items-center justify-center">
+            <span class="text-gray-500">Image not available</span>
+          </div>
+        <% end %>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">
+          <%= link_to product_path(product) do %>
+            <%= product.name %>
+          <% end %>
+        </h2>
+        <p><%= number_to_currency product.price %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="container mx-auto py-8 text-center py-16">
+  <div class="rating rating-lg">
+    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked/>
+  </div>
+  <p class="text-2xl font-semibold mt-4 italic">"Excellent quality and fast shipping!"</p>
+  <p class="text-lg">Sarah M.</p>
+</div>

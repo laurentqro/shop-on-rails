@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  root "products#index"
+  root "pages#home"
+
+  get "shop", to: "pages#shop"
+  get "branding", to: "pages#branding"
+  get "samples", to: "pages#samples"
 
   resources :products, only: [ :index, :show ], path: "product"
   resource :session, path: "signin", path_names: { new: "" }

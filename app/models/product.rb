@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   default_scope { where(active: true) }
+  scope :featured, -> { where(featured: true) }
+
   belongs_to :category
 
   has_one_attached :image
