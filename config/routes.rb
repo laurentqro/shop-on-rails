@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   get "shop", to: "pages#shop"
   get "branding", to: "pages#branding"
   get "samples", to: "pages#samples"
+  get "about", to: "pages#about"
+  get "contact", to: "pages#contact"
+  get "terms", to: "pages#terms"
+  get "privacy", to: "pages#privacy"
+  get "cookies-policy", to: "pages#cookies_policy"
 
   resources :products, only: [ :index, :show ], path: "product"
   resource :session, path: "signin", path_names: { new: "" }

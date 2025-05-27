@@ -13,4 +13,19 @@ class PagesController < ApplicationController
 
   def samples
   end
+
+  def about
+  end
+
+  def contact
+  end
+
+  def terms
+  end
+
+  def privacy
+  end
+
+  def cookies_policy
+  end
 end

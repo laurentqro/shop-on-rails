@@ -1,23 +1,18 @@
 <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
   <nav>
     <h6 class="footer-title">Services</h6>
-    <a class="link link-hover">Branding</a>
-    <a class="link link-hover">Design</a>
-    <a class="link link-hover">Marketing</a>
-    <a class="link link-hover">Advertisement</a>
+    <%= link_to "Branding", branding_path, class: "link link-hover" %>
+    <%= link_to "Samples", samples_path, class: "link link-hover" %>
   </nav>
   <nav>
     <h6 class="footer-title">Company</h6>
-    <a class="link link-hover">About us</a>
-    <a class="link link-hover">Contact</a>
-    <a class="link link-hover">Jobs</a>
-    <a class="link link-hover">Press kit</a>
+    <%= link_to "About us", about_path, class: "link link-hover" %>
+    <%= link_to "Contact", contact_path, class: "link link-hover" %>
   </nav>
   <nav>
     <h6 class="footer-title">Legal</h6>
-    <a class="link link-hover">Terms of use</a>
-    <a class="link link-hover">Privacy policy</a>
-    <a class="link link-hover">Cookie policy</a>
+    <%= link_to "Terms of use", terms_path, class: "link link-hover" %>
+    <%= link_to "Privacy policy", privacy_path, class: "link link-hover" %>
   </nav>
 </footer>
 <footer class="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
