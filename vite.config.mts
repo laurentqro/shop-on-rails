@@ -14,5 +14,10 @@ export default defineConfig({
       },
     }),
   ],
-  build: { sourcemap: false },
+  build: { 
+    sourcemap: false,
+  },
+  optimizeDeps: {
+    include: ["@hotwired/turbo-rails", "@rails/activestorage"],
+  },
 });

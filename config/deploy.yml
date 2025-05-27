@@ -78,7 +78,6 @@ asset_path: /rails/public/assets
 builder:
   arch:
     - amd64
-    - arm64
   remote: ssh://root@195.201.16.125
 
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
