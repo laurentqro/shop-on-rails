@@ -3,6 +3,8 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
+  normalizes :email, with: ->(email) { email.strip.downcase }
+
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :stripe_session_id, presence: true, uniqueness: true
   validates :order_number, presence: true, uniqueness: true
@@ -12,7 +14,7 @@ class Order < ApplicationRecord
   validates :shipping_name, :shipping_address_line1, :shipping_city, 
             :shipping_postal_code, :shipping_country, presence: true
 
-  enum status: {
+  enum :status, {
     pending: "pending",
     paid: "paid", 
     processing: "processing",
@@ -50,13 +52,13 @@ class Order < ApplicationRecord
 
   def generate_order_number
     return if order_number.present?
-    
+
     loop do
       # Generate order number like: ORD-2025-001234
       year = Date.current.year
       random_part = SecureRandom.random_number(999999).to_s.rjust(6, '0')
       candidate = "ORD-#{year}-#{random_part}"
-      
+
       unless Order.exists?(order_number: candidate)
         self.order_number = candidate
         break

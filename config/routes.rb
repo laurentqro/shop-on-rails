@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get :cancel, on: :collection
   end
 
+  resources :orders, only: [ :show, :index ]
+
   namespace :admin do
     get "/", to: "products#index"
     resources :products
