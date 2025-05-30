@@ -104,6 +104,9 @@ class CheckoutsController < ApplicationController
       # Clear the cart after successful order creation
       cart.cart_items.destroy_all
 
+      # Send order confirmation email
+      OrderMailer.confirmation_email(order).deliver_later
+
       flash[:notice] = "Order #{order.display_number} created successfully! Payment successful!"
       redirect_to order_path(order)
 
