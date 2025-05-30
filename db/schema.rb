@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_16_131927) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_30_132602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,6 +68,45 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_16_131927) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id"
+    t.string "product_name", null: false
+    t.string "product_sku", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.integer "quantity", null: false
+    t.decimal "line_total", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "email", null: false
+    t.string "stripe_session_id", null: false
+    t.string "order_number", null: false
+    t.string "status", default: "pending", null: false
+    t.decimal "subtotal_amount", precision: 10, scale: 2, null: false
+    t.decimal "vat_amount", precision: 10, scale: 2, null: false
+    t.decimal "shipping_amount", precision: 10, scale: 2, null: false
+    t.decimal "total_amount", precision: 10, scale: 2, null: false
+    t.string "shipping_name", null: false
+    t.string "shipping_address_line1", null: false
+    t.string "shipping_address_line2"
+    t.string "shipping_city", null: false
+    t.string "shipping_postal_code", null: false
+    t.string "shipping_country", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_orders_on_email"
+    t.index ["order_number"], name: "index_orders_on_order_number", unique: true
+    t.index ["status"], name: "index_orders_on_status"
+    t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -121,6 +160,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_16_131927) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
   add_foreign_key "sessions", "users"
 end
