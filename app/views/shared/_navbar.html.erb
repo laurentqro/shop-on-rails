@@ -7,7 +7,6 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li class="text-lg font-bold"><%= link_to "Home", root_path, class: current_page?(root_path) ? "text-accent" : "" %></li>
         <li class="text-lg font-bold"><%= link_to "Shop", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
         <li class="text-lg font-bold"><%= link_to "Branding", branding_path, class: current_page?(branding_path) ? "text-accent" : "" %></li>
         <li class="text-lg font-bold"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
@@ -19,7 +18,6 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li class="text-lg font-bold"><%= link_to "Home", root_path, class: current_page?(root_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-bold"><%= link_to "Shop", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-bold"><%= link_to "Branding", branding_path, class: current_page?(branding_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-bold"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
@@ -43,6 +41,7 @@
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li><%= link_to "Admin Panel", "/admin" %></li>
+        <li><%= link_to "Orders", orders_path %></li>
         <li><%= button_to "Logout", session_path, method: :delete %></li>
       </ul>
     </div>

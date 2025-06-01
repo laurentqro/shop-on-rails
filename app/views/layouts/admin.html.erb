@@ -14,15 +14,16 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag "application" %>
+    <%= vite_stylesheet_tag "application" %>
   </head>
 
   <body class="h-full">
     <%= tag.div notice, class: "alert alert-info", data: { turbo_temporary: true } if notice %>
     <%= tag.div alert, class: "alert alert-error", data: { turbo_temporary: true } if alert %>
 
-    <%= render "shared/navbar" %>
+    <%= render "admin/shared/navbar" %>
 
     <main class="container mx-auto p-5">
       <%= yield %>
