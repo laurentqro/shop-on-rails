@@ -1,49 +1,50 @@
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-sm px-4 md:px-6 lg:px-24">
   <div class="navbar-start">
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+    <div class="dropdown lg:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li class="text-lg font-bold"><%= link_to "Shop", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
         <li class="text-lg font-bold"><%= link_to "Branding", branding_path, class: current_page?(branding_path) ? "text-accent" : "" %></li>
         <li class="text-lg font-bold"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
       </ul>
     </div>
-    <%= link_to root_path, class: "btn btn-ghost" do %>
-      <%= render "shared/logo" %>
-    <% end %>
-  </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1">
+    <ul class="menu menu-horizontal px-1 hidden lg:flex">
       <li class="text-lg font-bold"><%= link_to "Shop", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-bold"><%= link_to "Branding", branding_path, class: current_page?(branding_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-bold"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
     </ul>
   </div>
+  
+  <div class="navbar-center">
+    <%= link_to root_path do %>
+      <%= render "shared/logo" %>
+    <% end %>
+  </div>
 
   <div class="navbar-end">
     <%= render "shared/basket_counter" %>
-  </div>
 
-  <div class="dropdown dropdown-end">
-    <% if authenticated? %>
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+    <div class="dropdown dropdown-end">
+      <% if authenticated? %>
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS Navbar component"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
         </div>
-      </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><%= link_to "Admin Panel", "/admin" %></li>
-        <li><%= link_to "Orders", orders_path %></li>
-        <li><%= button_to "Logout", session_path, method: :delete %></li>
-      </ul>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <li><%= link_to "Admin Panel", "/admin" %></li>
+          <li><%= link_to "Orders", orders_path %></li>
+          <li><%= button_to "Logout", session_path, method: :delete %></li>
+        </ul>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

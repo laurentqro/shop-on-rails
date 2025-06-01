@@ -1,98 +1,162 @@
 <div class="hero rounded shadow-md min-h-96 bg-cover bg-center mb-16" style="background-image: url(<%= image_path("hero.png") %>);">
   <div class="hero-content">
     <div>
-      <h1 class="mb-5 text-5xl text-neutral font-bold w-2/3">Eco-Friendly Catering Supplies</h1>
-      <p class="mb-5 w-1/2">Sustainable products for cafes, restaurants, and events</p>
-      <%= link_to "Shop Now", shop_path, class: "btn btn-lg btn-primary" %>
+      <h1 class="mb-5 text-4xl sm:text-6xl text-neutral font-bold w-2/3">Eco-Friendly Catering Supplies</h1>
+      <p class="mb-5 w-1/2 text-lg sm:text-2xl">Sustainable products for cafes, restaurants, and events</p>
+      <div class="flex items-center gap-4">
+        <%= link_to "Shop Now", shop_path, class: "btn btn-xl btn-primary rounded-full text-lg font-bold" %>
+        <div class="flex items-center gap-2">
+          <img src="https://consumer.trustpilot.com/images/trustpilot-logo.svg" alt="Trustpilot" class="h-6">
+          <div class="rating rating-sm">
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+          </div>
+          <span class="text-neutral font-semibold">4.8/5</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "pizza-boxes.png", alt: "Best Sellers" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Best Sellers</h2>
-    </div>
+  <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
+    <%= link_to "#", class: "block h-full" do %>
+      <%= image_tag "pizza-boxes.png", alt: "Best Sellers", class: "w-full h-full object-cover" %>
+      <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
+        <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
+          <h2 class="text-3xl font-bold mb-2">Best Sellers</h2>
+          <p class="text-center text-lg"></p>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "ice-cream-cups.png", alt: "New Arrivals" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">New Arrivals</h2>
-    </div>
+  <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
+    <%= link_to "#", class: "block h-full" do %>
+      <%= image_tag "ice-cream-cups.png", alt: "Special Offers", class: "w-full h-full object-cover" %>
+      <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
+        <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
+          <h2 class="text-3xl font-bold mb-2">Special Offers</h2>
+          <p class="text-center text-lg"></p>
+        </div>
+      </div>
+    <% end %>
   </div>
 
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "cups-lids.png", alt: "Cups & Lids" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Cups & Lids</h2>
-    </div>
+  <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
+    <%= link_to "#", class: "block h-full" do %>
+      <%= image_tag "napkins.png", alt: "New Arrivals", class: "w-full h-full object-cover" %>
+      <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
+        <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
+          <h2 class="text-3xl font-bold mb-2">New Arrivals</h2>
+          <p class="text-center text-lg"></p>
+        </div>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "straws.png", alt: "Straws" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Straws</h2>
-    </div>
-  </div>
-
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "napkins.png", alt: "Napkins" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Napkins</h2>
-    </div>
-  </div>
-
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "hot-cups.png", alt: "Hot Cups" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Hot Cups</h2>
-    </div>
-  </div>
-
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "ice-cream-cups.png", alt: "Ice Cream Cups" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Ice Cream Cups</h2>
-    </div>
-  </div>
-
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "pizza-boxes.png", alt: "Pizza Boxes" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Pizza Boxes</h2>
-    </div>
-  </div>
-
-  <div class="card bg-base-100 shadow-md">
-    <figure>
-      <%= image_tag "cold-cups.png", alt: "Cold Cups" %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title">Cold Cups</h2>
+<div class="w-screen relative left-[50%] right-[50%] -mx-[50vw] bg-neutral/10 py-12 mb-16">
+  <div class="container mx-auto text-center px-8">
+    <h2 class="text-2xl font-bold mb-6 uppercase tracking-wide">We Make Eco-Friendly Products in a Better Way</h2>
+    <p class="text-lg text-neutral/80 max-w-3xl mx-auto mb-8">By choosing sustainable materials and innovative design, we create catering supplies that deliver unrivaled comfort while being kind to our planet.</p>
+    <div class="flex justify-center mt-8">
+      <%= render "shared/logo" %>
     </div>
   </div>
 </div>
 
-<div class="divider divider-neutral mt-24">
-  <h2 class="text-3xl font-bold">Featured Products</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "pizza-boxes.png", alt: "Pizza Boxes", class: "w-full" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="card-title text-2xl mb-2 text-center">Sustainable Pizza Boxes</h2>
+        <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
+      </div>
+      <p></p>
+      <%= link_to "Shop Pizza Boxes", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "cold-cups.png", alt: "Cold Cups", class: "w-full" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="card-title text-2xl mb-2 text-center">Compostable Cold Cups</h2>
+        <p class="text-neutral/70 mb-4">Plant-based materials that break down naturally</p>
+      </div>
+      <p></p>
+      <%= link_to "Shop Cold Cups", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "ice-cream-cups.png", alt: "Ice Cream Cups", class: "w-full" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="card-title text-2xl mb-2 text-center">Ice Cream Cups</h2>
+        <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
+      </div>
+      <p></p>
+      <%= link_to "Shop Ice Cream Cups", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "straws.png", alt: "Straws", class: "w-full" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="card-title text-2xl mb-2 text-center">Straws</h2>
+        <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
+      </div>
+      <p></p>
+      <%= link_to "Shop Straws", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "napkins.png", alt: "Napkins", class: "w-full" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="card-title text-2xl mb-2 text-center">Napkins</h2>
+        <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
+      </div>
+      <p></p>
+      <%= link_to "Shop Napkins", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <figure>
+      <%= image_tag "hot-cups.png", alt: "Hot Cups", class: "w-full" %>
+    </figure>
+    <div class="card-body">
+      <div class="flex flex-col items-center justify-center">
+        <h2 class="card-title text-2xl mb-2 text-center">Hot Cups</h2>
+        <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
+      </div>
+      <p></p>
+      <%= link_to "Shop Hot Cups", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+    </div>
+  </div>
+</div>
+
+<div class="divider divider-neutral mt-16">
+  <h2 class="font-bold">Featured</h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8">

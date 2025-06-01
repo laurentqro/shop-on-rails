@@ -23,27 +23,16 @@
     <%= tag.div notice, class: "alert alert-info", data: { turbo_temporary: true } if notice %>
     <%= tag.div alert, class: "alert alert-error", data: { turbo_temporary: true } if alert %>
 
+    <div class="bg-accent text-neutral text-xs flex justify-center py-2 font-mono font-bold uppercase">
+      Free delivery on all mainland UK orders over £100 excl. VAT
+    </div>
+
     <%= render "shared/navbar" %>
+
 
     <main class="container mx-auto p-5 flex-grow">
       <%= yield %>
     </main>
-
-    <footer class="bg-base-200 min-h-32 items-center p-4 border-t border-b border-base-300">
-      <div class="flex justify-around items-center">
-        <div>
-          <img src="https://placehold.co/150x50/black/white?text=dpd+local" alt="dpd local" class="h-12">
-        </div>
-
-        <div>
-          <img src="https://placehold.co/150x50/black/white?text=Trust+Pilot" alt="Trust Pilot" class="h-12">
-        </div>
-
-        <div>
-          <img src="https://placehold.co/150x50/black/white?text=Google+Reviews" alt="Google Reviews" class="h-12">
-        </div>
-      </div>
-    </footer>
 
     <%= render "shared/footer" %>
 
