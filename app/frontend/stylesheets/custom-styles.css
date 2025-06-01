@@ -1,0 +1,31 @@
+/* Custom styles using Geograph font */
+
+/* Apply Geograph font to all DaisyUI components */
+:root {
+  /* This will apply Geograph to all DaisyUI components that use the default sans font */
+  --font-sans: 'Geograph', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Apply font to specific elements */
+.geograph-heading {
+  font-family: var(--font-family-geograph);
+}
+
+/* Override DaisyUI component fonts */
+.btn {
+  font-family: var(--font-family-geograph);
+}
+
+.card {
+  font-family: var(--font-family-geograph);
+}
+
+/* Create utility classes for your fonts */
+.font-geograph {
+  font-family: var(--font-family-geograph);
+}
+
+/* Tailwind-style utility classes */
+.font-sans {
+  font-family: var(--font-family-sans);
+} 

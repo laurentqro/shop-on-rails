@@ -1,2 +1,5 @@
+@import "../stylesheets/fonts.css";
+@import "../stylesheets/tailwind-custom.css";
 @import "../stylesheets/application.tailwind.css";
 @plugin "daisyui";
+@import "../stylesheets/custom-styles.css";
