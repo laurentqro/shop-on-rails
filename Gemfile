@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
+# gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -12,6 +12,8 @@ gem "puma", ">= 5.0"
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
+# Vite.js integration for Rails [https://vite-ruby.netlify.app/]
+gem "vite_rails", "~> 3.0"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
@@ -64,5 +66,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "vite_rails", "~> 3.0"

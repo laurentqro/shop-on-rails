@@ -24,7 +24,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
   <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
     <%= link_to "#", class: "block h-full" do %>
-      <%= image_tag "pizza-boxes.png", alt: "Best Sellers", class: "w-full h-full object-cover" %>
+      <%= image_tag vite_asset_path("images/pizza-boxes.png"), alt: "Best Sellers", class: "w-full h-full object-cover" %>
       <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
         <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
           <h2 class="text-3xl font-bold mb-2">Best Sellers</h2>
@@ -36,7 +36,7 @@
 
   <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
     <%= link_to "#", class: "block h-full" do %>
-      <%= image_tag "ice-cream-cups.png", alt: "Special Offers", class: "w-full h-full object-cover" %>
+      <%= image_tag vite_asset_path("images/ice-cream-cups.png"), alt: "Special Offers", class: "w-full h-full object-cover" %>
       <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
         <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
           <h2 class="text-3xl font-bold mb-2">Special Offers</h2>
@@ -48,7 +48,7 @@
 
   <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
     <%= link_to "#", class: "block h-full" do %>
-      <%= image_tag "napkins.png", alt: "New Arrivals", class: "w-full h-full object-cover" %>
+      <%= image_tag vite_asset_path("images/napkins.png"), alt: "New Arrivals", class: "w-full h-full object-cover" %>
       <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
         <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
           <h2 class="text-3xl font-bold mb-2">New Arrivals</h2>
@@ -72,7 +72,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag "pizza-boxes.png", alt: "Pizza Boxes", class: "w-full" %>
+      <%= image_tag vite_asset_path("images/pizza-boxes.png"), alt: "Pizza Boxes", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -86,7 +86,7 @@
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag "cold-cups.png", alt: "Cold Cups", class: "w-full" %>
+      <%= image_tag vite_asset_path("images/cold-cups.png"), alt: "Cold Cups", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -100,7 +100,7 @@
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag "ice-cream-cups.png", alt: "Ice Cream Cups", class: "w-full" %>
+      <%= image_tag vite_asset_path("images/ice-cream-cups.png"), alt: "Ice Cream Cups", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -114,7 +114,7 @@
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag "straws.png", alt: "Straws", class: "w-full" %>
+      <%= image_tag vite_asset_path("images/straws.png"), alt: "Straws", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -128,7 +128,7 @@
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag "napkins.png", alt: "Napkins", class: "w-full" %>
+      <%= image_tag vite_asset_path("images/napkins.png"), alt: "Napkins", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -142,7 +142,7 @@
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag "hot-cups.png", alt: "Hot Cups", class: "w-full" %>
+      <%= image_tag vite_asset_path("images/hot-cups.png"), alt: "Hot Cups", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -164,7 +164,7 @@
     <div class="card bg-base-100 shadow-md">
       <figure>
         <% if product.image.attached? %>
-          <%= image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name %>
+          <%= image_tag vite_asset_path(product.image.variant(resize_to_limit: [300, 300])), alt: product.name %>
         <% else %>
           <div class="w-full h-[300px] bg-gray-200 shadow-md flex items-center justify-center">
             <span class="text-gray-500">Image not available</span>
