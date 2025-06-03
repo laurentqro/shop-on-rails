@@ -1,35 +1,24 @@
 /* Custom styles using Geograph font */
 
 /* Apply Geograph font to all DaisyUI components */
-:root {
+/* :root { */
   /* This will apply Geograph to all DaisyUI components that use the default sans font */
-  --font-sans: 'Geograph', ui-sans-serif, system-ui, sans-serif;
+  /* --font-sans: 'Impact', ui-sans-serif, system-ui, sans-serif; */
+/* } */
+
+/* Set default body font to Fredoka */
+body {
+  font-family: var(--font-family-fredoka);
 }
 
-/* Apply font to specific elements */
-.geograph-heading {
-  font-family: var(--font-family-geograph);
-}
-
-/* Override DaisyUI component fonts */
 .btn {
-  font-family: var(--font-family-geograph);
+  @apply font-medium;
 }
 
-.card {
-  font-family: var(--font-family-geograph);
+h1, h2 {
+  @apply font-semibold;
 }
 
-/* Create utility classes for your fonts */
-.font-geograph {
-  font-family: var(--font-family-geograph);
-}
-
-/* Tailwind-style utility classes */
-.font-sans {
-  font-family: var(--font-family-sans);
-} 
-
-h1 {
-  margin-bottom: 25px;
+h3, h4, h5, h6 {
+  @apply font-medium;
 }

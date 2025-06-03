@@ -1,10 +1,11 @@
 /* Custom Tailwind CSS theme extensions */
 @theme {
   /* Extend font family options */
-  --font-family-geograph: 'Geograph', ui-sans-serif, system-ui, sans-serif;
+  --font-family-fredoka: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+  --font-family-rubik: 'RubikMonoOne', ui-sans-serif, system-ui, sans-serif;
   
-  /* Override default font families to use Geograph */
-  --font-family-sans: 'Geograph', ui-sans-serif, system-ui, sans-serif;
+  /* Override default font families to use Fredoka for content */
+  --font-family-sans: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   
   /* Add more custom font families as needed */
   /* --font-family-display: 'Geograph', ui-serif, Georgia, serif; */

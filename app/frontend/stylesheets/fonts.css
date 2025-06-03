@@ -1,104 +1,52 @@
-/* Font Face Definitions for Geograph */
+/* Font Face Definitions for Fredoka */
 
-/* Regular weight */
+/* Variable font */
 @font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebregular.woff') format('woff');
-  font-weight: 400;
+  font-family: 'Fredoka';
+  src: url('../fonts/fredoka/Fredoka-VariableFont_wdth,wght.ttf') format('truetype-variations');
+  font-weight: 300 700;
+  font-stretch: 75% 125%;
   font-style: normal;
   font-display: swap;
 }
 
-/* Regular Italic */
+/* Static font fallbacks */
 @font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebregularitalic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Medium weight */
-@font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebmedium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Bold weight */
-@font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebbold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Bold Italic */
-@font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebbolditalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Black weight */
-@font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebblack.woff') format('woff');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Light weight */
-@font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographweblight.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Thin weight */
-@font-face {
-  font-family: 'Geograph';
-  src: url('../fonts/geograph/geographwebthin.woff') format('woff');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Add more @font-face rules for other weights/styles as needed */
-/* For example, if you have Light, Medium, or Black weights:
-
-@font-face {
-  font-family: 'Geograph';
-  src: url('/assets/fonts/Geograph-Light.woff2') format('woff2'),
-       url('/assets/fonts/Geograph-Light.woff') format('woff');
+  font-family: 'Fredoka';
+  src: url('../fonts/fredoka/static/Fredoka-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Geograph';
-  src: url('/assets/fonts/Geograph-Medium.woff2') format('woff2'),
-       url('/assets/fonts/Geograph-Medium.woff') format('woff');
+  font-family: 'Fredoka';
+  src: url('../fonts/fredoka/static/Fredoka-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  src: url('../fonts/fredoka/static/Fredoka-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Geograph';
-  src: url('/assets/fonts/Geograph-Black.woff2') format('woff2'),
-       url('/assets/fonts/Geograph-Black.woff') format('woff');
-  font-weight: 900;
+  font-family: 'Fredoka';
+  src: url('../fonts/fredoka/static/Fredoka-SemiBold.ttf') format('truetype');
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
-*/ 
+
+@font-face {
+  font-family: 'Fredoka';
+  src: url('../fonts/fredoka/static/Fredoka-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,10 +1,10 @@
-<div class="hero rounded shadow-md min-h-96 bg-cover bg-center mb-16" style="background-image: url(<%= image_path("hero.png") %>);">
+<div class="hero rounded shadow-md min-h-96 bg-cover bg-center mb-16" style="background-image: url(<%= vite_asset_path("images/hero.png") %>);">
   <div class="hero-content">
     <div>
-      <h1 class="mb-5 text-4xl sm:text-6xl text-neutral font-bold w-2/3">Eco-Friendly Catering Supplies</h1>
+      <h1 class="mb-5 text-4xl sm:text-6xl text-neutral w-2/3">Eco-Friendly Catering Supplies</h1>
       <p class="mb-5 w-1/2 text-lg sm:text-2xl">Sustainable products for cafes, restaurants, and events</p>
       <div class="flex items-center gap-4">
-        <%= link_to "Shop Now", shop_path, class: "btn btn-xl btn-primary rounded-full text-lg font-bold" %>
+        <%= link_to "Shop Now", shop_path, class: "btn btn-xl btn-primary rounded-full text-lg" %>
         <div class="flex items-center gap-2">
           <img src="https://consumer.trustpilot.com/images/trustpilot-logo.svg" alt="Trustpilot" class="h-6">
           <div class="rating rating-sm">
@@ -24,7 +24,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
   <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
     <%= link_to "#", class: "block h-full" do %>
-      <%= image_tag vite_asset_path("images/pizza-boxes.png"), alt: "Best Sellers", class: "w-full h-full object-cover" %>
+      <%= vite_image_tag "images/pizza-boxes.png", alt: "Best Sellers", class: "w-full h-full object-cover" %>
       <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
         <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
           <h2 class="text-3xl font-bold mb-2">Best Sellers</h2>
@@ -36,7 +36,7 @@
 
   <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
     <%= link_to "#", class: "block h-full" do %>
-      <%= image_tag vite_asset_path("images/ice-cream-cups.png"), alt: "Special Offers", class: "w-full h-full object-cover" %>
+      <%= vite_image_tag "images/ice-cream-cups.png", alt: "Special Offers", class: "w-full h-full object-cover" %>
       <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
         <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
           <h2 class="text-3xl font-bold mb-2">Special Offers</h2>
@@ -48,7 +48,7 @@
 
   <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
     <%= link_to "#", class: "block h-full" do %>
-      <%= image_tag vite_asset_path("images/napkins.png"), alt: "New Arrivals", class: "w-full h-full object-cover" %>
+      <%= vite_image_tag "images/napkins.png", alt: "New Arrivals", class: "w-full h-full object-cover" %>
       <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
         <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
           <h2 class="text-3xl font-bold mb-2">New Arrivals</h2>
@@ -72,7 +72,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag vite_asset_path("images/pizza-boxes.png"), alt: "Pizza Boxes", class: "w-full" %>
+      <%= vite_image_tag "images/pizza-boxes.png", alt: "Pizza Boxes", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -80,13 +80,13 @@
         <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
       </div>
       <p></p>
-      <%= link_to "Shop Pizza Boxes", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+      <%= link_to "Shop Pizza Boxes", "#", class: "btn btn-primary w-full rounded-full text-lg" %>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag vite_asset_path("images/cold-cups.png"), alt: "Cold Cups", class: "w-full" %>
+      <%= vite_image_tag "images/cold-cups.png", alt: "Cold Cups", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -94,13 +94,13 @@
         <p class="text-neutral/70 mb-4">Plant-based materials that break down naturally</p>
       </div>
       <p></p>
-      <%= link_to "Shop Cold Cups", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+      <%= link_to "Shop Cold Cups", "#", class: "btn btn-primary w-full rounded-full text-lg" %>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag vite_asset_path("images/ice-cream-cups.png"), alt: "Ice Cream Cups", class: "w-full" %>
+      <%= vite_image_tag "images/ice-cream-cups.png", alt: "Ice Cream Cups", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -108,13 +108,13 @@
         <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
       </div>
       <p></p>
-      <%= link_to "Shop Ice Cream Cups", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+      <%= link_to "Shop Ice Cream Cups", "#", class: "btn btn-primary w-full rounded-full text-lg" %>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag vite_asset_path("images/straws.png"), alt: "Straws", class: "w-full" %>
+      <%= vite_image_tag "images/straws.png", alt: "Straws", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -122,13 +122,13 @@
         <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
       </div>
       <p></p>
-      <%= link_to "Shop Straws", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+      <%= link_to "Shop Straws", "#", class: "btn btn-primary w-full rounded-full text-lg" %>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag vite_asset_path("images/napkins.png"), alt: "Napkins", class: "w-full" %>
+      <%= vite_image_tag "images/napkins.png", alt: "Napkins", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -136,13 +136,13 @@
         <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
       </div>
       <p></p>
-      <%= link_to "Shop Napkins", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+      <%= link_to "Shop Napkins", "#", class: "btn btn-primary w-full rounded-full text-lg" %>
     </div>
   </div>
 
   <div class="card bg-base-100 shadow-md">
     <figure>
-      <%= image_tag vite_asset_path("images/hot-cups.png"), alt: "Hot Cups", class: "w-full" %>
+      <%= vite_image_tag "images/hot-cups.png", alt: "Hot Cups", class: "w-full" %>
     </figure>
     <div class="card-body">
       <div class="flex flex-col items-center justify-center">
@@ -150,13 +150,13 @@
         <p class="text-neutral/70 mb-4">Made from 100% recycled materials</p>
       </div>
       <p></p>
-      <%= link_to "Shop Hot Cups", "#", class: "btn btn-primary w-full rounded-full text-lg font-bold" %>
+      <%= link_to "Shop Hot Cups", "#", class: "btn btn-primary w-full rounded-full text-lg" %>
     </div>
   </div>
 </div>
 
 <div class="divider divider-neutral mt-16">
-  <h2 class="font-bold">Featured</h2>
+  <h2 class="font-medium">Featured</h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8">
@@ -164,7 +164,7 @@
     <div class="card bg-base-100 shadow-md">
       <figure>
         <% if product.image.attached? %>
-          <%= image_tag vite_asset_path(product.image.variant(resize_to_limit: [300, 300])), alt: product.name %>
+          <%= vite_image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name %>
         <% else %>
           <div class="w-full h-[300px] bg-gray-200 shadow-md flex items-center justify-center">
             <span class="text-gray-500">Image not available</span>
@@ -191,6 +191,6 @@
     <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
     <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked/>
   </div>
-  <p class="text-2xl font-semibold mt-4 italic">"Excellent quality and fast shipping!"</p>
+  <p class="text-2xl font-medium mt-4 italic">"Excellent quality and fast shipping!"</p>
   <p class="text-lg">Sarah M.</p>
 </div>
