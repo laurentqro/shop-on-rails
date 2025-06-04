@@ -29,7 +29,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "products#index"
     resources :products
+    resources :product_variants, only: [ :edit, :update ]
   end
+
+  # Product feeds
+  get "feeds/google-merchant.xml", to: "feeds#google_merchant", as: :google_merchant_feed
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

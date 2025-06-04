@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product: one
+  name: MyString
+  sku: MyString
+  price: 9.99
+  colour: MyString
+  width_in_mm: 1
+  height_in_mm: 1
+  depth_in_mm: 1
+  weight_in_g: 1
+  volume_in_ml: 1
+  diameter_in_mm: 1
+  pack_size: 1
+  active: false
+  sort_order: 1
+
+two:
+  product: two
+  name: MyString
+  sku: MyString
+  price: 9.99
+  colour: MyString
+  width_in_mm: 1
+  height_in_mm: 1
+  depth_in_mm: 1
+  weight_in_g: 1
+  volume_in_ml: 1
+  diameter_in_mm: 1
+  pack_size: 1
+  active: false
+  sort_order: 1

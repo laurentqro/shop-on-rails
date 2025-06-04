@@ -177,7 +177,7 @@
             <%= product.name %>
           <% end %>
         </h2>
-        <p><%= number_to_currency product.price %></p>
+        <p><%= number_to_currency product.active_variants.first&.price %></p>
       </div>
     </div>
   <% end %>

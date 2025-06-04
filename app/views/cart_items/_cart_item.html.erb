@@ -1,7 +1,7 @@
 <%= turbo_frame_tag cart_item do %>
   <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-center p-4 border-b hover:bg-gray-50">
     <div class="col-span-full md:col-span-2 flex items-center space-x-4">
-      <%= link_to product_path(cart_item.product) do %>
+      <%= link_to product_path(cart_item.product, variant_id: cart_item.product_variant.id), data: { turbo: false } do %>
         <% if cart_item.product.image.attached? %>
           <%= image_tag vite_asset_path("images/product-placeholder.png"), class: "w-20 h-20 object-cover rounded-md shadow", alt: cart_item.product.name %>
         <% else %>
@@ -11,7 +11,7 @@
       <div>
         <%= link_to cart_item.product.name, product_path(cart_item.product), class: "text-lg font-semibold text-gray-800 hover:text-primary-500" %>
         <div class="text-sm text-gray-500">
-          Pack of <%= cart_item.product.pac_size %>
+          <%= cart_item.product_variant.name %>
         </div>
       </div>
     </div>

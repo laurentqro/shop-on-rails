@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Create categories
 straws_category = Category.find_or_create_by!(name: "Straws")
 napkins_category = Category.find_or_create_by!(name: "Napkins")
 hot_cups_category = Category.find_or_create_by!(name: "Hot Cups")
@@ -18,74 +19,68 @@ kraft_food_containers_category = Category.find_or_create_by!(name: "Kraft Food C
 takeaway_extras_category = Category.find_or_create_by!(name: "Takeaway Extras")
 ice_cream_cups_category = Category.find_or_create_by!(name: "Ice Cream Cups")
 
-straws = YAML.load_file(Rails.root.join("lib", "data", "straws.yml"))
+# Helper method to seed products from YAML files
+def seed_products_from_yaml(file_path, category)
+  puts "Seeding products from #{file_path}..."
 
-straws.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = straws_category
-  p.save!
+  yaml_data = YAML.load_file(file_path)
+  products_data = yaml_data['products'] || []
+
+  products_data.each do |product_data|
+    # Extract product attributes (everything except variants)
+    product_attributes = product_data.except('variants')
+
+    # Find or create the product
+    product = Product.find_or_initialize_by(name: product_attributes['name'])
+
+    # Update product attributes
+    product.assign_attributes(product_attributes)
+    product.category = category
+    product.save!
+    puts "  Created/Updated product: #{product.name}"
+    # Handle variants if they exist
+    if product_data['variants']
+      product_data['variants'].each do |variant_data|
+        # Find or create variant by SKU (assuming SKU is unique)
+        if variant_data['sku']
+          variant = ProductVariant.find_or_initialize_by(sku: variant_data['sku'])
+          variant.assign_attributes(variant_data)
+          variant.product = product
+          variant.save!
+
+          puts "Created/Updated variant: #{variant.name} (#{variant.sku})"
+        else
+          puts "Warning: Variant missing SKU: #{variant_data}"
+        end
+      end
+    end
+  end
 end
 
-napkins = YAML.load_file(Rails.root.join("lib", "data", "napkins.yml"))
+# Seed all product categories
+product_files = [
+  { file: 'straws.yml', category: straws_category },
+  { file: 'napkins.yml', category: napkins_category },
+  { file: 'hot_cups.yml', category: hot_cups_category },
+  { file: 'hot_cups_extras.yml', category: hot_cups_extras_category },
+  { file: 'cold_cups.yml', category: cold_cups_category },
+  { file: 'pizza_boxes.yml', category: pizza_boxes_category },
+  { file: 'kraft_food_containers.yml', category: kraft_food_containers_category },
+  { file: 'takeaway_extras.yml', category: takeaway_extras_category },
+  { file: 'ice_cream_cups.yml', category: ice_cream_cups_category }
+]
 
-napkins.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = napkins_category
-  p.save!
+product_files.each do |config|
+  file_path = Rails.root.join("lib", "data", "products", config[:file])
+  
+  if File.exist?(file_path)
+    seed_products_from_yaml(file_path, config[:category])
+  else
+    puts "Warning: File not found: #{file_path}"
+  end
 end
 
-hot_cups = YAML.load_file(Rails.root.join("lib", "data", "hot_cups.yml"))
-
-hot_cups.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = hot_cups_category
-  p.save!
-end
-
-hot_cups_extras = YAML.load_file(Rails.root.join("lib", "data", "hot_cups_extras.yml"))
-
-hot_cups_extras.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = hot_cups_extras_category
-  p.save!
-end
-
-cold_cups = YAML.load_file(Rails.root.join("lib", "data", "cold_cups.yml"))
-
-cold_cups.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = cold_cups_category
-  p.save!
-end
-
-pizza_boxes = YAML.load_file(Rails.root.join("lib", "data", "pizza_boxes.yml"))
-
-pizza_boxes.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = pizza_boxes_category
-  p.save!
-end
-
-kraft_food_containers = YAML.load_file(Rails.root.join("lib", "data", "kraft_food_containers.yml"))
-
-kraft_food_containers.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = kraft_food_containers_category
-  p.save!
-end
-
-takeaway_extras = YAML.load_file(Rails.root.join("lib", "data", "takeaway_extras.yml"))
-
-takeaway_extras.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = takeaway_extras_category
-  p.save!
-end
-
-ice_cream_cups = YAML.load_file(Rails.root.join("lib", "data", "ice_cream_cups.yml"))
-
-ice_cream_cups.each do |product|
-  p = Product.find_or_initialize_by(product)
-  p.category = ice_cream_cups_category
-  p.save!
-end
+puts "Seeding completed!"
+puts "Categories created: #{Category.count}"
+puts "Products created: #{Product.count}"
+puts "Product variants created: #{ProductVariant.count}" if defined?(ProductVariant)

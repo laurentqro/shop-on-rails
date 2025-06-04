@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_30_132602) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_05_184003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,14 +44,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_132602) do
 
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
-    t.bigint "product_id", null: false
     t.integer "quantity", default: 1, null: false
     t.decimal "price", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cart_id", "product_id"], name: "index_cart_items_on_cart_id_and_product_id", unique: true
+    t.bigint "product_variant_id", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
-    t.index ["product_id"], name: "index_cart_items_on_product_id"
+    t.index ["product_variant_id"], name: "index_cart_items_on_product_variant_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -107,12 +106,33 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_132602) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "product_variants", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "name", null: false
+    t.string "sku", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.integer "length_in_mm"
+    t.integer "height_in_mm"
+    t.integer "width_in_mm"
+    t.integer "depth_in_mm"
+    t.integer "weight_in_g"
+    t.integer "volume_in_ml"
+    t.integer "diameter_in_mm"
+    t.integer "pac_size"
+    t.boolean "active", default: true
+    t.integer "sort_order", default: 0
+    t.integer "stock_quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id", "sku"], name: "index_product_variants_on_product_id_and_sku", unique: true
+    t.index ["product_id", "sort_order"], name: "index_product_variants_on_product_id_and_sort_order"
+    t.index ["product_id"], name: "index_product_variants_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "short_description"
-    t.string "sku"
-    t.decimal "price", precision: 10, scale: 2, null: false
     t.decimal "vat_rate", precision: 5, scale: 2, default: "20.0"
     t.boolean "active", default: true
     t.boolean "sample_eligible", default: false
@@ -121,19 +141,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_132602) do
     t.string "meta_description"
     t.boolean "featured", default: false
     t.integer "sort_order"
-    t.integer "pac_size"
     t.string "colour"
-    t.integer "width_in_mm"
-    t.integer "height_in_mm"
-    t.integer "depth_in_mm"
-    t.integer "weight_in_g"
-    t.integer "volume_in_ml"
-    t.integer "diameter_in_mm"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "pac_size"
+    t.integer "diameter_in_mm"
+    t.integer "volume_in_ml"
+    t.integer "weight_in_g"
+    t.integer "depth_in_mm"
+    t.integer "height_in_mm"
+    t.integer "width_in_mm"
+    t.decimal "price"
+    t.string "sku"
+    t.string "material"
     t.index ["category_id"], name: "index_products_on_category_id"
-    t.index ["sku"], name: "index_products_on_sku", unique: true
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
@@ -158,11 +180,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_132602) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "carts"
-  add_foreign_key "cart_items", "products"
+  add_foreign_key "cart_items", "product_variants"
   add_foreign_key "carts", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_variants", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "sessions", "users"
 end
