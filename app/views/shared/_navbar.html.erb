@@ -40,7 +40,9 @@
         <ul
           tabindex="0"
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-          <li><%= link_to "Admin Panel", "/admin" %></li>
+          <% if Current.user&.admin? %>
+            <li><%= link_to "Admin Panel", "/admin" %></li>
+          <% end %>
           <li><%= link_to "Orders", orders_path %></li>
           <li><%= button_to "Logout", session_path, method: :delete %></li>
         </ul>

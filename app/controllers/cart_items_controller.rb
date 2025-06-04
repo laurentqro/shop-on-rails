@@ -4,12 +4,12 @@ class CartItemsController < ApplicationController
 
   # POST /cart/cart_items
   def create
-    product = Product.find_by!(slug: cart_item_params[:product_slug])
-    @cart_item = @cart.cart_items.find_or_initialize_by(product: product)
+    product_variant = ProductVariant.find_by!(sku: cart_item_params[:variant_sku])
+    @cart_item = @cart.cart_items.find_or_initialize_by(product_variant: product_variant)
 
     if @cart_item.new_record?
       @cart_item.quantity = cart_item_params[:quantity].to_i || 1
-      @cart_item.price = product.price
+      @cart_item.price = product_variant.price
     else
       @cart_item.quantity += (cart_item_params[:quantity].to_i || 1)
     end
@@ -17,12 +17,12 @@ class CartItemsController < ApplicationController
     if @cart_item.save
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to cart_path, notice: "#{product.name} added to cart." }
+        format.html { redirect_to cart_path, notice: "#{product_variant.display_name} added to cart." }
       end
     else
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_back fallback_location: product_path(product), alert: "Could not add item to cart: #{@cart_item.errors.full_messages.join(', ')}" }
+        format.html { redirect_back fallback_location: product_path(product_variant.product), alert: "Could not add item to cart: #{@cart_item.errors.full_messages.join(', ')}" }
       end
     end
   end
@@ -52,11 +52,12 @@ class CartItemsController < ApplicationController
 
   # DELETE /cart/cart_items/:id
   def destroy
+    product_name = @cart_item.product_variant.display_name
     @cart_item.destroy
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to cart_path, notice: "#{@cart_item.product.name} removed from cart.", status: :see_other }
+      format.html { redirect_to cart_path, notice: "#{product_name} removed from cart.", status: :see_other }
     end
   end
 
@@ -90,6 +91,6 @@ class CartItemsController < ApplicationController
   end
 
   def cart_item_params
-    params.expect(cart_item: [ :product_slug, :quantity ])
+    params.expect(cart_item: [ :variant_sku, :quantity ])
   end
 end

@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
-  before_action :set_current_cart
   include Authentication
+  before_action :set_current_cart
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  private
+
   def set_current_cart
     if Current.user
-      # User is logged in
-      # Find their existing cart or create a new one if it doesn\'t exist
       Current.cart = Cart.find_or_create_by(user: Current.user)
     elsif session[:cart_id]
       # Guest user with a cart_id in session

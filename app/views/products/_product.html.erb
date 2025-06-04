@@ -1,10 +1,42 @@
-<div id="<%= dom_id product %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= product.name %>
+<%= link_to product_path(product), class: "card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow" do %>
+  <figure>
+    <% if product.image.attached? %>
+      <%= image_tag product.image.variant(resize_to_limit: [300, 300]), 
+          alt: product.name, 
+          class: "w-full h-48 object-cover" %>
+    <% else %>
+      <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+        <span class="text-gray-500">No image</span>
+      </div>
+    <% end %>
+  </figure>
+  <div class="card-body">
+    <h3 class="card-title text-lg">
+      <%= product.name %>
+      <% if product.colour.present? %>
+        <span class="text-sm text-base-content/70">(<%= product.colour %>)</span>
+      <% end %>
+    </h3>
+    
+    <p class="text-sm text-base-content/70">
+      <%= truncate(product.description, length: 100) if product.description %>
+    </p>
+    
+    <div class="card-actions justify-between items-center mt-4">
+      <div class="text-lg font-semibold">
+        <% price_range = product.price_range %>
+        <% if price_range.is_a?(Array) %>
+          <%= number_to_currency(price_range[0]) %> - <%= number_to_currency(price_range[1]) %>
+        <% elsif price_range %>
+          <%= number_to_currency(price_range) %>
+        <% else %>
+          <span class="text-error">Price unavailable</span>
+        <% end %>
+      </div>
+      
+      <% if product.active_variants.count > 1 %>
+        <div class="badge badge-outline"><%= product.active_variants.count %> options</div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= product.description %>
-  </div>
-</div>
+<% end %>
