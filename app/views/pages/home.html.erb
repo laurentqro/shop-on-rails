@@ -164,7 +164,7 @@
     <div class="card bg-base-100 shadow-md">
       <figure>
         <% if product.image.attached? %>
-          <%= vite_image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name %>
+          <%= image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name %>
         <% else %>
           <div class="w-full h-[300px] bg-gray-200 shadow-md flex items-center justify-center">
             <span class="text-gray-500">Image not available</span>
