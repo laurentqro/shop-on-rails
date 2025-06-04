@@ -9,14 +9,14 @@ class Order < ApplicationRecord
   validates :stripe_session_id, presence: true, uniqueness: true
   validates :order_number, presence: true, uniqueness: true
   validates :status, presence: true
-  validates :subtotal_amount, :vat_amount, :shipping_amount, :total_amount, 
+  validates :subtotal_amount, :vat_amount, :shipping_amount, :total_amount,
             presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :shipping_name, :shipping_address_line1, :shipping_city, 
+  validates :shipping_name, :shipping_address_line1, :shipping_city,
             :shipping_postal_code, :shipping_country, presence: true
 
   enum :status, {
     pending: "pending",
-    paid: "paid", 
+    paid: "paid",
     processing: "processing",
     shipped: "shipped",
     delivered: "delivered",
@@ -56,7 +56,7 @@ class Order < ApplicationRecord
     loop do
       # Generate order number like: ORD-2025-001234
       year = Date.current.year
-      random_part = SecureRandom.random_number(999999).to_s.rjust(6, '0')
+      random_part = SecureRandom.random_number(999999).to_s.rjust(6, "0")
       candidate = "ORD-#{year}-#{random_part}"
 
       unless Order.exists?(order_number: candidate)

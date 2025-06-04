@@ -5,4 +5,4 @@ class OrderMailer < ApplicationMailer
     @order = params[:order]
     mail(to: @order.email, subject: "Your Order ##{@order.order_number} is Confirmed!")
   end
-end 
+end

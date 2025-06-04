@@ -1,5 +1,4 @@
 class CheckoutsController < ApplicationController
-
   def create
     cart = Current.cart
     line_items = cart.cart_items.map do |item|
@@ -13,17 +12,17 @@ class CheckoutsController < ApplicationController
           unit_amount: (item.price.to_f * 100).round,
           tax_behavior: "exclusive"
         },
-        tax_rates: [tax_rate.id]
+        tax_rates: [ tax_rate.id ]
       }
     end
 
     begin
       session = Stripe::Checkout::Session.create({
-        payment_method_types: ["card"],
+        payment_method_types: [ "card" ],
         line_items: line_items,
         mode: "payment",
         shipping_address_collection: {
-          allowed_countries: ["GB"]
+          allowed_countries: [ "GB" ]
         },
         shipping_options: [
           {
@@ -150,7 +149,7 @@ class CheckoutsController < ApplicationController
     shipping_postal_code = customer_details.address.postal_code
     shipping_country = customer_details.address.country
 
-    if [shipping_name, shipping_address_line1, shipping_city, shipping_postal_code, shipping_country].any?(&:blank?)
+    if [ shipping_name, shipping_address_line1, shipping_city, shipping_postal_code, shipping_country ].any?(&:blank?)
       raise "Shipping details are required"
     end
 
