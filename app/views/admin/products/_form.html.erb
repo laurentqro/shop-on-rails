@@ -32,8 +32,8 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :price %>
-    <%= form.number_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:price].none?, "border-red-400 focus:outline-red-600": product.errors[:price].any?}] %>
+    <%= form.label :pac_size %>
+    <%= form.text_field :pac_size, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": product.errors[:pac_size].none?, "border-red-400 focus:outline-red-600": product.errors[:pac_size].any?}] %>
   </div>
 
   <div class="my-5">
