@@ -72,7 +72,7 @@ product_files = [
 
 product_files.each do |config|
   file_path = Rails.root.join("lib", "data", "products", config[:file])
-  
+
   if File.exist?(file_path)
     seed_products_from_yaml(file_path, config[:category])
   else
