@@ -35,12 +35,13 @@ class ProductVariant < ApplicationRecord
 
   def variant_attributes
     {
+      material: "#{product.material}",
       width_in_mm: "#{width_in_mm}",
       height_in_mm: "#{height_in_mm}",
       depth_in_mm: "#{depth_in_mm}",
       weight_in_g: "#{weight_in_g}",
       volume_in_ml: "#{volume_in_ml}",
-      diameter_in_mm: "#{diameter_in_mm}"
+      diameter_in_mm: "#{diameter_in_mm}",
     }.reject { |_, value| value.blank? }
   end
 end
