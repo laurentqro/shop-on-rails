@@ -10,4 +10,12 @@ class User < ApplicationRecord
   def admin?
     role == "admin"
   end
+
+  def initials
+    if [first_name, last_name].all?(&:present?)
+      first_name.first.upcase + last_name.first.upcase
+    else
+      email_address.split("@").first.split(".").map(&:first).join.upcase
+    end
+  end
 end
