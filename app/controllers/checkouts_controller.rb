@@ -1,4 +1,6 @@
 class CheckoutsController < ApplicationController
+  allow_unauthenticated_access
+
   def create
     cart = Current.cart
     line_items = cart.cart_items.map do |item|

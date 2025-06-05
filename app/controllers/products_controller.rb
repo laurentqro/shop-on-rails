@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  allow_unauthenticated_access
+
   def index
     @products = Product.includes(:category, :active_variants, image_attachment: :blob).all
   end

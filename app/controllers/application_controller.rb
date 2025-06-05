@@ -7,25 +7,22 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_cart
+    # If the user is logged in, find or create a cart for them
     if Current.user
       Current.cart = Cart.find_or_create_by(user: Current.user)
     elsif session[:cart_id]
-      # Guest user with a cart_id in session
-      # Attempt to find the cart
+      # If the user is not logged in, but there is a cart_id in session, find the cart
       cart = Cart.find_by(id: session[:cart_id])
-      if cart&.user_id.nil? # Ensure it\'s a guest cart (no user_id)
+      if cart&.guest_cart?
         Current.cart = cart
       else
-        # Cart ID in session is invalid (e.g., belongs to a user or doesn\'t exist, or was claimed)
-        # Clear the session and create a new guest cart
+        # If the cart_id in session belongs to a user, or doesn't exist, or was claimed, clear the session and create a new guest cart
         session.delete(:cart_id)
-        Current.cart = Cart.create # Create a new cart without a user
+        Current.cart = Cart.create
         session[:cart_id] = Current.cart.id if Current.cart.persisted?
       end
     else
-      # Guest user with no cart_id in session (new guest)
-      # Create a new guest cart
-      Current.cart = Cart.create # Create a new cart without a user
+      # If the user is not logged in, and there is no cart_id in session, create a new guest cart
       session[:cart_id] = Current.cart.id if Current.cart.persisted?
     end
   end

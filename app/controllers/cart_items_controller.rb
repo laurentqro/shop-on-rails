@@ -1,4 +1,6 @@
 class CartItemsController < ApplicationController
+  allow_unauthenticated_access
+
   before_action :set_cart
   before_action :set_cart_item, only: [ :update, :destroy ]
 
@@ -67,20 +69,10 @@ class CartItemsController < ApplicationController
   # This relies on Current.cart being set by ApplicationController or similar.
   def set_cart
     @cart = Current.cart
+
     unless @cart
-      # This logic might be slightly different based on your ApplicationController#set_current_cart
-      # If a user must always have a cart, it should be created there.
-      # For guests, we might create one on demand here if not already present.
-      if Current.user
-        @cart = Cart.find_or_create_by(user: Current.user)
-      else
-        # This assumes we need to create a cart if one isn't found via session
-        # which should ideally be handled by ApplicationController#set_current_cart
-        # For safety, creating a new one if absolutely necessary.
-        @cart = Cart.create
-        session[:cart_id] = @cart.id unless session[:cart_id] # Ensure session is updated if we create it here
-      end
-      Current.cart = @cart # Ensure Current object is updated if we had to create it here
+      set_current_cart
+      @cart = Current.cart
     end
   end
 

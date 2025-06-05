@@ -21,4 +21,8 @@ class Cart < ApplicationRecord
   def total_amount
     subtotal_amount + vat_amount
   end
+
+  def guest_cart?
+    user.blank?
+  end
 end

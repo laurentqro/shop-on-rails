@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  allow_unauthenticated_access
+
   def home
     @featured_products = Product.featured.limit(4)
     @categories = Category.all
