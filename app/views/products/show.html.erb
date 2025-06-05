@@ -22,6 +22,10 @@
         <span class="text-base-content/60 font-medium text-lg">Colour: <%= @product.colour %></span>
       <% end %>
 
+      <% if @product.pac_size.present? %>
+        <span class="text-base-content/60 font-medium text-lg">Pac Size: <%= @product.pac_size %></span>
+      <% end %>
+
       <% if @product.active_variants.count > 1 %>
         <div class="form-control w-full max-w-xs my-4">
           <label class="label mb-2">
