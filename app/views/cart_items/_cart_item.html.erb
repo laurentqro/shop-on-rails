@@ -3,15 +3,20 @@
     <div class="col-span-full md:col-span-2 flex items-center space-x-4">
       <%= link_to product_path(cart_item.product, variant_id: cart_item.product_variant.id), data: { turbo: false } do %>
         <% if cart_item.product.image.attached? %>
-          <%= image_tag vite_asset_path("images/product-placeholder.png"), class: "w-20 h-20 object-cover rounded-md shadow", alt: cart_item.product.name %>
+          <%= image_tag cart_item.product_variant.image, class: "w-20 h-20 object-cover rounded-md shadow", alt: cart_item.product_variant.display_name %>
         <% else %>
-          <div class="w-20 h-20 bg-gray-200 rounded-md shadow flex items-center justify-center text-gray-500 text-xs">No Image</div>
+          <div class="w-20 h-20 bg-gray-200 rounded-md shadow flex items-center justify-center text-gray-500 text-xs">
+            No Image
+          </div>
         <% end %>
       <% end %>
       <div>
-        <%= link_to cart_item.product.name, product_path(cart_item.product), class: "text-lg font-semibold text-gray-800 hover:text-primary-500" %>
-        <div class="text-sm text-gray-500">
+        <%= link_to cart_item.product.name, product_path(cart_item.product, variant_id: cart_item.product_variant.id), class: "text-xl font-medium text-gray-800 hover:text-primary-500", data: { turbo: false } %>
+        <div class="text-lg">
           <%= cart_item.product_variant.name %>
+        </div>
+        <div class="text-gray-500 text-sm">
+          Pack of <%= cart_item.product_variant.pac_size %>
         </div>
       </div>
     </div>

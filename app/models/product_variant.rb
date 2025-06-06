@@ -6,7 +6,7 @@ class ProductVariant < ApplicationRecord
   has_one_attached :image
 
   scope :active, -> { where(active: true) }
-  default_scope { order(:sort_order, :id) }
+  default_scope { order(:sort_order, :name) }
 
   validates :sku, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
@@ -15,11 +15,7 @@ class ProductVariant < ApplicationRecord
   delegate :category, :description, :meta_title, :meta_description, :colour, to: :product
 
   def display_name
-    if product.variants.count == 1
-      product.name
-    else
-      "#{product.name} - #{name}"
-    end
+    "#{product.name} (#{name})"
   end
 
   def full_name

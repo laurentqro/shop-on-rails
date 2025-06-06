@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  default_scope { where(active: true).order(:sort_order, :id) }
+  default_scope { where(active: true).order(:sort_order, :name) }
   scope :featured, -> { where(featured: true) }
 
   belongs_to :category

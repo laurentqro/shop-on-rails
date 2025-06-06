@@ -35,7 +35,8 @@ products:
         pac_size: 2400
         price: 114.2
 
-  - name: Bamboo Fibre Straws
+  - name: Bamboo Fibre Straws - Black
+    colour: Black
     material: Bamboo Fibre
     variants:
       - name: 6 x 150mm
@@ -50,6 +51,11 @@ products:
         sku: BB-FBRBL-20
         pac_size: 2500
         price: 65.8
+
+  - name: Bamboo Fibre Straws - Natural/Beige
+    colour: Natural/Beige
+    material: Bamboo Fibre
+    variants:
       - name: 6 x 150mm
         diameter_in_mm: 6
         height_in_mm: 150
