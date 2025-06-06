@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
       end
     else
       # If the user is not logged in, and there is no cart_id in session, create a new guest cart
+      Current.cart = Cart.create
       session[:cart_id] = Current.cart.id if Current.cart.persisted?
     end
   end
