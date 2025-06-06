@@ -16,6 +16,19 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // Example: Load Rails libraries in Vite.
 //
 import "@hotwired/turbo-rails"
+import { Application } from "@hotwired/stimulus"
+
+// Start Stimulus application
+const application = Application.start()
+
+// Import all controllers
+import CartDrawerController from "../javascript/controllers/cart_drawer_controller"
+application.register("cart-drawer", CartDrawerController)
+
+// Configure Stimulus development experience
+application.debug = false
+window.Stimulus = application
+
 //
 import * as ActiveStorage from '@rails/activestorage'
 ActiveStorage.start()
