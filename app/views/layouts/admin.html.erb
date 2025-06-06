@@ -25,8 +25,11 @@
 
     <%= render "admin/shared/navbar" %>
 
-    <main class="container mx-auto p-5">
-      <%= yield %>
+    <main class="container mx-auto">
+      <%= render "admin/shared/sidebar" %>
+      <div class="ml-24 pt-20">
+        <%= yield %>
+      </div>
     </main>
 
     <script src="//unpkg.com/alpinejs" defer></script>
