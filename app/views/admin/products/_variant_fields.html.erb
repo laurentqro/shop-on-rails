@@ -1,7 +1,7 @@
 <div class="border border-neutral rounded-md p-4 my-4 js-variant-fields">
   <div class="grid grid-cols-2 gap-x-6 gap-y-4">
     <div class="col-span-2 mb-4">
-      <h3 class="text-xl font-medium text-gray-900 border-b pb-2">Variant <%= form.index + 1 %> of <%= form.object.product.variants.count %></h3>
+      <h3 class="text-xl font-medium text-gray-900 border-b pb-2"><%= form.object.new_record? ? "New Variant" : form.object.name %></h3>
     </div>
 
     <div class="form-control col-span-2 sm:col-span-1">

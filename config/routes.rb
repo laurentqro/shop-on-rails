@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/", to: "products#index"
-    resources :products
+    resources :products do
+      get :new_variant, on: :member
+    end
     resources :product_variants, only: [ :edit, :update ]
     resources :orders, only: [ :index, :show ]
   end

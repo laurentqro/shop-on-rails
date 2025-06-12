@@ -1,6 +1,6 @@
 module Admin
   class ProductsController < ApplicationController
-    before_action :set_product, only: %i[ show edit update destroy ]
+    before_action :set_product, only: %i[ show edit update destroy new_variant ]
 
     # GET /products
     def index
@@ -31,6 +31,9 @@ module Admin
       else
         render :new, status: :unprocessable_entity
       end
+    end
+
+    def new_variant
     end
 
     # PATCH/PUT /products/1
