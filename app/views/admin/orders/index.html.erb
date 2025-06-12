@@ -16,7 +16,7 @@
         <% @orders.each do |order| %>
           <tr>
             <td><%= order.id %></td>
-            <td><%= order.customer.name %></td>
+            <td><%= order.email %></td>
             <td><%= number_to_currency(order.total_amount) %></td>
             <td><%= order.status %></td>
             <td><%= order.created_at.strftime("%B %d, %Y") %></td>
