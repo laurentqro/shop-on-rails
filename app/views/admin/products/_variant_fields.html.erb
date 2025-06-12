@@ -1,0 +1,80 @@
+<div class="border border-neutral rounded-md p-4 my-4 js-variant-fields">
+  <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+    <div class="col-span-2 mb-4">
+      <h3 class="text-xl font-medium text-gray-900 border-b pb-2">Variant <%= form.index + 1 %> of <%= form.object.product.variants.count %></h3>
+    </div>
+
+    <div class="form-control col-span-2 sm:col-span-1">
+        <%= form.label :active, class: "label cursor-pointer" %>
+        <%= form.check_box :active, class: "toggle toggle-primary" %>
+    </div>
+
+    <div class="col-span-2 sm:col-span-1 flex items-center justify-end">
+      <% unless form.object.new_record? %>
+        <div class="form-control">
+          <%= form.label :_destroy, "Remove Variant", class: "label cursor-pointer" %>
+          <%= form.check_box :_destroy, class: "checkbox checkbox-error" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-control col-span-2 sm:col-span-1">
+        <%= form.label :name, class: "label" %>
+        <%= form.text_field :name, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control col-span-2 sm:col-span-1">
+        <%= form.label :sku, "SKU (required)", class: "label" %>
+        <%= form.text_field :sku, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control col-span-2 sm:col-span-1">
+        <%= form.label :price, class: "label" %>
+        <%= form.number_field :price, class: "input input-bordered", step: 0.01 %>
+    </div>
+
+    <div class="form-control col-span-2 sm:col-span-1">
+        <%= form.label :stock_quantity, class: "label" %>
+        <%= form.number_field :stock_quantity, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control col-span-2">
+        <%= form.label :image, class: "label" %>
+        <%= form.file_field :image, class: "file-input file-input-bordered" %>
+    </div>
+
+    <div class="col-span-2 mt-4">
+      <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Dimensions</h3>
+    </div>
+
+    <div class="form-control">
+        <%= form.label :width_in_mm, "Width (mm)", class: "label" %>
+        <%= form.number_field :width_in_mm, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+        <%= form.label :height_in_mm, "Height (mm)", class: "label" %>
+        <%= form.number_field :height_in_mm, class: "input input-bordered" %>
+    </div>
+    
+    <div class="form-control">
+        <%= form.label :depth_in_mm, "Depth (mm)", class: "label" %>
+        <%= form.number_field :depth_in_mm, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+        <%= form.label :weight_in_g, "Weight (g)", class: "label" %>
+        <%= form.number_field :weight_in_g, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+        <%= form.label :volume_in_ml, "Volume (ml)", class: "label" %>
+        <%= form.number_field :volume_in_ml, class: "input input-bordered" %>
+    </div>
+
+    <div class="form-control">
+        <%= form.label :diameter_in_mm, "Diameter (mm)", class: "label" %>
+        <%= form.number_field :diameter_in_mm, class: "input input-bordered" %>
+    </div>
+  </div>
+</div>

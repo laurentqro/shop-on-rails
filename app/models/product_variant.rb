@@ -6,7 +6,7 @@ class ProductVariant < ApplicationRecord
   has_one_attached :image
 
   scope :active, -> { where(active: true) }
-  default_scope { order(:sort_order, :name) }
+  default_scope { order(:name) }
 
   validates :sku, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }

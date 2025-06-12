@@ -1,8 +1,8 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
-  belongs_to :product, optional: true
+  belongs_to :product_variant, optional: true
 
-  validates :product_name, :product_sku, presence: true
+  validates :product_name, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :line_total, presence: true, numericality: { greater_than_or_equal_to: 0 }
@@ -16,7 +16,7 @@ class OrderItem < ApplicationRecord
   end
 
   def product_display_name
-    product_name || product&.name || "Product Unavailable"
+    product_variant&.name || "Product Unavailable"
   end
 
   def product_still_available?

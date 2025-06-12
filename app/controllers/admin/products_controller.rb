@@ -14,10 +14,12 @@ module Admin
     # GET /products/new
     def new
       @product = Product.new
+      @product.variants.build
     end
 
     # GET /products/1/edit
     def edit
+      @product.variants.build if @product.variants.none?
     end
 
     # POST /products
@@ -48,21 +50,47 @@ module Admin
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_product
-        @product = Product.find_by!(slug: params.expect(:id))
-      end
+    def set_product
+      @product = Product.find_by!(slug: params.expect(:id))
+    end
 
-      # Only allow a list of trusted parameters through.
-      def product_params
-        params.expect(product: [
-          :name,
-          :description,
-          :price,
-          :category_id,
-          :image,
-          :colour,
-          :featured
-        ])
-      end
+    # Only allow a list of trusted parameters through.
+    def product_params
+      params.expect(product: [
+        :active,
+        :featured,
+        :name,
+        :description,
+        :pac_size,
+        :colour,
+        :category_id,
+        :image,
+        :slug,
+        :sort_order,
+        :meta_title,
+        :meta_description,
+        :meta_image,
+        variants_attributes: [
+          [
+            :id,
+            :_destroy,
+            :name,
+            :sku,
+            :pac_size,
+            :price,
+            :stock_quantity,
+            :active,
+            :sort_order,
+            :length_in_mm,
+            :height_in_mm,
+            :width_in_mm,
+            :depth_in_mm,
+            :weight_in_g,
+            :volume_in_ml,
+            :diameter_in_mm
+          ]
+        ]
+      ])
+    end
   end
 end

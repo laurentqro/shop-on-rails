@@ -12,50 +12,57 @@
   <% end %>
 
   <fieldset class="fieldset mt-8">
-    <legend class="fieldset-legend">Product Details</legend>
+    <legend class="fieldset-legend text-2xl font-medium">Product Details</legend>
 
-    <div class="grid grid-cols-2 gap-x-6 gap-y-4 w-1/2 mt-4">
-      <%= form.label :active, class: "label" %>
+    <div class="grid grid-cols-2 gap-y-4 mt-4">
+      <%= form.label :active, class: "label text-base" %>
       <%= form.check_box :active, class: "toggle toggle-primary toggle-lg" %>
 
-      <%= form.label :featured, class: "label" %>
+      <%= form.label :featured, class: "label text-base" %>
       <%= form.check_box :featured, class: "toggle toggle-primary toggle-lg" %>
 
-      <%= form.label :name, "Name (required)", class: "label" %>
+      <%= form.label :name, "Name (required)", class: "label text-base" %>
       <%= form.text_field :name, class: "input", required: true %>
 
-      <%= form.label :pac_size, "Pack Size", class: "label" %>
+      <%= form.label :pac_size, "Pack Size", class: "label text-base" %>
       <%= form.text_field :pac_size, class: "input" %>
 
-      <%= form.label :category, class: "label" %>
+      <%= form.label :category, class: "label text-base" %>
       <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, {}, class: "select select-bordered" %>
 
-      <%= form.label :image, class: "label" %>
+      <%= form.label :image, class: "label text-base" %>
       <%= form.file_field :image, class: "file-input file-input-bordered" %>
 
-      <%= form.label :description, class: "label" %>
+      <%= form.label :description, class: "label text-base" %>
       <%= form.text_area :description, rows: 4, class: "textarea textarea-bordered w-full" %>
     </div>
   </fieldset>
 
   <fieldset class="fieldset my-8">
-    <legend class="fieldset-legend">SEO & Meta Information</legend>
+    <legend class="fieldset-legend text-2xl font-medium">SEO & Meta Information</legend>
 
-    <div class="grid grid-cols-2 gap-x-6 gap-y-4 w-1/2 mt-4">
-      <%= form.label :slug, class: "label" %>
+    <div class="grid grid-cols-2 gap-y-4 mt-4">
+      <%= form.label :slug, class: "label text-base" %>
       <%= form.text_field :slug, class: "input" %>
 
-      <%= form.label :meta_title, "Meta Title (max 60 characters)", class: "label" %>
+      <%= form.label :meta_title, "Meta Title (max 60 characters)", class: "label text-base" %>
       <%= form.text_field :meta_title, class: "input", placeholder: "This is the title of the product. It should be 50-60 characters long.", maxlength: 60 %>
 
-      <%= form.label :meta_description, "Meta Description (max 160 characters)", class: "label" %>
+      <%= form.label :meta_description, "Meta Description (max 160 characters)", class: "label text-base" %>
       <%= form.text_area :meta_description, rows: 4, class: "textarea textarea-bordered w-full", placeholder: "This is a description of the product. It should be 150-160 characters long.", maxlength: 160 %>
 
-      <%= form.label :meta_keywords, "Meta Keywords (max 100 characters)", class: "label" %>
-      <%= form.text_field :meta_keywords, class: "input", placeholder: "e.g. 'product, product category, product type'" %>
-
-      <%= form.label :meta_image, class: "label" %>
+      <%= form.label :meta_image, class: "label text-base" %>
       <%= form.file_field :meta_image, class: "file-input file-input-bordered" %>
+    </div>
+  </fieldset>
+
+  <fieldset class="fieldset my-8">
+    <legend class="fieldset-legend text-xl font-medium">Variants</legend>
+
+    <div id="variants" class="space-y-4">
+      <%= form.fields_for :variants do |variant_form| %>
+        <%= render "variant_fields", form: variant_form %>
+      <% end %>
     </div>
   </fieldset>
 
