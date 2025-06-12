@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get "/", to: "products#index"
     resources :products
     resources :product_variants, only: [ :edit, :update ]
+    resources :orders, only: [ :index, :show ]
   end
 
   # Product feeds
