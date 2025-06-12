@@ -53,8 +53,8 @@
       <div class="divide-y divide-gray-200">
         <% @order.order_items.each do |item| %>
           <div class="p-6 flex items-center space-x-4">
-            <% if item.product&.image&.attached? %>
-              <%= image_tag vite_asset_path(item.product.image), class: "h-16 w-16 object-cover rounded-lg", alt: item.product_name %>
+            <% if item.product_variant&.image&.attached? %>
+              <%= image_tag vite_asset_path(item.product_variant.image), class: "h-16 w-16 object-cover rounded-lg", alt: item.product_variant.display_name %>
             <% else %>
               <div class="h-16 w-16 bg-gray-200 rounded-lg flex items-center justify-center">
                 <span class="text-gray-400 text-xs">No image</span>
@@ -62,8 +62,8 @@
             <% end %>
 
             <div class="flex-1">
-              <h3 class="text-lg font-medium text-gray-900"><%= item.product_display_name %></h3>
-              <p class="text-sm text-gray-500">SKU: <%= item.product_sku %></p>
+              <h3 class="text-lg font-medium text-gray-900"><%= item.product_variant.display_name %></h3>
+              <p class="text-sm text-gray-500">SKU: <%= item.product_variant.sku %></p>
               <p class="text-sm text-gray-500">Quantity: <%= item.quantity %></p>
             </div>
 
