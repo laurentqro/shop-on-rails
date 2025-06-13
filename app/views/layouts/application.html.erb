@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="h-full bg-base-100 text-base-content" data-theme="light">
   <head>
-    <title><%= content_for(:title) || "Afida Shop" %></title>
+    <title><%= content_for(:title) %></title>
+    <meta name="description" content="<%= content_for(:meta_description) %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -29,8 +30,8 @@
 
     <%= render "shared/navbar" %>
 
-
     <main class="container mx-auto p-5 flex-grow">
+      <%= yield :breadcrumbs %>
       <%= yield %>
     </main>
 

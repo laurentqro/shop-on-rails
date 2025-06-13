@@ -1,0 +1,23 @@
+<% content_for :breadcrumbs do %>
+  <%= render "shared/breadcrumbs", category: @category %>
+<% end %>
+
+<% content_for :title do %>
+<%= @category.meta_title %> | Afida
+<% end %>
+
+<% content_for :meta_description do %>
+<%= @category.meta_description %>
+<% end %>
+
+<h1 class="text-4xl py-4 mb-2"><%= @category.name %></h1>
+
+<% if @category.description.present? %>
+  <div class="prose prose-sm mb-6">
+    <%= @category.description %>
+  </div>
+<% end %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <%= render @products %>
+</div>

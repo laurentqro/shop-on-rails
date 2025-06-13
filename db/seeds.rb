@@ -8,16 +8,95 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+require 'csv'
+
+puts "Loading categories metadata from CSV..."
+categories_metadata = {}
+CSV.foreach(Rails.root.join('lib', 'data', 'categories.csv'), headers: true) do |row|
+  data = row.to_h
+  slug = data['slug']&.strip
+  if slug
+    categories_metadata[slug] = {
+      name: data['name']&.strip&.gsub(/\s+/, ' '),
+      meta_title: data['meta_title']&.strip,
+      meta_description: data['meta_description']&.strip&.gsub(/\s+/, ' ')
+    }
+  end
+end
+puts "Categories metadata loaded."
+
 # Create categories
-straws_category = Category.find_or_create_by!(name: "Straws")
-napkins_category = Category.find_or_create_by!(name: "Napkins")
-hot_cups_category = Category.find_or_create_by!(name: "Hot Cups")
-hot_cups_extras_category = Category.find_or_create_by!(name: "Hot Cups Extras")
-cold_cups_category = Category.find_or_create_by!(name: "Cold Cups & Lids")
-pizza_boxes_category = Category.find_or_create_by!(name: "Pizza Boxes")
-kraft_food_containers_category = Category.find_or_create_by!(name: "Kraft Food Containers")
-takeaway_extras_category = Category.find_or_create_by!(name: "Takeaway Extras")
-ice_cream_cups_category = Category.find_or_create_by!(name: "Ice Cream Cups")
+straws_category = Category.find_or_create_by!(
+  name: "Straws",
+  slug: "straws",
+  description: categories_metadata.dig('straws', :meta_description) || "Straws for all your drinks.",
+  meta_title: categories_metadata.dig('straws', :meta_title) || "Straws",
+  meta_description: categories_metadata.dig('straws', :meta_description) || "Straws for all your drinks."
+)
+
+napkins_category = Category.find_or_create_by!(
+  name: "Napkins",
+  slug: "napkins",
+  description: categories_metadata.dig('napkins', :meta_description) || "Napkins for all your drinks.",
+  meta_title: categories_metadata.dig('napkins', :meta_title) || "Napkins",
+  meta_description: categories_metadata.dig('napkins', :meta_description) || "Napkins for all your drinks."
+)
+
+hot_cups_category = Category.find_or_create_by!(
+  name: "Hot Cups",
+  slug: "hot-cups",
+  description: categories_metadata.dig('hot-cups', :meta_description) || "Hot cups for all your drinks.",
+  meta_title: categories_metadata.dig('hot-cups', :meta_title) || "Hot Cups",
+  meta_description: categories_metadata.dig('hot-cups', :meta_description) || "Hot cups for all your drinks."
+)
+
+hot_cups_extras_category = Category.find_or_create_by!(
+  name: "Hot Cups Extras",
+  slug: "hot-cups-extras",
+  description: categories_metadata.dig('hot-cup-extras', :meta_description) || "Hot cups extras for all your drinks.",
+  meta_title: categories_metadata.dig('hot-cup-extras', :meta_title) || "Hot Cups Extras",
+  meta_description: categories_metadata.dig('hot-cup-extras', :meta_description) || "Hot cups extras for all your drinks."
+)
+
+cold_cups_category = Category.find_or_create_by!(
+  name: "Cold Cups & Lids",
+  slug: "cold-cups-and-lids",
+  description: categories_metadata.dig('cold-cups-lids', :meta_description) || "Cold cups and lids for all your drinks.",
+  meta_title: categories_metadata.dig('cold-cups-lids', :meta_title) || "Cold Cups & Lids",
+  meta_description: categories_metadata.dig('cold-cups-lids', :meta_description) || "Cold cups and lids for all your drinks."
+)
+
+pizza_boxes_category = Category.find_or_create_by!(
+  name: "Pizza Boxes",
+  slug: "pizza-boxes",
+  description: categories_metadata.dig('pizza-boxes', :meta_description) || "Pizza boxes for all your drinks.",
+  meta_title: categories_metadata.dig('pizza-boxes', :meta_title) || "Pizza Boxes",
+  meta_description: categories_metadata.dig('pizza-boxes', :meta_description) || "Pizza boxes for all your drinks."
+)
+
+kraft_food_containers_category = Category.find_or_create_by!(
+  name: "Kraft Food Containers",
+  slug: "kraft-food-containers",
+  description: categories_metadata.dig('takeaway-containers', :meta_description) || "Kraft food containers for all your drinks.",
+  meta_title: categories_metadata.dig('takeaway-containers', :meta_title) || "Kraft Food Containers",
+  meta_description: categories_metadata.dig('takeaway-containers', :meta_description) || "Kraft food containers for all your drinks."
+)
+
+ice_cream_cups_category = Category.find_or_create_by!(
+  name: "Ice Cream Cups",
+  slug: "ice-cream-cups",
+  description: categories_metadata.dig('ice-cream-cups', :meta_description) || "Ice cream cups for all your drinks.",
+  meta_title: categories_metadata.dig('ice-cream-cups', :meta_title) || "Ice Cream Cups",
+  meta_description: categories_metadata.dig('ice-cream-cups', :meta_description) || "Ice cream cups for all your drinks."
+)
+
+takeaway_extras_category = Category.find_or_create_by!(
+  name: "Takeaway Extras",
+  slug: "takeaway-extras",
+  description: categories_metadata.dig('takeaway-extras', :meta_description) || "Takeaway extras for all your drinks.",
+  meta_title: categories_metadata.dig('takeaway-extras', :meta_title) || "Takeaway Extras",
+  meta_description: categories_metadata.dig('takeaway-extras', :meta_description) || "Takeaway extras for all your drinks."
+)
 
 # Helper method to seed products from YAML files
 def seed_products_from_yaml(file_path, category)
