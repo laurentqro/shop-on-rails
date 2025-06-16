@@ -13,9 +13,13 @@
           <span class="text-lg font-medium"><%= pluralize(Current.cart&.items_count, "Item") %></span>
           <span class="text-lg text-secondary"><%= number_to_currency(Current.cart&.subtotal_amount) %> <span class="text-sm text-gray-500">(ex. VAT)</span></span>
 
-        <div class="card-actions p-2">
-          <%= link_to "View basket", cart_path, class: "btn btn-primary btn-block", data: { turbo: false } %>
+        <div class="card-actions mt-4">
+          <div class="w-full flex flex-col gap-2">
+            <%= link_to "View basket", cart_path, class: "btn btn-primary btn-block", data: { turbo: false } %>
+            <%= button_to "Checkout", checkout_path, class: "btn btn-secondary btn-block", data: { turbo: false } %>
+          </div>
         </div>
+
       </div>
     </div>
   </div> 
