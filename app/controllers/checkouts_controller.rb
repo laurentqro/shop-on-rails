@@ -19,7 +19,7 @@ class CheckoutsController < ApplicationController
     end
 
     begin
-      session = Stripe::Checkout::Session.create({
+      session_params = {
         payment_method_types: [ "card" ],
         line_items: line_items,
         mode: "payment",
@@ -58,7 +58,14 @@ class CheckoutsController < ApplicationController
         ],
         success_url: success_checkout_url + "?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: cancel_checkout_url
-      })
+      }
+
+      if Current.user
+        session_params[:customer_email] = Current.user.email
+        session_params[:client_reference_id] = Current.user.id
+      end
+
+      session = Stripe::Checkout::Session.create(session_params)
 
       redirect_to session.url, allow_other_host: true, status: :see_other
     rescue Stripe::StripeError => e
@@ -157,7 +164,7 @@ class CheckoutsController < ApplicationController
 
     # Create the order
     order = Order.create!(
-      user: Current.user,
+      user: User.find_by(id: stripe_session.client_reference_id),
       email: customer_details.email,
       stripe_session_id: stripe_session.id,
       status: "paid",
