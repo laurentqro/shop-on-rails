@@ -12,15 +12,24 @@
   <% end %>
 
   <fieldset class="fieldset mt-8">
-    <legend class="fieldset-legend text-2xl font-medium">Product Details</legend>
+    <legend class="fieldset-legend text-2xl font-medium">Status</legend>
 
-    <div class="grid grid-cols-2 gap-y-4 mt-4">
+    <div class="grid grid-cols-2 gap-y-4 py-4">
       <%= form.label :active, class: "label text-base" %>
       <%= form.check_box :active, class: "toggle toggle-primary toggle-lg" %>
 
       <%= form.label :featured, class: "label text-base" %>
       <%= form.check_box :featured, class: "toggle toggle-primary toggle-lg" %>
 
+      <%= form.label :sample_eligible, class: "label text-base" %>
+      <%= form.check_box :sample_eligible, class: "toggle toggle-primary toggle-lg" %>
+    </div>
+
+    <div class="divider my-8"></div>
+
+    <legend class="fieldset-legend text-2xl font-medium">Details</legend>
+
+    <div class="grid grid-cols-2 gap-y-4 py-4">
       <%= form.label :name, "Name (required)", class: "label text-base" %>
       <%= form.text_field :name, class: "input", required: true %>
 
@@ -38,10 +47,12 @@
     </div>
   </fieldset>
 
-  <fieldset class="fieldset my-8">
-    <legend class="fieldset-legend text-2xl font-medium">SEO & Meta Information</legend>
+  <div class="divider my-8"></div>
 
-    <div class="grid grid-cols-2 gap-y-4 mt-4">
+  <fieldset class="fieldset my-8">
+    <legend class="fieldset-legend text-2xl font-medium">SEO Stuff</legend>
+
+    <div class="grid grid-cols-2 gap-y-4 py-4">
       <%= form.label :slug, class: "label text-base" %>
       <%= form.text_field :slug, class: "input" %>
 
@@ -56,8 +67,10 @@
     </div>
   </fieldset>
 
+  <div class="divider my-8"></div>
+
   <fieldset class="fieldset my-8">
-    <legend class="fieldset-legend text-xl font-medium">Variants</legend>
+    <legend class="fieldset-legend text-2xl font-medium">Variants</legend>
 
     <%= turbo_frame_tag "variants" do %>
       <%= form.fields_for :variants do |variant_form| %>
@@ -65,7 +78,9 @@
       <% end %>
     <% end %>
 
-    <%= link_to "Add Another Variant", new_variant_admin_product_path(form.object), class: "btn btn-secondary mt-4", data: { turbo_stream: true } %>
+    <% unless form.object.new_record? %>
+      <%= link_to "Add Another Variant", new_variant_admin_product_path(form.object), class: "btn btn-secondary mt-4", data: { turbo_stream: true } %>
+    <% end %>
   </fieldset>
 
   <div class="inline mt-8 flex justify-end">

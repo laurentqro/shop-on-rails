@@ -62,6 +62,7 @@ module Admin
       params.expect(product: [
         :active,
         :featured,
+        :sample_eligible,
         :name,
         :description,
         :pac_size,

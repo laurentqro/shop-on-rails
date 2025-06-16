@@ -6,10 +6,12 @@
   <table class="table table-zebra w-full">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Variants</th>
-        <th>Featured</th>
-        <th>Actions</th>
+        <th class="font-semibold">Name</th>
+        <th class="font-semibold">Variants</th>
+        <th class="font-semibold">Active</th>
+        <th class="font-semibold">Featured</th>
+        <th class="font-semibold">Sample</th>
+        <th class="font-semibold">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +27,9 @@
               <% end %>
             </ul>
           </td>
+          <td class="text-center"><%= product.active ? "✅" : "❌" %></td>
           <td class="text-center"><%= product.featured ? "✅" : "❌" %></td>
+          <td class="text-center"><%= product.sample_eligible ? "✅" : "❌" %></td>
           <td class="flex gap-2">
             <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-sm btn-primary" %>
             <%= button_to "Delete", admin_product_path(product), method: :delete, class: "btn btn-sm btn-error", form: { data: { turbo_confirm: "Are you sure?" } } %>
