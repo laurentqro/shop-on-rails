@@ -15,7 +15,7 @@
       <tbody>
         <% @orders.each do |order| %>
           <tr>
-            <td><%= order.id %></td>
+            <td><%= link_to order.display_number, admin_order_path(order) %></td>
             <td><%= order.email %></td>
             <td><%= number_to_currency(order.total_amount) %></td>
             <td><%= order.status %></td>
