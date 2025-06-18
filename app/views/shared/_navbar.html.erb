@@ -1,7 +1,7 @@
-<div class="navbar bg-base-100 shadow-sm px-4 md:px-6 lg:px-24">
+<div class="navbar bg-base-100 py-12 md:px-6 lg:px-24 shadow-sm">
   <div class="navbar-start">
-    <div class="dropdown lg:hidden">
-      <div tabindex="0" role="button" class="btn btn-ghost">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
       <ul
@@ -12,29 +12,40 @@
         <li class="text-lg font-medium"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
       </ul>
     </div>
-    <ul class="menu menu-horizontal px-1 hidden lg:flex">
+    <%= link_to root_path, class: "btn btn-ghost text-xl" do %>
+      <%= render "shared/logo" %>
+    <% end %>
+  </div>
+
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
       <li class="text-lg font-medium"><%= link_to "Shop", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-medium"><%= link_to "Branding", branding_path, class: current_page?(branding_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-medium"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
     </ul>
   </div>
 
-  <div class="navbar-center">
-    <%= link_to root_path do %>
-      <%= render "shared/logo" %>
-    <% end %>
-  </div>
-
   <div class="navbar-end">
+    <div class="join mr-4 hidden lg:inline-flex">
+      <div>
+        <div>
+          <input class="input join-item" placeholder="Search" />
+        </div>
+      </div>
+      <div class="indicator">
+        <button class="btn join-item">Search</button>
+      </div>
+    </div>
+
     <%= render "shared/basket_counter" %>
 
-    <div class="p-6 dropdown dropdown-center dropdown-hover">
+    <div class="dropdown dropdown-center dropdown-hover ml-4 pb-6 mt-6">
       <% if authenticated? %>
-          <div tabindex="0" role="button" class="hover:cursor-pointer avatar avatar-placeholder">
-            <div class="bg-neutral text-neutral-content w-10 rounded-full">
-              <span class="text-xl"><%= Current.user.initials %></span>
-            </div>
+        <div tabindex="0" role="button" class="hover:cursor-pointer avatar avatar-placeholder">
+          <div class="bg-neutral text-neutral-content w-10 rounded-full">
+            <span class="text-xl"><%= Current.user.initials %></span>
           </div>
+        </div>
         <ul
           tabindex="0"
           class="menu dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-48 p-2 shadow">

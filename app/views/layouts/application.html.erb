@@ -25,10 +25,7 @@
     <%= tag.div notice, class: "alert alert-info", data: { turbo_temporary: true } if notice %>
     <%= tag.div alert, class: "alert alert-error", data: { turbo_temporary: true } if alert %>
 
-    <div class="bg-afida-green text-neutral text-xs flex justify-center py-2 font-mono font-bold uppercase">
-      Free delivery on all mainland UK orders over £100 excl. VAT
-    </div>
-
+    <%= render "shared/banner" %>
     <%= render "shared/navbar" %>
 
     <main class="container mx-auto p-5 flex-grow">
