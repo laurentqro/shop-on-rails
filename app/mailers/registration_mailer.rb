@@ -9,4 +9,13 @@ class RegistrationMailer < ApplicationMailer
       subject: "Verify your email address"
     )
   end
+
+  def welcome(user)
+    @user = user
+
+    mail(
+      to: user.email_address,
+      subject: "Welcome to Afida!"
+    )
+  end
 end

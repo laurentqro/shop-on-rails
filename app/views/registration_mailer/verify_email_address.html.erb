@@ -3,7 +3,9 @@
 </p>
 
 <p>
-  <%= link_to "Verify your email address", email_address_verification_url(@user.email_address_verification_token) %>
+  <a href="<%= email_address_verification_url(@user.email_address_verification_token) %>" target="_blank" style="display: inline-block; background-color: #76e9bf; color: #000000; padding: 12px 30px; margin-top: 10px; margin-bottom: 10px; border-radius: 8px; text-decoration: none; font-weight: 500;">
+    Verify your email address
+  </a>
 </p>
 
 <p>

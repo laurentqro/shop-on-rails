@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       start_new_session_for @user
-      RegistrationMailer.verify_email_address(@user).deliver_now
+      RegistrationMailer.verify_email_address(@user).deliver_later
 
       redirect_to root_path, notice: "Please check your email for verification instructions."
     else
