@@ -1,67 +1,79 @@
-<div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
   <div class="rounded-lg shadow-sm">
     <figure>
-      <%= vite_image_tag "images/pizza-boxes.png", alt: "Pizza Boxes", class: "w-full rounded-t-lg" %>
+      <%= link_to category_path("pizza-boxes") do %>
+        <%= vite_image_tag "images/pizza-boxes.png", alt: "Pizza Boxes", class: "w-full rounded-t-lg" %>
+      <% end %>
     </figure>
     <div class="p-4 text-center">
-      <h2 class="text-xl mb-2">
+      <%= link_to category_path("pizza-boxes"), class: "text-xl font-medium mb-2" do %>
         Pizza Boxes
-      </h2>
+      <% end %>
     </div>
   </div>
 
   <div class="rounded-lg shadow-sm">
     <figure>
-      <%= vite_image_tag "images/cold-cups.png", alt: "Cold Cups", class: "w-full rounded-t-lg" %>
+      <%= link_to category_path("cold-cups-and-lids") do %>
+        <%= vite_image_tag "images/cold-cups.png", alt: "Cold Cups", class: "w-full rounded-t-lg" %>
+      <% end %>
     </figure>
     <div class="p-4 text-center">
-      <h2 class="text-xl mb-2">
+      <%= link_to category_path("cold-cups-and-lids"), class: "text-xl font-medium mb-2" do %>
         Cold Cups & Lids
-      </h2>
+      <% end %>
     </div>
   </div>
 
   <div class="rounded-lg shadow-sm">
     <figure>
-      <%= vite_image_tag "images/ice-cream-cups.png", alt: "Ice Cream Cups", class: "w-full rounded-t-lg" %>
+      <%= link_to category_path("ice-cream-cups") do %>
+        <%= vite_image_tag "images/ice-cream-cups.png", alt: "Ice Cream Cups", class: "w-full rounded-t-lg" %>
+      <% end %>
     </figure>
     <div class="p-4 text-center">
-      <h2 class="text-xl mb-2">
+      <%= link_to category_path("ice-cream-cups"), class: "text-xl font-medium mb-2" do %>
         Ice Cream Cups
-      </h2>
+      <% end %>
     </div>
   </div>
 
   <div class="rounded-lg shadow-sm">
     <figure>
-      <%= vite_image_tag "images/napkins.png", alt: "Napkins", class: "w-full rounded-t-lg" %>
+      <%= link_to category_path("napkins") do %>
+        <%= vite_image_tag "images/napkins.png", alt: "Napkins", class: "w-full rounded-t-lg" %>
+      <% end %>
     </figure>
     <div class="p-4 text-center">
-      <h2 class="text-xl mb-2">
+      <%= link_to category_path("napkins"), class: "text-xl font-medium mb-2" do %>
         Napkins
-      </h2>
+      <% end %>
     </div>
   </div>
 
   <div class="rounded-lg shadow-sm">
     <figure>
-      <%= vite_image_tag "images/hot-cups.png", alt: "Hot Cups", class: "w-full rounded-t-lg" %>
+      <%= link_to category_path("hot-cups-and-lids") do %>
+        <%= vite_image_tag "images/hot-cups.png", alt: "Hot Cups", class: "w-full rounded-t-lg" %>
+      <% end %>
     </figure>
     <div class="p-4 text-center">
-      <h2 class="text-xl mb-2">
+      <%= link_to category_path("hot-cups-and-lids"), class: "text-xl font-medium mb-2" do %>
         Hot Cups & Lids
-      </h2>
+      <% end %>
     </div>
   </div>
 
   <div class="rounded-lg shadow-sm">
     <figure>
-      <%= vite_image_tag "images/straws.png", alt: "Straws", class: "w-full rounded-t-lg" %>
+      <%= link_to category_path("straws") do %>
+        <%= vite_image_tag "images/straws.png", alt: "Straws", class: "w-full rounded-t-lg" %>
+      <% end %>
     </figure>
     <div class="p-4 text-center">
-      <h2 class="text-xl mb-2">
+      <%= link_to category_path("straws"), class: "text-xl font-medium mb-2" do %>
         Straws
-      </h2>
+      <% end %>
     </div>
   </div>
 </div>
