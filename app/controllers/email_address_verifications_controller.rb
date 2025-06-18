@@ -2,7 +2,7 @@ class EmailAddressVerificationsController < ApplicationController
   def show
     @user = User.find_by_email_address_verification_token!(params[:token])
     @user.verify_email_address!
-    RegistrationMailer.welcome_email(@user).deliver_later
+    RegistrationMailer.welcome(@user).deliver_later
 
     rescue ActiveSupport::MessageVerifier::InvalidSignature
       redirect_to root_path, notice: "Email confirmation link is invalid or has expired.", status: :unprocessable_entity
