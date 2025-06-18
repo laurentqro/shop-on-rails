@@ -20,13 +20,14 @@ class ProductVariant < ApplicationRecord
 
   def full_name
     parts = [ product.name ]
-    parts << "(#{product.colour})" if product.colour.present?
-    parts << "- #{name}" unless name == "Standard" || product.product_variants.count == 1
+    parts << "- #{name}" unless name == "Standard" || product.active_variants.count == 1
     parts.join(" ")
   end
 
   def in_stock?
-    stock_quantity > 0
+    true
+    # TODO: Uncomment this when we have stock tracking
+    # stock_quantity > 0
   end
 
   def variant_attributes

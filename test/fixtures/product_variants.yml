@@ -12,7 +12,7 @@ one:
   weight_in_g: 1
   volume_in_ml: 1
   diameter_in_mm: 1
-  pack_size: 1
+  pac_size: 1
   active: false
   sort_order: 1
 
@@ -28,6 +28,6 @@ two:
   weight_in_g: 1
   volume_in_ml: 1
   diameter_in_mm: 1
-  pack_size: 1
+  pac_size: 1
   active: false
   sort_order: 1

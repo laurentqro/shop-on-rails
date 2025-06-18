@@ -7,9 +7,9 @@ class GoogleMerchantFeedGenerator
     builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
       xml.rss(version: "2.0", "xmlns:g" => "http://base.google.com/ns/1.0") do
         xml.channel do
-          xml.title "Product Feed"
-          xml.link Rails.application.routes.url_helpers.root_url
-          xml.description "Product feed for Google Merchant Center"
+          xml.title "Afida Product Feed"
+          xml.description "Afida Product Feed for Google Merchant Center"
+          xml.link Rails.application.routes.url_helpers.shop_url
 
           @products.each do |product|
             generate_product_variants(xml, product)
@@ -34,12 +34,13 @@ class GoogleMerchantFeedGenerator
         xml["g"].image_link variant_image_url(variant, product)
         xml["g"].availability variant.in_stock? ? "in_stock" : "out_of_stock"
         xml["g"].price "#{variant.price} GBP"
+        xml["g"].unit_pricing_measure "#{variant.pac_size}ct"
 
         # Category
         xml["g"].product_type product.category.name if product.category
 
         # Brand (you might want to add this to your product model)
-        xml["g"].brand "Your Brand Name"
+        xml["g"].brand "Afida"
 
         # Product identifiers
         xml["g"].gtin variant.gtin if variant.respond_to?(:gtin) && variant.gtin.present?
@@ -57,13 +58,16 @@ class GoogleMerchantFeedGenerator
             xml["g"].size "#{variant.volume_in_ml}ml"
           elsif variant.name.match(/(\d+["']|\d+\s*inch)/i)
             xml["g"].size variant.name
-          elsif variant.pack_size.present?
-            xml["g"].size "Pack of #{variant.pack_size}"
+          elsif variant.pac_size.present?
+            xml["g"].size "Pack of #{variant.pac_size}"
           end
         end
 
         # Color stays with product, not variant
         xml["g"].color product.colour if product.colour.present?
+
+        # Material
+        xml["g"].material product.material if product.material.present?
 
         # Shipping (you'll need to configure this)
         xml["g"].shipping do

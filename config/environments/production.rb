@@ -59,7 +59,11 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: Rails.application.credentials.dig(:application, :domain) }
+  config.action_mailer.default_url_options = {
+    host: Rails.application.credentials.dig(:application, :domain),
+    protocol: "https"
+  }
+
   config.action_mailer.asset_host = "https://#{config.action_mailer.default_url_options[:host]}"
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
@@ -98,3 +102,8 @@ Rails.application.configure do
     api_host: "api.eu.mailgun.net"
   }
 end
+
+Rails.application.routes.default_url_options = {
+  host: Rails.application.credentials.dig(:application, :domain),
+  protocol: "https"
+}
