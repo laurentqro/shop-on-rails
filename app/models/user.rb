@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  include EmailAddressVerification
+  has_email_address_verification
+
   has_secure_password
 
   has_many :sessions, dependent: :destroy
@@ -6,6 +9,8 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  validates :email_address, presence: true, uniqueness: true
 
   def admin?
     role == "admin"
@@ -17,5 +22,13 @@ class User < ApplicationRecord
     else
       email_address.split("@").first.split(".").map(&:first).join.upcase
     end
+  end
+
+  def verify_email_address!
+    update!(email_address_verified: true)
+  end
+
+  def email_address_verification_token_expired?
+    email_address_verification_token_expires_at < Time.current
   end
 end

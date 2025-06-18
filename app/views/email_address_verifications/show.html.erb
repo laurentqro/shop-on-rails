@@ -1,0 +1,32 @@
+<% if @user.email_address_verified? %>
+
+  <div class="flex flex-col items-center justify-center gap-4 max-w-xl mx-auto">
+    <p class="text-2xl text-center">
+      Your email address has been verified successfully.
+    </p>
+
+    <p class="text-2xl text-center">
+      Welcome to Afida!
+    </p>
+
+    <div class="mt-4 text-center w-full">
+      <%= link_to "Start shopping", shop_path, class: "btn btn-primary btn-lg w-full" %>
+    </div>
+
+    <div class="text-center w-full">
+      <%= link_to "View past orders", orders_path, class: "btn btn-primary btn-lg w-full" %>
+    </div>
+
+    <div class="divider">or</div>
+
+    <div class="text-center w-full">
+      <%= link_to "Checkout", checkout_path, class: "btn btn-secondary btn-lg w-full" %>
+    </div>
+  </div>
+<% else %>
+  <p>
+    Your email address has not been verified. Please check your email for a verification link.
+  </p>
+
+  <%= button_to "Resend verification email", email_address_verification_path, method: :post %>
+<% end %>

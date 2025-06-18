@@ -1,0 +1,15 @@
+<p>
+  Please verify your email address by clicking the link below:
+</p>
+
+<p>
+  <%= link_to "Verify your email address", email_address_verification_url(@user.email_address_verification_token) %>
+</p>
+
+<p>
+  If you did not request this verification, please ignore this email.
+</p>
+
+<p>
+  The Afida Team
+</p>

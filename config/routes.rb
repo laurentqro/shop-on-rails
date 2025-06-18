@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resource :registration, only: [ :new, :create ], path: "signup", path_names: { new: "" }
 
+  resources :email_address_verifications, only: [ :show, :create ], param: :token
+
   resource :cart, only: [ :show, :destroy ] do
     resources :cart_items, only: [ :create, :update, :destroy ], path_names: { edit: "" }
   end

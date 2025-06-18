@@ -13,7 +13,9 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       start_new_session_for @user
-      redirect_to root_path, notice: "Successfully signed up!"
+      RegistrationMailer.verify_email_address(@user).deliver_now
+
+      redirect_to root_path, notice: "Please check your email for verification instructions."
     else
       render :new, status: :unprocessable_entity
     end
