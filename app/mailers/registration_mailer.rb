@@ -1,4 +1,6 @@
 class RegistrationMailer < ApplicationMailer
+  default bcc: "hello@afida.com"
+
   def verify_email_address(user)
     @user = user
 
