@@ -1,5 +1,4 @@
 class EmailAddressVerificationsController < ApplicationController
-
   def show
     @user = User.find_by_email_address_verification_token!(params[:token])
     @user.verify_email_address!
