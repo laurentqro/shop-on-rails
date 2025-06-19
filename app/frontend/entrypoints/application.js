@@ -25,6 +25,9 @@ const application = Application.start()
 import CartDrawerController from "../javascript/controllers/cart_drawer_controller"
 application.register("cart-drawer", CartDrawerController)
 
+import CarouselController from "../javascript/controllers/carousel_controller"
+application.register("carousel", CarouselController)
+
 // Configure Stimulus development experience
 application.debug = false
 window.Stimulus = application

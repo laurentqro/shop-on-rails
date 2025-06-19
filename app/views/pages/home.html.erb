@@ -1,24 +1,51 @@
-<div class="hero rounded shadow-md min-h-96 bg-cover bg-center mb-16" style="background-image: url(<%= vite_asset_path("images/hero.png") %>);">
-  <div class="hero-content">
-    <div>
-      <h1 class="mb-5 text-4xl sm:text-6xl text-neutral w-2/3">Eco-Friendly Catering Supplies</h1>
-      <p class="mb-5 w-1/2 text-lg sm:text-2xl">Sustainable products for cafes, restaurants, and events</p>
-      <div class="flex items-center gap-4">
-        <%= link_to "Shop Now", shop_path, class: "btn btn-xl btn-primary rounded-full text-lg" %>
-        <div class="flex items-center gap-2">
-          <img src="https://consumer.trustpilot.com/images/trustpilot-logo.svg" alt="Trustpilot" class="h-6">
-          <div class="rating rating-sm">
-            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
-            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
-            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
-            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
-            <input type="radio" name="rating-1" class="mask mask-star-2 bg-orange-400" checked />
+<div data-controller="carousel" class="swiper-container relative group mb-16 shadow-md rounded-lg overflow-hidden">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <div class="hero min-h-96 bg-cover bg-center" style="background-image: url(<%= vite_asset_path('images/hero.png') %>);">
+        <div class="hero-overlay bg-opacity-30"></div>
+        <div class="hero-content text-center text-neutral-content">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-bold text-white">Eco-Friendly Catering Supplies</h1>
+            <p class="mb-5 text-white">Sustainable products for cafes, restaurants, and events</p>
+            <%= link_to "Shop Now", shop_path, class: "btn btn-xl btn-primary" %>
           </div>
-          <span class="text-neutral font-semibold">4.8/5</span>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <div class="hero min-h-96 bg-cover bg-center" style="background-image: url(<%= vite_asset_path('images/ice-cream-cups.png') %>);">
+        <div class="hero-overlay bg-opacity-30"></div>
+        <div class="hero-content text-center text-neutral-content">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-bold text-white">Deliciously Sustainable</h1>
+            <p class="mb-5 text-white">Serve up smiles with our eco-friendly dessert cups.</p>
+            <% if Category.find_by(name: "Ice Cream Cups") %>
+              <%= link_to "Shop Ice Cream Cups", category_path(Category.find_by(name: "Ice Cream Cups")), class: "btn btn-xl btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <div class="hero min-h-96 bg-cover bg-center" style="background-image: url(<%= vite_asset_path('images/pizza-boxes.png') %>);">
+        <div class="hero-overlay bg-opacity-30"></div>
+        <div class="hero-content text-center text-neutral-content">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-bold text-white">Better Pizza Boxes</h1>
+            <p class="mb-5 text-white">Deliver your pizzas in our sturdy, sustainable boxes.</p>
+            <% if Category.find_by(name: "Pizza Boxes") %>
+              <%= link_to "Shop Pizza Boxes", category_path(Category.find_by(name: "Pizza Boxes")), class: "btn btn-xl btn-primary" %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="swiper-pagination"></div>
+
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">

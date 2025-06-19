@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
 @source "../../../app/views/**/*.html.erb";
 @source "../../../app/views/**/*.rb";
 @source "../../../app/helpers/**/*.rb";

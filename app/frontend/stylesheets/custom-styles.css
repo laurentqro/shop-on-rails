@@ -26,3 +26,7 @@ h3, h4, h5, h6 {
 .bg-afida-green {
   background-color: #79eac0;
 }
+
+.swiper-container {
+  --swiper-theme-color: #79eac0;
+}
