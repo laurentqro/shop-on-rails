@@ -19,12 +19,12 @@ class ApplicationController < ActionController::Base
         # If the cart_id in session belongs to a user, or doesn't exist, or was claimed, clear the session and create a new guest cart
         session.delete(:cart_id)
         Current.cart = Cart.create
-        session[:cart_id] = Current.cart.id if Current.cart.persisted?
+        session[:cart_id] = Current.cart.id if Current.cart&.persisted?
       end
     else
       # If the user is not logged in, and there is no cart_id in session, create a new guest cart
       Current.cart = Cart.create
-      session[:cart_id] = Current.cart.id if Current.cart.persisted?
+      session[:cart_id] = Current.cart.id if Current.cart&.persisted?
     end
   end
 end
