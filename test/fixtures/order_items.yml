@@ -2,7 +2,7 @@
 
 one:
   order: one
-  product: one
+  product_variant: one
   product_name: MyString
   product_sku: MyString
   price: 9.99
@@ -11,7 +11,7 @@ one:
 
 two:
   order: two
-  product: two
+  product_variant: two
   product_name: MyString
   product_sku: MyString
   price: 9.99
