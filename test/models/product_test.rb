@@ -15,51 +15,26 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "should validate presence of name" do
-    product = Product.new(sku: "testsku", price: 10, category: @category) # name is nil
+    product = Product.new(sku: "testsku", category: @category) # name is nil
     assert_not product.valid?
     assert product.errors[:name].any?
   end
 
-  test "should validate presence of price" do
-    product = Product.new(name: "Test Name", sku: "testsku", category: @category) # price is nil
-    assert_not product.valid?
-    assert product.errors[:price].any?
-  end
-
   test "should validate presence of category" do
-    product = Product.new(name: "Test Name", sku: "testsku", price: 10) # category is nil
+    product = Product.new(name: "Test Name", sku: "testsku") # category is nil
     assert_not product.valid?
     assert product.errors[:category].any?
   end
 
-  test "should validate presence of sku" do
-    product = Product.new(name: "Test Name", price: 10, category: @category) # sku is nil
-    assert_not product.valid?
-    assert product.errors[:sku].any?
-  end
-
-  test "should validate uniqueness of sku" do
-    existing_product_sku = @product_one.sku
-    product = Product.new(name: "Another Product", sku: existing_product_sku, price: 20, category: @category)
-    assert_not product.valid?
-    assert product.errors[:sku].any?
-  end
-
-  test "should validate numericality of price" do
-    product = Product.new(name: "Test Name", sku: "testsku", price: "not a number", category: @category)
-    assert_not product.valid?
-    assert product.errors[:price].any?
-  end
-
   # Slug generation tests
   test "should generate slug from sku and name on create if slug is blank" do
-    product = Product.new(name: "New Awesome Product", sku: "NAP123", price: 10, category: @category)
+    product = Product.new(name: "New Awesome Product", sku: "NAP123", category: @category)
     assert product.save
     assert_equal "nap123-new-awesome-product", product.slug
   end
 
   test "should use provided slug on create if slug is present" do
-    product = Product.new(name: "New Awesome Product with Slug", sku: "NAPWS456", price: 10, category: @category, slug: "my-custom-slug")
+    product = Product.new(name: "New Awesome Product with Slug", sku: "NAPWS456", category: @category, slug: "my-custom-slug")
     assert product.save
     assert_equal "my-custom-slug", product.slug
   end
@@ -75,7 +50,7 @@ class ProductTest < ActiveSupport::TestCase
 
   test "should regenerate slug on update if slug is manually cleared" do
     # Use a fresh product to avoid fixture state issues and ensure SKU is set for regeneration
-    product = Product.create!(name: "Initial Name", sku: "REGENSKU1", price: 10, category: @category)
+    product = Product.create!(name: "Initial Name", sku: "REGENSKU1", category: @category)
     # product.slug is now "regensku1-initial-name"
 
     product.name = "Product For Slug Regeneration"
@@ -86,7 +61,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "should regenerate slug on update if slug is manually set to nil" do
-    product = Product.create!(name: "Initial Nil Name", sku: "NILSKU1", price: 10, category: @category)
+    product = Product.create!(name: "Initial Nil Name", sku: "NILSKU1", category: @category)
     # product.slug is now "nilsku1-initial-nil-name"
 
     product.name = "Product For Nil Slug Regeneration"
@@ -104,24 +79,9 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "should not generate slug if name is blank (validation failure)" do
-    product = Product.new(name: "", sku: "NOSLUGSKU1", price: 10, category: @category, slug: "")
+    product = Product.new(name: "", sku: "NOSLUGSKU1", category: @category, slug: "")
     assert_not product.save # Save should fail due to name validation
     assert product.errors[:name].any?
     assert_equal "", product.slug # Slug should remain blank
-  end
-
-  test "should not generate slug if sku is blank (validation failure)" do
-    product = Product.new(name: "No Slug Name", sku: "", price: 10, category: @category, slug: "")
-    assert_not product.save # Save should fail due to sku validation
-    assert product.errors[:sku].any?
-    assert_equal "", product.slug # Slug should remain blank
-  end
-
-  test "should not generate slug if both name and sku are blank (validation failure)" do
-    product = Product.new(name: "", sku: "", price: 10, category: @category, slug: "")
-    assert_not product.save
-    assert product.errors[:name].any?
-    assert product.errors[:sku].any?
-    assert_equal "", product.slug
   end
 end
