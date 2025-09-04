@@ -2,34 +2,34 @@
 
 one:
   user: one
-  email: MyString
-  stripe_session_id: MyString
-  order_number: MyString
-  status: MyString
+  email: user1@example.com
+  stripe_session_id: stripe_session_1
+  order_number: ORDER-001
+  status: completed
   subtotal_amount: 9.99
-  vat_amount: 9.99
-  shipping_amount: 9.99
-  total_amount: 9.99
-  shipping_name: MyString
-  shipping_address_line1: MyString
-  shipping_address_line2: MyString
-  shipping_city: MyString
-  shipping_postal_code: MyString
-  shipping_country: MyString
+  vat_amount: 1.99
+  shipping_amount: 2.99
+  total_amount: 14.97
+  shipping_name: John Doe
+  shipping_address_line1: 123 Main St
+  shipping_address_line2: Apt 1
+  shipping_city: London
+  shipping_postal_code: SW1A 1AA
+  shipping_country: UK
 
 two:
   user: two
-  email: MyString
-  stripe_session_id: MyString
-  order_number: MyString
-  status: MyString
-  subtotal_amount: 9.99
-  vat_amount: 9.99
-  shipping_amount: 9.99
-  total_amount: 9.99
-  shipping_name: MyString
-  shipping_address_line1: MyString
-  shipping_address_line2: MyString
-  shipping_city: MyString
-  shipping_postal_code: MyString
-  shipping_country: MyString
+  email: user2@example.com
+  stripe_session_id: stripe_session_2
+  order_number: ORDER-002
+  status: pending
+  subtotal_amount: 19.99
+  vat_amount: 3.99
+  shipping_amount: 2.99
+  total_amount: 26.97
+  shipping_name: Jane Smith
+  shipping_address_line1: 456 Oak Ave
+  shipping_address_line2: Suite 2
+  shipping_city: Manchester
+  shipping_postal_code: M1 1AA
+  shipping_country: UK
