@@ -2,12 +2,12 @@
 
 one:
   cart: one
-  product: one
+  product_variant: one
   quantity: 2
   price: 10
 
 two:
   cart: two
-  product: two
+  product_variant: two
   quantity: 3
   price: 30
