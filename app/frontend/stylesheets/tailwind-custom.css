@@ -3,10 +3,53 @@
   /* Extend font family options */
   --font-family-fredoka: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --font-family-rubik: 'RubikMonoOne', ui-sans-serif, system-ui, sans-serif;
-  
+
   /* Override default font families to use Fredoka for content */
   --font-family-sans: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  
+
   /* Add more custom font families as needed */
   /* --font-family-display: 'Geograph', ui-serif, Georgia, serif; */
+
+  /* DaisyUI button color overrides */
+  --color-primary: #79ebc0;
+  --color-primary-content: #000000;
+}
+
+/* Override all DaisyUI button styles */
+.btn {
+  background-color: #79ebc0;
+  color: #000000;
+  border-color: #79ebc0;
+  border-radius: 9999px;
+}
+
+.btn:hover {
+  background-color: #5fd9a8;
+  border-color: #5fd9a8;
+  color: #000000;
+}
+
+.btn-primary {
+  background-color: #79ebc0;
+  color: #000000;
+  border-color: #79ebc0;
+  border-radius: 9999px;
+}
+
+.btn-primary:hover {
+  background-color: #5fd9a8;
+  border-color: #5fd9a8;
+  color: #000000;
+}
+
+/* Preserve ghost button transparency but keep text color */
+.btn-ghost {
+  background-color: transparent;
+  color: inherit;
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background-color: transparent;
+  border-color: transparent;
 } 

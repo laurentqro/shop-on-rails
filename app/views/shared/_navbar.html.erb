@@ -12,7 +12,7 @@
         <li class="text-lg font-medium"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
       </ul>
     </div>
-    <%= link_to root_path, class: "btn btn-ghost text-xl" do %>
+    <%= link_to root_path, class: "btn btn-ghost text-xl group hover:bg-transparent hover:border-transparent hover:shadow-none" do %>
       <%= render "shared/logo" %>
     <% end %>
   </div>
@@ -26,17 +26,6 @@
   </div>
 
   <div class="navbar-end">
-    <div class="join mr-4 hidden lg:inline-flex">
-      <div>
-        <div>
-          <input class="input join-item" placeholder="Search" />
-        </div>
-      </div>
-      <div class="indicator">
-        <button class="btn join-item">Search</button>
-      </div>
-    </div>
-
     <%= render "shared/basket_counter" %>
 
     <div class="dropdown dropdown-center dropdown-hover ml-4 pb-6 mt-6">

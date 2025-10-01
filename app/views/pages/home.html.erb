@@ -1,140 +1,195 @@
-<div data-controller="carousel" class="swiper-container relative group mb-16 shadow-md rounded-lg overflow-hidden">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">
-      <div class="hero min-h-96 bg-cover bg-center" style="background-image: url(<%= vite_asset_path('images/hero.png') %>);">
-        <div class="hero-overlay bg-opacity-30"></div>
-        <div class="hero-content text-center text-neutral-content">
-          <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-bold text-white">Eco-Friendly Catering Supplies</h1>
-            <p class="mb-5 text-white">Sustainable products for cafes, restaurants, and events</p>
-            <%= link_to "Shop Now", shop_path, class: "btn btn-xl btn-primary" %>
-          </div>
-        </div>
-      </div>
+<!-- Hero Section -->
+<div class="hero-split-layout">
+  <div class="hero-content-wrapper">
+    <div class="hero-logo-badge">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#79ebc0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8"/>
+        <path d="M5 8h14"/>
+        <path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0"/>
+        <path d="m12 8 1-6h2"/>
+      </svg>
     </div>
-    <div class="swiper-slide">
-      <div class="hero min-h-96 bg-cover bg-center" style="background-image: url(<%= vite_asset_path('images/ice-cream-cups.png') %>);">
-        <div class="hero-overlay bg-opacity-30"></div>
-        <div class="hero-content text-center text-neutral-content">
-          <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-bold text-white">Deliciously Sustainable</h1>
-            <p class="mb-5 text-white">Serve up smiles with our eco-friendly dessert cups.</p>
-            <% if Category.find_by(name: "Ice Cream Cups") %>
-              <%= link_to "Shop Ice Cream Cups", category_path(Category.find_by(name: "Ice Cream Cups")), class: "btn btn-xl btn-primary" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+    <div class="hero-text-side">
+      <h1 class="hero-heading">
+        Make Your Brand<br>
+        The Total Package
+      </h1>
+      <p class="hero-subheading">
+        Be unforgettable with your own fully customisable packaging. High quality, low minimums and delivered pronto. All in just a couple of clicks.
+      </p>
+      <%= link_to shop_path, class: "hero-button" do %>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-button-arrow">
+          <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Shop products</span>
+      <% end %>
     </div>
-    <div class="swiper-slide">
-      <div class="hero min-h-96 bg-cover bg-center" style="background-image: url(<%= vite_asset_path('images/pizza-boxes.png') %>);">
-        <div class="hero-overlay bg-opacity-30"></div>
-        <div class="hero-content text-center text-neutral-content">
-          <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-bold text-white">Better Pizza Boxes</h1>
-            <p class="mb-5 text-white">Deliver your pizzas in our sturdy, sustainable boxes.</p>
-            <% if Category.find_by(name: "Pizza Boxes") %>
-              <%= link_to "Shop Pizza Boxes", category_path(Category.find_by(name: "Pizza Boxes")), class: "btn btn-xl btn-primary" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+    <div class="hero-image-side">
+      <%= vite_image_tag "images/hero.png", alt: "Branded packaging", class: "hero-product-image" %>
     </div>
-  </div>
-
-  <div class="swiper-pagination"></div>
-
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-  <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
-    <%= link_to "#", class: "block h-full" do %>
-      <%= vite_image_tag "images/pizza-boxes.png", alt: "Best Sellers", class: "w-full h-full object-cover" %>
-      <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
-        <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
-          <h2 class="text-3xl font-bold mb-2">Best Sellers</h2>
-          <p class="text-center text-lg"></p>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
-    <%= link_to "#", class: "block h-full" do %>
-      <%= vite_image_tag "images/ice-cream-cups.png", alt: "Special Offers", class: "w-full h-full object-cover" %>
-      <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
-        <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
-          <h2 class="text-3xl font-bold mb-2">Special Offers</h2>
-          <p class="text-center text-lg"></p>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="relative group overflow-hidden rounded-lg shadow-md cursor-pointer aspect-[4/3]">
-    <%= link_to "#", class: "block h-full" do %>
-      <%= vite_image_tag "images/napkins.png", alt: "New Arrivals", class: "w-full h-full object-cover" %>
-      <div class="absolute inset-x-0 top-0 bg-gradient-to-b from-black/50 to-transparent h-32">
-        <div class="flex flex-col items-center justify-start text-white p-6 pt-8">
-          <h2 class="text-3xl font-bold mb-2">New Arrivals</h2>
-          <p class="text-center text-lg"></p>
-        </div>
-      </div>
-    <% end %>
   </div>
 </div>
 
-<div class="w-screen relative left-[50%] right-[50%] -mx-[50vw] bg-neutral/10 py-12 mb-16">
+<!-- Client Logos Conveyor Belt -->
+<div class="container mx-auto px-4 mb-32">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">Trusted by Leading Brands</h2>
+    <p class="text-xl text-neutral/70">Join businesses across the UK who choose our eco-friendly supplies</p>
+  </div>
+
+  <div class="relative overflow-hidden py-8">
+    <div class="absolute inset-y-0 left-0 w-20 md:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+    <div class="absolute inset-y-0 right-0 w-20 md:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+
+    <div class="flex overflow-hidden">
+      <div class="logo-conveyor flex items-center whitespace-nowrap">
+        <%= vite_image_tag "images/logos/garden-bar-hove.png", alt: "Garden Bar Hove", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/grow+logo.png", alt: "Grow+", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/hurley-house-hotel.svg", alt: "Hurley House Hotel", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/londonbridgehotel.png", alt: "London Bridge Hotel", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/pavilion.svg", alt: "Pavilion", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/sams-riverside.png", alt: "Sam's Riverside", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/toklas.png", alt: "Toklas", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/walled-garden.png", alt: "Walled Garden", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+
+        <!-- Duplicate set for seamless loop -->
+        <%= vite_image_tag "images/logos/garden-bar-hove.png", alt: "Garden Bar Hove", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/grow+logo.png", alt: "Grow+", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/hurley-house-hotel.svg", alt: "Hurley House Hotel", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/londonbridgehotel.png", alt: "London Bridge Hotel", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/pavilion.svg", alt: "Pavilion", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/sams-riverside.png", alt: "Sam's Riverside", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/toklas.png", alt: "Toklas", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+        <%= vite_image_tag "images/logos/walled-garden.png", alt: "Walled Garden", class: "mx-8 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section - Alternating Layout -->
+<div class="container mx-auto px-4 mb-32">
+  <!-- Feature 1 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+    <div class="order-2 lg:order-1">
+      <%= vite_image_tag "images/pizza-boxes.png", alt: "Pizza Boxes", class: "w-full rounded-lg shadow-lg" %>
+    </div>
+    <div class="order-1 lg:order-2 space-y-6">
+      <h2 class="text-4xl md:text-5xl font-bold leading-tight">Packaging That Tells Your Story</h2>
+      <p class="text-lg text-neutral/80">
+        From pizza boxes to ice cream cups, every product is an opportunity to showcase your brand.
+        Our eco-friendly supplies help you deliver quality while making a lasting impression.
+      </p>
+      <% if Category.find_by(name: "Pizza Boxes") %>
+        <%= link_to "Shop Pizza Boxes", category_path(Category.find_by(name: "Pizza Boxes")), class: "btn btn-primary btn-lg" %>
+      <% else %>
+        <%= link_to "Explore Products", shop_path, class: "btn btn-primary btn-lg" %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Feature 2 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+    <div class="space-y-6">
+      <h2 class="text-4xl md:text-5xl font-bold leading-tight">Sustainable Doesn't Mean Compromise</h2>
+      <p class="text-lg text-neutral/80">
+        Experience premium quality with our carefully curated selection of eco-friendly catering supplies.
+        Built to perform, designed to impress, made to protect our planet.
+      </p>
+      <% if Category.find_by(name: "Ice Cream Cups") %>
+        <%= link_to "Shop Ice Cream Cups", category_path(Category.find_by(name: "Ice Cream Cups")), class: "btn btn-primary btn-lg" %>
+      <% else %>
+        <%= link_to "View Collection", shop_path, class: "btn btn-primary btn-lg" %>
+      <% end %>
+    </div>
+    <div>
+      <%= vite_image_tag "images/ice-cream-cups.png", alt: "Ice Cream Cups", class: "w-full rounded-lg shadow-lg" %>
+    </div>
+  </div>
+
+  <!-- Feature 3 -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="order-2 lg:order-1">
+      <%= vite_image_tag "images/napkins.png", alt: "Napkins", class: "w-full rounded-lg shadow-lg" %>
+    </div>
+    <div class="order-1 lg:order-2 space-y-6">
+      <h2 class="text-4xl md:text-5xl font-bold leading-tight">Details That Delight</h2>
+      <p class="text-lg text-neutral/80">
+        Every touchpoint matters. From the first napkin to the final takeaway box,
+        create memorable moments with supplies that reflect your commitment to quality and sustainability.
+      </p>
+      <%= link_to "Browse All Products", shop_path, class: "btn btn-primary btn-lg" %>
+    </div>
+  </div>
+</div>
+
+<!-- Trust Banner -->
+<div class="w-screen relative left-[50%] right-[50%] -mx-[50vw] bg-neutral/5 py-20 mb-32">
   <div class="container mx-auto text-center px-8">
-    <h2 class="text-2xl font-bold mb-6 uppercase tracking-wide">We Make Eco-Friendly Products in a Better Way</h2>
-    <p class="text-lg text-neutral/80 max-w-3xl mx-auto mb-8">By choosing sustainable materials and innovative design, we create catering supplies that deliver unrivaled comfort while being kind to our planet.</p>
-    <div class="flex justify-center mt-8">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">Eco-Friendly Products, Expertly Crafted</h2>
+    <p class="text-xl text-neutral/70 max-w-3xl mx-auto mb-12">
+      By choosing sustainable materials and innovative design, we create catering supplies
+      that deliver unrivaled quality while being kind to our planet.
+    </p>
+    <div class="flex justify-center">
       <%= render "shared/logo" %>
     </div>
   </div>
 </div>
 
-<%= render "categories/index" %>
-
-
-<div class="divider divider-neutral mt-16">
-  <h2 class="font-medium">Featured</h2>
+<!-- Categories Section -->
+<div class="container mx-auto px-4 mb-32">
+  <%= render "categories/index" %>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-8">
-  <% @featured_products.each do |product| %>
-    <div class="card bg-base-100 shadow-md">
-      <figure>
-        <% if product.image.attached? %>
-          <%= image_tag product.image.variant(resize_to_limit: [300, 300]), alt: product.name %>
-        <% else %>
-          <div class="w-full h-[300px] bg-gray-200 shadow-md flex items-center justify-center">
-            <span class="text-gray-500">Image not available</span>
-          </div>
-        <% end %>
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">
-          <%= link_to product_path(product) do %>
-            <%= product.name %>
-          <% end %>
-        </h2>
-        <p><%= number_to_currency product.active_variants.first&.price %></p>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<div class="container mx-auto py-8 text-center py-16">
-  <div class="rating rating-lg">
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked/>
+<!-- Featured Products -->
+<div class="container mx-auto px-4 mb-32">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Bestsellers</h2>
+    <p class="text-xl text-neutral/70">Discover what businesses love most</p>
   </div>
-  <p class="text-2xl font-medium mt-4 italic">"Excellent quality and fast shipping!"</p>
-  <p class="text-lg">Sarah M.</p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <% @featured_products.each do |product| %>
+      <div class="group card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300">
+        <figure class="relative overflow-hidden bg-neutral/5">
+          <% if product.image.attached? %>
+            <%= image_tag product.image.variant(resize_to_limit: [400, 400]),
+                alt: product.name,
+                class: "w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-300" %>
+          <% else %>
+            <div class="w-full h-[300px] bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-500">Image not available</span>
+            </div>
+          <% end %>
+        </figure>
+        <div class="card-body p-6">
+          <h3 class="card-title text-lg font-semibold mb-2">
+            <%= link_to product.name, product_path(product), class: "hover:text-primary transition-colors" %>
+          </h3>
+          <p><%= number_to_currency product.active_variants.first&.price %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Testimonial Section -->
+<div class="w-screen relative left-[50%] right-[50%] -mx-[50vw] bg-neutral/5 py-20">
+  <div class="container mx-auto text-center px-8">
+    <div class="max-w-4xl mx-auto">
+      <div class="rating rating-lg mb-6">
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-primary" checked/>
+      </div>
+      <blockquote class="text-2xl md:text-3xl font-medium mb-6 italic leading-relaxed">
+        "Excellent quality and fast shipping! Our customers love the eco-friendly packaging,
+        and it's helped strengthen our brand identity."
+      </blockquote>
+      <p class="text-xl font-semibold">Sarah M.</p>
+      <p class="text-neutral/60">Restaurant Owner</p>
+    </div>
+  </div>
 </div>
