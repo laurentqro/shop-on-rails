@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_18_101749) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_15_130011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_101749) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_carts_on_created_at"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -130,6 +131,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_101749) do
     t.integer "stock_quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_product_variants_on_active"
     t.index ["product_id", "sku"], name: "index_product_variants_on_product_id_and_sku", unique: true
     t.index ["product_id", "sort_order"], name: "index_product_variants_on_product_id_and_sort_order"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
@@ -161,8 +163,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_101749) do
     t.string "sku"
     t.string "material"
     t.string "base_sku"
+    t.index ["active"], name: "index_products_on_active"
     t.index ["base_sku"], name: "index_products_on_base_sku", unique: true
     t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["featured"], name: "index_products_on_featured"
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
@@ -172,6 +176,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_18_101749) do
     t.string "user_agent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_sessions_on_created_at"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
