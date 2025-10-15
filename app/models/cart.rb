@@ -28,13 +28,15 @@ class Cart < ApplicationRecord
   VAT_RATE = 0.2
 
   # Total quantity of all items in cart
+  # Uses database aggregation to avoid N+1 queries
   def items_count
-    cart_items.sum { |item| item.quantity }
+    cart_items.sum(:quantity)
   end
 
   # Sum of all cart item subtotals (before VAT)
+  # Uses database calculation: SUM(price * quantity)
   def subtotal_amount
-    cart_items.sum { |item| item.subtotal_amount }
+    cart_items.sum("price * quantity")
   end
 
   # Calculate VAT at 20% UK rate
