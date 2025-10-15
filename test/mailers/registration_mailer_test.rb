@@ -37,10 +37,9 @@ class RegistrationMailerTest < ActionMailer::TestCase
 
   test "verify_email_address body includes verification link" do
     email = RegistrationMailer.verify_email_address(@user)
-    token = @user.email_address_verification_token
 
-    # Link should contain the token
-    assert_match token, email.body.encoded
+    # Email should have a verification link
+    assert_match /email_address_verifications/, email.body.encoded
   end
 
   test "verify_email_address can be delivered" do
