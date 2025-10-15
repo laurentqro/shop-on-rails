@@ -1,5 +1,7 @@
 one:
   name: "Category 1"
+  slug: "category-1"
 
 two:
   name: "Category 2"
+  slug: "category-2"

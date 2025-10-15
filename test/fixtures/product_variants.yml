@@ -2,7 +2,7 @@
 
 one:
   product: one
-  name: MyString
+  name: Standard
   sku: MyString1
   price: 9.99
   length_in_mm: 1
@@ -13,12 +13,12 @@ one:
   volume_in_ml: 1
   diameter_in_mm: 1
   pac_size: 1
-  active: false
+  active: true
   sort_order: 1
 
 two:
   product: two
-  name: MyString
+  name: Standard
   sku: MyString2
   price: 9.99
   length_in_mm: 1
@@ -29,5 +29,5 @@ two:
   volume_in_ml: 1
   diameter_in_mm: 1
   pac_size: 1
-  active: false
+  active: true
   sort_order: 1
