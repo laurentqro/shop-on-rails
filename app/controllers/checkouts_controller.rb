@@ -196,13 +196,24 @@ class CheckoutsController < ApplicationController
   end
 
   def tax_rate
-    @tax_rate ||= Stripe::TaxRate.create({
-      display_name: "VAT",
-      percentage: 20,
-      country: "GB",
-      jurisdiction: "United Kingdom",
-      description: "Value Added Tax",
-      inclusive: false
-    })
+    @tax_rate ||= begin
+      # Try to find existing UK VAT tax rate to avoid creating duplicates
+      existing_rates = Stripe::TaxRate.list(active: true, limit: 100)
+      uk_vat_rate = existing_rates.data.find do |rate|
+        rate.percentage == 20.0 &&
+          rate.country == "GB" &&
+          rate.inclusive == false
+      end
+
+      # Use existing rate if found, otherwise create new one
+      uk_vat_rate || Stripe::TaxRate.create({
+        display_name: "VAT",
+        percentage: 20,
+        country: "GB",
+        jurisdiction: "United Kingdom",
+        description: "Value Added Tax",
+        inclusive: false
+      })
+    end
   end
 end
