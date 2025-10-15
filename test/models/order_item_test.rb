@@ -128,29 +128,26 @@ class OrderItemTest < ActiveSupport::TestCase
 
   test "product_still_available? returns true when product exists and is active" do
     order_item = order_items(:one)
-    order_item.product_variant.product.update(active: true)
-    # This will fail if product association is missing from model
-    # assert order_item.product_still_available?
-    skip "product association appears to be missing from OrderItem model"
+    order_item.product.update(active: true)
+    assert order_item.product_still_available?
   end
 
   test "product_still_available? returns false when product is inactive" do
     order_item = order_items(:one)
-    order_item.product_variant.product.update(active: false)
-    # This will fail if product association is missing from model
-    # assert_not order_item.product_still_available?
-    skip "product association appears to be missing from OrderItem model"
+    order_item.product.update(active: false)
+    assert_not order_item.product_still_available?
   end
 
   # Scope tests
   test "for_product scope filters by product" do
-    # This will fail if product association is missing
-    # product = products(:one)
-    # items = OrderItem.for_product(product)
-    # items.each do |item|
-    #   assert_equal product, item.product
-    # end
-    skip "product association appears to be missing from OrderItem model"
+    product = products(:one)
+    items = OrderItem.for_product(product)
+
+    # Should return order_items for this product
+    assert items.count > 0
+    items.each do |item|
+      assert_equal product, item.product
+    end
   end
 
   # Association tests
@@ -158,6 +155,12 @@ class OrderItemTest < ActiveSupport::TestCase
     order_item = order_items(:one)
     assert_respond_to order_item, :order
     assert_kind_of Order, order_item.order
+  end
+
+  test "belongs to product optionally" do
+    order_item = order_items(:one)
+    assert_respond_to order_item, :product
+    assert_kind_of Product, order_item.product
   end
 
   test "belongs to product_variant" do
