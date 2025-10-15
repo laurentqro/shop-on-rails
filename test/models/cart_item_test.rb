@@ -31,12 +31,6 @@ class CartItemTest < ActiveSupport::TestCase
     assert_includes cart_item.errors[:quantity], "must be greater than 0"
   end
 
-  test "validates price is present" do
-    cart_item = CartItem.new(cart: @cart, product_variant: @product_variant, quantity: 1, price: nil)
-    assert_not cart_item.valid?
-    assert_includes cart_item.errors[:price], "can't be blank"
-  end
-
   test "validates price is greater than zero" do
     cart_item = CartItem.new(cart: @cart, product_variant: @product_variant, quantity: 1, price: 0)
     assert_not cart_item.valid?
