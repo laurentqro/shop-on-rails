@@ -3,6 +3,7 @@ class RegistrationsController < ApplicationController
   # include Authentication
   # Or, if it's already in ApplicationController, ensure this controller allows unauthenticated access for new/create
   allow_unauthenticated_access only: [ :new, :create ] # Use this if Authentication concern's before_action :require_authentication is in ApplicationController
+  rate_limit to: 3, within: 1.hour, only: :create, with: -> { redirect_to new_registration_url, alert: "Too many registration attempts. Try again later." }
 
   def new
     @user = User.new

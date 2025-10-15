@@ -1,5 +1,6 @@
 class CartItemsController < ApplicationController
   allow_unauthenticated_access
+  rate_limit to: 60, within: 1.minute, only: [ :create, :update, :destroy ], with: -> { redirect_to cart_path, alert: "Too many cart operations. Please slow down." }
 
   before_action :set_cart
   before_action :set_cart_item, only: [ :update, :destroy ]
