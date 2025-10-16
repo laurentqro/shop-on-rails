@@ -54,6 +54,15 @@ class ProductVariantTest < ActiveSupport::TestCase
   end
 
   test "full_name includes variant name when not Standard" do
+    # Create another variant so product has multiple variants
+    ProductVariant.create!(
+      product: @product,
+      name: "Small",
+      sku: "SMALL-123",
+      price: 5.0,
+      active: true
+    )
+
     @variant.update(name: "Large")
     parts = [@variant.product.name, "- Large"]
     assert_equal parts.join(" "), @variant.full_name
