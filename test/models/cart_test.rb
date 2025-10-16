@@ -29,7 +29,60 @@ class CartTest < ActiveSupport::TestCase
   end
 
   test "VAT_RATE constant is set to 20%" do
-    assert_equal 0.2, Cart::VAT_RATE
+    assert_equal 0.2, VAT_RATE
+  end
+
+  test "items_count is memoized within request" do
+    # First call caches the value
+    count1 = @cart.items_count
+
+    # Add a new item directly to the association without reloading cart
+    @cart.cart_items.create!(
+      product_variant: product_variants(:two),
+      quantity: 5,
+      price: 10.0
+    )
+
+    # Second call returns cached value (doesn't reflect new item)
+    count2 = @cart.items_count
+    assert_equal count1, count2
+
+    # After reload, count is recalculated
+    @cart.reload
+    assert_equal count1 + 5, @cart.items_count
+  end
+
+  test "subtotal_amount is memoized within request" do
+    # First call caches the value
+    subtotal1 = @cart.subtotal_amount
+
+    # Add a new item directly to the association
+    @cart.cart_items.create!(
+      product_variant: product_variants(:two),
+      quantity: 1,
+      price: 100.0
+    )
+
+    # Second call returns cached value
+    subtotal2 = @cart.subtotal_amount
+    assert_equal subtotal1, subtotal2
+
+    # After reload, subtotal is recalculated
+    @cart.reload
+    assert_equal subtotal1 + 100.0, @cart.subtotal_amount
+  end
+
+  test "reload clears memoized values" do
+    # Trigger memoization
+    @cart.items_count
+    @cart.subtotal_amount
+
+    # Reload should clear instance variables
+    @cart.reload
+
+    # Values should be recalculated on next access
+    assert_equal 2, @cart.items_count
+    assert_equal 20.0, @cart.subtotal_amount
   end
 
   test "guest_cart? returns true when user is nil" do

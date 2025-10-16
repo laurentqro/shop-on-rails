@@ -3,8 +3,6 @@ class CartItem < ApplicationRecord
   belongs_to :product_variant
   has_one :product, through: :product_variant
 
-  VAT_RATE = 0.2
-
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates_uniqueness_of :product_variant, scope: :cart

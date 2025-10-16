@@ -24,24 +24,24 @@ class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :products, through: :cart_items
 
-  # UK VAT rate (20%)
-  VAT_RATE = 0.2
-
   # Total quantity of all items in cart
   # Uses database aggregation to avoid N+1 queries
+  # Memoized to prevent repeated database calls within same request
   def items_count
-    cart_items.sum(:quantity)
+    @items_count ||= cart_items.sum(:quantity)
   end
 
   # Sum of all cart item subtotals (before VAT)
   # Uses database calculation: SUM(price * quantity)
+  # Memoized to prevent repeated database calls within same request
   def subtotal_amount
-    cart_items.sum("price * quantity")
+    @subtotal_amount ||= cart_items.sum("price * quantity")
   end
 
-  # Calculate VAT at 20% UK rate
+  # Calculate VAT at UK rate (20%)
+  # Uses global VAT_RATE constant from config/initializers/vat.rb
   def vat_amount
-    subtotal_amount * Cart::VAT_RATE
+    subtotal_amount * VAT_RATE
   end
 
   # Final total including VAT
@@ -53,5 +53,13 @@ class Cart < ApplicationRecord
   # Check if this is a guest cart (not associated with a user)
   def guest_cart?
     user.blank?
+  end
+
+  # Clear memoized values when cart items change
+  # Call this after adding/updating/removing cart items
+  def reload(*)
+    @items_count = nil
+    @subtotal_amount = nil
+    super
   end
 end

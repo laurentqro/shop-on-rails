@@ -65,7 +65,7 @@ class CartItemTest < ActiveSupport::TestCase
   end
 
   test "VAT_RATE constant is set" do
-    assert_equal 0.2, CartItem::VAT_RATE
+    assert_equal 0.2, VAT_RATE
   end
 
   # Callback tests
