@@ -33,7 +33,7 @@ class CheckoutsController < ApplicationController
       }
 
       if Current.user
-        session_params[:customer_email] = Current.user.email
+        session_params[:customer_email] = Current.user.email_address
         session_params[:client_reference_id] = Current.user.id
       end
 

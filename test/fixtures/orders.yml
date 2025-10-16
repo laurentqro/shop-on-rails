@@ -5,7 +5,7 @@ one:
   email: user1@example.com
   stripe_session_id: stripe_session_1
   order_number: ORDER-001
-  status: completed
+  status: paid
   subtotal_amount: 9.99
   vat_amount: 1.99
   shipping_amount: 2.99
@@ -15,7 +15,7 @@ one:
   shipping_address_line2: Apt 1
   shipping_city: London
   shipping_postal_code: SW1A 1AA
-  shipping_country: UK
+  shipping_country: GB
 
 two:
   user: two
@@ -32,4 +32,4 @@ two:
   shipping_address_line2: Suite 2
   shipping_city: Manchester
   shipping_postal_code: M1 1AA
-  shipping_country: UK
+  shipping_country: GB

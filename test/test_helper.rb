@@ -17,6 +17,9 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "mocha/minitest"
 
+# Load test support files
+Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
+
 module ActiveSupport
   class TestCase
     # Disable parallel tests for accurate SimpleCov coverage
@@ -24,6 +27,11 @@ module ActiveSupport
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
+
+    # Reset FakeStripe state before each test
+    setup do
+      FakeStripe.reset! if defined?(FakeStripe)
+    end
 
     # Add more helper methods to be used by all tests here...
   end
