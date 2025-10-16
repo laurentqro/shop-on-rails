@@ -23,7 +23,7 @@ class Product < ApplicationRecord
 
   belongs_to :category
   has_many :variants, dependent: :destroy, class_name: "ProductVariant"
-  has_many :active_variants, -> { active }, class_name: "ProductVariant"
+  has_many :active_variants, -> { active.by_sort_order }, class_name: "ProductVariant"
 
   accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
 

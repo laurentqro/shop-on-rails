@@ -29,7 +29,8 @@ class ProductVariant < ApplicationRecord
   has_one_attached :image
 
   scope :active, -> { where(active: true) }
-  default_scope { order(:name) }
+  scope :by_name, -> { order(:name) }
+  scope :by_sort_order, -> { order(:sort_order, :name) }
 
   validates :sku, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }

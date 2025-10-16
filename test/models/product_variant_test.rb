@@ -144,7 +144,7 @@ class ProductVariantTest < ActiveSupport::TestCase
     assert_not_includes active_variants, inactive_variant
   end
 
-  test "default scope orders by name" do
+  test "by_name scope orders variants alphabetically" do
     variant_b = ProductVariant.create!(
       product: @product,
       name: "B Variant",
@@ -159,8 +159,46 @@ class ProductVariantTest < ActiveSupport::TestCase
       price: 10.0
     )
 
-    variants = ProductVariant.unscoped.where(product: @product).order(:name)
+    variants = ProductVariant.unscoped.where(product: @product).by_name
     assert_equal "A Variant", variants.first.name
+  end
+
+  test "by_sort_order scope orders by sort_order then name" do
+    # Create a new product to avoid fixture interference
+    product = Product.unscoped.create!(
+      name: "Test Product",
+      category: categories(:one),
+      sku: "TEST-PROD"
+    )
+
+    variant_c = ProductVariant.create!(
+      product: product,
+      name: "C Variant",
+      sku: "C1",
+      price: 10.0,
+      sort_order: 1
+    )
+
+    variant_b = ProductVariant.create!(
+      product: product,
+      name: "B Variant",
+      sku: "B1",
+      price: 10.0,
+      sort_order: 2
+    )
+
+    variant_a = ProductVariant.create!(
+      product: product,
+      name: "A Variant",
+      sku: "A1",
+      price: 10.0,
+      sort_order: 3
+    )
+
+    variants = product.variants.by_sort_order
+    assert_equal "C Variant", variants.first.name
+    assert_equal "B Variant", variants.second.name
+    assert_equal "A Variant", variants.third.name
   end
 
   # Association tests
