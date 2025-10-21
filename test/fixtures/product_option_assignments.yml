@@ -1,0 +1,9 @@
+one_size:
+  product: one
+  product_option: size
+  position: 1
+
+one_color:
+  product: one
+  product_option: color
+  position: 2

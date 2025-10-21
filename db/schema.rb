@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_225628) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_230013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -123,6 +123,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_225628) do
     t.index ["billing_email"], name: "index_organizations_on_billing_email"
   end
 
+  create_table "product_option_assignments", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "product_option_id", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id", "product_option_id"], name: "index_product_option_assignments_uniqueness", unique: true
+    t.index ["product_id"], name: "index_product_option_assignments_on_product_id"
+    t.index ["product_option_id"], name: "index_product_option_assignments_on_product_option_id"
+  end
+
   create_table "product_option_values", force: :cascade do |t|
     t.bigint "product_option_id", null: false
     t.string "value", null: false
@@ -228,6 +239,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_225628) do
   add_foreign_key "order_items", "product_variants"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_option_assignments", "product_options"
+  add_foreign_key "product_option_assignments", "products"
   add_foreign_key "product_option_values", "product_options"
   add_foreign_key "product_variants", "products"
   add_foreign_key "products", "categories"
