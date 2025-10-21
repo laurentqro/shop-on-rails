@@ -6,7 +6,9 @@ class Organization < ApplicationRecord
            dependent: :restrict_with_error
 
   validates :name, presence: true
-  validates :billing_email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :billing_email, presence: true,
+            format: { with: URI::MailTo::EMAIL_REGEXP },
+            uniqueness: { case_sensitive: false }
 
   def owner
     users.find_by(role: "owner")
