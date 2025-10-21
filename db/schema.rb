@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_230406) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_230816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -173,7 +173,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_230406) do
     t.integer "stock_quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "option_values", default: {}
     t.index ["active"], name: "index_product_variants_on_active"
+    t.index ["option_values"], name: "index_product_variants_on_option_values", using: :gin
     t.index ["product_id", "sku"], name: "index_product_variants_on_product_id_and_sku", unique: true
     t.index ["product_id", "sort_order"], name: "index_product_variants_on_product_id_and_sort_order"
     t.index ["product_id"], name: "index_product_variants_on_product_id"

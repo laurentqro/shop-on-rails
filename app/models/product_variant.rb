@@ -77,4 +77,16 @@ class ProductVariant < ApplicationRecord
       diameter_in_mm: "#{diameter_in_mm}"
     }.reject { |_, value| value.blank? }
   end
+
+  # Get value for a specific option
+  # Example: variant.option_value_for("size") => "8oz"
+  def option_value_for(option_name)
+    option_values[option_name]
+  end
+
+  # Display string of all option values
+  # Example: "8oz White"
+  def options_display
+    option_values.values.join(" ")
+  end
 end

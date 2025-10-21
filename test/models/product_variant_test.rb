@@ -264,4 +264,33 @@ class ProductVariantTest < ActiveSupport::TestCase
     assert_not_nil order_item
     # The association is nullified on delete
   end
+
+  # Option values tests
+  test "variant stores option values as jsonb" do
+    variant = product_variants(:single_wall_8oz_white)
+    assert_equal "8oz", variant.option_values["size"]
+    assert_equal "White", variant.option_values["color"]
+  end
+
+  test "variant can retrieve option value for specific option" do
+    variant = product_variants(:single_wall_8oz_white)
+    assert_equal "8oz", variant.option_value_for("size")
+    assert_equal "White", variant.option_value_for("color")
+  end
+
+  test "variant display name includes option values" do
+    variant = product_variants(:single_wall_8oz_white)
+    assert_equal "8oz White", variant.options_display
+  end
+
+  test "variant without option values returns empty hash" do
+    variant = ProductVariant.create!(
+      product: products(:branded_double_wall_template),
+      name: "Test Variant",
+      sku: "TEST-SKU",
+      price: 100,
+      stock_quantity: 0
+    )
+    assert_equal({}, variant.option_values)
+  end
 end

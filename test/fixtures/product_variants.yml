@@ -15,6 +15,7 @@ one:
   pac_size: 1
   active: true
   sort_order: 1
+  option_values: {}
 
 two:
   product: two
@@ -31,3 +32,42 @@ two:
   pac_size: 1
   active: true
   sort_order: 1
+  option_values: {}
+
+single_wall_8oz_white:
+  product: single_wall_cups
+  name: 8oz White
+  sku: CUP-SW-8-WHT
+  price: 26.00
+  stock_quantity: 1000
+  option_values:
+    size: "8oz"
+    color: "White"
+
+single_wall_12oz_white:
+  product: single_wall_cups
+  name: 12oz White
+  sku: CUP-SW-12-WHT
+  price: 28.00
+  stock_quantity: 1000
+  option_values:
+    size: "12oz"
+    color: "White"
+
+single_wall_8oz_black:
+  product: single_wall_cups
+  name: 8oz Black
+  sku: CUP-SW-8-BLK
+  price: 26.00
+  stock_quantity: 500
+  option_values:
+    size: "8oz"
+    color: "Black"
+
+acme_cups_variant:
+  product: acme_branded_cups
+  name: Standard
+  sku: BRANDED-ACME-12DW-001
+  price: 900.00
+  stock_quantity: 5000
+  option_values: {}
