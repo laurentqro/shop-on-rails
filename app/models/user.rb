@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  belongs_to :organization, optional: true
   has_many :sessions, dependent: :destroy
   has_many :carts, dependent: :destroy
   has_many :orders, dependent: :destroy
@@ -11,6 +12,11 @@ class User < ApplicationRecord
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   validates :email_address, presence: true, uniqueness: true
+
+  enum :role, { owner: "owner", admin: "admin", member: "member" }, validate: { allow_nil: true }
+
+  validates :role, presence: true, if: :organization_id?
+  validate :organization_has_one_owner, if: -> { organization_id? && role == "owner" }
 
   def admin?
     role == "admin"
@@ -30,5 +36,16 @@ class User < ApplicationRecord
 
   def email_address_verification_token_expired?
     email_address_verification_token_expires_at < Time.current
+  end
+
+  private
+
+  def organization_has_one_owner
+    return unless organization
+
+    existing_owner = organization.users.where(role: "owner").where.not(id: id).exists?
+    if existing_owner
+      errors.add(:role, "organization already has an owner")
+    end
   end
 end

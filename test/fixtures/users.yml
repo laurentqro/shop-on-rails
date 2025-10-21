@@ -7,3 +7,33 @@ one:
 two:
   email_address: two@example.com
   password_digest: <%= password_digest %>
+
+acme_owner:
+  email_address: owner@acme.com
+  password_digest: <%= password_digest %>
+  organization: acme
+  role: owner
+
+acme_admin:
+  email_address: admin@acme.com
+  password_digest: <%= password_digest %>
+  organization: acme
+  role: admin
+
+acme_member:
+  email_address: member@acme.com
+  password_digest: <%= password_digest %>
+  organization: acme
+  role: member
+
+bobs_owner:
+  email_address: bob@bobsbakery.com
+  password_digest: <%= password_digest %>
+  organization: bobs_bakery
+  role: owner
+
+consumer:
+  email_address: consumer@example.com
+  password_digest: <%= password_digest %>
+  organization:
+  role:

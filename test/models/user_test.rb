@@ -213,4 +213,63 @@ class UserTest < ActiveSupport::TestCase
       user.destroy
     end
   end
+
+  # Organization and role tests
+  test "user can belong to organization" do
+    user = users(:acme_owner)
+    assert_equal organizations(:acme), user.organization
+  end
+
+  test "user with organization must have role" do
+    user = User.new(
+      email_address: "test@example.com",
+      password: "password123",
+      organization: organizations(:acme),
+      role: nil
+    )
+    assert_not user.valid?
+    assert_includes user.errors[:role], "can't be blank"
+  end
+
+  test "user without organization can have nil role" do
+    user = User.new(
+      email_address: "newconsumer@example.com",
+      password: "password123",
+      organization: nil,
+      role: nil
+    )
+    assert user.valid?
+  end
+
+  test "valid roles are owner, admin, member" do
+    user = users(:acme_owner)
+
+    user.role = "owner"
+    assert user.valid?
+
+    user.role = "admin"
+    assert user.valid?
+
+    user.role = "member"
+    assert user.valid?
+
+    user.role = "invalid"
+    assert_not user.valid?
+  end
+
+  test "organization can have only one owner" do
+    # First owner already exists in fixtures (acme_owner)
+    existing_owner = users(:acme_owner)
+    assert_equal "owner", existing_owner.role
+
+    # Second owner should fail
+    owner2 = User.new(
+      email_address: "owner2@acme.com",
+      password: "password123",
+      organization: organizations(:acme),
+      role: "owner"
+    )
+    assert_not owner2.valid?
+    assert_includes owner2.errors[:role], "organization already has an owner"
+  end
 end
