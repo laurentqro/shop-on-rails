@@ -1,0 +1,17 @@
+size:
+  name: Size
+  display_type: dropdown
+  required: true
+  position: 1
+
+color:
+  name: Color
+  display_type: swatch
+  required: true
+  position: 2
+
+material:
+  name: Material
+  display_type: radio
+  required: false
+  position: 3

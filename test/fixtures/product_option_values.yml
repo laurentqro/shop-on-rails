@@ -1,0 +1,34 @@
+size_8oz:
+  product_option: size
+  value: 8oz
+  position: 1
+
+size_12oz:
+  product_option: size
+  value: 12oz
+  position: 2
+
+size_16oz:
+  product_option: size
+  value: 16oz
+  position: 3
+
+color_white:
+  product_option: color
+  value: White
+  position: 1
+
+color_black:
+  product_option: color
+  value: Black
+  position: 2
+
+material_recyclable:
+  product_option: material
+  value: Recyclable
+  position: 1
+
+material_compostable:
+  product_option: material
+  value: Compostable
+  position: 2

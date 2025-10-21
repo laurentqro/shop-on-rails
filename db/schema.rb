@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_224827) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_225628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -123,6 +123,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_224827) do
     t.index ["billing_email"], name: "index_organizations_on_billing_email"
   end
 
+  create_table "product_option_values", force: :cascade do |t|
+    t.bigint "product_option_id", null: false
+    t.string "value", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_product_option_values_on_position"
+    t.index ["product_option_id", "value"], name: "index_product_option_values_on_product_option_id_and_value", unique: true
+    t.index ["product_option_id"], name: "index_product_option_values_on_product_option_id"
+  end
+
+  create_table "product_options", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "display_type", null: false
+    t.boolean "required", default: true, null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_product_options_on_position"
+  end
+
   create_table "product_variants", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "name", null: false
@@ -207,6 +228,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_224827) do
   add_foreign_key "order_items", "product_variants"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_option_values", "product_options"
   add_foreign_key "product_variants", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "sessions", "users"
