@@ -97,8 +97,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Workaround for Rollup optional dependencies issue
-        run: npm install --no-save
+      - name: Fix Rollup optional dependencies
+        run: |
+          rm -rf node_modules
+          npm install
 
       - name: Build assets
         env:
