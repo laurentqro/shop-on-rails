@@ -97,10 +97,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fix Rollup optional dependencies
-        run: |
-          rm -rf node_modules
-          npm install
+      - name: Install Rollup platform-specific binaries
+        run: npm install --force @rollup/rollup-linux-x64-gnu
 
       - name: Build assets
         env:
