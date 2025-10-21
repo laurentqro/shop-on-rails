@@ -97,6 +97,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Workaround for Rollup optional dependencies issue
+        run: npm install --no-save
+
       - name: Build assets
         env:
           RAILS_ENV: test
