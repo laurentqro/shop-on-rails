@@ -12,7 +12,7 @@ class PasswordsMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal [@user.email_address], email.to
+    assert_equal [ @user.email_address ], email.to
   end
 
   test "reset has correct subject" do
@@ -85,8 +85,8 @@ class PasswordsMailerTest < ActionMailer::TestCase
     email1 = PasswordsMailer.reset(user1)
     email2 = PasswordsMailer.reset(user2)
 
-    assert_equal [user1.email_address], email1.to
-    assert_equal [user2.email_address], email2.to
+    assert_equal [ user1.email_address ], email1.to
+    assert_equal [ user2.email_address ], email2.to
     assert_not_equal email1.to, email2.to
   end
 

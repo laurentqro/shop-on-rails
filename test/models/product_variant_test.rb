@@ -64,7 +64,7 @@ class ProductVariantTest < ActiveSupport::TestCase
     )
 
     @variant.update(name: "Large")
-    parts = [@variant.product.name, "- Large"]
+    parts = [ @variant.product.name, "- Large" ]
     assert_equal parts.join(" "), @variant.full_name
   end
 

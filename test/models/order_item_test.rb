@@ -69,7 +69,7 @@ class OrderItemTest < ActiveSupport::TestCase
     order_item = order_items(:one)
 
     # Temporarily disable the callback to test validation
-    order_item.define_singleton_method(:calculate_line_total) {}
+    order_item.define_singleton_method(:calculate_line_total) { }
     order_item.line_total = -5
 
     assert_not order_item.valid?

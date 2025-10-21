@@ -12,7 +12,7 @@ class OrderMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal [@order.email], email.to
+    assert_equal [ @order.email ], email.to
   end
 
   test "confirmation_email has correct subject with order number" do
@@ -98,6 +98,6 @@ class OrderMailerTest < ActionMailer::TestCase
 
     # Email should be generated successfully
     assert_not_nil email
-    assert_equal [@order.email], email.to
+    assert_equal [ @order.email ], email.to
   end
 end

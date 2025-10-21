@@ -48,7 +48,7 @@ class SessionTest < ActiveSupport::TestCase
 
     assert_equal @user, session1.user
     assert_equal @user, session2.user
-    assert_equal 2, @user.sessions.where(id: [session1.id, session2.id]).count
+    assert_equal 2, @user.sessions.where(id: [ session1.id, session2.id ]).count
   end
 
   test "destroying user destroys sessions" do

@@ -13,7 +13,7 @@ class RegistrationMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal [@user.email_address], email.to
+    assert_equal [ @user.email_address ], email.to
   end
 
   test "verify_email_address has correct subject" do
@@ -62,7 +62,7 @@ class RegistrationMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    assert_equal [@user.email_address], email.to
+    assert_equal [ @user.email_address ], email.to
   end
 
   test "welcome has correct subject" do

@@ -72,7 +72,7 @@ module FakeStripe
       if session.nil?
         error = Stripe::InvalidRequestError.new(
           "No such checkout.session: '#{session_id}'",
-          param: 'id'
+          param: "id"
         )
         error.instance_variable_set(:@http_status, 404)
         raise error
@@ -203,8 +203,8 @@ module FakeStripe
     def self.card_declined
       error = Stripe::CardError.new(
         "Your card was declined.",
-        param: 'card',
-        code: 'card_declined'
+        param: "card",
+        code: "card_declined"
       )
       error.instance_variable_set(:@http_status, 402)
       error
