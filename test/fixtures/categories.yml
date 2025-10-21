@@ -5,3 +5,11 @@ one:
 two:
   name: "Category 2"
   slug: "category-2"
+
+cups:
+  name: "Cups"
+  slug: "cups"
+
+branded:
+  name: "Branded Products"
+  slug: "branded"

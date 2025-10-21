@@ -11,7 +11,9 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "default scope should return active products" do
-    assert_equal [ @product_one ], Product.all
+    active_products = Product.all
+    assert active_products.include?(@product_one)
+    assert_not active_products.include?(products(:two)) # Product two is inactive
   end
 
   test "should validate presence of name" do
@@ -83,5 +85,84 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.save # Save should fail due to name validation
     assert product.errors[:name].any?
     assert_equal "", product.slug # Slug should remain blank
+  end
+
+  # Product configuration tests
+  test "product types are standard, customizable_template, customized_instance" do
+    product = products(:one)
+
+    product.product_type = "standard"
+    assert product.valid?
+
+    product.product_type = "customizable_template"
+    assert product.valid?
+
+    # customized_instance requires parent_product and organization, so use a proper fixture
+    customized_product = products(:acme_branded_cups)
+    customized_product.product_type = "customized_instance"
+    assert customized_product.valid?
+
+    # Rails enum with validate: true will reject invalid values on validation
+    product.product_type = "invalid"
+    assert_not product.valid?
+    assert_includes product.errors[:product_type], "is not included in the list"
+  end
+
+  test "customized_instance requires parent_product_id" do
+    product = Product.new(
+      name: "Test Instance",
+      product_type: "customized_instance",
+      parent_product_id: nil
+    )
+    assert_not product.valid?
+    assert_includes product.errors[:parent_product_id], "can't be blank"
+  end
+
+  test "customized_instance requires organization_id" do
+    product = Product.new(
+      name: "Test Instance",
+      product_type: "customized_instance",
+      parent_product_id: products(:branded_double_wall_template).id,
+      organization_id: nil
+    )
+    assert_not product.valid?
+    assert_includes product.errors[:organization_id], "can't be blank"
+  end
+
+  test "customized_instance stores configuration_data" do
+    product = products(:acme_branded_cups)
+    assert_equal "12oz", product.configuration_data["size"]
+    assert_equal "double_wall", product.configuration_data["type"]
+    assert_equal 5000, product.configuration_data["quantity_ordered"]
+  end
+
+  test "standard and template products dont require parent or organization" do
+    product = Product.new(
+      name: "Test",
+      product_type: "standard",
+      category: categories(:one)
+    )
+    assert product.valid?
+  end
+
+  test "product has many option assignments" do
+    product = products(:single_wall_cups)
+    assert_includes product.option_assignments.map(&:product_option), product_options(:size)
+  end
+
+  test "product has many options through assignments" do
+    product = products(:single_wall_cups)
+    assert_includes product.options, product_options(:size)
+    assert_includes product.options, product_options(:color)
+  end
+
+  test "belongs to organization for customized instances" do
+    product = products(:acme_branded_cups)
+    assert_equal organizations(:acme), product.organization
+  end
+
+  test "belongs to parent product for customized instances" do
+    product = products(:acme_branded_cups)
+    assert_equal products(:branded_double_wall_template), product.parent_product
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_230013) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_230406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -198,10 +198,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_230013) do
     t.string "sku"
     t.string "material"
     t.string "base_sku"
+    t.string "product_type", default: "standard", null: false
+    t.bigint "parent_product_id"
+    t.bigint "organization_id"
+    t.jsonb "configuration_data", default: {}
     t.index ["active"], name: "index_products_on_active"
     t.index ["base_sku"], name: "index_products_on_base_sku", unique: true
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["featured"], name: "index_products_on_featured"
+    t.index ["organization_id", "product_type"], name: "index_products_on_organization_id_and_product_type"
+    t.index ["organization_id"], name: "index_products_on_organization_id"
+    t.index ["parent_product_id"], name: "index_products_on_parent_product_id"
+    t.index ["product_type"], name: "index_products_on_product_type"
     t.index ["slug"], name: "index_products_on_slug", unique: true
   end
 
@@ -244,6 +252,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_230013) do
   add_foreign_key "product_option_values", "product_options"
   add_foreign_key "product_variants", "products"
   add_foreign_key "products", "categories"
+  add_foreign_key "products", "organizations"
+  add_foreign_key "products", "products", column: "parent_product_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "organizations"
 end

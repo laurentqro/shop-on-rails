@@ -20,19 +20,35 @@
 class Product < ApplicationRecord
   default_scope { where(active: true).order(:sort_order, :name) }
   scope :featured, -> { where(featured: true) }
+  scope :catalog_products, -> { where(product_type: ["standard", "customizable_template"]) }
+  scope :customized_for_organization, ->(org) { unscoped.where(product_type: "customized_instance", organization: org) }
 
   belongs_to :category
+  belongs_to :organization, optional: true
+  belongs_to :parent_product, class_name: "Product", optional: true
+
   has_many :variants, dependent: :destroy, class_name: "ProductVariant"
   has_many :active_variants, -> { active.by_sort_order }, class_name: "ProductVariant"
+  has_many :customized_instances, class_name: "Product", foreign_key: :parent_product_id
+  has_many :option_assignments, class_name: "ProductOptionAssignment", dependent: :destroy
+  has_many :options, through: :option_assignments, source: :product_option
 
   accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
 
   has_one_attached :image
 
+  enum :product_type, {
+    standard: "standard",
+    customizable_template: "customizable_template",
+    customized_instance: "customized_instance"
+  }, validate: true
+
   before_validation :generate_slug
 
   validates :name, :category, presence: true
   validates :slug, presence: true, uniqueness: true
+  validates :parent_product_id, presence: true, if: :customized_instance?
+  validates :organization_id, presence: true, if: :customized_instance?
 
   # Generates a SEO-friendly slug from product attributes
   # Combines SKU, name, and colour to create unique, descriptive URL

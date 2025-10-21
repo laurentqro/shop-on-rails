@@ -7,3 +7,13 @@ one_color:
   product: one
   product_option: color
   position: 2
+
+single_wall_size:
+  product: single_wall_cups
+  product_option: size
+  position: 1
+
+single_wall_color:
+  product: single_wall_cups
+  product_option: color
+  position: 2

@@ -6,6 +6,7 @@ one:
   active: true
   category: :one
   slug: "product-1"
+  product_type: standard
 
 two:
   name: "Product 2"
@@ -15,3 +16,35 @@ two:
   active: false
   category: :two
   slug: "product-2"
+  product_type: standard
+
+single_wall_cups:
+  name: Single-Wall Cups
+  slug: single-wall-cups
+  category: cups
+  active: true
+  sort_order: 1
+  product_type: standard
+
+branded_double_wall_template:
+  name: Double Wall Branded Cups
+  slug: double-wall-branded-cups
+  category: branded
+  active: true
+  sort_order: 1
+  product_type: customizable_template
+  description: Custom branded double-wall cups for your business
+
+acme_branded_cups:
+  name: ACME Coffee 12oz Double Wall Branded Cups
+  slug: acme-coffee-12oz-double-wall-branded-cups
+  category: branded
+  active: true
+  product_type: customized_instance
+  parent_product: branded_double_wall_template
+  organization: acme
+  configuration_data:
+    size: "12oz"
+    type: "double_wall"
+    quantity_ordered: 5000
+    design_url: "https://example.com/designs/acme-logo.pdf"
