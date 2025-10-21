@@ -1,0 +1,14 @@
+acme:
+  name: ACME Coffee
+  billing_email: billing@acme.com
+  phone: "+44 20 1234 5678"
+  default_shipping_address:
+    street: "123 High Street"
+    city: "London"
+    postcode: "SW1A 1AA"
+    country: "GB"
+
+bobs_bakery:
+  name: Bob's Bakery
+  billing_email: bob@bobsbakery.com
+  phone: "+44 161 234 5678"

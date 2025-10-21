@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_15_130816) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_224137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -111,6 +111,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_15_130816) do
     t.index ["status"], name: "index_orders_on_status"
     t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "billing_email", null: false
+    t.string "phone"
+    t.jsonb "default_shipping_address", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["billing_email"], name: "index_organizations_on_billing_email"
   end
 
   create_table "product_variants", force: :cascade do |t|
