@@ -18,16 +18,20 @@ export default class extends Controller {
     "sizeIndicator",
     "finishIndicator",
     "quantityIndicator",
+    "lidsIndicator",
     "designIndicator",
     "sizeStep",
     "finishStep",
     "quantityStep",
-    "designStep"
+    "lidsStep",
+    "designStep",
+    "lidsContainer"
   ]
 
   static values = {
     productId: Number,
-    vatRate: { type: Number, default: 0.2 }
+    vatRate: { type: Number, default: 0.2 },
+    inModal: { type: Boolean, default: false }
   }
 
   connect() {
@@ -129,7 +133,89 @@ export default class extends Controller {
     this.selectedQuantity = parseInt(event.currentTarget.dataset.quantity)
     this.updateUrl()
     this.showStepComplete('quantity')
+
+    // Load compatible lids for next step (skip in modal mode)
+    if (!this.inModalValue) {
+      this.loadCompatibleLids()
+    }
+
     this.calculatePrice()
+  }
+
+  async loadCompatibleLids() {
+    if (!this.selectedSize) return
+
+    // Show loading state
+    document.getElementById('lids-loading').style.display = 'block'
+    this.lidsContainerTarget.innerHTML = ''
+
+    try {
+      const response = await fetch(`/branded_products/compatible_lids?size=${this.selectedSize}`)
+      const data = await response.json()
+
+      document.getElementById('lids-loading').style.display = 'none'
+
+      if (data.lids.length === 0) {
+        this.lidsContainerTarget.innerHTML = '<p class="text-gray-500 col-span-full text-center py-8">No compatible lids available for this size</p>'
+        return
+      }
+
+      // Render lid cards
+      data.lids.forEach(lid => {
+        this.lidsContainerTarget.appendChild(this.createLidCard(lid))
+      })
+    } catch (error) {
+      console.error('Failed to load compatible lids:', error)
+      document.getElementById('lids-loading').style.display = 'none'
+      this.lidsContainerTarget.innerHTML = '<p class="text-error col-span-full text-center py-8">Failed to load lids. Please try again.</p>'
+    }
+  }
+
+  createLidCard(lid) {
+    const card = document.createElement('div')
+    card.className = 'card bg-white border-2 border-gray-200 hover:border-primary transition'
+    card.innerHTML = `
+      <figure class="p-4">
+        ${lid.image_url ?
+          `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-32 object-contain" />` :
+          '<div class="w-full h-32 bg-gray-100 flex items-center justify-center"><span class="text-4xl">📦</span></div>'
+        }
+      </figure>
+      <div class="card-body p-4">
+        <h3 class="card-title text-sm">${lid.name}</h3>
+        <p class="text-lg font-bold">£${parseFloat(lid.price).toFixed(2)}</p>
+        <p class="text-xs text-gray-500">Pack of ${lid.pac_size.toLocaleString()}</p>
+
+        <select class="select select-sm select-bordered w-full mt-2" data-lid-quantity="${lid.sku}">
+          ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
+            `<option value="${q.value}">${q.label}</option>`
+          ).join('')}
+        </select>
+
+        <button class="btn btn-primary btn-sm mt-2"
+                data-action="click->branded-configurator#addLidToCart"
+                data-lid-sku="${lid.sku}"
+                data-lid-name="${lid.name}">
+          + Add
+        </button>
+      </div>
+    `
+    return card
+  }
+
+  generateLidQuantityOptions(pac_size, cupQuantity) {
+    // Generate pack multiples up to 10 packs
+    const options = []
+    for (let i = 1; i <= 10; i++) {
+      const quantity = pac_size * i
+      const numPacks = i
+      options.push({
+        value: quantity,
+        label: `${quantity.toLocaleString()} units (${numPacks} ${numPacks === 1 ? 'pack' : 'packs'})`,
+        selected: quantity === cupQuantity
+      })
+    }
+    return options
   }
 
   async calculatePrice() {
@@ -322,7 +408,11 @@ export default class extends Controller {
     }
 
     // Open next step in accordion
-    const stepMap = { size: 'finish', finish: 'quantity', quantity: 'design' }
+    // In modal mode, skip lids step and go directly from quantity to design
+    const stepMap = this.inModalValue
+      ? { size: 'finish', finish: 'quantity', quantity: 'design', design: null }
+      : { size: 'finish', finish: 'quantity', quantity: 'lids', lids: 'design' }
+
     const nextStep = stepMap[step]
     if (nextStep) {
       const nextStepTarget = `${nextStep}StepTarget`
@@ -332,6 +422,67 @@ export default class extends Controller {
           radioInput.checked = true
         }
       }
+    }
+  }
+
+  skipLids(event) {
+    // Mark step complete and move to design
+    this.showStepComplete('lids')
+  }
+
+  async addLidToCart(event) {
+    const button = event.currentTarget
+    const sku = button.dataset.lidSku
+    const name = button.dataset.lidName
+    const quantitySelect = button.closest('.card-body').querySelector('select')
+    const quantity = parseInt(quantitySelect.value)
+
+    // Disable button during request
+    button.disabled = true
+    button.textContent = 'Adding...'
+
+    try {
+      const response = await fetch("/cart/cart_items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
+          "Accept": "text/vnd.turbo-stream.html"
+        },
+        body: JSON.stringify({
+          cart_item: {
+            variant_sku: sku,
+            quantity: quantity
+          }
+        })
+      })
+
+      if (response.ok) {
+        // Process turbo stream to update basket counter
+        const text = await response.text()
+        if (text) {
+          Turbo.renderStreamMessage(text)
+        }
+
+        // Show success feedback
+        button.textContent = '✓ Added'
+        button.classList.remove('btn-primary')
+        button.classList.add('btn-success')
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          button.textContent = '+ Add'
+          button.classList.remove('btn-success')
+          button.classList.add('btn-primary')
+          button.disabled = false
+        }, 2000)
+      } else {
+        throw new Error('Failed to add lid')
+      }
+    } catch (error) {
+      this.showError(`Failed to add ${name}`)
+      button.disabled = false
+      button.textContent = '+ Add'
     }
   }
 
@@ -421,15 +572,20 @@ export default class extends Controller {
         if (text) {
           Turbo.renderStreamMessage(text)
 
-          // Dispatch turbo:submit-end event to trigger cart-drawer#open
-          console.log('Dispatching turbo:submit-end event')
-          const submitEndEvent = new CustomEvent("turbo:submit-end", {
-            bubbles: true,
-            detail: { success: true }
-          })
-          console.log('Event created:', submitEndEvent)
-          this.element.dispatchEvent(submitEndEvent)
-          console.log('Event dispatched from:', this.element)
+          if (this.inModalValue) {
+            // In modal: dispatch event to close modal
+            window.dispatchEvent(new CustomEvent('addon:added'))
+          } else {
+            // Normal flow: open drawer
+            console.log('Dispatching turbo:submit-end event')
+            const submitEndEvent = new CustomEvent("turbo:submit-end", {
+              bubbles: true,
+              detail: { success: true }
+            })
+            console.log('Event created:', submitEndEvent)
+            this.element.dispatchEvent(submitEndEvent)
+            console.log('Event dispatched from:', this.element)
+          }
         }
       } else {
         const data = await response.json()

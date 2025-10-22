@@ -48,3 +48,27 @@ acme_branded_cups:
     type: "double_wall"
     quantity_ordered: 5000
     design_url: "https://example.com/designs/acme-logo.pdf"
+
+paper_lids:
+  name: Paper Sip Lids for Hot Cups
+  slug: paper-sip-lids-for-hot-cups
+  category: hot_cups_extras
+  active: true
+  sort_order: 1
+  product_type: standard
+
+recyclable_lids_black:
+  name: Recyclable Sip Lids for Hot Cups - Black
+  slug: recyclable-sip-lids-black
+  category: hot_cups_extras
+  active: true
+  sort_order: 2
+  product_type: standard
+
+recyclable_lids_white:
+  name: Recyclable Sip Lids for Hot Cups - White
+  slug: recyclable-sip-lids-white
+  category: hot_cups_extras
+  active: true
+  sort_order: 3
+  product_type: standard
