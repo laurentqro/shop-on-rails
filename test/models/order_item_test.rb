@@ -176,4 +176,26 @@ class OrderItemTest < ActiveSupport::TestCase
     assert_not order_item.valid?
     assert_includes order_item.errors[:order], "must exist"
   end
+
+  # Configuration tests
+  test "order item stores configuration from cart item" do
+    cart_item = cart_items(:branded_configuration)
+    order = orders(:acme_order)
+
+    order_item = OrderItem.create_from_cart_item(cart_item, order)
+
+    assert_equal cart_item.configuration["size"], order_item.configuration["size"]
+    assert_equal cart_item.configuration["quantity"], order_item.configuration["quantity"]
+  end
+
+  test "order item has design attachment" do
+    order_item = order_items(:acme_branded_item)
+    assert_respond_to order_item, :design
+  end
+
+  test "configured order item" do
+    order_item = order_items(:acme_branded_item)
+    assert order_item.configured?
+    assert_equal "12oz", order_item.configuration["size"]
+  end
 end

@@ -154,14 +154,7 @@ class CheckoutsController < ApplicationController
 
     # Create order items from cart items
     cart.cart_items.each do |cart_item|
-      order.order_items.create!(
-        product_variant: cart_item.product_variant,
-        product_name: cart_item.product_variant.display_name,
-        product_sku: cart_item.product_variant.sku,
-        price: cart_item.price,
-        quantity: cart_item.quantity,
-        line_total: cart_item.subtotal_amount
-      )
+      OrderItem.create_from_cart_item(cart_item, order).save!
     end
 
     order
