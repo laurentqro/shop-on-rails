@@ -12,8 +12,7 @@ module Organizations
     def show
       @product = Current.user.organization
                              .customized_products
-                             .friendly
-                             .find(params[:id])
+                             .find_by!(slug: params[:id])
     end
 
     private

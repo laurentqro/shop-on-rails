@@ -11,7 +11,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="<%= @product.name %>">
   <meta name="twitter:description" content="<%= @product.description %>">
-  <% image_source = @selected_variant.image.attached? ? @selected_variant.image : @product.image %>
+  <% image_source = @selected_variant&.image&.attached? ? @selected_variant.image : @product.image %>
   <% if image_source&.attached? %>
     <meta name="twitter:image" content="<%= polymorphic_url(image_source.variant(resize_to_limit: [1200, 630])) %>">
   <% end %>
@@ -43,7 +43,7 @@
     <div class="container mx-auto py-8 min-h-screen">
       <div class="card lg:card-side bg-base-100 shadow-sm">
         <figure class="lg:w-1/2">
-          <% image_source = @selected_variant.image.attached? ? @selected_variant.image : @product.image %>
+          <% image_source = @selected_variant&.image&.attached? ? @selected_variant.image : @product.image %>
           <% if image_source&.attached? %>
             <%= image_tag image_source.variant(resize_to_limit: [400, 400]), alt: @product.name %>
           <% else %>

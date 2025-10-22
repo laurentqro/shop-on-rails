@@ -1,8 +1,8 @@
 <div class="product-card card bg-base-100 shadow-xl">
   <%= link_to organizations_product_path(product), class: "block" do %>
     <figure class="aspect-square">
-      <% if product.images.attached? %>
-        <%= image_tag product.images.first.variant(resize_to_limit: [400, 400]),
+      <% if product.image.attached? %>
+        <%= image_tag product.image.variant(resize_to_limit: [400, 400]),
                       alt: product.name,
                       class: "object-cover w-full h-full" %>
       <% else %>
@@ -40,10 +40,10 @@
 
         <div class="flex justify-between">
           <span class="text-gray-600">Stock:</span>
-          <% if variant.stock > 0 %>
-            <span class="badge badge-success"><%= number_with_delimiter(variant.stock) %> in stock</span>
-          <% elsif variant.stock > 0 && variant.stock < 1000 %>
-            <span class="badge badge-warning">Low stock (<%= variant.stock %>)</span>
+          <% if variant.stock_quantity > 1000 %>
+            <span class="badge badge-success"><%= number_with_delimiter(variant.stock_quantity) %> in stock</span>
+          <% elsif variant.stock_quantity > 0 && variant.stock_quantity <= 1000 %>
+            <span class="badge badge-warning">Low stock (<%= number_with_delimiter(variant.stock_quantity) %>)</span>
           <% else %>
             <span class="badge badge-error">Out of stock</span>
           <% end %>

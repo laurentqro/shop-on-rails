@@ -2,9 +2,17 @@
   <%= link_to "← Back to Your Products", organizations_products_path, class: "btn btn-ghost mb-4" %>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- Product Images -->
+    <!-- Product Image -->
     <div>
-      <%= render "products/image_carousel", product: @product %>
+      <% if @product.image.attached? %>
+        <%= image_tag @product.image.variant(resize_to_limit: [800, 800]),
+                      alt: @product.name,
+                      class: "w-full rounded-lg shadow-lg" %>
+      <% else %>
+        <div class="bg-base-200 w-full aspect-square rounded-lg flex items-center justify-center">
+          <span class="text-6xl">📦</span>
+        </div>
+      <% end %>
     </div>
 
     <!-- Product Details & Reorder -->
@@ -44,18 +52,18 @@
       <!-- Reorder Form -->
       <% if @product.active_variants.first %>
         <% variant = @product.active_variants.first %>
-        <%= form_with url: cart_items_path, method: :post, class: "space-y-4" do |f| %>
-          <%= f.hidden_field :variant_id, value: variant.id %>
+        <%= form_with url: cart_cart_items_path, method: :post, class: "space-y-4", local: false do |f| %>
+          <%= hidden_field_tag "cart_item[variant_sku]", variant.sku %>
 
           <div class="form-control">
             <label class="label">
-              <span class="label-text font-semibold">Quantity</span>
+              <span class="label-text font-semibold">Quantity (units)</span>
             </label>
-            <%= f.number_field :quantity,
-                              value: 1000,
-                              min: 500,
-                              step: 500,
-                              class: "input input-bordered w-full" %>
+            <%= number_field_tag "cart_item[quantity]",
+                                1000,
+                                min: 500,
+                                step: 500,
+                                class: "input input-bordered w-full" %>
             <label class="label">
               <span class="label-text-alt">Minimum order: 500 units</span>
             </label>

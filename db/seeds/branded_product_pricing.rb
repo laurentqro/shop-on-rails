@@ -94,5 +94,17 @@ pricing_data_dw.each do |data|
 end
 
 puts "  Double Wall Branded Cups: #{pricing_data_dw.size} pricing tiers created"
+
+# Create placeholder variants for template products (required by cart system)
+[single_wall_branded, double_wall_branded].each do |product|
+  product.variants.find_or_create_by!(sku: "PLACEHOLDER-#{product.slug.upcase}") do |v|
+    v.name = 'Placeholder'
+    v.price = 0.01
+    v.stock_quantity = 0
+    v.active = true
+  end
+end
+
 puts "Branded product pricing created successfully!"
 puts "  Total pricing entries: #{pricing_data_sw.size + pricing_data_dw.size}"
+puts "  Placeholder variants created for template products"
