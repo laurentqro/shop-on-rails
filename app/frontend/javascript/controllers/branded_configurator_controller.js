@@ -93,6 +93,7 @@ export default class extends Controller {
     event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedSize = event.currentTarget.dataset.size
+    this.updateUrl()
     this.showStepComplete('size')
     this.calculatePrice()
   }
@@ -109,6 +110,7 @@ export default class extends Controller {
     event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedFinish = event.currentTarget.dataset.finish
+    this.updateUrl()
     this.showStepComplete('finish')
     this.updateAddToCartButton()
   }
@@ -125,6 +127,7 @@ export default class extends Controller {
     event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedQuantity = parseInt(event.currentTarget.dataset.quantity)
+    this.updateUrl()
     this.showStepComplete('quantity')
     this.calculatePrice()
   }
@@ -288,6 +291,25 @@ export default class extends Controller {
     this.clearError()
     this.showStepComplete('design')
     this.updateAddToCartButton()
+  }
+
+  updateUrl() {
+    const params = new URLSearchParams(window.location.search)
+
+    // Update URL parameters based on current selections
+    if (this.selectedSize) {
+      params.set('size', this.selectedSize)
+    }
+    if (this.selectedFinish) {
+      params.set('finish', this.selectedFinish)
+    }
+    if (this.selectedQuantity) {
+      params.set('quantity', this.selectedQuantity)
+    }
+
+    // Update browser URL without page reload
+    const newUrl = `${window.location.pathname}?${params.toString()}`
+    window.history.replaceState({}, '', newUrl)
   }
 
   showStepComplete(step) {
