@@ -93,13 +93,16 @@ export default class extends Controller {
   }
 
   updatePricingDisplay(data) {
+    // Parse values as floats (server returns strings)
+    const pricePerUnit = parseFloat(data.price_per_unit)
+    const subtotal = parseFloat(data.total_price)
+
     // Update price per unit
     if (this.hasPricePerUnitTarget) {
-      this.pricePerUnitTarget.textContent = `£${data.price_per_unit.toFixed(2)}`
+      this.pricePerUnitTarget.textContent = `£${pricePerUnit.toFixed(2)}`
     }
 
     // Update subtotal
-    const subtotal = data.total_price
     if (this.hasSubtotalTarget) {
       this.subtotalTarget.textContent = `£${subtotal.toFixed(2)}`
     }
@@ -185,8 +188,23 @@ export default class extends Controller {
   async addToCart(event) {
     event.preventDefault()
 
-    if (!this.selectedSize || !this.selectedQuantity || !this.calculatedPrice) {
-      this.showError("Please complete all configuration steps")
+    if (!this.selectedSize) {
+      this.showError("Please select a size")
+      return
+    }
+
+    if (!this.selectedQuantity) {
+      this.showError("Please select a quantity")
+      return
+    }
+
+    if (!this.designInputTarget?.files[0]) {
+      this.showError("Please upload your design file")
+      return
+    }
+
+    if (!this.calculatedPrice) {
+      this.showError("Price calculation failed. Please try again")
       return
     }
 
@@ -201,7 +219,7 @@ export default class extends Controller {
     }
 
     try {
-      const response = await fetch("/cart_items", {
+      const response = await fetch("/cart/cart_items", {
         method: "POST",
         headers: {
           "X-CSRF-Token": document.querySelector("[name='csrf-token']").content

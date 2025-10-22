@@ -24,15 +24,17 @@ class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :products, through: :cart_items
 
-  # Total quantity of all items in cart
-  # Uses database aggregation to avoid N+1 queries
+  # Total number of distinct items in cart
+  # For standard products: counts individual items
+  # For configured products: counts as 1 item (not thousands of units)
   # Memoized to prevent repeated database calls within same request
   def items_count
-    @items_count ||= cart_items.sum(:quantity)
+    @items_count ||= cart_items.count
   end
 
   # Sum of all cart item subtotals (before VAT)
   # Uses database calculation: SUM(price * quantity)
+  # Works for both standard and configured products (configured products store unit price in price column)
   # Memoized to prevent repeated database calls within same request
   def subtotal_amount
     @subtotal_amount ||= cart_items.sum("price * quantity")

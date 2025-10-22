@@ -80,19 +80,23 @@ class CartItemsController < ApplicationController
     end
 
     # For configured products, use the first variant as a placeholder
-    # The actual price comes from calculated_price
     product_variant = product.active_variants.first
     unless product_variant
       return render json: { error: "Product has no available variants" },
                     status: :unprocessable_entity
     end
 
+    # Calculate unit price and actual quantity from configuration
+    total_price = BigDecimal(params[:calculated_price].to_s)
+    quantity = params[:configuration][:quantity].to_i
+    unit_price = total_price / quantity
+
     cart_item = @cart.cart_items.build(
       product_variant: product_variant,
-      quantity: 1, # Configured products are always quantity 1
+      quantity: quantity,  # Actual quantity from configuration
+      price: unit_price,   # Unit price (so SUM(price * quantity) works)
       configuration: params[:configuration],
-      calculated_price: params[:calculated_price],
-      price: product_variant.price
+      calculated_price: total_price
     )
 
     if params[:design].present?

@@ -18,19 +18,11 @@ class CartItem < ApplicationRecord
   end
 
   def unit_price
-    if configuration.present?
-      calculated_price / configuration["quantity"]
-    else
-      product_variant.price
-    end
+    price
   end
 
   def line_total
-    if configuration.present?
-      calculated_price
-    else
-      product_variant.price * quantity
-    end
+    price * quantity
   end
 
   def configured?

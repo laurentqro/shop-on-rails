@@ -14,63 +14,83 @@
       <% end %>
       <div>
         <%= link_to cart_item.product.name, product_path(cart_item.product, variant_id: cart_item.product_variant.id), class: "text-xl font-medium text-gray-800 hover:text-primary-500", data: { turbo: false } %>
-        <div class="text-lg">
-          <%= cart_item.product_variant.name %>
-        </div>
-        <div class="text-gray-500 text-sm">
-          Pack of <%= cart_item.product_variant.pac_size %>
-        </div>
+        <% if cart_item.configured? %>
+          <div class="text-gray-600">
+            Size: <%= cart_item.configuration["size"] %>
+          </div>
+          <div class="text-gray-500 text-sm">
+            Custom branded with your design
+          </div>
+        <% else %>
+          <div class="text-lg">
+            <%= cart_item.product_variant.name %>
+          </div>
+          <div class="text-gray-500 text-sm">
+            Pack of <%= cart_item.product_variant.pac_size %>
+          </div>
+        <% end %>
       </div>
     </div>
 
     <div class="text-left md:text-center text-gray-700">
       <span class="md:hidden font-semibold">Price: </span>
-      <%= number_to_currency(cart_item.price) %>
+      <% if cart_item.configured? %>
+        £<%= sprintf("%.2f", cart_item.unit_price) %>/unit
+      <% else %>
+        <%= number_to_currency(cart_item.price) %>
+      <% end %>
     </div>
 
-    <div class="text-left md:text-center"
-          x-data="{
-            quantity: <%= cart_item.quantity %>,
-            loading: false,
-            initialQuantity: <%= cart_item.quantity %>
-          }"
-          x-init="
-            const form = $refs.cartItemForm_<%= cart_item.id %>;
-            form.addEventListener('ajax:beforeSend', () => { loading = true; });
-            form.addEventListener('ajax:success', () => {
-              loading = false;
-              initialQuantity = Number(quantity);
-            });
-            form.addEventListener('ajax:error', () => {
-              loading = false;
-              quantity = initialQuantity; // Revert to last known good quantity
-            });
+    <div class="text-left md:text-center">
+      <% if cart_item.configured? %>
+        <div class="text-gray-700">
+          <%= number_with_delimiter(cart_item.configuration["quantity"]) %>
+        </div>
+      <% else %>
+        <div x-data="{
+              quantity: <%= cart_item.quantity %>,
+              loading: false,
+              initialQuantity: <%= cart_item.quantity %>
+            }"
+            x-init="
+              const form = $refs.cartItemForm_<%= cart_item.id %>;
+              form.addEventListener('ajax:beforeSend', () => { loading = true; });
+              form.addEventListener('ajax:success', () => {
+                loading = false;
+                initialQuantity = Number(quantity);
+              });
+              form.addEventListener('ajax:error', () => {
+                loading = false;
+                quantity = initialQuantity; // Revert to last known good quantity
+              });
 
-            $watch('quantity', (newVal, oldVal) => {
-              const numNewVal = Number(newVal);
-              if (loading) return;
+              $watch('quantity', (newVal, oldVal) => {
+                const numNewVal = Number(newVal);
+                if (loading) return;
 
-              if (numNewVal >= 1 && numNewVal !== initialQuantity) {
-                form.requestSubmit();
-              } else if (numNewVal < 1 && newVal !== '') {
-                // If user types 0 or negative, revert to initialQuantity or oldVal.
-                // Reverting to initialQuantity is safer to prevent re-triggering watch immediately.
-                quantity = initialQuantity;
-              }
-            });
-          ">
-      <%= form_with(model: cart_item, url: cart_cart_item_path(cart_item), method: :patch, class: "flex items-center justify-center md:justify-center", local: false, html: { 'x-ref': "cartItemForm_#{cart_item.id}" }) do |form| %>
-        <div class="join items-center">
-          <button type="button" @click="quantity = Math.max(1, Number(quantity) - 1)" class="btn join-item btn-outline btn-sm">-</button>
-          <%= form.text_field :quantity, class: "input input-sm input-bordered join-item w-12 text-center bg-white border-black", "x-model.number": "quantity" %>
-          <button type="button" @click="quantity = Number(quantity) + 1" class="btn join-item btn-outline btn-sm">+</button>
+                if (numNewVal >= 1 && numNewVal !== initialQuantity) {
+                  form.requestSubmit();
+                } else if (numNewVal < 1 && newVal !== '') {
+                  // If user types 0 or negative, revert to initialQuantity or oldVal.
+                  // Reverting to initialQuantity is safer to prevent re-triggering watch immediately.
+                  quantity = initialQuantity;
+                }
+              });
+            ">
+          <%= form_with(model: cart_item, url: cart_cart_item_path(cart_item), method: :patch, class: "flex items-center justify-center md:justify-center", local: false, html: { 'x-ref': "cartItemForm_#{cart_item.id}" }) do |form| %>
+            <div class="join items-center">
+              <button type="button" @click="quantity = Math.max(1, Number(quantity) - 1)" class="btn join-item btn-outline btn-sm">-</button>
+              <%= form.text_field :quantity, class: "input input-sm input-bordered join-item w-12 text-center bg-white border-black", "x-model.number": "quantity" %>
+              <button type="button" @click="quantity = Number(quantity) + 1" class="btn join-item btn-outline btn-sm">+</button>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
 
     <div class="text-right text-gray-700">
       <span class="md:hidden font-semibold">Total: </span>
-      <%= number_to_currency(cart_item.subtotal_amount) %>
+      <%= number_to_currency(cart_item.line_total) %>
     </div>
 
     <div class="text-right md:text-center">
