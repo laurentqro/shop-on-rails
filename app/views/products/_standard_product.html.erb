@@ -91,11 +91,11 @@
 
           <div class="my-2">
             <p class="text-xl lg:text-2xl font-semibold text-secondary">
-              <%= number_to_currency(@selected_variant.unit_price, precision: 4) %>/unit
+              <%= number_to_currency(@selected_variant.price) %>
             </p>
             <% if @selected_variant.pac_size.present? && @selected_variant.pac_size > 1 %>
               <p class="text-sm text-base-content/60">
-                Sold in packs of <%= @selected_variant.pac_size %> (<%= number_to_currency(@selected_variant.price) %> per pack)
+                Pack of <%= @selected_variant.pac_size %> units
               </p>
             <% end %>
           </div>

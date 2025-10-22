@@ -36,7 +36,11 @@
 
     <div class="text-left md:text-center text-gray-700">
       <span class="md:hidden font-semibold">Price: </span>
-      <%= number_to_currency(cart_item.unit_price, precision: 4) %>/unit
+      <% if cart_item.configured? %>
+        <%= number_to_currency(cart_item.unit_price, precision: 4) %>/unit
+      <% else %>
+        <%= number_to_currency(cart_item.price) %>
+      <% end %>
     </div>
 
     <div class="text-left md:text-center">
