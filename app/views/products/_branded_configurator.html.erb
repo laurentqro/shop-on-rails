@@ -1,9 +1,12 @@
-<div data-controller="branded-configurator cart-drawer"
-     data-branded-configurator-product-id-value="<%= @product.id %>"
-     data-branded-configurator-vat-rate-value="0.2"
-     data-action="turbo:submit-end->cart-drawer#open">
+<div class="drawer drawer-end">
+  <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <div data-controller="branded-configurator cart-drawer"
+         data-branded-configurator-product-id-value="<%= @product.id %>"
+         data-branded-configurator-vat-rate-value="0.2"
+         data-action="turbo:submit-end->cart-drawer#open">
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left: Product Images -->
     <div>
       <% image_source = @product.image %>
@@ -142,5 +145,13 @@
         <span>Delivered in 3-4 weeks • Free shipping on orders over £500</span>
       </div>
     </div>
+    </div>
+  </div>
+
+  <div class="drawer-side">
+    <label for="cart-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      <%= render "shared/drawer_cart_content" %>
+    </ul>
   </div>
 </div>
