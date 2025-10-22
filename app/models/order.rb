@@ -26,10 +26,24 @@ class Order < ApplicationRecord
     refunded: "refunded"
   }
 
+  enum :branded_order_status, {
+    design_pending: "design_pending",
+    design_approved: "design_approved",
+    in_production: "in_production",
+    production_complete: "production_complete",
+    stock_received: "stock_received",
+    instance_created: "instance_created"
+  }, prefix: true, validate: { allow_nil: true }
+
   before_validation :generate_order_number, on: :create
 
   scope :recent, -> { order(created_at: :desc) }
   scope :for_organization, ->(org) { where(organization: org) }
+  scope :branded_orders, -> {
+    joins(:order_items)
+      .where.not(order_items: { configuration: nil })
+      .distinct
+  }
 
   def items_count
     order_items.sum(:quantity)
@@ -53,6 +67,10 @@ class Order < ApplicationRecord
 
   def b2b_order?
     organization_id.present?
+  end
+
+  def branded_order?
+    order_items.any? { |item| item.configuration.present? }
   end
 
   private

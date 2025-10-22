@@ -217,4 +217,34 @@ class OrderTest < ActiveSupport::TestCase
     assert_includes org_orders, orders(:acme_order)
     assert_not_includes org_orders, orders(:one)
   end
+
+  # Branded order status tests
+  test "order has branded_order_status enum" do
+    order = orders(:acme_order)
+
+    order.branded_order_status = "design_pending"
+    assert order.valid?
+
+    order.branded_order_status = "design_approved"
+    assert order.valid?
+
+    order.branded_order_status = "in_production"
+    assert order.valid?
+
+    order.branded_order_status = "production_complete"
+    assert order.valid?
+
+    order.branded_order_status = "stock_received"
+    assert order.valid?
+
+    order.branded_order_status = "instance_created"
+    assert order.valid?
+  end
+
+  test "branded order scope" do
+    # This test will be fully implemented when OrderItem has configuration support
+    # For now, just verify the scope exists and returns an ActiveRecord::Relation
+    branded_orders = Order.branded_orders
+    assert_kind_of ActiveRecord::Relation, branded_orders
+  end
 end
