@@ -1,53 +1,121 @@
 <div class="container mx-auto px-4 py-8">
-  <div class="mb-6">
-    <%= link_to "← Back to Branded Orders", admin_branded_orders_path, class: "text-indigo-600 hover:text-indigo-900" %>
-  </div>
+  <%= link_to "← Back to Orders", admin_branded_orders_path, class: "btn btn-ghost mb-4" %>
 
-  <h1 class="text-3xl font-bold mb-6">Order #<%= @order.id %></h1>
-
-  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-    <h2 class="text-xl font-semibold mb-4">Order Details</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <p class="text-gray-600">Order Number:</p>
-        <p class="font-medium"><%= @order.order_number %></p>
-      </div>
-      <div>
-        <p class="text-gray-600">Status:</p>
-        <p class="font-medium"><%= @order.status %></p>
-      </div>
-      <div>
-        <p class="text-gray-600">Customer:</p>
-        <p class="font-medium"><%= @order.shipping_name %></p>
-      </div>
-      <div>
-        <p class="text-gray-600">Email:</p>
-        <p class="font-medium"><%= @order.email %></p>
-      </div>
-      <div>
-        <p class="text-gray-600">Total Amount:</p>
-        <p class="font-medium"><%= number_to_currency(@order.total_amount) %></p>
-      </div>
-      <div>
-        <p class="text-gray-600">Date:</p>
-        <p class="font-medium"><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-      </div>
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold">Order #<%= @order.id %></h1>
+    <div class="text-lg text-gray-600">
+      <%= @order.organization&.name || "Individual Customer" %> •
+      <%= @order.created_at.strftime("%B %d, %Y at %I:%M %p") %>
     </div>
   </div>
 
-  <div class="bg-white shadow-md rounded-lg p-6">
-    <h2 class="text-xl font-semibold mb-4">Configured Products</h2>
+  <!-- Fulfillment Status Timeline -->
+  <div class="card bg-base-200 mb-8">
+    <div class="card-body">
+      <h2 class="card-title">Fulfillment Status</h2>
+
+      <ul class="steps steps-vertical lg:steps-horizontal w-full">
+        <li class="step <%= 'step-primary' if @order.branded_order_status.present? %>">
+          Design Pending
+        </li>
+        <li class="step <%= 'step-primary' if @order.branded_order_status_design_approved? || @order.branded_order_status_in_production? %>">
+          Design Approved
+        </li>
+        <li class="step <%= 'step-primary' if @order.branded_order_status_in_production? %>">
+          In Production
+        </li>
+        <li class="step <%= 'step-primary' if @order.branded_order_status_production_complete? %>">
+          Production Complete
+        </li>
+        <li class="step <%= 'step-primary' if @order.branded_order_status_stock_received? %>">
+          Stock Received
+        </li>
+        <li class="step <%= 'step-primary' if @order.branded_order_status_instance_created? %>">
+          Customer Product Created
+        </li>
+      </ul>
+
+      <!-- Status Update Form -->
+      <%= form_with url: update_status_admin_branded_order_path(@order), method: :patch, class: "mt-6" do |f| %>
+        <div class="flex gap-2">
+          <%= f.select :status,
+                      options_for_select(
+                        Order.branded_order_statuses.keys.map { |k| [k.humanize, k] },
+                        @order.branded_order_status
+                      ),
+                      {},
+                      class: "select select-bordered flex-1" %>
+          <%= f.submit "Update Status", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Configured Order Items -->
+  <div class="space-y-6">
     <% @configured_items.each do |item| %>
-      <div class="border-b border-gray-200 py-4 last:border-b-0">
-        <h3 class="font-medium"><%= item.product_name %></h3>
-        <p class="text-gray-600">Quantity: <%= item.quantity %></p>
-        <p class="text-gray-600">Price: <%= number_to_currency(item.price) %></p>
-        <% if item.respond_to?(:configuration) && item.configuration.present? %>
-          <div class="mt-2">
-            <p class="text-sm font-medium text-gray-700">Configuration:</p>
-            <pre class="text-xs bg-gray-50 p-2 rounded mt-1"><%= JSON.pretty_generate(item.configuration) %></pre>
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body">
+          <div class="flex justify-between items-start">
+            <div class="flex-1">
+              <h3 class="card-title"><%= item.product.name %></h3>
+
+              <!-- Configuration Details -->
+              <div class="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                  <h4 class="font-semibold mb-2">Configuration</h4>
+                  <dl class="space-y-1">
+                    <% item.configuration.each do |key, value| %>
+                      <div class="flex gap-2">
+                        <dt class="text-gray-600"><%= key.titleize %>:</dt>
+                        <dd class="font-semibold"><%= value %></dd>
+                      </div>
+                    <% end %>
+                  </dl>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold mb-2">Pricing</h4>
+                  <dl class="space-y-1">
+                    <div class="flex gap-2">
+                      <dt class="text-gray-600">Unit Price:</dt>
+                      <dd class="font-semibold">£<%= number_with_precision(item.unit_price, precision: 4) %></dd>
+                    </div>
+                    <div class="flex gap-2">
+                      <dt class="text-gray-600">Quantity:</dt>
+                      <dd class="font-semibold"><%= number_with_delimiter(item.quantity) %></dd>
+                    </div>
+                    <div class="flex gap-2">
+                      <dt class="text-gray-600">Total:</dt>
+                      <dd class="font-semibold">£<%= number_with_precision(item.total_price, precision: 2) %></dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+
+              <!-- Design Download -->
+              <% if item.design.attached? %>
+                <div class="mt-4">
+                  <%= link_to "Download Design", rails_blob_path(item.design, disposition: "attachment"),
+                             class: "btn btn-sm btn-outline" %>
+                </div>
+              <% end %>
+            </div>
           </div>
-        <% end %>
+
+          <!-- Instance Product Creation Form -->
+          <% unless @order.branded_order_status_instance_created? %>
+            <div class="divider"></div>
+            <%= render "instance_product_form", order: @order, order_item: item %>
+          <% else %>
+            <div class="alert alert-success mt-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Customer product has been created</span>
+            </div>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

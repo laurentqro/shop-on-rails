@@ -1,0 +1,64 @@
+<div class="bg-base-200 p-6 rounded-lg">
+  <h4 class="font-semibold text-lg mb-4">Create Customer Product</h4>
+
+  <%= form_with url: create_instance_product_admin_branded_order_path(order),
+               method: :post,
+               class: "space-y-4" do |f| %>
+    <%= hidden_field_tag :order_item_id, order_item.id %>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Product Name</span>
+        </label>
+        <%= text_field_tag :product_name,
+                          "#{order.organization.name} #{order_item.configuration['size']} #{order_item.product.name}",
+                          class: "input input-bordered",
+                          required: true %>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">SKU</span>
+        </label>
+        <%= text_field_tag :sku,
+                          "BRANDED-#{order.organization.name.parameterize.upcase}-#{order_item.configuration['size']}-#{SecureRandom.hex(3).upcase}",
+                          class: "input input-bordered",
+                          required: true %>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Initial Stock</span>
+        </label>
+        <%= number_field_tag :initial_stock,
+                            order_item.configuration['quantity'],
+                            min: 0,
+                            class: "input input-bordered",
+                            required: true %>
+        <label class="label">
+          <span class="label-text-alt">Quantity from order: <%= number_with_delimiter(order_item.configuration['quantity']) %></span>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Reorder Price (per unit)</span>
+        </label>
+        <%= number_field_tag :reorder_price,
+                            order_item.unit_price,
+                            step: 0.01,
+                            min: 0,
+                            class: "input input-bordered",
+                            required: true %>
+        <label class="label">
+          <span class="label-text-alt">Original: £<%= number_with_precision(order_item.unit_price, precision: 4) %>/unit</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <%= f.submit "Create Customer Product", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
