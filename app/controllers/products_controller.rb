@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.includes(:active_variants, :category).find_by!(slug: params[:id])
+    @product = Product.find_by!(slug: params[:id])
 
     if @product.customizable_template?
       # Load data for configurator
