@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_22_004713) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_22_043539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -121,8 +121,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_22_004713) do
     t.string "shipping_country", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organization_id"
+    t.bigint "placed_by_user_id"
     t.index ["email"], name: "index_orders_on_email"
     t.index ["order_number"], name: "index_orders_on_order_number", unique: true
+    t.index ["organization_id", "created_at"], name: "index_orders_on_organization_id_and_created_at"
+    t.index ["organization_id"], name: "index_orders_on_organization_id"
+    t.index ["placed_by_user_id"], name: "index_orders_on_placed_by_user_id"
     t.index ["status"], name: "index_orders_on_status"
     t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -264,7 +269,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_22_004713) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "product_variants"
   add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "organizations"
   add_foreign_key "orders", "users"
+  add_foreign_key "orders", "users", column: "placed_by_user_id"
   add_foreign_key "product_option_assignments", "product_options"
   add_foreign_key "product_option_assignments", "products"
   add_foreign_key "product_option_values", "product_options"

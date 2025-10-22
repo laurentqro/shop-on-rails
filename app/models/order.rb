@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :user, optional: true
+  belongs_to :organization, optional: true
+  belongs_to :placed_by_user, class_name: "User", optional: true
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
@@ -27,6 +29,7 @@ class Order < ApplicationRecord
   before_validation :generate_order_number, on: :create
 
   scope :recent, -> { order(created_at: :desc) }
+  scope :for_organization, ->(org) { where(organization: org) }
 
   def items_count
     order_items.sum(:quantity)
@@ -46,6 +49,10 @@ class Order < ApplicationRecord
 
   def display_number
     "##{order_number}"
+  end
+
+  def b2b_order?
+    organization_id.present?
   end
 
   private

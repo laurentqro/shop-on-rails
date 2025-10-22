@@ -172,4 +172,49 @@ class OrderTest < ActiveSupport::TestCase
     recent_orders = Order.recent.limit(2)
     assert_equal new_order, recent_orders.first
   end
+
+  # Organization tests
+  test "order can belong to organization" do
+    order = orders(:acme_order)
+    assert_equal organizations(:acme), order.organization
+  end
+
+  test "order tracks which user placed it" do
+    order = orders(:acme_order)
+    assert_equal users(:acme_admin), order.placed_by_user
+  end
+
+  test "B2B order has both organization and placed_by" do
+    order = Order.create!(
+      user: users(:acme_admin),
+      organization: organizations(:acme),
+      placed_by_user: users(:acme_admin),
+      stripe_session_id: "test_session_123",
+      total_amount: 1000,
+      subtotal_amount: 833.33,
+      vat_amount: 166.67,
+      shipping_amount: 0,
+      status: "pending",
+      email: "admin@acme.com",
+      shipping_name: "ACME Corp",
+      shipping_address_line1: "100 Business Park",
+      shipping_city: "London",
+      shipping_postal_code: "EC1A 1BB",
+      shipping_country: "GB"
+    )
+    assert order.persisted?
+    assert order.b2b_order?
+  end
+
+  test "consumer order has no organization" do
+    order = orders(:one)
+    assert_nil order.organization_id
+    assert_not order.b2b_order?
+  end
+
+  test "organization orders scope" do
+    org_orders = Order.for_organization(organizations(:acme))
+    assert_includes org_orders, orders(:acme_order)
+    assert_not_includes org_orders, orders(:one)
+  end
 end

@@ -33,3 +33,22 @@ two:
   shipping_city: Manchester
   shipping_postal_code: M1 1AA
   shipping_country: GB
+
+acme_order:
+  user: acme_admin
+  organization: acme
+  placed_by_user: acme_admin
+  email: admin@acme.com
+  stripe_session_id: cs_test_acme_001
+  order_number: ORDER-003
+  total_amount: 1080.00
+  subtotal_amount: 900.00
+  vat_amount: 180.00
+  shipping_amount: 0.00
+  status: paid
+  shipping_name: ACME Corp
+  shipping_address_line1: 100 Business Park
+  shipping_city: London
+  shipping_postal_code: EC1A 1BB
+  shipping_country: GB
+  created_at: <%= 2.days.ago %>
