@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   resources :products, only: [ :index, :show ], path: "product"
   resources :categories, only: [ :show ], path: "category"
+
+  # Branded products shortcut
+  get "branded-products", to: "categories#show", id: "branded-products"
   resource :session, path: "signin", path_names: { new: "" }
   resources :passwords, param: :token
   resource :registration, only: [ :new, :create ], path: "signup", path_names: { new: "" }
