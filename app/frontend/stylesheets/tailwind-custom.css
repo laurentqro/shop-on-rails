@@ -64,4 +64,22 @@
 .btn-ghost:hover {
   background-color: transparent;
   border-color: transparent;
+}
+
+/* Disabled button state - visually obvious */
+.btn-disabled,
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #d1d5db;
+  border-color: #d1d5db;
+  color: #6b7280;
+}
+
+.btn-disabled:hover,
+.btn:disabled:hover {
+  background-color: #d1d5db;
+  border-color: #d1d5db;
 } 

@@ -14,7 +14,11 @@ export default class extends Controller {
     "addToCartButton",
     "designInput",
     "designPreview",
-    "errorMessage"
+    "errorMessage",
+    "sizeComplete",
+    "finishComplete",
+    "quantityComplete",
+    "designComplete"
   ]
 
   static values = {
@@ -59,6 +63,7 @@ export default class extends Controller {
     event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedSize = event.currentTarget.dataset.size
+    this.showStepComplete('size')
     this.calculatePrice()
   }
 
@@ -74,6 +79,7 @@ export default class extends Controller {
     event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedFinish = event.currentTarget.dataset.finish
+    this.showStepComplete('finish')
     this.updateAddToCartButton()
   }
 
@@ -89,6 +95,7 @@ export default class extends Controller {
     event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedQuantity = parseInt(event.currentTarget.dataset.quantity)
+    this.showStepComplete('quantity')
     this.calculatePrice()
   }
 
@@ -249,7 +256,15 @@ export default class extends Controller {
     }
 
     this.clearError()
+    this.showStepComplete('design')
     this.updateAddToCartButton()
+  }
+
+  showStepComplete(step) {
+    const target = `${step}CompleteTarget`
+    if (this[target]) {
+      this[target].style.display = 'inline-block'
+    }
   }
 
   updateAddToCartButton() {

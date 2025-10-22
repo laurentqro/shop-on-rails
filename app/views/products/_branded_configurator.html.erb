@@ -44,7 +44,10 @@
       <!-- Step 1: Select Size -->
       <div class="form-control">
         <label class="label">
-          <span class="label-text font-semibold">Step 1: Select Size</span>
+          <span class="label-text font-semibold">
+            Step 1: Select Size
+            <span class="badge badge-sm badge-success ml-2" data-branded-configurator-target="sizeComplete" style="display:none;">✓</span>
+          </span>
         </label>
         <div class="flex gap-2">
           <% @available_sizes.each do |size| %>
@@ -62,7 +65,10 @@
       <!-- Step 2: Select Finish -->
       <div class="form-control">
         <label class="label">
-          <span class="label-text font-semibold">Step 2: Select Finish</span>
+          <span class="label-text font-semibold">
+            Step 2: Select Finish
+            <span class="badge badge-sm badge-success ml-2" data-branded-configurator-target="finishComplete" style="display:none;">✓</span>
+          </span>
         </label>
         <div class="flex gap-2">
           <button type="button"
@@ -85,7 +91,10 @@
       <!-- Step 3: Select Quantity -->
       <div class="form-control">
         <label class="label">
-          <span class="label-text font-semibold">Step 3: Select Quantity</span>
+          <span class="label-text font-semibold">
+            Step 3: Select Quantity
+            <span class="badge badge-sm badge-success ml-2" data-branded-configurator-target="quantityComplete" style="display:none;">✓</span>
+          </span>
         </label>
         <div class="space-y-3">
           <% @quantity_tiers.each_with_index do |quantity, index| %>
@@ -118,7 +127,10 @@
       <!-- Step 4: Upload Design -->
       <div class="form-control">
         <label class="label">
-          <span class="label-text font-semibold">Step 4: Upload Your Design</span>
+          <span class="label-text font-semibold">
+            Step 4: Upload Your Design
+            <span class="badge badge-sm badge-success ml-2" data-branded-configurator-target="designComplete" style="display:none;">✓</span>
+          </span>
         </label>
         <input type="file"
                class="file-input file-input-bordered w-full"
