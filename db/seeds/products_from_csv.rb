@@ -14,7 +14,7 @@ end
 CATEGORY_MAP = {
   'straws' => 'drinks',
   'hot-cups' => 'drinks',
-  'hot-cups-extras' => 'accessories',
+  'hot-cups-extras' => 'drinks',  # Lids, stirrers go with drinks
   'cold-cups-and-lids' => 'drinks',
   'napkins' => 'accessories',
   'pizza-boxes' => 'mains',
@@ -22,7 +22,7 @@ CATEGORY_MAP = {
   'takeaway-containers' => 'mains',
   'ice-cream-cups' => 'desserts',
   'ice-cream' => 'desserts',
-  'takeaway-extras' => 'bags'  # Changed: bags should go to bags category, not accessories
+  'takeaway-extras' => 'bags'
 }.freeze
 
 # Get existing options
