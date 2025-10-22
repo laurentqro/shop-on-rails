@@ -7,26 +7,14 @@ class CartItemsController < ApplicationController
 
   # POST /cart/cart_items
   def create
-    product_variant = ProductVariant.find_by!(sku: cart_item_params[:variant_sku])
-    @cart_item = @cart.cart_items.find_or_initialize_by(product_variant: product_variant)
+    @cart = Current.cart
 
-    if @cart_item.new_record?
-      @cart_item.quantity = cart_item_params[:quantity].to_i || 1
-      @cart_item.price = product_variant.price
+    if params[:configuration].present?
+      # Configured product (branded cups)
+      create_configured_cart_item
     else
-      @cart_item.quantity += (cart_item_params[:quantity].to_i || 1)
-    end
-
-    if @cart_item.save
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to cart_path, notice: "#{product_variant.display_name} added to cart." }
-      end
-    else
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_back fallback_location: product_path(product_variant.product), alert: "Could not add item to cart: #{@cart_item.errors.full_messages.join(', ')}" }
-      end
+      # Standard product
+      create_standard_cart_item
     end
   end
 
@@ -81,6 +69,72 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.cart_items.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to cart_path, alert: "Cart item not found."
+  end
+
+  def create_configured_cart_item
+    product = Product.find(params[:product_id])
+
+    unless product.customizable_template?
+      return render json: { error: "Product is not customizable" },
+                    status: :unprocessable_entity
+    end
+
+    # For configured products, use the first variant as a placeholder
+    # The actual price comes from calculated_price
+    product_variant = product.active_variants.first
+    unless product_variant
+      return render json: { error: "Product has no available variants" },
+                    status: :unprocessable_entity
+    end
+
+    cart_item = @cart.cart_items.build(
+      product_variant: product_variant,
+      quantity: 1, # Configured products are always quantity 1
+      configuration: params[:configuration],
+      calculated_price: params[:calculated_price],
+      price: product_variant.price
+    )
+
+    if params[:design].present?
+      cart_item.design.attach(params[:design])
+    end
+
+    if cart_item.save
+      respond_to do |format|
+        format.html { redirect_to cart_path, notice: "Configured product added to cart" }
+        format.json { render json: { success: true, cart_item: cart_item }, status: :created }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_path, alert: cart_item.errors.full_messages.join(", ") }
+        format.json { render json: { error: cart_item.errors.full_messages.join(", ") }, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_standard_cart_item
+    # Existing logic for standard products
+    product_variant = ProductVariant.find_by!(sku: cart_item_params[:variant_sku])
+    @cart_item = @cart.cart_items.find_or_initialize_by(product_variant: product_variant)
+
+    if @cart_item.new_record?
+      @cart_item.quantity = cart_item_params[:quantity].to_i || 1
+      @cart_item.price = product_variant.price
+    else
+      @cart_item.quantity += (cart_item_params[:quantity].to_i || 1)
+    end
+
+    if @cart_item.save
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to cart_path, notice: "#{product_variant.display_name} added to cart." }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back fallback_location: product_path(product_variant.product), alert: "Could not add item to cart: #{@cart_item.errors.full_messages.join(', ')}" }
+      end
+    end
   end
 
   def cart_item_params

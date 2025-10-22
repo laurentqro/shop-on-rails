@@ -6,9 +6,10 @@ class CartItem < ApplicationRecord
   has_one_attached :design
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
-  validates :price, presence: true, numericality: { greater_than: 0 }
-  validates_uniqueness_of :product_variant, scope: :cart
-  validates :calculated_price, presence: true, if: -> { configuration.present? }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates_uniqueness_of :product_variant, scope: :cart, unless: :configured?
+  validates :calculated_price, presence: true, if: :configured?
+  validate :design_required_for_configured_products
 
   before_validation :set_price_from_variant
 
@@ -40,5 +41,11 @@ class CartItem < ApplicationRecord
 
   def set_price_from_variant
     self.price = product_variant.price if product_variant && price.blank?
+  end
+
+  def design_required_for_configured_products
+    if configured? && !design.attached?
+      errors.add(:design, "must be uploaded for custom products")
+    end
   end
 end

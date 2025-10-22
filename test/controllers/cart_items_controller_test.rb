@@ -265,6 +265,82 @@ class CartItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal cart_id, session[:cart_id]
   end
 
+  # Configured Products Tests
+  test "creates cart item with configuration for branded product" do
+    sign_in_as users(:consumer)
+
+    # Upload design file
+    design_file = fixture_file_upload("test_design.pdf", "application/pdf")
+
+    assert_difference "CartItem.count", 1 do
+      post cart_cart_items_path, params: {
+        product_id: products(:branded_double_wall_template).id,
+        configuration: {
+          size: "12oz",
+          quantity: 5000
+        },
+        calculated_price: 1000.00,
+        design: design_file
+      }
+    end
+
+    cart_item = CartItem.last
+    assert_equal "12oz", cart_item.configuration["size"]
+    assert_equal "5000", cart_item.configuration["quantity"]
+    assert_equal 1000.00, cart_item.calculated_price
+    assert cart_item.design.attached?
+  end
+
+  test "requires calculated_price for configured products" do
+    sign_in_as users(:consumer)
+
+    assert_no_difference "CartItem.count" do
+      post cart_cart_items_path, params: {
+        product_id: products(:branded_double_wall_template).id,
+        configuration: {
+          size: "12oz",
+          quantity: 5000
+        }
+      }, as: :json
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test "validates design attachment for configured products" do
+    sign_in_as users(:consumer)
+
+    assert_no_difference "CartItem.count" do
+      post cart_cart_items_path, params: {
+        product_id: products(:branded_double_wall_template).id,
+        configuration: {
+          size: "12oz",
+          quantity: 5000
+        },
+        calculated_price: 1000.00
+      }, as: :json
+    end
+
+    assert_response :unprocessable_entity
+  end
+
+  test "standard product cart item creation still works" do
+    sign_in_as users(:consumer)
+
+    assert_difference "CartItem.count", 1 do
+      post cart_cart_items_path, params: {
+        cart_item: {
+          variant_sku: product_variants(:single_wall_8oz_white).sku,
+          quantity: 10
+        }
+      }
+    end
+
+    cart_item = CartItem.last
+    assert_empty cart_item.configuration
+    assert_nil cart_item.calculated_price
+  end
+
   private
 
   def sign_in_as(user)

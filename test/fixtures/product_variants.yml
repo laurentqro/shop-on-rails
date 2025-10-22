@@ -64,6 +64,14 @@ single_wall_8oz_black:
     size: "8oz"
     color: "Black"
 
+branded_template_variant:
+  product: branded_double_wall_template
+  name: Standard
+  sku: BRANDED-TEMPLATE-001
+  price: 0.01
+  stock_quantity: 999999
+  option_values: {}
+
 acme_cups_variant:
   product: acme_branded_cups
   name: Standard
