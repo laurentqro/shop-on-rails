@@ -15,10 +15,10 @@ export default class extends Controller {
     "designInput",
     "designPreview",
     "errorMessage",
-    "sizeComplete",
-    "finishComplete",
-    "quantityComplete",
-    "designComplete"
+    "sizeIndicator",
+    "finishIndicator",
+    "quantityIndicator",
+    "designIndicator"
   ]
 
   static values = {
@@ -261,9 +261,12 @@ export default class extends Controller {
   }
 
   showStepComplete(step) {
-    const target = `${step}CompleteTarget`
+    const target = `${step}IndicatorTarget`
     if (this[target]) {
-      this[target].style.display = 'inline-block'
+      // Transform to checkmark
+      this[target].textContent = '✓'
+      this[target].classList.remove('bg-gray-300')
+      this[target].classList.add('bg-success')
     }
   }
 
