@@ -1,40 +1,24 @@
 <div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-8">Your Branded Products</h1>
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold">Your Branded Products</h1>
+    <%= link_to "Browse Customizable Products", products_path, class: "btn btn-primary" %>
+  </div>
 
   <% if @products.any? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @products.each do |product| %>
-        <div class="product-card card bg-base-100 shadow-xl">
-          <figure>
-            <% if product.image.attached? %>
-              <%= image_tag product.image, alt: product.name, class: "w-full h-48 object-cover" %>
-            <% else %>
-              <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                <span class="text-gray-400">No image</span>
-              </div>
-            <% end %>
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title"><%= product.name %></h2>
-            <p><%= truncate(product.description, length: 100) %></p>
-            <div class="card-actions justify-end mt-4">
-              <%= link_to "View Details", organizations_product_path(product), class: "btn btn-primary" %>
-            </div>
-          </div>
-        </div>
+        <%= render "product_card", product: product %>
       <% end %>
     </div>
   <% else %>
-    <div class="empty-state text-center py-16">
-      <div class="max-w-md mx-auto">
-        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-        </svg>
-        <h3 class="text-lg font-medium text-gray-900 mb-2">No branded products yet</h3>
-        <p class="text-gray-500 mb-6">
-          Your organization hasn't created any branded products yet. Browse our customizable products to get started.
+    <div class="empty-state card bg-base-200 p-12 text-center">
+      <div class="card-body">
+        <h2 class="card-title text-2xl justify-center mb-4">No Branded Products Yet</h2>
+        <p class="text-lg mb-6">
+          You don't have any branded products yet.
+          Browse our customizable options to create your first branded product!
         </p>
-        <%= link_to "Browse Products", products_path, class: "btn btn-primary" %>
+        <%= link_to "Browse Branded Products", products_path, class: "btn btn-primary btn-lg" %>
       </div>
     </div>
   <% end %>

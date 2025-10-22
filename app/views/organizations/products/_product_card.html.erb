@@ -1,0 +1,58 @@
+<div class="product-card card bg-base-100 shadow-xl">
+  <%= link_to organizations_product_path(product), class: "block" do %>
+    <figure class="aspect-square">
+      <% if product.images.attached? %>
+        <%= image_tag product.images.first.variant(resize_to_limit: [400, 400]),
+                      alt: product.name,
+                      class: "object-cover w-full h-full" %>
+      <% else %>
+        <div class="bg-base-200 w-full h-full flex items-center justify-center">
+          <span class="text-4xl">📦</span>
+        </div>
+      <% end %>
+    </figure>
+  <% end %>
+
+  <div class="card-body">
+    <h2 class="card-title">
+      <%= product.name %>
+    </h2>
+
+    <div class="space-y-2 text-sm">
+      <div class="flex justify-between">
+        <span class="text-gray-600">SKU:</span>
+        <span class="font-semibold"><%= product.active_variants.first&.sku || "N/A" %></span>
+      </div>
+
+      <% if product.configuration_data["size"].present? %>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Size:</span>
+          <span class="font-semibold"><%= product.configuration_data["size"] %></span>
+        </div>
+      <% end %>
+
+      <% if product.active_variants.first %>
+        <% variant = product.active_variants.first %>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Price:</span>
+          <span class="font-semibold">£<%= number_with_precision(variant.price, precision: 2) %>/unit</span>
+        </div>
+
+        <div class="flex justify-between">
+          <span class="text-gray-600">Stock:</span>
+          <% if variant.stock > 0 %>
+            <span class="badge badge-success"><%= number_with_delimiter(variant.stock) %> in stock</span>
+          <% elsif variant.stock > 0 && variant.stock < 1000 %>
+            <span class="badge badge-warning">Low stock (<%= variant.stock %>)</span>
+          <% else %>
+            <span class="badge badge-error">Out of stock</span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="card-actions justify-end mt-4">
+      <%= link_to "Reorder", organizations_product_path(product), class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

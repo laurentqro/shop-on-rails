@@ -1,42 +1,85 @@
 <div class="container mx-auto px-4 py-8">
-  <div class="mb-6">
-    <%= link_to "← Back to Your Products", organizations_products_path, class: "btn btn-ghost btn-sm" %>
-  </div>
+  <%= link_to "← Back to Your Products", organizations_products_path, class: "btn btn-ghost mb-4" %>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Product Images -->
     <div>
-      <% if @product.image.attached? %>
-        <%= image_tag @product.image, alt: @product.name, class: "w-full rounded-lg" %>
-      <% else %>
-        <div class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
-          <span class="text-gray-400">No image</span>
-        </div>
-      <% end %>
+      <%= render "products/image_carousel", product: @product %>
     </div>
 
-    <div>
-      <h1 class="text-3xl font-bold mb-4"><%= @product.name %></h1>
-      <p class="text-gray-600 mb-6"><%= @product.description %></p>
+    <!-- Product Details & Reorder -->
+    <div class="space-y-6">
+      <div>
+        <h1 class="text-3xl font-bold"><%= @product.name %></h1>
+        <p class="text-lg text-gray-600 mt-2">Your custom branded product</p>
+      </div>
 
-      <% if @product.configuration_data.present? %>
-        <div class="card bg-base-200 mb-6">
-          <div class="card-body">
-            <h3 class="card-title text-lg">Configuration Details</h3>
-            <dl class="grid grid-cols-2 gap-4">
-              <% @product.configuration_data.each do |key, value| %>
-                <div>
-                  <dt class="text-sm text-gray-500 capitalize"><%= key.to_s.humanize %></dt>
-                  <dd class="font-medium"><%= value %></dd>
-                </div>
-              <% end %>
-            </dl>
+      <!-- Configuration Details -->
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <h3 class="card-title">Product Specifications</h3>
+          <dl class="space-y-2">
+            <% if @product.configuration_data["size"] %>
+              <div class="flex justify-between">
+                <dt class="text-gray-600">Size:</dt>
+                <dd class="font-semibold"><%= @product.configuration_data["size"] %></dd>
+              </div>
+            <% end %>
+            <% if @product.configuration_data["type"] %>
+              <div class="flex justify-between">
+                <dt class="text-gray-600">Type:</dt>
+                <dd class="font-semibold"><%= @product.configuration_data["type"].titleize %></dd>
+              </div>
+            <% end %>
+            <% if @product.active_variants.first %>
+              <div class="flex justify-between">
+                <dt class="text-gray-600">SKU:</dt>
+                <dd class="font-semibold"><%= @product.active_variants.first.sku %></dd>
+              </div>
+            <% end %>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Reorder Form -->
+      <% if @product.active_variants.first %>
+        <% variant = @product.active_variants.first %>
+        <%= form_with url: cart_items_path, method: :post, class: "space-y-4" do |f| %>
+          <%= f.hidden_field :variant_id, value: variant.id %>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">Quantity</span>
+            </label>
+            <%= f.number_field :quantity,
+                              value: 1000,
+                              min: 500,
+                              step: 500,
+                              class: "input input-bordered w-full" %>
+            <label class="label">
+              <span class="label-text-alt">Minimum order: 500 units</span>
+            </label>
           </div>
+
+          <div class="card bg-base-200">
+            <div class="card-body">
+              <div class="flex justify-between text-lg">
+                <span class="font-semibold">Price per unit:</span>
+                <span class="text-primary font-bold">£<%= number_with_precision(variant.price, precision: 2) %></span>
+              </div>
+            </div>
+          </div>
+
+          <%= f.submit "Add to Cart", class: "btn btn-primary btn-lg w-full" %>
+        <% end %>
+      <% else %>
+        <div class="alert alert-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          <span>This product is currently out of stock. Please contact us to restock.</span>
         </div>
       <% end %>
-
-      <div class="flex gap-4">
-        <%= link_to "Reorder", product_path(@product), class: "btn btn-primary" %>
-      </div>
     </div>
   </div>
 </div>
