@@ -293,4 +293,40 @@ class ProductVariantTest < ActiveSupport::TestCase
     )
     assert_equal({}, variant.option_values)
   end
+
+  # Unit pricing tests
+  test "unit_price returns price when pac_size is not set" do
+    @variant.update(price: 10.0, pac_size: nil)
+    assert_equal 10.0, @variant.unit_price
+  end
+
+  test "unit_price returns price when pac_size is zero" do
+    @variant.update(price: 10.0, pac_size: 0)
+    assert_equal 10.0, @variant.unit_price
+  end
+
+  test "unit_price divides price by pac_size when pac_size is set" do
+    @variant.update(price: 100.0, pac_size: 50)
+    assert_equal 2.0, @variant.unit_price
+  end
+
+  test "unit_price calculates correctly for fractional results" do
+    @variant.update(price: 10.0, pac_size: 3)
+    assert_in_delta 3.3333, @variant.unit_price, 0.001
+  end
+
+  test "minimum_order_units returns 1 when pac_size is not set" do
+    @variant.update(pac_size: nil)
+    assert_equal 1, @variant.minimum_order_units
+  end
+
+  test "minimum_order_units returns pac_size when set" do
+    @variant.update(pac_size: 50)
+    assert_equal 50, @variant.minimum_order_units
+  end
+
+  test "minimum_order_units returns pac_size for large packs" do
+    @variant.update(pac_size: 1000)
+    assert_equal 1000, @variant.minimum_order_units
+  end
 end

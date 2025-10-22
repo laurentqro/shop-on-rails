@@ -25,20 +25,18 @@
           <div class="text-lg">
             <%= cart_item.product_variant.name %>
           </div>
-          <div class="text-gray-500 text-sm">
-            Pack of <%= cart_item.product_variant.pac_size %>
-          </div>
+          <% if cart_item.product_variant.pac_size.present? && cart_item.product_variant.pac_size > 1 %>
+            <div class="text-gray-500 text-sm">
+              Pack of <%= cart_item.product_variant.pac_size %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
 
     <div class="text-left md:text-center text-gray-700">
       <span class="md:hidden font-semibold">Price: </span>
-      <% if cart_item.configured? %>
-        £<%= sprintf("%.2f", cart_item.unit_price) %>/unit
-      <% else %>
-        <%= number_to_currency(cart_item.price) %>
-      <% end %>
+      <%= number_to_currency(cart_item.unit_price, precision: 4) %>/unit
     </div>
 
     <div class="text-left md:text-center">

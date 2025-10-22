@@ -74,10 +74,6 @@
             <span class="text-base-content/60 font-medium text-lg"><%= @product.colour %></span>
           <% end %>
 
-          <% if @selected_variant.pac_size.present? %>
-            <span class="text-base-content/60 font-medium text-lg">Pac Size: <%= @selected_variant.pac_size %></span>
-          <% end %>
-
           <% if @product.active_variants.count > 1 %>
             <div class="form-control w-full max-w-xs my-4">
               <label class="label mb-2">
@@ -93,9 +89,16 @@
             </div>
           <% end %>
 
-          <p class="text-xl lg:text-2xl font-semibold text-secondary">
-            <%= number_to_currency @selected_variant.price %>
-          </p>
+          <div class="my-2">
+            <p class="text-xl lg:text-2xl font-semibold text-secondary">
+              <%= number_to_currency(@selected_variant.unit_price, precision: 4) %>/unit
+            </p>
+            <% if @selected_variant.pac_size.present? && @selected_variant.pac_size > 1 %>
+              <p class="text-sm text-base-content/60">
+                Sold in packs of <%= @selected_variant.pac_size %> (<%= number_to_currency(@selected_variant.price) %> per pack)
+              </p>
+            <% end %>
+          </div>
 
           <div class="card-actions space-x-3 my-4" x-data="{ quantity: 1 }">
             <div class="join">

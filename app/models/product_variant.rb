@@ -89,4 +89,17 @@ class ProductVariant < ApplicationRecord
   def options_display
     option_values.values.join(" ")
   end
+
+  # Convert pack price to unit price for display
+  # If pac_size is set, price is per pack, so divide to get per-unit price
+  # Otherwise, price is already per unit
+  def unit_price
+    return price unless pac_size.present? && pac_size > 0
+    price / pac_size
+  end
+
+  # Returns minimum order quantity in units
+  def minimum_order_units
+    pac_size || 1
+  end
 end
