@@ -110,11 +110,13 @@ class CartItemsController < ApplicationController
 
     if cart_item.save
       respond_to do |format|
+        format.turbo_stream
         format.html { redirect_to cart_path, notice: "Configured product added to cart" }
         format.json { render json: { success: true, cart_item: cart_item }, status: :created }
       end
     else
       respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("basket_counter", partial: "shared/basket_counter") }
         format.html { redirect_back fallback_location: root_path, alert: cart_item.errors.full_messages.join(", ") }
         format.json { render json: { error: cart_item.errors.full_messages.join(", ") }, status: :unprocessable_entity }
       end

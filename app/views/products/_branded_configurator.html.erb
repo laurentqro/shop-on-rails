@@ -1,6 +1,7 @@
-<div data-controller="branded-configurator"
+<div data-controller="branded-configurator cart-drawer"
      data-branded-configurator-product-id-value="<%= @product.id %>"
-     data-branded-configurator-vat-rate-value="0.2">
+     data-branded-configurator-vat-rate-value="0.2"
+     data-action="turbo:submit-end->cart-drawer#open">
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left: Product Images -->

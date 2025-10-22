@@ -293,14 +293,25 @@ export default class extends Controller {
       const response = await fetch("/cart/cart_items", {
         method: "POST",
         headers: {
-          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
+          "Accept": "text/vnd.turbo-stream.html"
         },
         body: formData
       })
 
       if (response.ok) {
-        // Redirect to cart or show success
-        window.location.href = "/cart"
+        // Turbo Stream will handle the updates
+        const text = await response.text()
+        if (text) {
+          // Let Turbo process the stream
+          Turbo.renderStreamMessage(text)
+          // Open the cart drawer by dispatching event from this element
+          const submitEndEvent = new CustomEvent("turbo:submit-end", {
+            bubbles: true,
+            detail: { success: true }
+          })
+          this.element.dispatchEvent(submitEndEvent)
+        }
       } else {
         const data = await response.json()
         this.showError(data.error || "Failed to add to cart")
