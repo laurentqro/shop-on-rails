@@ -1,3 +1,13 @@
+<% unless @selected_variant %>
+  <div class="container mx-auto px-4 py-8">
+    <div class="alert alert-warning">
+      <span>This product is currently unavailable.</span>
+    </div>
+    <%= link_to "Back to Products", products_path, class: "btn btn-primary mt-4" %>
+  </div>
+  <% return %>
+<% end %>
+
 <% content_for :title do %>
 <%= @product.name %> | <%= @product.category.name %> | Afida
 <% end %>
@@ -29,8 +39,10 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:alt" content="<%= @product.name %>">
   <% end %>
-  <meta property="product:price:amount" content="<%= @selected_variant.price %>">
-  <meta property="product:price:currency" content="USD">
+  <% if @selected_variant %>
+    <meta property="product:price:amount" content="<%= @selected_variant.price %>">
+    <meta property="product:price:currency" content="USD">
+  <% end %>
 <% end %>
 
 <% content_for :breadcrumbs do %>

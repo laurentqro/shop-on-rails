@@ -13,8 +13,8 @@ class ProductsController < ApplicationController
       service = BrandedProductPricingService.new(@product)
       @available_sizes = service.available_sizes
       @quantity_tiers = service.available_quantities(@available_sizes.first) if @available_sizes.any?
-    elsif @product.standard?
-      # Existing logic for standard products
+    elsif @product.standard? || @product.customized_instance?
+      # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?
         @product.active_variants.find_by(id: params[:variant_id])
       end
