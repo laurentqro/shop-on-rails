@@ -75,22 +75,36 @@
           <% end %>
 
           <% if @product.active_variants.count > 1 %>
-            <div class="form-control w-full max-w-xs my-4">
-              <label class="label mb-2">
-                <span class="label-text">Select option</span>
-              </label>
-              <select class="select select-lg" onchange="window.location.href='<%= product_path(@product) %>?variant_id=' + this.value">
-                <% @product.active_variants.each do |variant| %>
-                  <option value="<%= variant.id %>" <%= 'selected' if variant == @selected_variant %>>
-                    <%= variant.name %>
-                  </option>
-                <% end %>
-              </select>
+            <div data-controller="product-options"
+                 data-product-options-variants-value="<%= @variants_json.to_json %>"
+                 class="space-y-3 my-4">
+
+              <% @product_options.each do |option| %>
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text font-semibold"><%= option.name %></span>
+                  </label>
+                  <%
+                    # Get unique values for this option from all variants
+                    option_values = @product.active_variants.map { |v| v.option_values[option.name] }.compact.uniq
+                    selected_value = @selected_variant.option_values[option.name]
+                  %>
+                  <select class="select select-bordered select-lg w-full"
+                          data-product-options-target="<%= option.name.downcase %>Select"
+                          data-action="change->product-options#updateSelection">
+                    <% option_values.each do |value| %>
+                      <option value="<%= value %>" <%= 'selected' if value == selected_value %>>
+                        <%= value %>
+                      </option>
+                    <% end %>
+                  </select>
+                </div>
+              <% end %>
             </div>
           <% end %>
 
           <div class="my-2">
-            <p class="text-xl lg:text-2xl font-semibold text-secondary">
+            <p class="text-xl lg:text-2xl font-semibold text-secondary" data-product-options-target="priceDisplay">
               <%= number_to_currency(@selected_variant.price) %>
             </p>
             <% if @selected_variant.pac_size.present? && @selected_variant.pac_size > 1 %>
@@ -109,7 +123,10 @@
           %>
           <div class="card-actions space-y-3 my-4">
             <%= form_with url: cart_cart_items_path, method: :post, class: "w-full space-y-3", local: false, data: { controller: "cart-drawer", action: "turbo:submit-end->cart-drawer#open" } do |f| %>
-              <%= f.hidden_field :variant_sku, name: "cart_item[variant_sku]", value: @selected_variant.sku %>
+              <input type="hidden"
+                     name="cart_item[variant_sku]"
+                     value="<%= @selected_variant.sku %>"
+                     data-product-options-target="variantSkuInput" />
 
               <div class="form-control">
                 <label class="label">

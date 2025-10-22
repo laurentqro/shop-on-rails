@@ -877,7 +877,7 @@ The plan is ready for execution!
 ## Additional Branded Product Templates
 
 Add these templates to match the printable products table:
-- Single Wall Paper Cold Cups (min: 30,000)
+- Single Wall Cold Cups (min: 30,000)
 - Clear Recyclable Cups (min: 30,000)
 - Ice Cream Cups (min: 50,000)
 - Greaseproof Paper (min: 6,000)
