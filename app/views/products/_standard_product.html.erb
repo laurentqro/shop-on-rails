@@ -100,20 +100,31 @@
             <% end %>
           </div>
 
-          <div class="card-actions space-x-3 my-4" x-data="{ quantity: 1 }">
-            <div class="join">
-              <button class="btn btn-square btn-primary btn-lg" @click="quantity = Math.max(1, quantity - 1)">-</button>
-              <input type="text" x-model="quantity" class="font-mono input input-lg w-12 text-center" />
-              <button class="btn btn-square btn-primary btn-lg" @click="quantity = quantity + 1">+</button>
-            </div>
+          <%
+            pac_size = @selected_variant.pac_size || 1
+            min_qty = pac_size
+            max_qty = pac_size * 10
+            # Generate quantity options as multiples of pack size
+            quantity_options = (1..10).map { |i| pac_size * i }
+          %>
+          <div class="card-actions space-y-3 my-4">
+            <%= form_with url: cart_cart_items_path, method: :post, class: "w-full space-y-3", local: false, data: { controller: "cart-drawer", action: "turbo:submit-end->cart-drawer#open" } do |f| %>
+              <%= f.hidden_field :variant_sku, name: "cart_item[variant_sku]", value: @selected_variant.sku %>
 
-            <div>
-              <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: false, data: { controller: "cart-drawer", action: "turbo:submit-end->cart-drawer#open" } do |f| %>
-                <%= f.hidden_field :variant_sku, name: "cart_item[variant_sku]", value: @selected_variant.sku %>
-                <input type="hidden" name="cart_item[quantity]" x-bind:value="quantity" />
-                <%= f.submit "Add to basket", class: "btn btn-primary btn-lg" %>
-              <% end %>
-            </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text font-semibold">Quantity</span>
+                </label>
+                <%= select_tag "cart_item[quantity]",
+                              options_for_select(quantity_options.map { |q| ["#{number_with_delimiter(q)} units (#{q / pac_size} #{(q / pac_size) == 1 ? 'pack' : 'packs'})", q] }, pac_size),
+                              class: "select select-bordered select-lg w-full" %>
+                <label class="label">
+                  <span class="label-text-alt">Pack size: <%= pac_size %> units</span>
+                </label>
+              </div>
+
+              <%= f.submit "Add to basket", class: "btn btn-primary btn-lg w-full" %>
+            <% end %>
           </div>
 
           <p class="text-base-content/70 my-4">
