@@ -18,7 +18,11 @@ export default class extends Controller {
     "sizeIndicator",
     "finishIndicator",
     "quantityIndicator",
-    "designIndicator"
+    "designIndicator",
+    "sizeStep",
+    "finishStep",
+    "quantityStep",
+    "designStep"
   ]
 
   static values = {
@@ -33,22 +37,7 @@ export default class extends Controller {
     this.calculatedPrice = null
     this.updateAddToCartButton()
 
-    // Auto-select first size, Matt finish, and first quantity for better UX
-    if (this.sizeOptionTargets.length > 0) {
-      this.sizeOptionTargets[0].click()
-    }
-    if (this.finishOptionTargets.length > 0) {
-      // Auto-select "Matt" by default
-      const mattOption = this.finishOptionTargets.find(el => el.dataset.finish === "Matt")
-      if (mattOption) {
-        mattOption.click()
-      } else {
-        this.finishOptionTargets[0].click()
-      }
-    }
-    if (this.quantityOptionTargets.length > 0) {
-      this.quantityOptionTargets[0].click()
-    }
+    // Accordion starts with first step open (handled by HTML checked attribute)
   }
 
   selectSize(event) {
@@ -261,12 +250,25 @@ export default class extends Controller {
   }
 
   showStepComplete(step) {
-    const target = `${step}IndicatorTarget`
-    if (this[target]) {
+    const indicatorTarget = `${step}IndicatorTarget`
+    if (this[indicatorTarget]) {
       // Transform to checkmark
-      this[target].textContent = '✓'
-      this[target].classList.remove('bg-gray-300')
-      this[target].classList.add('bg-success')
+      this[indicatorTarget].textContent = '✓'
+      this[indicatorTarget].classList.remove('bg-gray-300')
+      this[indicatorTarget].classList.add('bg-success')
+    }
+
+    // Open next step in accordion
+    const stepMap = { size: 'finish', finish: 'quantity', quantity: 'design' }
+    const nextStep = stepMap[step]
+    if (nextStep) {
+      const nextStepTarget = `${nextStep}StepTarget`
+      if (this[nextStepTarget]) {
+        const radioInput = this[nextStepTarget].querySelector('input[type="radio"]')
+        if (radioInput) {
+          radioInput.checked = true
+        }
+      }
     }
   }
 

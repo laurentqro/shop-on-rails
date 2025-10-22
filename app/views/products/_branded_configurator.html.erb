@@ -41,15 +41,17 @@
         <p class="text-lg text-gray-600 mt-2"><%= @product.description %></p>
       </div>
 
-      <!-- Step 1: Select Size -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold flex items-center gap-2">
+      <!-- Configuration Steps as Accordion -->
+      <div class="space-y-4">
+        <!-- Step 1: Select Size -->
+        <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="sizeStep">
+          <input type="radio" name="config-accordion" checked />
+          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="sizeIndicator">1</span>
             Select Size
-          </span>
-        </label>
-        <div class="flex gap-2">
+          </div>
+          <div class="collapse-content">
+            <div class="flex gap-2 pt-4">
           <% @available_sizes.each do |size| %>
             <button type="button"
                     class="bg-white border-2 border-gray-300 text-black font-semibold hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
@@ -59,18 +61,19 @@
               <%= size %>
             </button>
           <% end %>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Step 2: Select Finish -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold flex items-center gap-2">
+        <!-- Step 2: Select Finish -->
+        <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="finishStep">
+          <input type="radio" name="config-accordion" />
+          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="finishIndicator">2</span>
             Select Finish
-          </span>
-        </label>
-        <div class="flex gap-2">
+          </div>
+          <div class="collapse-content">
+            <div class="flex gap-2 pt-4">
           <button type="button"
                   class="bg-white border-2 border-gray-300 text-black font-semibold hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
                   data-branded-configurator-target="finishOption"
@@ -85,18 +88,19 @@
                   data-action="click->branded-configurator#selectFinish">
             Gloss
           </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Step 3: Select Quantity -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold flex items-center gap-2">
+        <!-- Step 3: Select Quantity -->
+        <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="quantityStep">
+          <input type="radio" name="config-accordion" />
+          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="quantityIndicator">3</span>
             Select Quantity
-          </span>
-        </label>
-        <div class="space-y-3">
+          </div>
+          <div class="collapse-content">
+            <div class="space-y-3 pt-4">
           <% @quantity_tiers.each_with_index do |quantity, index| %>
             <div class="border-2 border-gray-300 bg-white rounded-xl p-4 cursor-pointer hover:border-primary transition flex items-center justify-between"
                  data-branded-configurator-target="quantityOption"
@@ -121,18 +125,20 @@
               </div>
             </div>
           <% end %>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Step 4: Upload Design -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text font-semibold flex items-center gap-2">
+        <!-- Step 4: Upload Design -->
+        <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="designStep">
+          <input type="radio" name="config-accordion" />
+          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="designIndicator">4</span>
             Upload Your Design
-          </span>
-        </label>
-        <input type="file"
+          </div>
+          <div class="collapse-content">
+            <div class="pt-4">
+              <input type="file"
                class="file-input file-input-bordered w-full"
                accept=".pdf,.png,.jpg,.jpeg,.ai"
                data-branded-configurator-target="designInput"
@@ -146,6 +152,8 @@
         <div class="hidden mt-2 alert alert-success"
              data-branded-configurator-target="designPreview">
           <!-- File name shown here -->
+            </div>
+          </div>
         </div>
       </div>
 
