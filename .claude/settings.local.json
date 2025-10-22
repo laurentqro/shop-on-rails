@@ -66,7 +66,8 @@
       "Skill(pdf)",
       "Read(//Users/laurentcurau/Desktop/**)",
       "Bash(rails db:reset:*)",
-      "Bash(RAILS_ENV=development rails db:reset:*)"
+      "Bash(RAILS_ENV=development rails db:reset:*)",
+      "Bash(git revert:*)"
     ],
     "deny": [],
     "ask": []

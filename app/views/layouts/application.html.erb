@@ -26,6 +26,7 @@
     <%= tag.div alert, class: "alert alert-error", data: { turbo_temporary: true } if alert %>
 
     <%= render "shared/navbar" %>
+    <%= render "shared/category_nav" %>
 
     <main class="container mx-auto p-5 flex-grow">
       <%= yield :breadcrumbs %>
