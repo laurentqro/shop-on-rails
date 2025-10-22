@@ -29,7 +29,8 @@ class BrandedProductPricingService
   end
 
   def available_sizes
-    @product.branded_product_prices.distinct.pluck(:size).sort
+    # Sort sizes numerically (8oz, 12oz, 16oz, not 12oz, 16oz, 8oz)
+    @product.branded_product_prices.distinct.pluck(:size).sort_by { |size| size.to_i }
   end
 
   def available_quantities(size)

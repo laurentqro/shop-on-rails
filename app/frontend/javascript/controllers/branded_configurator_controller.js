@@ -26,6 +26,14 @@ export default class extends Controller {
     this.selectedQuantity = null
     this.calculatedPrice = null
     this.updateAddToCartButton()
+
+    // Auto-select first size and quantity for better UX
+    if (this.sizeOptionTargets.length > 0) {
+      this.sizeOptionTargets[0].click()
+    }
+    if (this.quantityOptionTargets.length > 0) {
+      this.quantityOptionTargets[0].click()
+    }
   }
 
   selectSize(event) {
