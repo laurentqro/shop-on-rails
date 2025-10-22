@@ -5353,9 +5353,29 @@ UX: Faster, smoother add-to-cart experience"
 
 ---
 
+### Task 36: Add finish selection to branded product configurator
+
+**Background:** Allow customers to choose between Matt and Gloss finish for branded cups, matching BrandYour's offering.
+
+**Implementation:** Add finish selection step with buttons, update configuration storage, renumber steps.
+
+**Commit:** "Add finish selection (Matt/Gloss) to configurator"
+
+---
+
+### Task 37: Add input validation and error messaging to configurator
+
+**Background:** Improve UX with better validation feedback, visual completion indicators, and proper disabled button styling.
+
+**Implementation:** Add step completion checkmarks, inline error messages, dimmed disabled button state, file upload validation feedback.
+
+**Commit:** "Add validation feedback and visual states to configurator"
+
+---
+
 ## Implementation Complete!
 
-This plan provides **35 comprehensive tasks** covering:
+This plan provides **37 comprehensive tasks** covering:
 
 ✅ **Phase 1**: Organizations & Product Options foundation
 ✅ **Phase 2**: Product model enhancements
