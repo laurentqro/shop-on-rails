@@ -30,7 +30,8 @@ export default class extends Controller {
 
   static values = {
     productId: Number,
-    vatRate: { type: Number, default: 0.2 }
+    vatRate: { type: Number, default: 0.2 },
+    inModal: { type: Boolean, default: false }
   }
 
   connect() {
@@ -133,8 +134,10 @@ export default class extends Controller {
     this.updateUrl()
     this.showStepComplete('quantity')
 
-    // Load compatible lids for next step
-    this.loadCompatibleLids()
+    // Load compatible lids for next step (skip in modal mode)
+    if (!this.inModalValue) {
+      this.loadCompatibleLids()
+    }
 
     this.calculatePrice()
   }
@@ -405,7 +408,11 @@ export default class extends Controller {
     }
 
     // Open next step in accordion
-    const stepMap = { size: 'finish', finish: 'quantity', quantity: 'lids', lids: 'design' }
+    // In modal mode, skip lids step and go directly from quantity to design
+    const stepMap = this.inModalValue
+      ? { size: 'finish', finish: 'quantity', quantity: 'design', design: null }
+      : { size: 'finish', finish: 'quantity', quantity: 'lids', lids: 'design' }
+
     const nextStep = stepMap[step]
     if (nextStep) {
       const nextStepTarget = `${nextStep}StepTarget`
@@ -565,15 +572,20 @@ export default class extends Controller {
         if (text) {
           Turbo.renderStreamMessage(text)
 
-          // Dispatch turbo:submit-end event to trigger cart-drawer#open
-          console.log('Dispatching turbo:submit-end event')
-          const submitEndEvent = new CustomEvent("turbo:submit-end", {
-            bubbles: true,
-            detail: { success: true }
-          })
-          console.log('Event created:', submitEndEvent)
-          this.element.dispatchEvent(submitEndEvent)
-          console.log('Event dispatched from:', this.element)
+          if (this.inModalValue) {
+            // In modal: dispatch event to close modal
+            window.dispatchEvent(new CustomEvent('addon:added'))
+          } else {
+            // Normal flow: open drawer
+            console.log('Dispatching turbo:submit-end event')
+            const submitEndEvent = new CustomEvent("turbo:submit-end", {
+              bubbles: true,
+              detail: { success: true }
+            })
+            console.log('Event created:', submitEndEvent)
+            this.element.dispatchEvent(submitEndEvent)
+            console.log('Event dispatched from:', this.element)
+          }
         }
       } else {
         const data = await response.json()

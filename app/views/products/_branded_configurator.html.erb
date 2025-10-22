@@ -235,6 +235,27 @@
   <!-- Add-ons Carousel -->
   <%= render "products/addon_carousel", addon_products: @addon_products || [] %>
 
+  <!-- Add-on Product Modal -->
+  <dialog id="addon-modal" class="modal" data-controller="addon" data-addon-target="modal">
+    <div class="modal-box max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                data-action="click->addon#closeModal">✕</button>
+      </form>
+
+      <h3 class="font-bold text-2xl mb-6" data-addon-target="modalTitle">
+        Configure Add-on Product
+      </h3>
+
+      <div data-addon-target="configuratorFrame">
+        <!-- Turbo frame will load configurator here -->
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button data-action="click->addon#closeModal">close</button>
+    </form>
+  </dialog>
+
   <div class="drawer-side">
     <label for="cart-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
