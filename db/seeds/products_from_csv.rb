@@ -36,6 +36,11 @@ CSV.foreach(csv_path, headers: true) do |row|
   product_name = row['product']
   category_slug = row['category']
 
+  # Special handling for takeaway-extras: bags vs cutlery
+  if category_slug == 'takeaway-extras'
+    category_slug = product_name.match?(/bag/i) ? 'bags' : 'accessories'
+  end
+
   key = "#{product_name}|#{category_slug}"
 
   products_data[key] ||= {
