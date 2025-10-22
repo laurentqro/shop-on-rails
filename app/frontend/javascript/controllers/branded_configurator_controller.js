@@ -37,7 +37,48 @@ export default class extends Controller {
     this.calculatedPrice = null
     this.updateAddToCartButton()
 
-    // Accordion starts with first step open (handled by HTML checked attribute)
+    // Check for URL parameters and pre-select configuration
+    this.loadFromUrlParams()
+  }
+
+  loadFromUrlParams() {
+    const params = new URLSearchParams(window.location.search)
+
+    // Pre-select size if in URL (normalize: "8 oz" or "8oz" → "8oz")
+    const sizeParam = params.get('size')
+    if (sizeParam) {
+      const normalizedSize = sizeParam.replace(/\s+/g, '')
+      const sizeButton = this.sizeOptionTargets.find(el =>
+        el.dataset.size.replace(/\s+/g, '') === normalizedSize
+      )
+      if (sizeButton) {
+        sizeButton.click()
+      }
+    }
+
+    // Pre-select finish if in URL (normalize: "matte" → "Matt", "gloss" → "Gloss")
+    const finishParam = params.get('finish')
+    if (finishParam) {
+      const normalizedFinish = finishParam.charAt(0).toUpperCase() + finishParam.slice(1).toLowerCase()
+      const finishButton = this.finishOptionTargets.find(el =>
+        el.dataset.finish.toLowerCase() === finishParam.toLowerCase()
+      )
+      if (finishButton) {
+        finishButton.click()
+      }
+    }
+
+    // Pre-select quantity if in URL
+    const quantityParam = params.get('quantity')
+    if (quantityParam) {
+      const quantity = parseInt(quantityParam)
+      const quantityCard = this.quantityOptionTargets.find(el =>
+        parseInt(el.dataset.quantity) === quantity
+      )
+      if (quantityCard) {
+        quantityCard.click()
+      }
+    }
   }
 
   selectSize(event) {
