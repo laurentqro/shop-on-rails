@@ -46,7 +46,7 @@
     <div class="text-left md:text-center">
       <% if cart_item.configured? %>
         <div class="text-gray-700">
-          <%= number_with_delimiter(cart_item.configuration["quantity"]) %>
+          <%= number_with_delimiter(cart_item.configuration["quantity"]) %> units
         </div>
       <% else %>
         <%
