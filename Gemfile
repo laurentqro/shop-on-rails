@@ -47,6 +47,9 @@ gem "stripe", "~> 17.0"
 # Mailgun gem for email sending
 gem "mailgun-ruby"
 
+# CSV support (required in Ruby 3.4+)
+gem "csv"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

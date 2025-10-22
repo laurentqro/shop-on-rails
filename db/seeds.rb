@@ -159,7 +159,16 @@ product_files.each do |config|
   end
 end
 
+# Load product options seed
+load Rails.root.join('db', 'seeds', 'product_options.rb')
+
+# Load branded product pricing seed
+load Rails.root.join('db', 'seeds', 'branded_product_pricing.rb')
+
 puts "Seeding completed!"
 puts "Categories created: #{Category.count}"
 puts "Products created: #{Product.count}"
 puts "Product variants created: #{ProductVariant.count}" if defined?(ProductVariant)
+puts "Product options created: #{ProductOption.count}" if defined?(ProductOption)
+puts "Product option values created: #{ProductOptionValue.count}" if defined?(ProductOptionValue)
+puts "Branded product prices created: #{BrandedProductPrice.count}" if defined?(BrandedProductPrice)
