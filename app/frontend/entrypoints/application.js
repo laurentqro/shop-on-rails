@@ -28,6 +28,9 @@ application.register("cart-drawer", CartDrawerController)
 import CarouselController from "../javascript/controllers/carousel_controller"
 application.register("carousel", CarouselController)
 
+import BrandedConfiguratorController from "../javascript/controllers/branded_configurator_controller"
+application.register("branded-configurator", BrandedConfiguratorController)
+
 // Configure Stimulus development experience
 application.debug = false
 window.Stimulus = application
