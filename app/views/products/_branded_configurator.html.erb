@@ -1,0 +1,138 @@
+<div data-controller="branded-configurator"
+     data-branded-configurator-product-id-value="<%= @product.id %>"
+     data-branded-configurator-vat-rate-value="0.2">
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Left: Product Images -->
+    <div>
+      <% image_source = @product.image %>
+      <% if image_source&.attached? %>
+        <figure class="rounded-lg overflow-hidden shadow-lg">
+          <%= image_tag image_source.variant(resize_to_limit: [600, 600]), alt: @product.name, class: "w-full h-auto" %>
+        </figure>
+      <% else %>
+        <div class="w-full h-96 bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
+          <span class="text-gray-500">Image not available</span>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Right: Configuration Panel -->
+    <div class="space-y-6">
+      <div>
+        <h1 class="text-3xl font-bold"><%= @product.name %></h1>
+        <p class="text-lg text-gray-600 mt-2"><%= @product.description %></p>
+      </div>
+
+      <!-- Step 1: Select Size -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-semibold">Step 1: Select Size</span>
+        </label>
+        <div class="flex gap-2">
+          <% @available_sizes.each do |size| %>
+            <button type="button"
+                    class="btn btn-outline"
+                    data-branded-configurator-target="sizeOption"
+                    data-size="<%= size %>"
+                    data-action="click->branded-configurator#selectSize">
+              <%= size %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Step 2: Select Quantity -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-semibold">Step 2: Select Quantity</span>
+        </label>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <% @quantity_tiers.each do |quantity| %>
+            <div class="card border border-base-300 cursor-pointer hover:border-primary transition"
+                 data-branded-configurator-target="quantityOption"
+                 data-quantity="<%= quantity %>"
+                 data-action="click->branded-configurator#selectQuantity">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold"><%= number_with_delimiter(quantity) %></div>
+                  <div class="text-sm text-gray-600">units</div>
+                  <div class="text-xs mt-2 font-semibold text-primary"
+                       data-branded-configurator-target="pricePerUnit">
+                    <!-- Price filled by JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Step 3: Upload Design -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-semibold">Step 3: Upload Your Design</span>
+        </label>
+        <input type="file"
+               class="file-input file-input-bordered w-full"
+               accept=".pdf,.png,.jpg,.jpeg,.ai"
+               data-branded-configurator-target="designInput"
+               data-action="change->branded-configurator#handleDesignUpload">
+        <label class="label">
+          <span class="label-text-alt">
+            Accepted formats: PDF, PNG, JPG, AI (max 10MB)
+            <%= link_to "Design Guidelines", "#", class: "link link-primary" %>
+          </span>
+        </label>
+        <div class="hidden mt-2 alert alert-success"
+             data-branded-configurator-target="designPreview">
+          <!-- File name shown here -->
+        </div>
+      </div>
+
+      <!-- Error Messages -->
+      <div class="hidden alert alert-error"
+           data-branded-configurator-target="errorMessage">
+        <!-- Error text shown here -->
+      </div>
+
+      <!-- Price Summary -->
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <h3 class="card-title text-lg">Price Summary</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span>Subtotal:</span>
+              <span data-branded-configurator-target="subtotal" class="font-semibold">£0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>VAT (20%):</span>
+              <span data-branded-configurator-target="vat" class="font-semibold">£0.00</span>
+            </div>
+            <div class="divider my-1"></div>
+            <div class="flex justify-between text-lg">
+              <span class="font-bold">Total:</span>
+              <span data-branded-configurator-target="total" class="font-bold text-primary">£0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <button class="btn btn-primary btn-lg w-full btn-disabled"
+              data-branded-configurator-target="addToCartButton"
+              data-action="click->branded-configurator#addToCart"
+              disabled>
+        Add to Cart
+      </button>
+
+      <!-- Delivery Info -->
+      <div class="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>Delivered in 3-4 weeks • Free shipping on orders over £500</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,15 +8,23 @@ class ProductsController < ApplicationController
   def show
     @product = Product.includes(:active_variants, :category).find_by!(slug: params[:id])
 
-    @selected_variant = if params[:variant_id].present?
-      @product.active_variants.find_by(id: params[:variant_id])
-    end
+    if @product.customizable_template?
+      # Load data for configurator
+      service = BrandedProductPricingService.new(@product)
+      @available_sizes = service.available_sizes
+      @quantity_tiers = service.available_quantities(@available_sizes.first) if @available_sizes.any?
+    elsif @product.standard?
+      # Existing logic for standard products
+      @selected_variant = if params[:variant_id].present?
+        @product.active_variants.find_by(id: params[:variant_id])
+      end
 
-    @selected_variant ||= @product.default_variant
+      @selected_variant ||= @product.default_variant
 
-    # Redirect if no variants available
-    unless @selected_variant
-      redirect_to products_path, alert: "This product is currently unavailable."
+      # Redirect if no variants available
+      unless @selected_variant
+        redirect_to products_path, alert: "This product is currently unavailable."
+      end
     end
   end
 end

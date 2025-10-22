@@ -1,0 +1,136 @@
+<% content_for :title do %>
+<%= @product.name %> | <%= @product.category.name %> | Afida
+<% end %>
+
+<% content_for :meta_description do %>
+<%= @product.description %>
+<% end %>
+
+<% content_for :head do %>
+  <!-- Twitter Card meta tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= @product.name %>">
+  <meta name="twitter:description" content="<%= @product.description %>">
+  <% image_source = @selected_variant.image.attached? ? @selected_variant.image : @product.image %>
+  <% if image_source&.attached? %>
+    <meta name="twitter:image" content="<%= polymorphic_url(image_source.variant(resize_to_limit: [1200, 630])) %>">
+  <% end %>
+
+  <!-- Open Graph meta tags (also used by Twitter and WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<%= @product.name %>">
+  <meta property="og:description" content="<%= @product.description %>">
+  <meta property="og:url" content="<%= polymorphic_url(@product) %>">
+  <meta property="og:site_name" content="Afida">
+  <% if image_source&.attached? %>
+    <meta property="og:image" itemprop="image" content="<%= polymorphic_url(image_source.variant(resize_to_limit: [800, 600], format: :jpg, quality: 85).processed) %>">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="600">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="<%= @product.name %>">
+  <% end %>
+  <meta property="product:price:amount" content="<%= @selected_variant.price %>">
+  <meta property="product:price:currency" content="USD">
+<% end %>
+
+<% content_for :breadcrumbs do %>
+  <%= render "shared/breadcrumbs", product: @product %>
+<% end %>
+
+<div class="drawer drawer-end">
+  <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <div class="container mx-auto py-8 min-h-screen">
+      <div class="card lg:card-side bg-base-100 shadow-sm">
+        <figure class="lg:w-1/2">
+          <% image_source = @selected_variant.image.attached? ? @selected_variant.image : @product.image %>
+          <% if image_source&.attached? %>
+            <%= image_tag image_source.variant(resize_to_limit: [400, 400]), alt: @product.name %>
+          <% else %>
+            <div class="w-full h-full bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
+              <span class="text-gray-500">Image not available</span>
+            </div>
+          <% end %>
+        </figure>
+
+        <div class="card-body lg:w-1/2">
+          <h2 class="card-title text-3xl lg:text-4xl">
+            <%= @product.name %>
+          </h2>
+
+          <% if @product.colour.present? %>
+            <span class="text-base-content/60 font-medium text-lg"><%= @product.colour %></span>
+          <% end %>
+
+          <% if @selected_variant.pac_size.present? %>
+            <span class="text-base-content/60 font-medium text-lg">Pac Size: <%= @selected_variant.pac_size %></span>
+          <% end %>
+
+          <% if @product.active_variants.count > 1 %>
+            <div class="form-control w-full max-w-xs my-4">
+              <label class="label mb-2">
+                <span class="label-text">Select option</span>
+              </label>
+              <select class="select select-lg" onchange="window.location.href='<%= product_path(@product) %>?variant_id=' + this.value">
+                <% @product.active_variants.each do |variant| %>
+                  <option value="<%= variant.id %>" <%= 'selected' if variant == @selected_variant %>>
+                    <%= variant.name %>
+                  </option>
+                <% end %>
+              </select>
+            </div>
+          <% end %>
+
+          <p class="text-xl lg:text-2xl font-semibold text-secondary">
+            <%= number_to_currency @selected_variant.price %>
+          </p>
+
+          <div class="card-actions space-x-3 my-4" x-data="{ quantity: 1 }">
+            <div class="join">
+              <button class="btn btn-square btn-primary btn-lg" @click="quantity = Math.max(1, quantity - 1)">-</button>
+              <input type="text" x-model="quantity" class="font-mono input input-lg w-12 text-center" />
+              <button class="btn btn-square btn-primary btn-lg" @click="quantity = quantity + 1">+</button>
+            </div>
+
+            <div>
+              <%= form_with url: cart_cart_items_path, method: :post, class: "w-full", local: false, data: { controller: "cart-drawer", action: "turbo:submit-end->cart-drawer#open" } do |f| %>
+                <%= f.hidden_field :variant_sku, name: "cart_item[variant_sku]", value: @selected_variant.sku %>
+                <input type="hidden" name="cart_item[quantity]" x-bind:value="quantity" />
+                <%= f.submit "Add to basket", class: "btn btn-primary btn-lg" %>
+              <% end %>
+            </div>
+          </div>
+
+          <p class="text-base-content/70 my-4">
+            <%= @product.description %>
+          </p>
+
+          <% if @selected_variant.variant_attributes.any? %>
+            <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+              <table class="table table-zebra table-pin-cols">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="bg-base-200 font-medium">Specifications</th>
+                   </thead>
+                <tbody>
+                <% @selected_variant.variant_attributes.each do |key, value| %>
+                  <tr>
+                    <td class="font-semibold"><%= key.to_s.humanize %></td>
+                    <td><%= value %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="drawer-side">
+    <label for="cart-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      <%= render "shared/drawer_cart_content" %>
+    </ul>
+  </div>
+</div>
