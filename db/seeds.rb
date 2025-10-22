@@ -136,37 +136,17 @@ def seed_products_from_yaml(file_path, category)
   end
 end
 
-# Seed all product categories
-product_files = [
-  { file: 'straws.yml', category: straws_category },
-  { file: 'napkins.yml', category: napkins_category },
-  { file: 'hot_cups.yml', category: hot_cups_category },
-  { file: 'hot_cups_extras.yml', category: hot_cups_extras_category },
-  { file: 'cold_cups.yml', category: cold_cups_category },
-  { file: 'pizza_boxes.yml', category: pizza_boxes_category },
-  { file: 'kraft_food_containers.yml', category: kraft_food_containers_category },
-  { file: 'takeaway_extras.yml', category: takeaway_extras_category },
-  { file: 'ice_cream_cups.yml', category: ice_cream_cups_category }
-]
-
-product_files.each do |config|
-  file_path = Rails.root.join("lib", "data", "products", config[:file])
-
-  if File.exist?(file_path)
-    seed_products_from_yaml(file_path, config[:category])
-  else
-    puts "Warning: File not found: #{file_path}"
-  end
-end
-
-# Load product options seed
+# Load product options first (required for products with options)
 load Rails.root.join('db', 'seeds', 'product_options.rb')
+
+# Load products from consolidated CSV (replaces YAML-based seeding)
+load Rails.root.join('db', 'seeds', 'products_from_csv.rb')
 
 # Load branded product pricing seed
 load Rails.root.join('db', 'seeds', 'branded_product_pricing.rb')
 
-# Load hot cup lids seed
-load Rails.root.join('db', 'seeds', 'hot_cup_lids.rb')
+# Load hot cup lids seed (may be redundant if lids are in CSV)
+# load Rails.root.join('db', 'seeds', 'hot_cup_lids.rb')
 
 puts "Seeding completed!"
 puts "Categories created: #{Category.count}"
