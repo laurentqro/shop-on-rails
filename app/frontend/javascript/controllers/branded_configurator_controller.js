@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [
     "sizeOption",
+    "finishOption",
     "quantityOption",
     "pricePerUnit",
     "savingsBadge",
@@ -23,13 +24,23 @@ export default class extends Controller {
 
   connect() {
     this.selectedSize = null
+    this.selectedFinish = null
     this.selectedQuantity = null
     this.calculatedPrice = null
     this.updateAddToCartButton()
 
-    // Auto-select first size and quantity for better UX
+    // Auto-select first size, Matt finish, and first quantity for better UX
     if (this.sizeOptionTargets.length > 0) {
       this.sizeOptionTargets[0].click()
+    }
+    if (this.finishOptionTargets.length > 0) {
+      // Auto-select "Matt" by default
+      const mattOption = this.finishOptionTargets.find(el => el.dataset.finish === "Matt")
+      if (mattOption) {
+        mattOption.click()
+      } else {
+        this.finishOptionTargets[0].click()
+      }
     }
     if (this.quantityOptionTargets.length > 0) {
       this.quantityOptionTargets[0].click()
@@ -49,6 +60,21 @@ export default class extends Controller {
 
     this.selectedSize = event.currentTarget.dataset.size
     this.calculatePrice()
+  }
+
+  selectFinish(event) {
+    // Reset all finish buttons to unselected state
+    this.finishOptionTargets.forEach(el => {
+      el.classList.remove("border-primary", "border-4")
+      el.classList.add("border-gray-300", "border-2")
+    })
+
+    // Add selected state to clicked button
+    event.currentTarget.classList.remove("border-gray-300", "border-2")
+    event.currentTarget.classList.add("border-primary", "border-4")
+
+    this.selectedFinish = event.currentTarget.dataset.finish
+    this.updateAddToCartButton()
   }
 
   selectQuantity(event) {
@@ -230,6 +256,7 @@ export default class extends Controller {
     if (!this.hasAddToCartButtonTarget) return
 
     const isValid = this.selectedSize &&
+                    this.selectedFinish &&
                     this.selectedQuantity &&
                     this.calculatedPrice &&
                     this.designInputTarget?.files.length > 0
@@ -264,6 +291,11 @@ export default class extends Controller {
       return
     }
 
+    if (!this.selectedFinish) {
+      this.showError("Please select a finish")
+      return
+    }
+
     if (!this.selectedQuantity) {
       this.showError("Please select a quantity")
       return
@@ -282,6 +314,7 @@ export default class extends Controller {
     const formData = new FormData()
     formData.append("product_id", this.productIdValue)
     formData.append("configuration[size]", this.selectedSize)
+    formData.append("configuration[finish]", this.selectedFinish)
     formData.append("configuration[quantity]", this.selectedQuantity)
     formData.append("calculated_price", this.calculatedPrice)
 
