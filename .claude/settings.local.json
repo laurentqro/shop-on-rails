@@ -62,7 +62,11 @@
       "Bash(brakeman:*)",
       "Bash(curl:*)",
       "WebFetch(domain:daisyui.com)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Skill(pdf)",
+      "Read(//Users/laurentcurau/Desktop/**)",
+      "Bash(rails db:reset:*)",
+      "Bash(RAILS_ENV=development rails db:reset:*)"
     ],
     "deny": [],
     "ask": []

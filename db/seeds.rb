@@ -25,77 +25,54 @@ CSV.foreach(Rails.root.join('lib', 'data', 'categories.csv'), headers: true) do 
 end
 puts "Categories metadata loaded."
 
-# Create categories
-straws_category = Category.find_or_create_by!(
-  name: "Straws",
-  slug: "straws",
-  description: categories_metadata.dig('straws', :meta_description) || "Straws for all your drinks.",
-  meta_title: categories_metadata.dig('straws', :meta_title) || "Straws",
-  meta_description: categories_metadata.dig('straws', :meta_description) || "Straws for all your drinks."
+# Create BrandYour-style categories
+drinks_category = Category.find_or_create_by!(
+  name: "Drinks",
+  slug: "drinks",
+  description: "Cups and straws for all your beverages - hot and cold",
+  meta_title: "Drinks Packaging - Cups & Straws | Afida",
+  meta_description: "Eco-friendly cups and straws for hot and cold drinks. Sustainable beverage packaging."
 )
 
-napkins_category = Category.find_or_create_by!(
-  name: "Napkins",
-  slug: "napkins",
-  description: categories_metadata.dig('napkins', :meta_description) || "Napkins for all your drinks.",
-  meta_title: categories_metadata.dig('napkins', :meta_title) || "Napkins",
-  meta_description: categories_metadata.dig('napkins', :meta_description) || "Napkins for all your drinks."
+mains_category = Category.find_or_create_by!(
+  name: "Mains",
+  slug: "mains",
+  description: "Food packaging for main courses - pizza boxes, containers",
+  meta_title: "Food Packaging - Boxes & Containers | Afida",
+  meta_description: "Eco-friendly food packaging for pizzas, takeaway meals, and more."
 )
 
-hot_cups_category = Category.find_or_create_by!(
-  name: "Hot Cups",
-  slug: "hot-cups",
-  description: categories_metadata.dig('hot-cups', :meta_description) || "Hot cups for all your drinks.",
-  meta_title: categories_metadata.dig('hot-cups', :meta_title) || "Hot Cups",
-  meta_description: categories_metadata.dig('hot-cups', :meta_description) || "Hot cups for all your drinks."
+desserts_category = Category.find_or_create_by!(
+  name: "Desserts",
+  slug: "desserts",
+  description: "Packaging for desserts and sweet treats",
+  meta_title: "Dessert Packaging - Ice Cream Cups | Afida",
+  meta_description: "Sustainable packaging for ice cream, desserts, and sweet treats."
 )
 
-hot_cups_extras_category = Category.find_or_create_by!(
-  name: "Hot Cups Extras",
-  slug: "hot-cups-extras",
-  description: categories_metadata.dig('hot-cup-extras', :meta_description) || "Hot cups extras for all your drinks.",
-  meta_title: categories_metadata.dig('hot-cup-extras', :meta_title) || "Hot Cups Extras",
-  meta_description: categories_metadata.dig('hot-cup-extras', :meta_description) || "Hot cups extras for all your drinks."
+bags_category = Category.find_or_create_by!(
+  name: "Bags",
+  slug: "bags",
+  description: "Takeaway and carrier bags for your orders",
+  meta_title: "Takeaway Bags - Kraft & Paper Bags | Afida",
+  meta_description: "Eco-friendly takeaway bags and carrier bags for your business."
 )
 
-cold_cups_category = Category.find_or_create_by!(
-  name: "Cold Cups & Lids",
-  slug: "cold-cups-and-lids",
-  description: categories_metadata.dig('cold-cups-lids', :meta_description) || "Cold cups and lids for all your drinks.",
-  meta_title: categories_metadata.dig('cold-cups-lids', :meta_title) || "Cold Cups & Lids",
-  meta_description: categories_metadata.dig('cold-cups-lids', :meta_description) || "Cold cups and lids for all your drinks."
+accessories_category = Category.find_or_create_by!(
+  name: "Accessories",
+  slug: "accessories",
+  description: "Lids, napkins, cutlery, and other accessories",
+  meta_title: "Accessories - Lids, Napkins & More | Afida",
+  meta_description: "Complete your order with lids, napkins, cutlery, and accessories."
 )
 
-pizza_boxes_category = Category.find_or_create_by!(
-  name: "Pizza Boxes",
-  slug: "pizza-boxes",
-  description: categories_metadata.dig('pizza-boxes', :meta_description) || "Pizza boxes for all your drinks.",
-  meta_title: categories_metadata.dig('pizza-boxes', :meta_title) || "Pizza Boxes",
-  meta_description: categories_metadata.dig('pizza-boxes', :meta_description) || "Pizza boxes for all your drinks."
-)
-
-kraft_food_containers_category = Category.find_or_create_by!(
-  name: "Kraft Food Containers",
-  slug: "kraft-food-containers",
-  description: categories_metadata.dig('takeaway-containers', :meta_description) || "Kraft food containers for all your drinks.",
-  meta_title: categories_metadata.dig('takeaway-containers', :meta_title) || "Kraft Food Containers",
-  meta_description: categories_metadata.dig('takeaway-containers', :meta_description) || "Kraft food containers for all your drinks."
-)
-
-ice_cream_cups_category = Category.find_or_create_by!(
-  name: "Ice Cream Cups",
-  slug: "ice-cream-cups",
-  description: categories_metadata.dig('ice-cream-cups', :meta_description) || "Ice cream cups for all your drinks.",
-  meta_title: categories_metadata.dig('ice-cream-cups', :meta_title) || "Ice Cream Cups",
-  meta_description: categories_metadata.dig('ice-cream-cups', :meta_description) || "Ice cream cups for all your drinks."
-)
-
-takeaway_extras_category = Category.find_or_create_by!(
-  name: "Takeaway Extras",
-  slug: "takeaway-extras",
-  description: categories_metadata.dig('takeaway-extras', :meta_description) || "Takeaway extras for all your drinks.",
-  meta_title: categories_metadata.dig('takeaway-extras', :meta_title) || "Takeaway Extras",
-  meta_description: categories_metadata.dig('takeaway-extras', :meta_description) || "Takeaway extras for all your drinks."
+# Keep branded products category
+branded_category = Category.find_or_create_by!(
+  name: "Branded Products",
+  slug: "branded-products",
+  description: "Custom branded packaging with your design",
+  meta_title: "Branded Products - Custom Packaging | Afida",
+  meta_description: "Custom branded packaging for your business."
 )
 
 # Helper method to seed products from YAML files

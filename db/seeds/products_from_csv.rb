@@ -10,6 +10,21 @@ unless File.exist?(csv_path)
   return
 end
 
+# Category mapping: old slug → new BrandYour-style slug
+CATEGORY_MAP = {
+  'straws' => 'drinks',
+  'hot-cups' => 'drinks',
+  'hot-cups-extras' => 'accessories',
+  'cold-cups-and-lids' => 'drinks',
+  'napkins' => 'accessories',
+  'pizza-boxes' => 'mains',
+  'kraft-food-containers' => 'mains',
+  'takeaway-containers' => 'mains',
+  'ice-cream-cups' => 'desserts',
+  'ice-cream' => 'desserts',
+  'takeaway-extras' => 'accessories'
+}.freeze
+
 # Get existing options
 size_option = ProductOption.find_by(name: 'Size')
 color_option = ProductOption.find_by(name: 'Color')
@@ -46,9 +61,12 @@ puts "Found #{products_data.length} unique products"
 
 # Create products and variants
 products_data.each do |key, data|
-  category = Category.find_by(slug: data[:category_slug])
+  # Map old category to new BrandYour-style category
+  new_category_slug = CATEGORY_MAP[data[:category_slug]] || data[:category_slug]
+  category = Category.find_by(slug: new_category_slug)
+
   unless category
-    puts "  ⚠ Skipping #{data[:name]} - category '#{data[:category_slug]}' not found"
+    puts "  ⚠ Skipping #{data[:name]} - category '#{new_category_slug}' not found"
     next
   end
 
