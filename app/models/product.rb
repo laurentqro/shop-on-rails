@@ -32,6 +32,7 @@ class Product < ApplicationRecord
   has_many :customized_instances, class_name: "Product", foreign_key: :parent_product_id
   has_many :option_assignments, class_name: "ProductOptionAssignment", dependent: :destroy
   has_many :options, through: :option_assignments, source: :product_option
+  has_many :branded_product_prices, dependent: :destroy
 
   accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
 
