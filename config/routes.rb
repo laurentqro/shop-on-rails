@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace :organizations do
-    resources :products, only: [:index, :show]
+    resources :products, only: [ :index, :show ]
   end
 
   namespace :admin do

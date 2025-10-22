@@ -10,7 +10,7 @@ class CreateBrandedProductPrices < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :branded_product_prices, [:product_id, :size, :quantity_tier],
+    add_index :branded_product_prices, [ :product_id, :size, :quantity_tier ],
               unique: true,
               name: "index_branded_prices_uniqueness"
   end

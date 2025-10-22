@@ -6,6 +6,6 @@ class AddProductConfigurationFields < ActiveRecord::Migration[8.0]
     add_column :products, :configuration_data, :jsonb, default: {}
 
     add_index :products, :product_type
-    add_index :products, [:organization_id, :product_type]
+    add_index :products, [ :organization_id, :product_type ]
   end
 end

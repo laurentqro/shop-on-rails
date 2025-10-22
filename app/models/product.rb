@@ -20,7 +20,7 @@
 class Product < ApplicationRecord
   default_scope { where(active: true).order(:sort_order, :name) }
   scope :featured, -> { where(featured: true) }
-  scope :catalog_products, -> { where(product_type: ["standard", "customizable_template"]) }
+  scope :catalog_products, -> { where(product_type: [ "standard", "customizable_template" ]) }
   scope :customized_for_organization, ->(org) { unscoped.where(product_type: "customized_instance", organization: org) }
 
   belongs_to :category

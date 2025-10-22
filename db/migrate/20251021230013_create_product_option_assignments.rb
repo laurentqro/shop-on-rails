@@ -8,7 +8,7 @@ class CreateProductOptionAssignments < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :product_option_assignments, [:product_id, :product_option_id],
+    add_index :product_option_assignments, [ :product_id, :product_option_id ],
               unique: true,
               name: "index_product_option_assignments_uniqueness"
   end

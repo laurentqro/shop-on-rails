@@ -4,7 +4,7 @@ class BrandedProductPrice < ApplicationRecord
   validates :size, presence: true
   validates :quantity_tier, presence: true,
             numericality: { only_integer: true, greater_than: 0 },
-            uniqueness: { scope: [:product_id, :size] }
+            uniqueness: { scope: [ :product_id, :size ] }
   validates :price_per_unit, presence: true,
             numericality: { greater_than: 0 }
   validates :case_quantity, presence: true,

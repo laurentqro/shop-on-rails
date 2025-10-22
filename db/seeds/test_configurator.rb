@@ -19,12 +19,12 @@ end
 
 # Create pricing matrix
 pricing = [
-  {size: '8oz', qty: 1000, price: 0.30, case: 500},
-  {size: '8oz', qty: 2000, price: 0.25, case: 500},
-  {size: '8oz', qty: 5000, price: 0.18, case: 500},
-  {size: '12oz', qty: 1000, price: 0.32, case: 500},
-  {size: '12oz', qty: 5000, price: 0.20, case: 500},
-  {size: '16oz', qty: 1000, price: 0.34, case: 500}
+  { size: '8oz', qty: 1000, price: 0.30, case: 500 },
+  { size: '8oz', qty: 2000, price: 0.25, case: 500 },
+  { size: '8oz', qty: 5000, price: 0.18, case: 500 },
+  { size: '12oz', qty: 1000, price: 0.32, case: 500 },
+  { size: '12oz', qty: 5000, price: 0.20, case: 500 },
+  { size: '16oz', qty: 1000, price: 0.34, case: 500 }
 ]
 
 pricing.each do |p|

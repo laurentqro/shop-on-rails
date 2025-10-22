@@ -50,7 +50,7 @@ class ProductVariantGeneratorService
     value_arrays = option_values_by_option.values
 
     value_arrays.first.product(*value_arrays[1..-1]).map do |combo|
-      combo = [combo] unless combo.is_a?(Array)
+      combo = [ combo ] unless combo.is_a?(Array)
       Hash[option_names.zip(combo)]
     end
   end

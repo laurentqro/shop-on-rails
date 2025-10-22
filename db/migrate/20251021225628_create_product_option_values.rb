@@ -8,7 +8,7 @@ class CreateProductOptionValues < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :product_option_values, [:product_option_id, :value], unique: true
+    add_index :product_option_values, [ :product_option_id, :value ], unique: true
     add_index :product_option_values, :position
   end
 end

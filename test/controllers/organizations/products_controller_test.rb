@@ -36,7 +36,7 @@ class Organizations::ProductsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "all organization members can access" do
-    [@acme_admin, @acme_member].each do |user|
+    [ @acme_admin, @acme_member ].each do |user|
       sign_in_as user
 
       get organizations_products_path
