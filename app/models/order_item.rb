@@ -51,6 +51,10 @@ class OrderItem < ApplicationRecord
     configuration.present? && !configuration.empty?
   end
 
+  def unit_price
+    price
+  end
+
   private
 
   def calculate_line_total
