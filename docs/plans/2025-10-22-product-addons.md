@@ -871,3 +871,21 @@ Each task follows the established TDD approach with detailed implementation step
 **Total estimated time**: 4-6 hours
 
 The plan is ready for execution!
+
+---
+
+## Additional Branded Product Templates
+
+Add these templates to match the printable products table:
+- Single Wall Paper Cold Cups (min: 30,000)
+- Clear Recyclable Cups (min: 30,000)
+- Ice Cream Cups (min: 50,000)
+- Greaseproof Paper (min: 6,000)
+- Pizza Boxes (min: 5,000)
+- Kraft Containers (min: 10,000)
+- Kraft Bags (min: 10,000)
+
+Update `db/seeds/branded_product_pricing.rb` to create all templates.
+Add basic pricing tiers for each.
+
+Estimated: 1 hour
