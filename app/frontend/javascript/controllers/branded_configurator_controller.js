@@ -306,14 +306,16 @@ export default class extends Controller {
           // Let Turbo process the stream
           Turbo.renderStreamMessage(text)
 
-          // Try to open cart drawer if it exists
-          const drawer = document.querySelector('#cart-drawer')
-          if (drawer) {
-            drawer.checked = true
-          } else {
-            // Fallback: redirect to cart if drawer doesn't exist
-            window.location.href = "/cart"
-          }
+          // Wait for Turbo to finish rendering, then open drawer
+          setTimeout(() => {
+            const drawer = document.querySelector('#cart-drawer')
+            if (drawer) {
+              drawer.checked = true
+            } else {
+              // Fallback: redirect to cart if drawer doesn't exist
+              window.location.href = "/cart"
+            }
+          }, 100)
         }
       } else {
         const data = await response.json()
