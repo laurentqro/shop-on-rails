@@ -8,8 +8,8 @@ class CartTest < ActiveSupport::TestCase
     @user_cart = Cart.create(user: users(:one))
   end
 
-  test "items_count returns sum of all item quantities" do
-    assert_equal 2, @cart.items_count
+  test "items_count returns number of distinct cart items" do
+    assert_equal 1, @cart.items_count  # Changed: counts distinct items, not quantity sum
     assert_equal 0, @empty_cart.items_count
   end
 
@@ -47,9 +47,9 @@ class CartTest < ActiveSupport::TestCase
     count2 = @cart.items_count
     assert_equal count1, count2
 
-    # After reload, count is recalculated
+    # After reload, count is recalculated (distinct items, not quantity sum)
     @cart.reload
-    assert_equal count1 + 5, @cart.items_count
+    assert_equal 2, @cart.items_count  # Changed: 2 distinct items total
   end
 
   test "subtotal_amount is memoized within request" do
@@ -81,7 +81,7 @@ class CartTest < ActiveSupport::TestCase
     @cart.reload
 
     # Values should be recalculated on next access
-    assert_equal 2, @cart.items_count
+    assert_equal 1, @cart.items_count  # Changed: counts distinct items
     assert_equal 20.0, @cart.subtotal_amount
   end
 

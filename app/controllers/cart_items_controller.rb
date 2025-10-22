@@ -87,6 +87,11 @@ class CartItemsController < ApplicationController
     end
 
     # Calculate unit price and actual quantity from configuration
+    unless params[:calculated_price].present?
+      return render json: { error: "Calculated price is required" },
+                    status: :unprocessable_entity
+    end
+
     total_price = BigDecimal(params[:calculated_price].to_s)
     quantity = params[:configuration][:quantity].to_i
     unit_price = total_price / quantity

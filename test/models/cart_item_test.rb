@@ -103,30 +103,31 @@ class CartItemTest < ActiveSupport::TestCase
   test "cart item can store configuration for customizable products" do
     cart_item = cart_items(:branded_configuration)
     assert_equal "12oz", cart_item.configuration["size"]
-    assert_equal 5000, cart_item.configuration["quantity"]
+    assert_equal "5000", cart_item.configuration["quantity"]  # Changed: stored as string from params
   end
 
   test "cart item with configuration uses calculated_price" do
     cart_item = cart_items(:branded_configuration)
     assert_equal 900.00, cart_item.calculated_price
+    # With new approach: line_total = price * quantity = 0.18 * 5000 = 900
     assert_equal 900.00, cart_item.line_total
   end
 
   test "cart item without configuration uses variant price" do
     cart_item = cart_items(:one)
-    expected = cart_item.product_variant.price * cart_item.quantity
+    expected = cart_item.price * cart_item.quantity  # Changed: uses price directly
     assert_equal expected, cart_item.line_total
   end
 
   test "cart item unit price for configured product" do
     cart_item = cart_items(:branded_configuration)
-    expected = cart_item.calculated_price / cart_item.configuration["quantity"]
-    assert_equal expected, cart_item.unit_price
+    # With new approach: unit_price = price (already stored as unit price)
+    assert_equal 0.18, cart_item.unit_price
   end
 
   test "cart item unit price for standard product" do
     cart_item = cart_items(:one)
-    assert_equal cart_item.product_variant.price, cart_item.unit_price
+    assert_equal cart_item.price, cart_item.unit_price  # Changed: uses price directly
   end
 
   test "configured cart item validates calculated_price presence" do

@@ -15,9 +15,9 @@ two:
 branded_configuration:
   cart: three
   product_variant: one
-  quantity: 1
-  price: 10
+  quantity: 5000  # Actual quantity from configuration
+  price: 0.18     # Unit price (so price * quantity = calculated_price)
   configuration:
     size: "12oz"
-    quantity: 5000
+    quantity: "5000"
   calculated_price: 900.00
