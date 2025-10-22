@@ -22,7 +22,7 @@ CATEGORY_MAP = {
   'takeaway-containers' => 'mains',
   'ice-cream-cups' => 'desserts',
   'ice-cream' => 'desserts',
-  'takeaway-extras' => 'accessories'
+  'takeaway-extras' => 'bags'  # Changed: bags should go to bags category, not accessories
 }.freeze
 
 # Get existing options
