@@ -5254,9 +5254,108 @@ Tests: Cart functionality tests passing"
 
 ---
 
+### Task 35: Make add to cart open drawer for branded products
+
+**Background:** Currently, adding a configured product to cart redirects to `/cart`. For consistency with standard products, it should open the cart drawer/sidebar instead.
+
+**Files:**
+- Modify: `app/frontend/javascript/controllers/branded_configurator_controller.js`
+- Verify: Cart drawer Stimulus controller exists and is accessible
+
+**Implementation:**
+
+**Step 1: Check how standard products open the drawer**
+
+In `app/views/products/_standard_product.html.erb`, the form has:
+```erb
+data: { controller: "cart-drawer", action: "turbo:submit-end->cart-drawer#open" }
+```
+
+**Step 2: Update branded configurator to trigger drawer**
+
+In `branded_configurator_controller.js`, change the `addToCart` method:
+
+From:
+```javascript
+if (response.ok) {
+  window.location.href = "/cart"
+}
+```
+
+To:
+```javascript
+if (response.ok) {
+  // Trigger Turbo Stream to update cart
+  // Then dispatch event to open cart drawer
+  const event = new CustomEvent('cart:item-added')
+  window.dispatchEvent(event)
+
+  // If cart drawer controller exists, open it
+  const drawerController = this.application.getControllerForElementAndIdentifier(
+    document.querySelector('[data-controller~="cart-drawer"]'),
+    'cart-drawer'
+  )
+  if (drawerController) {
+    drawerController.open()
+  }
+}
+```
+
+**Step 3: Alternative approach - Use Turbo Stream response**
+
+Update `CartItemsController#create_configured_cart_item` to return Turbo Stream:
+```ruby
+if cart_item.save
+  respond_to do |format|
+    format.html { redirect_to cart_path, notice: "Configured product added to cart" }
+    format.turbo_stream {
+      render turbo_stream: [
+        turbo_stream.replace("cart-drawer-content", partial: "shared/drawer_cart_content"),
+        turbo_stream.append("notifications", partial: "shared/notification", locals: { message: "Added to cart" })
+      ]
+    }
+    format.json { render json: { success: true, cart_item: cart_item }, status: :created }
+  end
+end
+```
+
+And update JavaScript to make Turbo Stream request:
+```javascript
+const response = await fetch("/cart/cart_items", {
+  method: "POST",
+  headers: {
+    "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
+    "Accept": "text/vnd.turbo-stream.html"
+  },
+  body: formData
+})
+```
+
+**Step 4: Test both product types**
+
+- Add standard product → cart drawer opens ✓
+- Add configured product → cart drawer opens ✓
+- Cart drawer shows both product types correctly ✓
+
+**Step 5: Commit**
+
+```bash
+git add .
+git commit -m "Make branded products open cart drawer on add
+
+- Updated branded configurator to trigger cart drawer
+- Consistent UX: both standard and configured products open drawer
+- Uses Turbo Stream for seamless cart updates
+- No full page redirect needed
+
+UX: Faster, smoother add-to-cart experience"
+```
+
+---
+
 ## Implementation Complete!
 
-This plan provides **34 comprehensive tasks** covering:
+This plan provides **35 comprehensive tasks** covering:
 
 ✅ **Phase 1**: Organizations & Product Options foundation
 ✅ **Phase 2**: Product model enhancements
