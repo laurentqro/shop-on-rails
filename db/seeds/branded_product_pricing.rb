@@ -12,7 +12,7 @@ end
 templates = [
   { name: "Double Wall Hot Cups", slug: "double-wall-branded-cups", min_qty: 5000, sort: 1, has_pricing: true },
   { name: "Single Wall Hot Cups", slug: "single-wall-branded-cups", min_qty: 30000, sort: 2, has_pricing: true },
-  { name: "Single Wall Paper Cold Cups", slug: "single-wall-cold-branded-cups", min_qty: 30000, sort: 3, has_pricing: false },
+  { name: "Single Wall Cold Cups", slug: "single-wall-cold-branded-cups", min_qty: 30000, sort: 3, has_pricing: false },
   { name: "Clear Recyclable Cups", slug: "clear-recyclable-branded-cups", min_qty: 30000, sort: 4, has_pricing: false },
   { name: "Ice Cream Cups", slug: "ice-cream-branded-cups", min_qty: 50000, sort: 5, has_pricing: false },
   { name: "Greaseproof Paper", slug: "greaseproof-branded-paper", min_qty: 6000, sort: 6, has_pricing: false },

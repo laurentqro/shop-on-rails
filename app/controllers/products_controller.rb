@@ -42,6 +42,19 @@ class ProductsController < ApplicationController
       # Redirect if no variants available
       unless @selected_variant
         redirect_to products_path, alert: "This product is currently unavailable."
+        return
+      end
+
+      # Prepare data for option selectors
+      @product_options = @product.options.order(:position)
+      @variants_json = @product.active_variants.map do |v|
+        {
+          id: v.id,
+          sku: v.sku,
+          price: v.price.to_f,
+          option_values: v.option_values,
+          image_url: v.image.attached? ? url_for(v.image.variant(resize_to_limit: [400, 400])) : nil
+        }
       end
     end
   end
