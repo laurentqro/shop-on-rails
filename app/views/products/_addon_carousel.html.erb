@@ -1,0 +1,57 @@
+<% if addon_products.any? %>
+  <div class="mt-12 border-t pt-8">
+    <h2 class="text-2xl font-bold mb-6">Complete your order with add-ons</h2>
+
+    <div class="swiper addon-carousel" data-controller="carousel">
+      <div class="swiper-wrapper">
+        <% addon_products.each do |addon| %>
+          <div class="swiper-slide">
+            <div class="card bg-white border-2 border-gray-200 hover:border-primary transition h-full">
+              <figure class="p-4">
+                <% if addon.image.attached? %>
+                  <%= image_tag addon.image.variant(resize_to_limit: [300, 300]),
+                               alt: addon.name,
+                               class: "w-full h-48 object-contain" %>
+                <% else %>
+                  <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                    <span class="text-6xl">📦</span>
+                  </div>
+                <% end %>
+              </figure>
+
+              <div class="card-body">
+                <h3 class="card-title text-lg"><%= addon.name %></h3>
+
+                <% min_price = addon.branded_product_prices.minimum(:price_per_unit) %>
+                <% if min_price %>
+                  <p class="text-lg font-bold text-primary">
+                    from £<%= sprintf("%.3f", min_price) %>/unit
+                  </p>
+                <% end %>
+
+                <% min_qty = addon.branded_product_prices.minimum(:quantity_tier) %>
+                <% if min_qty %>
+                  <p class="text-sm text-gray-600">
+                    Min: <%= number_with_delimiter(min_qty) %> units
+                  </p>
+                <% end %>
+
+                <button class="btn btn-primary btn-sm mt-4"
+                        data-action="click->addon#openModal"
+                        data-product-id="<%= addon.id %>"
+                        data-product-name="<%= addon.name %>"
+                        data-product-slug="<%= addon.slug %>">
+                  Configure →
+                </button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+<% end %>

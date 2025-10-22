@@ -13,6 +13,13 @@ class ProductsController < ApplicationController
       service = BrandedProductPricingService.new(@product)
       @available_sizes = service.available_sizes
       @quantity_tiers = service.available_quantities(@available_sizes.first) if @available_sizes.any?
+
+      # Load other branded products for add-ons carousel
+      @addon_products = Product.where(product_type: "customizable_template")
+                              .where.not(id: @product.id)
+                              .includes(:branded_product_prices, image_attachment: :blob)
+                              .order(:sort_order)
+                              .limit(10)
     elsif @product.standard? || @product.customized_instance?
       # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?

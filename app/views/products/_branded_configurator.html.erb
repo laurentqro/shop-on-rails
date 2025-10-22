@@ -232,6 +232,9 @@
     </div>
   </div>
 
+  <!-- Add-ons Carousel -->
+  <%= render "products/addon_carousel", addon_products: @addon_products || [] %>
+
   <div class="drawer-side">
     <label for="cart-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
