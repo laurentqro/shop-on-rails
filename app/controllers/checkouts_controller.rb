@@ -122,21 +122,21 @@ class CheckoutsController < ApplicationController
 
     total_amount = subtotal + vat_amount + shipping_cost
 
-    # Handle shipping details - they might be null if not collected
-    shipping_name = customer_details.name
-    shipping_address_line1 = customer_details.address.line1
-    shipping_address_line2 = customer_details.address.line2
-    shipping_city = customer_details.address.city
-    shipping_postal_code = customer_details.address.postal_code
-    shipping_country = customer_details.address.country
+    # Extract shipping address details
+    shipping_address = extract_shipping_address(stripe_session)
 
-    if [ shipping_name, shipping_address_line1, shipping_city, shipping_postal_code, shipping_country ].any?(&:blank?)
+    if [ shipping_address[:name], shipping_address[:line1], shipping_address[:city], shipping_address[:postal_code], shipping_address[:country] ].any?(&:blank?)
       raise "Shipping details are required"
     end
 
+    # Get user for order
+    user = User.find_by(id: stripe_session.client_reference_id)
+
     # Create the order
     order = Order.create!(
-      user: User.find_by(id: stripe_session.client_reference_id),
+      user: user,
+      organization: user&.organization,
+      placed_by_user: user&.organization_id? ? user : nil,
       email: customer_details.email,
       stripe_session_id: stripe_session.id,
       status: "paid",
@@ -144,13 +144,18 @@ class CheckoutsController < ApplicationController
       vat_amount: vat_amount,
       shipping_amount: shipping_cost,
       total_amount: total_amount,
-      shipping_name: shipping_name,
-      shipping_address_line1: shipping_address_line1,
-      shipping_address_line2: shipping_address_line2,
-      shipping_city: shipping_city,
-      shipping_postal_code: shipping_postal_code,
-      shipping_country: shipping_country
+      shipping_name: shipping_address[:name],
+      shipping_address_line1: shipping_address[:line1],
+      shipping_address_line2: shipping_address[:line2],
+      shipping_city: shipping_address[:city],
+      shipping_postal_code: shipping_address[:postal_code],
+      shipping_country: shipping_address[:country]
     )
+
+    # Set initial branded order status if cart contains configured items
+    if cart.cart_items.any?(&:configured?)
+      order.update!(branded_order_status: "design_pending")
+    end
 
     # Create order items from cart items
     cart.cart_items.each do |cart_item|
@@ -158,6 +163,19 @@ class CheckoutsController < ApplicationController
     end
 
     order
+  end
+
+  def extract_shipping_address(stripe_session)
+    return {} unless stripe_session.customer_details
+
+    {
+      name: stripe_session.customer_details.name,
+      line1: stripe_session.customer_details.address.line1,
+      line2: stripe_session.customer_details.address.line2,
+      city: stripe_session.customer_details.address.city,
+      postal_code: stripe_session.customer_details.address.postal_code,
+      country: stripe_session.customer_details.address.country
+    }
   end
 
   def tax_rate

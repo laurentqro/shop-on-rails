@@ -452,6 +452,94 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # ============================================================================
+  # ORGANIZATION AND B2B TESTS
+  # ============================================================================
+
+  test "creates order with organization for B2B users" do
+    sign_in_as users(:acme_admin)
+
+    # Add item to cart
+    @cart.cart_items.create!(
+      product: products(:single_wall_cups),
+      product_variant: product_variants(:single_wall_8oz_white),
+      quantity: 10,
+      price: 10.0
+    )
+
+    session = Stripe::Checkout::Session.create(
+      customer_email: users(:acme_admin).email_address,
+      client_reference_id: users(:acme_admin).id
+    )
+
+    get success_checkout_path, params: { session_id: session.id }
+
+    # Verify order created with organization
+    order = Order.last
+    assert_equal organizations(:acme), order.organization
+    assert_equal users(:acme_admin), order.placed_by_user
+  end
+
+  test "creates order without organization for consumer users" do
+    sign_in_as users(:consumer)
+
+    # Add item to cart
+    @cart.cart_items.create!(
+      product: products(:single_wall_cups),
+      product_variant: product_variants(:single_wall_8oz_white),
+      quantity: 10,
+      price: 10.0
+    )
+
+    session = Stripe::Checkout::Session.create(
+      customer_email: users(:consumer).email_address,
+      client_reference_id: users(:consumer).id
+    )
+
+    get success_checkout_path, params: { session_id: session.id }
+
+    # Verify order created without organization
+    order = Order.last
+    assert_nil order.organization_id
+    assert_nil order.placed_by_user_id
+    assert_equal users(:consumer), order.user
+  end
+
+  test "sets branded_order_status for orders with configured items" do
+    sign_in_as users(:acme_admin)
+
+    # Add configured item
+    cart_item = @cart.cart_items.new(
+      product_variant: product_variants(:branded_template_variant),
+      quantity: 1,
+      configuration: { size: "12oz", quantity: 5000 },
+      calculated_price: 1000.00,
+      price: 1000.00
+    )
+
+    # Attach a design file before saving
+    cart_item.design.attach(
+      io: StringIO.new("fake design content"),
+      filename: "design.pdf",
+      content_type: "application/pdf"
+    )
+    cart_item.save!
+
+    session = Stripe::Checkout::Session.create(
+      customer_email: users(:acme_admin).email_address,
+      client_reference_id: users(:acme_admin).id
+    )
+
+    get success_checkout_path, params: { session_id: session.id }
+
+    order = Order.last
+    assert_equal "design_pending", order.branded_order_status
+  end
+
+  # ============================================================================
   # HELPER METHODS
   # ============================================================================
+
+  def sign_in_as(user)
+    post session_url, params: { email_address: user.email_address, password: "password" }
+  end
 end
