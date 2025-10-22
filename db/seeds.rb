@@ -165,6 +165,9 @@ load Rails.root.join('db', 'seeds', 'product_options.rb')
 # Load branded product pricing seed
 load Rails.root.join('db', 'seeds', 'branded_product_pricing.rb')
 
+# Load hot cup lids seed
+load Rails.root.join('db', 'seeds', 'hot_cup_lids.rb')
+
 puts "Seeding completed!"
 puts "Categories created: #{Category.count}"
 puts "Products created: #{Product.count}"
