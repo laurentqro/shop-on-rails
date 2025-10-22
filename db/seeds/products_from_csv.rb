@@ -3,7 +3,7 @@ require 'csv'
 
 puts 'Loading products from CSV...'
 
-csv_path = File.expand_path('~/Desktop/catalog_products_final.csv')
+csv_path = Rails.root.join('lib', 'data', 'products.csv')
 
 unless File.exist?(csv_path)
   puts "ERROR: CSV file not found at #{csv_path}"

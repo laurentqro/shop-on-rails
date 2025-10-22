@@ -1,74 +1,104 @@
-variant,product,colour,material,sku,pac_size,image,category,price
-12oz-20oz Compatible,rPET Dome Lid,Clear,rPET,RPTDL,1000,d3bbf0_9fc67bbf290c463fbdb58e01de41bc77~mv2.webp,cold-cups-and-lids,28.49
-12oz-20oz Compatible,rPET Flat Lid,Clear,rPET,RPTFL,1000,d3bbf0_681faf1b702e4f7798b9f170dd5c1204~mv2.png,cold-cups-and-lids,23.76
-12oz/355ml rPET Recyclable Cup,rPET Recyclable Cup - Clear,Clear,Plastic,12RPTRC,1000,d3bbf0_98c336b26d4f46b49fba491b286c1509~mv2.webp,cold-cups-and-lids,47.52
-16oz/455ml,rPET Recyclable Cup - Clear,Clear,Plastic,16RPTRC,1000,d3bbf0_7c794971e7e64e049060ebf56951e79b~mv2.webp,cold-cups-and-lids,46.52
-20oz/568ml,rPET Recyclable Cup - Clear,Clear,Plastic,20RPTRC,1000,d3bbf0_0324d75db8234b92aee78ba551215b9b~mv2.png,cold-cups-and-lids,65
-8oz/237ml,rPET Recyclable Cup - Clear,Clear,Plastic,8RPTRC,1000,d3bbf0_e630fdc2c7f54b969b0418162c0e4e18~mv2.webp,cold-cups-and-lids,33.8
-Half Pint,1/2 Pint To Line Home Compostable Paper Cup Ukca Marked,White,Paper,UKMRHFP,1000,,cold-cups-and-lids,131.76
-Pint,Pint to Line Home Compostable Paper Cup UKCA Marked - White,White,Paper,UKMRFP,1000,d3bbf0_1cae37573930477d8fc7dd7e0d97899a~mv2.png,cold-cups-and-lids,142.8
-140mm,Wooden Coffee Stirrers,Natural,Wood,WCS14,1000,d3bbf0_71fc8d1d20b2489e8cf4f1520a04864f~mv2.png,hot-cups-extras,4.49
-4oz,Recyclable Sip Lid for Hot Cup - Black,Black,Plastic,PLPC62B,1000,d3bbf0_60e745542cff479983f4ec923d5d50da~mv2.webp,hot-cups-extras,32.28
-4oz ,Recyclable Sip Lid for Hot Cup - White,White,Plastic,PLPC62B,1000,d3bbf0_ba245b0729fa48558932836a72c6fa96~mv2.webp,hot-cups-extras,32.21
-80mm,Recyclable Sip Lid for Hot Cup - Black,Black,Plastic,PLPC80B,1000,d3bbf0_9d25b2df88834e489cb9e3a66bd18f8b~mv2.webp,hot-cups-extras,56.96
-80mm,Recyclable Sip Lid for Hot Cup - White,White,Plastic,PLPC80W,1000,d3bbf0_e987b6ba1e4747fc98898b97e49dfb1e~mv2.png,hot-cups-extras,28.96
-Standard,Recyclable Pulp Fibre 2-Cup Carrier Tray,Natural,Pulp Fibre,RCC2C,360,d3bbf0_d2cf0670bc3243a2885012d381e9709c~mv2.jpg,hot-cups-extras,24.89
-Standard,Recyclable Sip Lid for Hot Cup - Black,Black,Plastic,PLPC90B,1000,d3bbf0_e46693609ea043b194872ce01b9e840b~mv2.webp,hot-cups-extras,32.23
-Standard,Recyclable Sip Lid for Hot Cup - White,White,Plastic,PLPC90W,1000,d3bbf0_00b74b846cfa41609fb84eea988ad9ec~mv2.png,hot-cups-extras,38.85
-12oz / 340ml,Double Wall Ripple Paper Hot Cup - Kraft,Kraft,Kraft,12KRDW,500,d3bbf0_17d91c720003422f9505f4fba6570b70~mv2.webp,hot-cups,45.32
-12oz/340ml,Double Wall Ripple Paper Hot Cup - Black,Black,Paper,12BRDW,500,d3bbf0_427a23d4bed448f393bd493e758271d7~mv2.webp,hot-cups,45.32
-12oz/340ml,Single Wall Paper Hot Cup - White,White,Paper,12WSW,1000,d3bbf0_04a8855c4b84486fb8da9805cc1162aa~mv2.jpeg,hot-cups,46.85
-16oz / 455ml,Double Wall Ripple Paper Hot Cup - Kraft,Kraft,Kraft,16KRDW,500,d3bbf0_75fba74bf33e46faa01ccc4c6ba46831~mv2.webp,hot-cups,45.63
-16oz/455ml,Double Wall Ripple Paper Hot Cup - Black,Black,Paper,16BRDW,500,d3bbf0_18c19b2e9f294133973a4e2f97f990f6~mv2.png,hot-cups,48.63
-16oz/455ml,Single Wall Paper Hot Cup - White,White,Paper,16WSW,1000,d3bbf0_a6676da796fd4bfca78405afa21182a8~mv2.jpeg,hot-cups,51.78
-4oz/114ml,Double Wall Ripple Paper Hot Cup - Black,Black,Paper,4BRDW,1000,d3bbf0_ac4323701a4a4d0792e6f7440387d9a3~mv2.webp,hot-cups,46.25
-4oz/114ml,Single Wall Paper Hot Cup - Black,Black,Paper,4BSW,1000,d3bbf0_e72cbf2d965b4133bb9ca46c69b39984~mv2.png,hot-cups,34.28
-4oz/114ml,Single Wall Paper Hot Cup - White,White,Paper,4WSW,1000,d3bbf0_111cda8c6c154727ab5f861fe9916a43~mv2.jpeg,hot-cups,33.2
-8oz / 227ml,Double Wall Ripple Paper Hot Cup - Kraft,Kraft,Kraft,8KRDW,500,d3bbf0_b8f553ad88324147a87addfc5c3e6091~mv2.webp,hot-cups,36.12
-8oz/227ml,Double Wall Ripple Paper Hot Cup - Black,Black,Paper,8BRDW,500,d3bbf0_cd64060ec33643c49ce45d762f419f02~mv2.webp,hot-cups,37.12
-8oz/227ml,Single Wall Paper Hot Cup - White,White,Paper,8WSW,1000,d3bbf0_6c8c0c4f49134a6ba80742330300bd67~mv2.jpeg,hot-cups,36.05
-4oz/118ml ,Paper Ice Cream Cups,White,Paper,5PICC,1000,,ice-cream-cups,69.23
-8oz/240ml,Paper Ice Cream Cups,White,Paper,8PICC,500,,ice-cream-cups,58.05
-Standard,3.5in/90mm Compostable Paper Ice Cream Spoon,White,Paper,PICSWHT,2000,,ice-cream-cups,47.82
-Standard,3.5in/90mm Tutti Frutti Paper Ice Cream Spoons,Various,Paper,PICSTUT,2000,,ice-cream-cups,47.82
-24cm x 24cm,Paper Cocktail Napkins - White,White,Paper,PCNWH,2000,d3bbf0_58f60b79b6de41dd8118a98c95bc2e53~mv2.webp,napkins,49.5
-8-Fold 3-Ply,Dinner Napkins - White,White,Paper,8FDINWH,2000,d3bbf0_8de2db6b32364df581729f9a1e9631a8~mv2.webp,napkins,53.82
-Standard,4-Fold 2-ply Dinner Napkins - Black,Black,Paper,4FDINBL,2000,d3bbf0_c25f8ae5ebd043a9a8871a7a848ddff8~mv2.png,napkins,68.21
-Standard,4-Fold 2-ply Dinner Napkins - White,White,Paper,4FDINWH,2000,d3bbf0_a3e3f593bee4487d9493bc20c4f59e26~mv2.webp,napkins,51.76
-Standard,Bamboo Cocktail Napkins - Natural/Beige,Natural/Beige,Bamboo,BB-BOX-NAP,2400,d3bbf0_c511d43676da42e08ce81bcbd897a1f4~mv2.png,napkins,40.8
-Standard,Luxury Airlaid Tablin Pop In Napkin 40cm 8 Fold,White,Paper,APIN-8-W,500,,napkins,50.64
-" 9"" / 40x240mm",Pizza Box - Kraft,Kraft,Kraft,9PIZBKR,100,d3bbf0_d130fbaa996d46758bb95f4c800a3548~mv2.webp,pizza-boxes,16.97
-"""7'' / 195x195mm",Pizza Box - Kraft,Kraft,Kraft,7PIZBKR,100,d3bbf0_bddcb7e35e3540ee9d4bdd6d452000e1~mv2.webp,pizza-boxes,13.45
-"10"" / 255 x 255mm",Pizza Box - Kraft,Kraft,Kraft,10PIZBKR,100,d3bbf0_d130fbaa996d46758bb95f4c800a3548~mv2.webp,pizza-boxes,17.73
-"12"" / 310 x 310mm",Pizza Box - Kraft,Kraft,Kraft,12PIZBKR,100,d3bbf0_8bd53ee6315547cba309fcc47a293cbd~mv2.webp,pizza-boxes,22.83
-"14"" / 360 x 360mm",Pizza Box - Kraft,Kraft,Kraft,14PIZBKR,50,d3bbf0_1b3423f73678432d9f551dc054b36ee4~mv2.webp,pizza-boxes,28.29
-10mm x 200mm,Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-10M,3600,,straws,147
-12mm x 210mm,Bamboo Pulp Boba Straws - Wrapped,Natural/Beige,Bamboo Pulp,BB-PULP-BOB,2400,,straws,118.2
-6mm x 150mm,Bamboo Fibre Straws - Black,Black,Bamboo Fibre,BB-FBRBL-15,2500,d3bbf0_42dd58e39d4f40be8a7a2f944e4c3162~mv2.png,straws,69.56
-6mm x 150mm,Bamboo Fibre Straws - Natural/Beige,Natural/Beige,Bamboo Fibre,BB-FBRN-15,2500,d3bbf0_c09181d0511044d790037141d2193a96~mv2.jpg,straws,69.56
-"6mm x 150mm - pack of 10,000",Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-15-L,10000,,straws,170
-"6mm x 150mm - pack of 5,000",Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-15-M,5000,,straws,
-"6mm x 150mm - pack of 2,500",Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-15,2500,d3bbf0_4b3d8d48088b4d1f8e3a69bf59e9bfd7~mv2.jpg,straws,40
-6mm x 200mm,Bamboo Fibre Straws - Black,Black,Bamboo Fibre,BB-FBRBL-20,2500,d3bbf0_99fe3d9f1f5840b095197cef436a04b7~mv2.png,straws,78.62
-6mm x 200mm,Bamboo Fibre Straws - Natural/Beige,Natural/Beige,Bamboo Fibre,BB-FBRN-20,2500,d3bbf0_18c5242b53c143e38a6baddb3057e4c6~mv2.jpg,straws,78.62
-"6mm x 200mm - pack of 10,000",Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-20-L,10000,d3bbf0_4b3d8d48088b4d1f8e3a69bf59e9bfd7~mv2.jpg,straws,180
-"6mm x 200mm - pack of 5,000",Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-20-M,5000,d3bbf0_4b3d8d48088b4d1f8e3a69bf59e9bfd7~mv2.jpg,straws,96.5
-8mm x 200mm,Bamboo Pulp Straws,Natural/Beige,Bamboo Pulp,BB-PULP-JUM,5000,d3bbf0_ddd3b4158ccc47c59224e7c9a42ce352~mv2.png,straws,150.49
-1300ml/49oz,Kraft Deli Box,Kraft,Kraft,NO8KDV,300,d3bbf0_e2a7021f94e640be9d311dd15ff9a927~mv2.webp,takeaway-containers,52
-1900ml/69oz,Kraft Deli Box,Kraft,Kraft,NO3KDV,200,d3bbf0_f69cdb89e9794b7d990963fa99d878f3~mv2.jpeg,takeaway-containers,37.21
-500ml,Rectangular Kraft Food Bowl,Kraft,Kraft,5MLREC,300,d3bbf0_57a14a4710694619a4d7fff87fa25eec~mv2.png,takeaway-containers,38.72
-500ml,Round Kraft Food Bowl,Kraft,Kraft,5MLRKB,300,d3bbf0_75b3780d9d2e4688a5e49cef049ea8ce~mv2.jpeg,takeaway-containers,30.67
-750ml,Rectangular Kraft Food Bowl,Kraft,Kraft,75MLREC,300,d3bbf0_f32e3fab7a014e3d9d84310ed10109dd~mv2.jpg,takeaway-containers,40.45
-750ml,Round Kraft Food Bowl,Kraft,Kraft,75MLRKB,300,d3bbf0_1a247bb04d3e43d5abb5ee1454f26ab6~mv2.jpeg,takeaway-containers,32.38
-755ml/26oz,Kraft Deli Box,Kraft,Kraft,NO1KDV,450,d3bbf0_3b73d4b2d2c64536bd21448f3adf8653~mv2.jpeg,takeaway-containers,49.24
-900ml/36oz,Kraft Deli Box,Kraft,Kraft,NO5KDV,150,d3bbf0_93c632319cec4910aca4a2597fb7fc72~mv2.webp,takeaway-containers,45
-Standard,8oz Kraft Soup Container,Kraft,Kraft,8SOUPCK,500,d3bbf0_7c4c7126ea2e4ce2a2a3ffa40e9ed32e~mv2.jpeg,takeaway-containers,35.73
-Standard,Kraft Lid For 500/750ml Rectangular Bowl,Kraft,Kraft,575LREC,300,d3bbf0_99e7072aaa93434189c7bd6058dbc46d~mv2.webp,takeaway-containers,48.89
-Standard,Kraft Vented Lid For 8oz Soup Container,Kraft,Kraft,8SOUPLD,500,d3bbf0_c73ae8dbccaf46ea938b25c1dd3e5c9c~mv2.webp,takeaway-containers,36.49
-Large,Kraft Takeaway Bag,Kraft,Kraft,LRKTB,250,d3bbf0_8dec9a44a21c494b916450215ba633fa~mv2.png,takeaway-extras,27.92
-Medium,Kraft Takeaway Bag,Kraft,Kraft,MRKTB,250,d3bbf0_ca191ff560d24f80b33b4a4c7bf6dadd~mv2.png,takeaway-extras,23.42
-Standard,Compostable Disposable Wooden Fork,Natural,Wood,WCFRK,1000,d3bbf0_813ef541363441008646c6699b61689d~mv2.png,takeaway-extras,18.48
-Standard,Compostable Disposable Wooden Knife,Natural,Wood,WCKNF,1000,d3bbf0_56d8bcf6359f4975bd1a1cfbea35220a~mv2.png,takeaway-extras,18.48
-Standard,Compostable Disposable Wooden Spoon,Natural,Wood,WCSPN,1000,d3bbf0_2db504d46b494a9a935c6bc9ec2bed78~mv2.webp,takeaway-extras,18.48
-Standard,Compostable Wooden Cutlery Kit (Fork/Knife/Spoon/Napkin),Natural,Wood,WFKPNK,250,d3bbf0_9a7228a6eeb8475f9a1f79ad50227964~mv2.jpg,takeaway-extras,39.6
-Standard,Small Twisted Handle Takeaway Bag 18 x 8 x 22cm - Black,Black,Paper,TWBGBSM,300,d3bbf0_98dc91f1e534495ab0722acadc4f8ac4~mv2.png,takeaway-extras,47.12
+product,category,slug,material,meta_title,meta_description,size,colour,sku,price,pac_size
+1/2 Pint to Line Home Compostable Paper Cup UKCA Marked,drinks,half-pint-to-line-compostable-paper-cups-ukca-marked,Paper,"Disposable Cold Drink Cups - Eco-Friendly & Recyclable - afida 
+","Shop Disposable Cold Drink Cups – Eco-friendly, recyclable, and perfect for takeaway. Order now for bulk savings and fast delivery!
+",,White,UKMRHFP,131.76,1000
+4-Fold 2-ply Dinner Napkins,accessories,dinner-napkins-4-fold-2-ply,Paper,Table Setting Napkins Black 2 Ply – 40cm x 40cm - afida,"Upgrade your dining with black 2 ply table setting napkins 40x40cm. Perfect for events and weddings. Shop now for stylish table settings!",,Black,4FDINBL,68.21,2000
+4-Fold 2-ply Dinner Napkins,accessories,dinner-napkins-4-fold-2-ply,Paper,Table Setting Napkins Black 2 Ply – 40cm x 40cm - afida,"Upgrade your dining with black 2 ply table setting napkins 40x40cm. Perfect for events and weddings. Shop now for stylish table settings!",,White,4FDINWH,51.76,2000
+8oz Kraft Soup Container,mains,kraft-soup-containers,Kraft,250 Disposable Soup Cups with Lids (227ml/8oz) - afida ,"Get 250 disposable soup cups with lids (227ml/8oz). Perfect for takeaway, recyclable, and eco-friendly. Order now for bulk savings!",,Kraft,8SOUPCK,35.73,500
+Bagasse Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Bagasse,Paper Coffee Cup Lids – Sip Lid for Hot Cups 80mm - afida ,"Buy 80mm paper coffee cup lids with a sip-through design. Perfect lids for hot cups and takeaway drinks. Order now for reliable, disposable cup covers!",8oz,White,8BL-PC,49.82,1000
+Bagasse Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Bagasse,Paper Coffee Cup Lids – Sip Lid for Hot Cups 80mm - afida ,"Buy 80mm paper coffee cup lids with a sip-through design. Perfect lids for hot cups and takeaway drinks. Order now for reliable, disposable cup covers!",12oz,White,12BL-PC,54.06,1000
+Bamboo Cocktail Napkins,accessories,bamboo-cocktail-napkins,Bamboo,Organic disposable & eco table napkins 25cm - afida ,"Shop organic disposable pads and 25cm compostable cocktail napkins—perfect for eco table settings. Choose a sustainable style. Order yours today!
+",,Natural/Beige,BB-BOX-NAP,40.8,2400
+Bamboo Pulp Boba Straws - Wrapped,drinks,bamboo-pulp-boba-straws-wrapped,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.",12mm x 210mm,Natural/Beige,BB-PULP-BOB,118.2,2400
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.",10mm x 200mm,Natural/Beige,BB-PULP-10M,147,3600
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.","6mm x 150mm - pack of 10,000",Natural/Beige,BB-PULP-15-L,170,10000
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.","6mm x 150mm - pack of 2,500",Natural/Beige,BB-PULP-15,40,2500
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.","6mm x 150mm - pack of 5,000",Natural/Beige,BB-PULP-15-M,90,5000
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.","6mm x 200mm - pack of 10,000",Natural/Beige,BB-PULP-20-L,180,10000
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.","6mm x 200mm - pack of 5,000",Natural/Beige,BB-PULP-20-M,96.5,5000
+Bamboo Pulp Straws,drinks,bamboo-pulp-straws,Bamboo Pulp,Sustainable Straws – Eco-Friendly Bamboo & Disposable - Afida,"Explore our eco-friendly, disposable bamboo pulp straws, made from 100% biodegradable bamboo pulp. Perfect for personal use or businesses, with wholesale options at affordable prices.",8mm x 200mm,Natural/Beige,BB-PULP-JUM,150.49,5000
+Bio Fibre Straws,drinks,bamboo-fibre-straws,Bamboo Fibre,"6mm x 200mm Black Bio Fibre Straws - Disposable - Eco Maniacs / Afida
+","Explore our eco-friendly, disposable bio fibre straws, made from 100% biodegradable materials. Perfect for personal use or businesses, with wholesale options at affordable prices.",6mm x 150mm,Black,BB-FBRBL-15,69.56,2500
+Bio Fibre Straws,drinks,bamboo-fibre-straws,Bamboo Fibre,"6mm x 200mm Black Bio Fibre Straws - Disposable - Eco Maniacs / Afida
+","Explore our eco-friendly, disposable bio fibre straws, made from 100% biodegradable materials. Perfect for personal use or businesses, with wholesale options at affordable prices.",6mm x 200mm,Black,BB-FBRBL-20,78.62,2500
+Bio Fibre Straws,drinks,bamboo-fibre-straws,Bamboo Fibre,"6mm x 200mm Black Bio Fibre Straws - Disposable - Eco Maniacs / Afida
+","Explore our eco-friendly, disposable bio fibre straws, made from 100% biodegradable materials. Perfect for personal use or businesses, with wholesale options at affordable prices.",6mm x 150mm,Natural/Beige,BB-FBRN-15,69.56,2500
+Bio Fibre Straws,drinks,bamboo-fibre-straws,Bamboo Fibre,"6mm x 200mm Black Bio Fibre Straws - Disposable - Eco Maniacs / Afida
+","Explore our eco-friendly, disposable bio fibre straws, made from 100% biodegradable materials. Perfect for personal use or businesses, with wholesale options at affordable prices.",6mm x 200mm,Natural/Beige,BB-FBRN-20,78.62,2500
+Compostable Disposable Wooden Fork,accessories,compostable-wooden-fork,Wood,"Compostable Wooden Fork 160mm/6.3"" - Eco-Friendly - afida","Order now for eco-friendly, compostable wooden forks (160mm/6.3"") and make your dining sustainable with our biodegradable disposable forks!",,Natural,WCFRK,18.48,1000
+Compostable Disposable Wooden Knife,accessories,compostable-wooden-knife,Wood,"Compostable Wooden Knife 160mm - Eco-Friendly Cutlery - afida","Shop eco-friendly disposable wooden cutlery. Our biodegradable disposable cutlery is compostable cutlery UK. Order now for sustainable dining solutions!
+",,Natural,WCKNF,18.48,1000
+Compostable Disposable Wooden Spoon,accessories,compostable-wooden-spoon,Wood,"Eco-Friendly Disposable Wooden Spoons 160mm/6.3"" - afida","Shop Eco-Friendly Disposable Wooden Spoons (160mm/6.3""). Biodegradable, compostable, and perfect for UK events. Order now for sustainable cutlery solutions!",,Natural,WCSPN,18.48,1000
+Compostable Wooden Cutlery Kit (Fork/Knife/Spoon/Napkin),accessories,compostable-wooden-cutlery-kit-forks-knives-spoons,Wood,"Eco-Friendly Cutlery Set - Compostable Wooden Kit - afida","Shop our eco-friendly cutlery set: compostable wooden fork, knife, spoon, and napkin. Perfect for sustainable dining. Order now for eco-conscious meals!",,Natural,WFKPNK,39.6,250
+Dinner Napkins,accessories,dinner-napkins,Paper,8 Fold White 3ply Dinner Napkins 40cm x 40cm | AFIDA,8 Fold White 3 Ply Dinner Napkins 40cm x 40cm - afida,8-Fold 3-Ply,White,8FDINWH,53.82,2000
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",12oz/340ml,Black,12BRDW,45.32,500
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",16oz/455ml,Black,16BRDW,48.63,500
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",4oz/114ml,Black,4BRDW,46.25,1000
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",8oz/227ml,Black,8BRDW,37.12,500
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",12oz / 340ml,Kraft,12KRDW,45.32,500
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",16oz / 455ml,Kraft,16KRDW,45.63,500
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",8oz / 227ml,Kraft,8KRDW,36.12,500
+Double Wall Ripple Paper Hot Cup,drinks,paper-hot-cups-double-ripple-wall,Paper,12oz/340ml Disposable Double Wall Ripple Paper Hot Cup - Black,"Disposable Cups for Hot Drinks – 12oz Eco Friendly - afida ",4oz / 110ml,Kraft,4KRDW,46.25,1000
+8oz Double Wall Paper Hot Cup,drinks,paper-hot-cups-double-wall,Paper,"8oz/227ml Disposable Double Wall White Paper Hot Cup - White
+",Bulk Paper Coffee Cups - 8oz Double Wall Hot Cup - afida,8oz/227ml,White,8-DWC-W,43.77,500
+12oz Double Wall Paper Hot Cup,drinks,paper-hot-cups-double-wall,Paper,"12oz/340ml Disposable Double Wall White Paper Hot Cup - White
+","12oz Hot Drink Paper Cups - Eco Friendly Disposable - afida",12oz / 340ml,White,12-DWC-W,46.54,500
+Kraft Takeaway Bag,bags,kraft-takeaway-bag,Kraft,"Brown Kraft Takeaway Bags with Flat Handles - Large - Afida 
+","Shop brown paper takeaway bags with flat handles. Large kraft bags, perfect for custom branding, gift packaging, and more. Durable and eco-friendly.
+",Large,Kraft,LRKTB,27.92,250
+Kraft Takeaway Bag,bags,kraft-takeaway-bag,Kraft,"Brown Kraft Takeaway Bags with Flat Handles - Large - Afida 
+","Shop brown paper takeaway bags with flat handles. Large kraft bags, perfect for custom branding, gift packaging, and more. Durable and eco-friendly.
+",Medium,Kraft,MRKTB,23.42,250
+Luxury Airlaid Tablin Pop In Napkin 40cm 8 Fold,accessories,luxury-airlaid-tablin-pop-napkin-40cm-8-fold,Paper,8 Fold White Tablin Pop In Airlaid Dinner Napkins 40cm x 40cm - afida,Shop 8 fold white 3 ply dinner napkins 40x40cm – ideal for events & dining. Add elegance to your table. Order now for fast delivery!,,White,APIN-8-W,50.64,500
+No.1 Kraft Deli Box 755ml/26oz,mains,kraft-deli-box,Kraft,Eco Friendly Kraft Boxes - Deli Box (26oz) Compostable - afida,"Shop eco-friendly kraft boxes (26oz) for takeaway food packaging. Compostable, biodegradable and sustainable in the UK. Order now!",755ml/26oz,Kraft,NO1KDV,49.24,450
+No.3 Kraft Deli Box 1900ml/69oz,mains,kraft-deli-box,Kraft,Eco Friendly Kraft Boxes - Deli Box (69oz) Compostable - afida,"Shop eco-friendly kraft boxes (69oz) for takeaway packaging. Compostable & biodegradable deli boxes, perfect for sustainable food packaging in the UK.
+",1900ml/69oz,Kraft,NO3KDV,43.09,200
+No.8 Kraft Deli Box 1300ml/49oz,mains,kraft-deli-box,Kraft,1300ml/49oz Kraft Recyclable Food Containers Box - afida,"Eco-friendly 1300ml/49oz recyclable food containers perfect for takeaway packaging. Order now for sustainable, leakproof, and reliable food storage!",1300ml/49oz,Kraft,NO8KDV,52,300
+Paper Cocktail Napkins,accessories,paper-cocktail-napkins,Paper,White Napkins 2ply – Dinner & Table Use - afida,"White napkins 2ply 25cm – perfect for dinner, folding, and table settings. Add style to any event. Order now for elegant table presentation!",24cm x 24cm,White,PCNWH,49.5,2000
+Paper Ice Cream Cups,desserts,paper-ice-cream-cups,Paper,,,4oz/118ml ,White,5PICC,£69.23,1000
+Paper Ice Cream Cups,desserts,paper-ice-cream-cups,Paper,,,8oz/240ml,White,8PICC,£58.05,500
+Pint to Line Home Compostable Paper Cup UKCA Marked,drinks,pint-to-line-compostable-paper-cups-ukca-marked,Paper,"Disposable Cold Drink Cups - Eco-Friendly & Recyclable - afida 
+","Shop Disposable Cold Drink Cups – Eco-friendly, recyclable, and perfect for takeaway. Order now for bulk savings and fast delivery!
+",,White,UKMRFP,142.8,1000
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!"," 9"" / 40x240mm",Kraft,9PIZBKR,16.97,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","""7'' / 195x195mm",Kraft,7PIZBKR,13.45,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","10"" / 255 x 255mm",Kraft,10PIZBKR,17.73,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","12"" / 310 x 310mm",Kraft,12PIZBKR,22.83,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","14"" / 360 x 360mm",Kraft,14PIZBKR,28.29,50
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!"," 9"" / 40x240mm",White,9PIZBWH,18.97,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","""7'' / 195x195mm",White,7PIZBWH,15.45,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","10"" / 255 x 255mm",White,10PIZBWH,19.73,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","12"" / 310 x 310mm",White,12PIZBWH,24.83,100
+Pizza Box,mains,pizza-box,Kraft,Pizza boxes bulk 240x240mm – eco Kraft packaging - afida ,"Shop pizza boxes bulk 240x240mm – eco-friendly Kraft packaging for takeaways & pizzerias. Durable, recyclable & ready to ship. Order yours today!","14"" / 360 x 360mm",White,14PIZBWH,30.29,50
+Rectangular Kraft Food Bowl,mains,rectangular-kraft-food-bowl,Kraft,"Biodegradable Food Containers – 500ml Kraft Bowl - afida
+","Shop 500ml kraft biodegradable food containers – eco-friendly, leak-proof & perfect for takeaway. Order now for sustainable food packaging!",500ml,Kraft,5MLREC,38.72,300
+Rectangular Kraft Food Bowl,mains,rectangular-kraft-food-bowl,Kraft,"Biodegradable Food Containers – 500ml Kraft Bowl - afida
+","Shop 500ml kraft biodegradable food containers – eco-friendly, leak-proof & perfect for takeaway. Order now for sustainable food packaging!",750ml,Kraft,75MLREC,40.45,300
+Recyclable Pulp Fibre 2-Cup Carrier Tray,drinks,recyclable-pulp-fibre-2-cup-carrier-tray,Pulp Fibre,Eco-Friendly 2-Cup Coffee Carrier Tray Holder - afida,"Shop eco friendly 2 cup carrier trays, coffee cup holders & disposable cup trays. Ideal for takeaway, bicycles & coffee shops. Order sustainable now!",,Natural,RCC2C,24.89,360
+Recyclable Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Plastic,Disposable coffee cup lids for takeaway drinks - afida,Shop durable disposable coffee cup lids with sip-through design. Perfect for takeaway. Stock up now and keep your drinks safe and spill-free!,4oz,Black,PLPC62B,32.28,1000
+Recyclable Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Plastic,Disposable coffee cup lids for takeaway drinks - afida,Shop durable disposable coffee cup lids with sip-through design. Perfect for takeaway. Stock up now and keep your drinks safe and spill-free!,8oz,Black,PLPC80B,56.96,1000
+Recyclable Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Plastic,Disposable coffee cup lids for takeaway drinks - afida,Shop durable disposable coffee cup lids with sip-through design. Perfect for takeaway. Stock up now and keep your drinks safe and spill-free!,12oz,Black,PLPC90B,32.23,1000
+Recyclable Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Plastic,Disposable coffee cup lids for takeaway drinks - afida,Shop durable disposable coffee cup lids with sip-through design. Perfect for takeaway. Stock up now and keep your drinks safe and spill-free!,4oz ,White,PLPC62W,32.21,1000
+Recyclable Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Plastic,Disposable coffee cup lids for takeaway drinks - afida,Shop durable disposable coffee cup lids with sip-through design. Perfect for takeaway. Stock up now and keep your drinks safe and spill-free!,8oz,White,PLPC80W,28.96,1000
+Recyclable Sip Lid for Hot Cup,drinks,recyclable-sip-lid-hot-cup,Plastic,Disposable coffee cup lids for takeaway drinks - afida,Shop durable disposable coffee cup lids with sip-through design. Perfect for takeaway. Stock up now and keep your drinks safe and spill-free!,12oz,White,PLPC90W,38.85,1000
+Round Kraft Food Bowl,mains,round-kraft-food-bowl,Kraft,"Biodegradable Food Containers – 500ml Kraft Bowl - afida
+","Shop 500ml kraft biodegradable food containers – eco-friendly, leak-proof & perfect for takeaway. Order now for sustainable food packaging!",500ml,Kraft,5MLRKB,30.67,300
+Round Kraft Food Bowl,mains,round-kraft-food-bowl,Kraft,"Biodegradable Food Containers – 500ml Kraft Bowl - afida
+","Shop 500ml kraft biodegradable food containers – eco-friendly, leak-proof & perfect for takeaway. Order now for sustainable food packaging!",750ml,Kraft,75MLRKB,32.38,300
+rPET Dome Lid,drinks,rpet-dome-lid,rPET,"Dome Cup Lids for Smoothie Cups - rPET Clear Lids - afida","Shop Dome Cup Lids for Smoothie Cups - rPET Clear and eco-friendly. Perfect for takeaway drinks. Order now for sustainable and reliable lids!",12oz-20oz Compatible,Clear,RPTDL,28.49,1000
+rPET Flat Lid,drinks,rpet-flat-lid,rPET,"12oz-20oz rPET Flat Lid - Compostable Cup Lids - afida ","Shop 12oz-20oz rPET Flat Lids - Compostable Cup Lids for takeaway drinks. Eco-friendly and durable. Order now for sustainable beverage solutions!
+",12oz-20oz Compatible,Clear,RPTFL,23.76,1000
+rPET Recyclable Cup,drinks,rpet-recyclable-cup,Plastic,"12oz rPET Recyclable Disposable Cup - Eco-Friendly Clear - afida
+","Shop 12oz/355ml rPET recyclable disposable cups. Eco-friendly, clear cups are perfect for cold drinks. Order now for sustainable drinkware solutions!",12oz/355ml rPET Recyclable Cup,Clear,12RPTRC,47.52,1000
+rPET Recyclable Cup,drinks,rpet-recyclable-cup,Plastic,"12oz rPET Recyclable Disposable Cup - Eco-Friendly Clear - afida
+","Shop 12oz/355ml rPET recyclable disposable cups. Eco-friendly, clear cups are perfect for cold drinks. Order now for sustainable drinkware solutions!",20oz/568ml,Clear,20RPTRC,65,1000
+rPET Recyclable Cup,drinks,rpet-recyclable-cup,Plastic,"12oz rPET Recyclable Disposable Cup - Eco-Friendly Clear - afida
+","Shop 12oz/355ml rPET recyclable disposable cups. Eco-friendly, clear cups are perfect for cold drinks. Order now for sustainable drinkware solutions!",8oz/237ml,Clear,8RPTRC,33.8,1000
+Single Wall Paper Hot Cup,drinks,single-wall-paper-hot-cup,Paper,,,4oz/114ml,Black,4BSW,34.28,1000
+Single Wall Paper Hot Cup,drinks,single-wall-paper-hot-cup,Paper,,,12oz/340ml,White,12WSW,46.85,1000
+Single Wall Paper Hot Cup,drinks,single-wall-paper-hot-cup,Paper,,,16oz/455ml,White,16WSW,51.78,1000
+Single Wall Paper Hot Cup,drinks,single-wall-paper-hot-cup,Paper,,,4oz/114ml,White,4WSW,33.2,1000
+Single Wall Paper Hot Cup,drinks,single-wall-paper-hot-cup,Paper,,,8oz/227ml,White,8WSW,36.05,1000
+Small Twisted Handle Takeaway Bag 18 x 8 x 22cm,bags,twisted-handle-takeaway-bag,Paper,Small Twisted Handle Takeaway Bag Black - 18 x 8 x 22cm | AFIDA,"Shop Small Black Paper Bags with Twisted Handles (18x8x22cm). Durable, eco-friendly takeaway bags perfect for food, gifts, and more. Order now!
+",,Black,TWBGBSM,47.12,300
+Wooden Coffee Stirrers,drinks,wooden-coffee-stirrers,Wood,Wooden Coffee Stirrers for Coffee Shop Supplies - afida ,"Shop 140 mm"" wooden coffee stirrers—perfect for cafes and coffee shop supplies. Eco-friendly, durable, and disposable. Order now for fast delivery!",140mm,Natural,WCS14,4.49,1000
