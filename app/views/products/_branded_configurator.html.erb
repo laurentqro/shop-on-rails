@@ -1,12 +1,25 @@
+<% content_for :title do %>
+  <%= @product.name %> | <%= @product.category.name %> | Afida
+<% end %>
+
+<% content_for :meta_description do %>
+  <%= @product.description %>
+<% end %>
+
+<% content_for :breadcrumbs do %>
+  <%= render "shared/breadcrumbs", product: @product %>
+<% end %>
+
 <div class="drawer drawer-end">
   <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
-    <div data-controller="branded-configurator cart-drawer"
-         data-branded-configurator-product-id-value="<%= @product.id %>"
-         data-branded-configurator-vat-rate-value="0.2"
-         data-action="turbo:submit-end->cart-drawer#open">
+    <div class="container mx-auto py-8 min-h-screen">
+      <div data-controller="branded-configurator cart-drawer"
+           data-branded-configurator-product-id-value="<%= @product.id %>"
+           data-branded-configurator-vat-rate-value="0.2"
+           data-action="turbo:submit-end->cart-drawer#open">
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left: Product Images -->
     <div>
       <% image_source = @product.image %>
@@ -143,8 +156,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
         <span>Delivered in 3-4 weeks • Free shipping on orders over £500</span>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 

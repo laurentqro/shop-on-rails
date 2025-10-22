@@ -1,19 +1,5 @@
 <% if @product.customizable_template? %>
-  <% content_for :title do %>
-  <%= @product.name %> | <%= @product.category.name %> | Afida
-  <% end %>
-
-  <% content_for :meta_description do %>
-  <%= @product.description %>
-  <% end %>
-
-  <% content_for :breadcrumbs do %>
-    <%= render "shared/breadcrumbs", product: @product %>
-  <% end %>
-
-  <div class="container mx-auto py-8 min-h-screen">
-    <%= render "branded_configurator", product: @product %>
-  </div>
+  <%= render "branded_configurator", product: @product %>
 <% else %>
   <%= render "standard_product", product: @product, selected_variant: @selected_variant %>
 <% end %>

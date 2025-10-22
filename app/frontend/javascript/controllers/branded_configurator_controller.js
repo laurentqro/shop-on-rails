@@ -300,22 +300,20 @@ export default class extends Controller {
       })
 
       if (response.ok) {
-        // Turbo Stream will handle the updates
+        // Turbo Stream will handle the updates and trigger the cart-drawer controller
         const text = await response.text()
         if (text) {
-          // Let Turbo process the stream
           Turbo.renderStreamMessage(text)
 
-          // Wait for Turbo to finish rendering, then open drawer
-          setTimeout(() => {
-            const drawer = document.querySelector('#cart-drawer')
-            if (drawer) {
-              drawer.checked = true
-            } else {
-              // Fallback: redirect to cart if drawer doesn't exist
-              window.location.href = "/cart"
-            }
-          }, 100)
+          // Dispatch turbo:submit-end event to trigger cart-drawer#open
+          console.log('Dispatching turbo:submit-end event')
+          const submitEndEvent = new CustomEvent("turbo:submit-end", {
+            bubbles: true,
+            detail: { success: true }
+          })
+          console.log('Event created:', submitEndEvent)
+          this.element.dispatchEvent(submitEndEvent)
+          console.log('Event dispatched from:', this.element)
         }
       } else {
         const data = await response.json()
