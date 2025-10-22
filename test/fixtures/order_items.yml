@@ -19,3 +19,13 @@ two:
   price: 9.99
   quantity: 1
   line_total: 9.99
+
+acme_configured_item:
+  order: acme_order
+  product: one
+  product_variant: one
+  product_name: Branded Coffee Cup
+  product_sku: BRAND-CUP-001
+  price: 15.00
+  quantity: 100
+  line_total: 1500.00

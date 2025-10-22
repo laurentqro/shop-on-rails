@@ -1,0 +1,54 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-6">
+    <%= link_to "← Back to Branded Orders", admin_branded_orders_path, class: "text-indigo-600 hover:text-indigo-900" %>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-6">Order #<%= @order.id %></h1>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-4">Order Details</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <p class="text-gray-600">Order Number:</p>
+        <p class="font-medium"><%= @order.order_number %></p>
+      </div>
+      <div>
+        <p class="text-gray-600">Status:</p>
+        <p class="font-medium"><%= @order.status %></p>
+      </div>
+      <div>
+        <p class="text-gray-600">Customer:</p>
+        <p class="font-medium"><%= @order.shipping_name %></p>
+      </div>
+      <div>
+        <p class="text-gray-600">Email:</p>
+        <p class="font-medium"><%= @order.email %></p>
+      </div>
+      <div>
+        <p class="text-gray-600">Total Amount:</p>
+        <p class="font-medium"><%= number_to_currency(@order.total_amount) %></p>
+      </div>
+      <div>
+        <p class="text-gray-600">Date:</p>
+        <p class="font-medium"><%= @order.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">Configured Products</h2>
+    <% @configured_items.each do |item| %>
+      <div class="border-b border-gray-200 py-4 last:border-b-0">
+        <h3 class="font-medium"><%= item.product_name %></h3>
+        <p class="text-gray-600">Quantity: <%= item.quantity %></p>
+        <p class="text-gray-600">Price: <%= number_to_currency(item.price) %></p>
+        <% if item.respond_to?(:configuration) && item.configuration.present? %>
+          <div class="mt-2">
+            <p class="text-sm font-medium text-gray-700">Configuration:</p>
+            <pre class="text-xs bg-gray-50 p-2 rounded mt-1"><%= JSON.pretty_generate(item.configuration) %></pre>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
