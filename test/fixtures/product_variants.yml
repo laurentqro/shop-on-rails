@@ -79,3 +79,91 @@ acme_cups_variant:
   price: 900.00
   stock_quantity: 5000
   option_values: {}
+
+paper_lid_80mm:
+  product: paper_lids
+  name: 80mm
+  sku: PAPL80
+  price: 45.00
+  pac_size: 1000
+  stock_quantity: 10000
+  active: true
+  sort_order: 1
+  option_values: {}
+
+paper_lid_90mm:
+  product: paper_lids
+  name: 90mm
+  sku: PAPL90
+  price: 48.00
+  pac_size: 1000
+  stock_quantity: 10000
+  active: true
+  sort_order: 2
+  option_values: {}
+
+recyclable_lid_black_62mm:
+  product: recyclable_lids_black
+  name: 4oz (62mm)
+  sku: PLPC62B
+  price: 52.00
+  pac_size: 1000
+  stock_quantity: 5000
+  active: true
+  sort_order: 1
+  option_values: {}
+
+recyclable_lid_black_80mm:
+  product: recyclable_lids_black
+  name: 80mm
+  sku: PLPC80B
+  price: 55.00
+  pac_size: 1000
+  stock_quantity: 8000
+  active: true
+  sort_order: 2
+  option_values: {}
+
+recyclable_lid_black_90mm:
+  product: recyclable_lids_black
+  name: 90mm
+  sku: PLPC90B
+  price: 58.00
+  pac_size: 1000
+  stock_quantity: 8000
+  active: true
+  sort_order: 3
+  option_values: {}
+
+recyclable_lid_white_62mm:
+  product: recyclable_lids_white
+  name: 4oz (62mm)
+  sku: PLPC62W
+  price: 52.00
+  pac_size: 1000
+  stock_quantity: 5000
+  active: true
+  sort_order: 1
+  option_values: {}
+
+recyclable_lid_white_80mm:
+  product: recyclable_lids_white
+  name: 80mm
+  sku: PLPC80W
+  price: 55.00
+  pac_size: 1000
+  stock_quantity: 8000
+  active: true
+  sort_order: 2
+  option_values: {}
+
+recyclable_lid_white_90mm:
+  product: recyclable_lids_white
+  name: 90mm
+  sku: PLPC90W
+  price: 58.00
+  pac_size: 1000
+  stock_quantity: 8000
+  active: true
+  sort_order: 3
+  option_values: {}

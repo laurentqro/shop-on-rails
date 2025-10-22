@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   namespace :branded_products do
     post "calculate_price", to: "configurator#calculate_price"
     get "available_options/:product_id", to: "configurator#available_options", as: :available_options
+    get "compatible_lids", to: "lids#compatible_lids"
   end
 
   namespace :organizations do
