@@ -129,11 +129,39 @@
           </div>
         </div>
 
-        <!-- Step 4: Upload Design -->
+        <!-- Step 4: Add Matching Lids (Optional) -->
+        <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="lidsStep">
+          <input type="radio" name="config-accordion" />
+          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="lidsIndicator">4</span>
+            Add Matching Lids (Optional)
+          </div>
+          <div class="collapse-content">
+            <div class="pt-4">
+              <p class="text-sm text-gray-600 mb-4">Complete your order with compatible lids</p>
+
+              <div id="lids-loading" class="text-center py-8" style="display:none;">
+                <span class="loading loading-spinner loading-lg"></span>
+              </div>
+
+              <div id="lids-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" data-branded-configurator-target="lidsContainer">
+                <!-- Lids will be loaded here via AJAX -->
+              </div>
+
+              <button type="button"
+                      class="btn btn-ghost mt-4"
+                      data-action="click->branded-configurator#skipLids">
+                Skip - No lids needed
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Upload Design -->
         <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="designStep">
           <input type="radio" name="config-accordion" />
           <div class="collapse-title text-lg font-semibold flex items-center gap-2">
-            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="designIndicator">4</span>
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="designIndicator">5</span>
             Upload Your Design
           </div>
           <div class="collapse-content">
