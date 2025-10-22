@@ -1,0 +1,42 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-6">
+    <%= link_to "← Back to Your Products", organizations_products_path, class: "btn btn-ghost btn-sm" %>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div>
+      <% if @product.image.attached? %>
+        <%= image_tag @product.image, alt: @product.name, class: "w-full rounded-lg" %>
+      <% else %>
+        <div class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
+          <span class="text-gray-400">No image</span>
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <h1 class="text-3xl font-bold mb-4"><%= @product.name %></h1>
+      <p class="text-gray-600 mb-6"><%= @product.description %></p>
+
+      <% if @product.configuration_data.present? %>
+        <div class="card bg-base-200 mb-6">
+          <div class="card-body">
+            <h3 class="card-title text-lg">Configuration Details</h3>
+            <dl class="grid grid-cols-2 gap-4">
+              <% @product.configuration_data.each do |key, value| %>
+                <div>
+                  <dt class="text-sm text-gray-500 capitalize"><%= key.to_s.humanize %></dt>
+                  <dd class="font-medium"><%= value %></dd>
+                </div>
+              <% end %>
+            </dl>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="flex gap-4">
+        <%= link_to "Reorder", product_path(@product), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

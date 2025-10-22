@@ -1,0 +1,27 @@
+module Organizations
+  class ProductsController < ApplicationController
+    before_action :require_organization_membership
+
+    def index
+      @products = Current.user.organization
+                              .customized_products
+                              .includes(:active_variants, image_attachment: :blob)
+                              .order(created_at: :desc)
+    end
+
+    def show
+      @product = Current.user.organization
+                             .customized_products
+                             .friendly
+                             .find(params[:id])
+    end
+
+    private
+
+    def require_organization_membership
+      unless Current.user&.organization_id.present?
+        redirect_to root_path, alert: "You must be a member of an organization to access this page"
+      end
+    end
+  end
+end

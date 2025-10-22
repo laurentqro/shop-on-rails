@@ -37,6 +37,10 @@ Rails.application.routes.draw do
     get "available_options/:product_id", to: "configurator#available_options", as: :available_options
   end
 
+  namespace :organizations do
+    resources :products, only: [:index, :show]
+  end
+
   namespace :admin do
     get "/", to: "products#index"
     resources :products do
