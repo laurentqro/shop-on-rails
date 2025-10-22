@@ -9,9 +9,12 @@ export default class extends Controller {
     // Check if this is an addon carousel (multiple slides per view)
     const isAddonCarousel = this.element.classList.contains('addon-carousel')
 
+    // Count slides to determine if loop should be enabled
+    const slideCount = this.element.querySelectorAll('.swiper-slide').length
+
     const config = {
       modules: [Navigation, Pagination, Autoplay],
-      loop: true,
+      loop: slideCount > 3, // Only loop if enough slides
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -20,10 +23,10 @@ export default class extends Controller {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
-      autoplay: {
+      autoplay: slideCount > 1 ? {
         delay: 5000,
         disableOnInteraction: false,
-      },
+      } : false, // Disable autoplay if only 1 slide
     }
 
     // Add responsive breakpoints for addon carousel
