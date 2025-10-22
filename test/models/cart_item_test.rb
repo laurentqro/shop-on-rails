@@ -98,4 +98,52 @@ class CartItemTest < ActiveSupport::TestCase
     assert_respond_to cart_item, :product
     assert_kind_of Product, cart_item.product
   end
+
+  # Configuration tests
+  test "cart item can store configuration for customizable products" do
+    cart_item = cart_items(:branded_configuration)
+    assert_equal "12oz", cart_item.configuration["size"]
+    assert_equal 5000, cart_item.configuration["quantity"]
+  end
+
+  test "cart item with configuration uses calculated_price" do
+    cart_item = cart_items(:branded_configuration)
+    assert_equal 900.00, cart_item.calculated_price
+    assert_equal 900.00, cart_item.line_total
+  end
+
+  test "cart item without configuration uses variant price" do
+    cart_item = cart_items(:one)
+    expected = cart_item.product_variant.price * cart_item.quantity
+    assert_equal expected, cart_item.line_total
+  end
+
+  test "cart item unit price for configured product" do
+    cart_item = cart_items(:branded_configuration)
+    expected = cart_item.calculated_price / cart_item.configuration["quantity"]
+    assert_equal expected, cart_item.unit_price
+  end
+
+  test "cart item unit price for standard product" do
+    cart_item = cart_items(:one)
+    assert_equal cart_item.product_variant.price, cart_item.unit_price
+  end
+
+  test "configured cart item validates calculated_price presence" do
+    cart_item = CartItem.new(
+      cart: carts(:one),
+      product_variant: product_variants(:one),
+      quantity: 1,
+      configuration: { size: "8oz", quantity: 1000 },
+      calculated_price: nil
+    )
+    assert_not cart_item.valid?
+    assert_includes cart_item.errors[:calculated_price], "can't be blank"
+  end
+
+  test "cart item can have design attachment" do
+    cart_item = cart_items(:branded_configuration)
+    # We'll attach actual file in integration test
+    assert_respond_to cart_item, :design
+  end
 end

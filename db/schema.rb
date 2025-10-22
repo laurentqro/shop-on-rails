@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_231147) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_22_004713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -61,7 +61,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_231147) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_variant_id", null: false
+    t.jsonb "configuration", default: {}
+    t.decimal "calculated_price", precision: 10, scale: 2
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["configuration"], name: "index_cart_items_on_configuration", using: :gin
     t.index ["product_variant_id"], name: "index_cart_items_on_product_variant_id"
   end
 

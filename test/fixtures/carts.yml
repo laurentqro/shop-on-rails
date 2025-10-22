@@ -5,3 +5,6 @@ one:
 
 two:
   user: two
+
+three:
+  user: one

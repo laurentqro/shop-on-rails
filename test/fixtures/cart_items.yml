@@ -11,3 +11,13 @@ two:
   product_variant: two
   quantity: 3
   price: 30
+
+branded_configuration:
+  cart: three
+  product_variant: one
+  quantity: 1
+  price: 10
+  configuration:
+    size: "12oz"
+    quantity: 5000
+  calculated_price: 900.00
