@@ -4,14 +4,18 @@ export default class extends Controller {
   open(event) {
     if (event.detail.success) {
       const drawer = document.querySelector('#cart-drawer')
-      drawer.checked = true
+      if (drawer) {
+        drawer.checked = true
+      }
     }
   }
 
   close(event) {
     if (event.detail.success) {
       const drawer = document.querySelector('#cart-drawer')
-      drawer.checked = false
+      if (drawer) {
+        drawer.checked = false
+      }
     }
   }
 } 

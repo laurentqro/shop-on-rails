@@ -305,12 +305,15 @@ export default class extends Controller {
         if (text) {
           // Let Turbo process the stream
           Turbo.renderStreamMessage(text)
-          // Open the cart drawer by dispatching event from this element
-          const submitEndEvent = new CustomEvent("turbo:submit-end", {
-            bubbles: true,
-            detail: { success: true }
-          })
-          this.element.dispatchEvent(submitEndEvent)
+
+          // Try to open cart drawer if it exists
+          const drawer = document.querySelector('#cart-drawer')
+          if (drawer) {
+            drawer.checked = true
+          } else {
+            // Fallback: redirect to cart if drawer doesn't exist
+            window.location.href = "/cart"
+          }
         }
       } else {
         const data = await response.json()
