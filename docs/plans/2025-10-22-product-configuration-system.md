@@ -5093,9 +5093,104 @@ Ready for code review"
 
 ---
 
+## Phase 14: Standard Product Unit Pricing Refactoring
+
+### Task 33: Refactor standard products to use unit pricing
+
+**Background:** For consistency across the site, all products should use unit pricing (not pack pricing). This ensures customers always see price-per-unit and quantity in units, whether ordering standard or customizable products.
+
+**Files:**
+- Modify: `app/models/product_variant.rb`
+- Modify: `app/views/products/_standard_product.html.erb`
+- Modify: `app/views/cart_items/_cart_item.html.erb`
+- Create: `db/migrate/XXXXXX_convert_pack_pricing_to_unit_pricing.rb`
+- Modify: `test/models/product_variant_test.rb`
+
+**Step 1: Add unit_price helper to ProductVariant**
+
+In `app/models/product_variant.rb`, add:
+```ruby
+  # Convert pack price to unit price for display
+  # If pac_size is set, price is per pack, so divide to get per-unit price
+  # Otherwise, price is already per unit
+  def unit_price
+    return price unless pac_size.present? && pac_size > 0
+    price / pac_size
+  end
+
+  # Returns minimum order quantity in units
+  def minimum_order_units
+    pac_size || 1
+  end
+```
+
+**Step 2: Update product display to show unit pricing**
+
+In product views, change from showing pack price to showing unit price with pack info:
+```erb
+<div class="text-2xl font-bold">
+  <%= number_to_currency(variant.unit_price, precision: 4) %>/unit
+</div>
+<div class="text-sm text-gray-600">
+  Sold in packs of <%= variant.pac_size %> (<%= number_to_currency(variant.price) %> per pack)
+</div>
+```
+
+**Step 3: Update cart to use units consistently**
+
+Already done! Cart now works with units for both product types.
+
+**Step 4: Add data migration (optional for future)**
+
+Create migration to convert existing pack prices to unit prices in database:
+```ruby
+class ConvertPackPricingToUnitPricing < ActiveRecord::Migration[8.0]
+  def up
+    ProductVariant.find_each do |variant|
+      next unless variant.pac_size.present? && variant.pac_size > 0
+
+      # Convert pack price to unit price
+      variant.update_column(:price, variant.price / variant.pac_size)
+    end
+  end
+
+  def down
+    # Reversing requires knowing original pack prices - skip or handle separately
+    raise ActiveRecord::IrreversibleMigration
+  end
+end
+```
+
+**Step 5: Update tests**
+
+Update test expectations to use unit pricing.
+
+**Step 6: Update admin product forms**
+
+Update admin product variant forms to clarify price is per-unit, with pack size as separate field.
+
+**Step 7: Commit**
+
+```bash
+git add .
+git commit -m "Refactor standard products to use unit pricing
+
+- Add unit_price helper to ProductVariant
+- Update product displays to show price per unit
+- Show pack size as informational metadata
+- Consistent unit pricing across all product types
+- Cart already handles units correctly
+
+Tests: All tests passing with unit pricing"
+```
+
+**Note:** This task ensures consistent UX where all products (standard and customizable) use unit-based pricing and quantities.
+
+---
+
 ## Implementation Complete!
 
-This plan provides **32 comprehensive tasks** covering:
+This plan provides **33 comprehensive tasks** covering:
 
 ✅ **Phase 1**: Organizations & Product Options foundation
 ✅ **Phase 2**: Product model enhancements
