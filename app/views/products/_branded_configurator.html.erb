@@ -32,7 +32,7 @@
         <div class="flex gap-2">
           <% @available_sizes.each do |size| %>
             <button type="button"
-                    class="btn btn-outline"
+                    class="bg-white border-2 border-gray-300 text-black hover:border-primary rounded-full px-6 py-3 font-semibold transition cursor-pointer"
                     data-branded-configurator-target="sizeOption"
                     data-size="<%= size %>"
                     data-action="click->branded-configurator#selectSize">
@@ -47,20 +47,27 @@
         <label class="label">
           <span class="label-text font-semibold">Step 2: Select Quantity</span>
         </label>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-          <% @quantity_tiers.each do |quantity| %>
-            <div class="card border border-base-300 cursor-pointer hover:border-primary transition"
+        <div class="space-y-3">
+          <% @quantity_tiers.each_with_index do |quantity, index| %>
+            <div class="border-2 border-gray-300 bg-white rounded-xl p-4 cursor-pointer hover:border-primary transition flex items-center justify-between"
                  data-branded-configurator-target="quantityOption"
                  data-quantity="<%= quantity %>"
                  data-action="click->branded-configurator#selectQuantity">
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <div class="text-2xl font-bold"><%= number_with_delimiter(quantity) %></div>
-                  <div class="text-sm text-gray-600">units</div>
-                  <div class="text-xs mt-2 font-semibold text-primary"
-                       data-branded-configurator-target="pricePerUnit">
-                    <!-- Price filled by JS -->
-                  </div>
+              <div class="flex items-center gap-4">
+                <div class="text-2xl font-bold text-black"><%= number_with_delimiter(quantity) %></div>
+                <div class="text-gray-500"
+                     data-branded-configurator-target="pricePerUnit">
+                  <!-- Price per unit filled by JS -->
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="badge bg-primary/20 text-black border-0 px-3 py-2 <%= 'invisible' if index == 0 %>"
+                     data-branded-configurator-target="savingsBadge">
+                  <!-- Savings % filled by JS -->
+                </div>
+                <div class="text-xl font-bold text-black"
+                     data-branded-configurator-target="totalPrice">
+                  <!-- Total price filled by JS -->
                 </div>
               </div>
             </div>

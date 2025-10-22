@@ -29,6 +29,18 @@
   color: #000000;
 }
 
+/* Outlined buttons should have transparent background */
+.btn-outline {
+  background-color: transparent;
+  border-color: #79ebc0;
+  color: #79ebc0;
+}
+
+.btn-outline:hover {
+  background-color: #79ebc0;
+  color: #000000;
+}
+
 .btn-primary {
   background-color: #79ebc0;
   color: #000000;

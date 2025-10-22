@@ -5,6 +5,7 @@ export default class extends Controller {
     "sizeOption",
     "quantityOption",
     "pricePerUnit",
+    "savingsBadge",
     "totalPrice",
     "subtotal",
     "vat",
@@ -28,40 +29,115 @@ export default class extends Controller {
   }
 
   selectSize(event) {
-    // Remove active class from all size options
+    // Reset all size buttons to unselected state
     this.sizeOptionTargets.forEach(el => {
-      el.classList.remove("btn-primary")
-      el.classList.add("btn-outline")
+      el.classList.remove("border-primary", "border-4")
+      el.classList.add("border-gray-300", "border-2")
     })
 
-    // Add active class to selected
-    event.currentTarget.classList.remove("btn-outline")
-    event.currentTarget.classList.add("btn-primary")
+    // Add selected state to clicked button
+    event.currentTarget.classList.remove("border-gray-300", "border-2")
+    event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedSize = event.currentTarget.dataset.size
     this.calculatePrice()
   }
 
   selectQuantity(event) {
-    // Remove active class from all quantity options
+    // Reset all quantity cards to unselected state
     this.quantityOptionTargets.forEach(el => {
-      el.classList.remove("card-bordered", "border-primary")
-      el.classList.add("border-base-300")
+      el.classList.remove("border-primary", "border-4")
+      el.classList.add("border-gray-300", "border-2")
     })
 
-    // Add active class to selected
-    event.currentTarget.classList.remove("border-base-300")
-    event.currentTarget.classList.add("card-bordered", "border-primary")
+    // Add selected state to clicked card
+    event.currentTarget.classList.remove("border-gray-300", "border-2")
+    event.currentTarget.classList.add("border-primary", "border-4")
 
     this.selectedQuantity = parseInt(event.currentTarget.dataset.quantity)
     this.calculatePrice()
   }
 
   async calculatePrice() {
-    if (!this.selectedSize || !this.selectedQuantity) {
+    if (!this.selectedSize) {
       return
     }
 
+    // Update all quantity cards with pricing for the selected size
+    await this.updateAllQuantityPricing()
+
+    // If a quantity is selected, update the summary
+    if (this.selectedQuantity) {
+      await this.updateSelectedQuantityPricing()
+    }
+
+    this.updateAddToCartButton()
+  }
+
+  async updateAllQuantityPricing() {
+    // Get pricing for all quantity tiers
+    const promises = this.quantityOptionTargets.map(async (card) => {
+      const quantity = parseInt(card.dataset.quantity)
+
+      try {
+        const response = await fetch("/branded_products/calculate_price", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+          },
+          body: JSON.stringify({
+            product_id: this.productIdValue,
+            size: this.selectedSize,
+            quantity: quantity
+          })
+        })
+
+        const data = await response.json()
+
+        if (data.success) {
+          // Find the targets within this card
+          const priceTarget = card.querySelector('[data-branded-configurator-target="pricePerUnit"]')
+          const totalTarget = card.querySelector('[data-branded-configurator-target="totalPrice"]')
+
+          if (priceTarget) {
+            priceTarget.textContent = `£${parseFloat(data.price_per_unit).toFixed(3)}/unit`
+          }
+          if (totalTarget) {
+            const total = parseFloat(data.total_price) * (1 + this.vatRateValue)
+            totalTarget.textContent = `£${total.toFixed(2)}`
+          }
+
+          // Store price per unit for savings calculation
+          card.dataset.pricePerUnit = data.price_per_unit
+        }
+      } catch (error) {
+        console.error("Failed to calculate price for quantity:", quantity, error)
+      }
+    })
+
+    await Promise.all(promises)
+
+    // Calculate and display savings relative to first tier
+    if (this.quantityOptionTargets.length > 1) {
+      const basePrice = parseFloat(this.quantityOptionTargets[0].dataset.pricePerUnit)
+
+      this.quantityOptionTargets.forEach((card, index) => {
+        if (index > 0 && card.dataset.pricePerUnit) {
+          const cardPrice = parseFloat(card.dataset.pricePerUnit)
+          const savingsPercent = Math.round(((basePrice - cardPrice) / basePrice) * 100)
+          const savingsTarget = card.querySelector('[data-branded-configurator-target="savingsBadge"]')
+
+          if (savingsTarget && savingsPercent > 0) {
+            savingsTarget.textContent = `save ${savingsPercent}%`
+            savingsTarget.classList.remove('invisible')
+          }
+        }
+      })
+    }
+  }
+
+  async updateSelectedQuantityPricing() {
     try {
       const response = await fetch("/branded_products/calculate_price", {
         method: "POST",
@@ -80,7 +156,7 @@ export default class extends Controller {
 
       if (data.success) {
         this.calculatedPrice = data.total_price
-        this.updatePricingDisplay(data)
+        this.updateSummaryDisplay(data)
         this.clearError()
       } else {
         this.showError(data.error)
@@ -88,19 +164,11 @@ export default class extends Controller {
     } catch (error) {
       this.showError("Failed to calculate price. Please try again.")
     }
-
-    this.updateAddToCartButton()
   }
 
-  updatePricingDisplay(data) {
+  updateSummaryDisplay(data) {
     // Parse values as floats (server returns strings)
-    const pricePerUnit = parseFloat(data.price_per_unit)
     const subtotal = parseFloat(data.total_price)
-
-    // Update price per unit
-    if (this.hasPricePerUnitTarget) {
-      this.pricePerUnitTarget.textContent = `£${pricePerUnit.toFixed(2)}`
-    }
 
     // Update subtotal
     if (this.hasSubtotalTarget) {
@@ -117,11 +185,6 @@ export default class extends Controller {
     const total = subtotal + vat
     if (this.hasTotalTarget) {
       this.totalTarget.textContent = `£${total.toFixed(2)}`
-    }
-
-    // Update total price display
-    if (this.hasTotalPriceTarget) {
-      this.totalPriceTarget.textContent = `£${total.toFixed(2)}`
     }
   }
 
