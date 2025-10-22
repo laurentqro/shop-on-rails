@@ -3,7 +3,7 @@ puts "Creating branded product pricing..."
 
 # Find or create branded product categories
 branded_category = Category.find_or_create_by!(name: "Branded Products") do |cat|
-  cat.slug = "brandable-products"
+  cat.slug = "branded-products"
   cat.description = "Custom branded packaging for your business"
 end
 

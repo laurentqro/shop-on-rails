@@ -66,13 +66,13 @@ accessories_category = Category.find_or_create_by!(
   meta_description: "Complete your order with lids, napkins, cutlery, and accessories."
 )
 
-# Brandable products category (custom printing)
-brandable_category = Category.find_or_create_by!(
-  name: "Brandable Products",
-  slug: "brandable-products",
-  description: "Customize these products with your own design and branding",
-  meta_title: "Brandable Products - Custom Printing | Afida",
-  meta_description: "Create custom branded packaging with your design. Cups, boxes, bags and more."
+# Keep branded products category
+branded_category = Category.find_or_create_by!(
+  name: "Branded Products",
+  slug: "branded-products",
+  description: "Custom branded packaging with your design",
+  meta_title: "Branded Products - Custom Packaging | Afida",
+  meta_description: "Custom branded packaging for your business."
 )
 
 # Helper method to seed products from YAML files

@@ -2,7 +2,7 @@
 puts 'Creating test data for configurator...'
 
 # Create branded category
-branded_cat = Category.find_or_create_by!(slug: 'brandable-products') do |c|
+branded_cat = Category.find_or_create_by!(slug: 'branded-products') do |c|
   c.name = 'Branded Products'
   c.description = 'Custom branded packaging'
 end
