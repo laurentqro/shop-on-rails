@@ -44,6 +44,10 @@
                 <dt class="text-gray-600">SKU:</dt>
                 <dd class="font-semibold"><%= @product.active_variants.first.sku %></dd>
               </div>
+              <div class="flex justify-between">
+                <dt class="text-gray-600">Available Stock:</dt>
+                <dd class="font-semibold text-primary"><%= number_with_delimiter(@product.active_variants.first.stock_quantity) %> units</dd>
+              </div>
             <% end %>
           </dl>
         </div>
@@ -52,6 +56,15 @@
       <!-- Reorder Form -->
       <% if @product.active_variants.first %>
         <% variant = @product.active_variants.first %>
+        <%
+          min_order = 500
+          available_stock = variant.stock_quantity
+          # Generate quantity options from 500 to available stock (or max 10000), in 500 increments
+          max_qty = [available_stock, 10000].min
+          quantity_options = (min_order..max_qty).step(500).to_a
+          quantity_options << available_stock if available_stock > min_order && !quantity_options.include?(available_stock)
+          quantity_options.sort!
+        %>
         <%= form_with url: cart_cart_items_path, method: :post, class: "space-y-4", local: false do |f| %>
           <%= hidden_field_tag "cart_item[variant_sku]", variant.sku %>
 
@@ -59,13 +72,11 @@
             <label class="label">
               <span class="label-text font-semibold">Quantity (units)</span>
             </label>
-            <%= number_field_tag "cart_item[quantity]",
-                                1000,
-                                min: 500,
-                                step: 500,
-                                class: "input input-bordered w-full" %>
+            <%= select_tag "cart_item[quantity]",
+                          options_for_select(quantity_options.map { |q| [number_with_delimiter(q), q] }, 1000),
+                          class: "select select-bordered w-full" %>
             <label class="label">
-              <span class="label-text-alt">Minimum order: 500 units</span>
+              <span class="label-text-alt">Minimum order: <%= number_with_delimiter(min_order) %> units | Available: <%= number_with_delimiter(available_stock) %> units</span>
             </label>
           </div>
 

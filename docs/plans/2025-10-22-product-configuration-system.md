@@ -5188,9 +5188,75 @@ Tests: All tests passing with unit pricing"
 
 ---
 
+### Task 34: Replace cart quantity inputs with intelligent dropdowns
+
+**Background:** After unit pricing refactor (Task 33), all products use unit quantities. Replace text field quantity editors with smart dropdowns that respect stock availability and minimum orders.
+
+**Files:**
+- Modify: `app/views/cart_items/_cart_item.html.erb`
+- Modify: `app/views/products/_standard_product.html.erb`
+
+**Implementation:**
+
+For cart items, replace the Alpine.js +/- buttons with a dropdown:
+```erb
+<%
+  variant = cart_item.product_variant
+  min_order = variant.pac_size || 1
+  available_stock = variant.stock_quantity
+  max_qty = [available_stock, 10000].min
+
+  # Generate options in appropriate increments
+  if min_order >= 500
+    # Bulk products: 500 unit increments
+    quantity_options = (min_order..max_qty).step(500).to_a
+  else
+    # Standard products: 1, 2, 3, 5, 10, 20, 50, 100...
+    quantity_options = [1, 2, 3, 5, 10, 20, 50, 100, 200, 500].select { |q| q >= min_order && q <= max_qty }
+  end
+
+  # Always include current quantity and available stock
+  quantity_options << cart_item.quantity unless quantity_options.include?(cart_item.quantity)
+  quantity_options << available_stock if available_stock <= max_qty && !quantity_options.include?(available_stock)
+  quantity_options.sort!
+%>
+
+<%= form_with(model: cart_item, url: cart_cart_item_path(cart_item), method: :patch, local: false) do |form| %>
+  <%= form.select :quantity,
+                  options_for_select(quantity_options.map { |q| [number_with_delimiter(q), q] }, cart_item.quantity),
+                  {},
+                  class: "select select-sm select-bordered",
+                  onchange: "this.form.requestSubmit()" %>
+<% end %>
+```
+
+**Benefits:**
+- Respects available stock (can't order more than available)
+- Smart increments (1s for small items, 500s for bulk)
+- Shows current quantity if non-standard
+- Auto-submits on change (no +/- buttons needed)
+- Consistent with reorder page UX
+
+**Commit:**
+```bash
+git add .
+git commit -m "Replace cart quantity inputs with stock-aware dropdowns
+
+- Smart quantity options based on product type and stock
+- Bulk products (pac_size >= 500): 500 unit increments
+- Standard products: 1, 2, 3, 5, 10, 20, 50, 100...
+- Respects available stock limits
+- Auto-submit on selection change
+- Consistent UX with reorder pages
+
+Tests: Cart functionality tests passing"
+```
+
+---
+
 ## Implementation Complete!
 
-This plan provides **33 comprehensive tasks** covering:
+This plan provides **34 comprehensive tasks** covering:
 
 ✅ **Phase 1**: Organizations & Product Options foundation
 ✅ **Phase 2**: Product model enhancements
