@@ -33,7 +33,7 @@ acme_configured_item:
 acme_branded_item:
   order: acme_order
   product: branded_double_wall_template
-  product_variant: one
+  product_variant: branded_template_variant
   product_name: Branded Double Wall Cup
   product_sku: BRAND-DW-12OZ
   price: 0.18
