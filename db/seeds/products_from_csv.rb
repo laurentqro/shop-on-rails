@@ -1,29 +1,14 @@
-# Seed products from consolidated CSV
+# Seed products from final consolidated CSV with BrandYour categories
 require 'csv'
 
-puts 'Loading products from consolidated CSV...'
+puts 'Loading products from CSV...'
 
-csv_path = File.expand_path('~/Desktop/catalog_products_consolidated.csv')
+csv_path = File.expand_path('~/Desktop/catalog_products_final.csv')
 
 unless File.exist?(csv_path)
   puts "ERROR: CSV file not found at #{csv_path}"
   return
 end
-
-# Category mapping: old slug → new BrandYour-style slug
-CATEGORY_MAP = {
-  'straws' => 'drinks',
-  'hot-cups' => 'drinks',
-  'hot-cups-extras' => 'drinks',  # Lids, stirrers go with drinks
-  'cold-cups-and-lids' => 'drinks',
-  'napkins' => 'accessories',
-  'pizza-boxes' => 'mains',
-  'kraft-food-containers' => 'mains',
-  'takeaway-containers' => 'mains',
-  'ice-cream-cups' => 'desserts',
-  'ice-cream' => 'desserts',
-  'takeaway-extras' => 'bags'
-}.freeze
 
 # Get existing options
 size_option = ProductOption.find_by(name: 'Size')
@@ -35,11 +20,6 @@ products_data = {}
 CSV.foreach(csv_path, headers: true) do |row|
   product_name = row['product']
   category_slug = row['category']
-
-  # Special handling for takeaway-extras: bags vs cutlery
-  if category_slug == 'takeaway-extras'
-    category_slug = product_name.match?(/bag/i) ? 'bags' : 'accessories'
-  end
 
   key = "#{product_name}|#{category_slug}"
 
@@ -66,12 +46,10 @@ puts "Found #{products_data.length} unique products"
 
 # Create products and variants
 products_data.each do |key, data|
-  # Map old category to new BrandYour-style category
-  new_category_slug = CATEGORY_MAP[data[:category_slug]] || data[:category_slug]
-  category = Category.find_by(slug: new_category_slug)
+  category = Category.find_by(slug: data[:category_slug])
 
   unless category
-    puts "  ⚠ Skipping #{data[:name]} - category '#{new_category_slug}' not found"
+    puts "  ⚠ Skipping #{data[:name]} - category '#{data[:category_slug]}' not found"
     next
   end
 
