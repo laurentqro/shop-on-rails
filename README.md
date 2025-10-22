@@ -150,6 +150,22 @@ Products use a variant system where:
 
 See [docs/variant_migration_guide.md](docs/variant_migration_guide.md) for migration details.
 
+## Product Configuration System
+
+This application supports two types of products:
+
+### Standard Products
+Products with configurable options (size, color, material) that generate variants automatically.
+
+### Customizable/Branded Products
+B2B custom packaging with:
+- Interactive configurator (BrandYour-inspired)
+- Design file uploads
+- Quantity-based pricing tiers
+- Organization product instances for reordering
+
+See [docs/BRANDED_PRODUCTS.md](docs/BRANDED_PRODUCTS.md) for detailed documentation.
+
 ## Testing
 
 ### Run Tests
@@ -287,6 +303,7 @@ rails assets:precompile  # If using Sprockets for any assets
 - [docs/tasks.md](docs/tasks.md) - Development task list
 - [docs/google_merchant_setup.md](docs/google_merchant_setup.md) - Google Shopping setup
 - [docs/variant_migration_guide.md](docs/variant_migration_guide.md) - Variant system migration
+- [docs/BRANDED_PRODUCTS.md](docs/BRANDED_PRODUCTS.md) - Branded products system documentation
 
 ## Troubleshooting
 
