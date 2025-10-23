@@ -33,11 +33,12 @@ class Cart < ApplicationRecord
   end
 
   # Sum of all cart item subtotals (before VAT)
-  # Uses database calculation: SUM(price * quantity)
-  # Works for both standard and configured products (configured products store unit price in price column)
-  # Memoized to prevent repeated database calls within same request
+  # For standard products with pack pricing: sums calculated pack quantities
+  # For configured/branded products: sums unit price * quantity
+  # Uses Ruby-level calculation to leverage CartItem#subtotal_amount logic
+  # Memoized to prevent repeated calculations within same request
   def subtotal_amount
-    @subtotal_amount ||= cart_items.sum("price * quantity")
+    @subtotal_amount ||= cart_items.includes(:product_variant).sum(&:subtotal_amount)
   end
 
   # Calculate VAT at UK rate (20%)

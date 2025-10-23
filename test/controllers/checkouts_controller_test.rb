@@ -200,7 +200,7 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @cart_item.product_variant, order_item.product_variant
     assert_equal @cart_item.product_variant.display_name, order_item.product_name
     assert_equal @cart_item.product_variant.sku, order_item.product_sku
-    assert_equal @cart_item.price, order_item.price
+    assert_equal @cart_item.unit_price, order_item.price  # OrderItem stores unit price
     assert_equal @cart_item.quantity, order_item.quantity
   end
 

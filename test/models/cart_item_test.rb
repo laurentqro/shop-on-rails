@@ -127,7 +127,9 @@ class CartItemTest < ActiveSupport::TestCase
 
   test "cart item unit price for standard product" do
     cart_item = cart_items(:one)
-    assert_equal cart_item.price, cart_item.unit_price  # Changed: uses price directly
+    # For standard products, unit_price delegates to product_variant.unit_price
+    # which divides by pac_size if present, or returns price if not
+    assert_equal cart_item.product_variant.unit_price, cart_item.unit_price
   end
 
   test "configured cart item validates calculated_price presence" do
@@ -146,5 +148,81 @@ class CartItemTest < ActiveSupport::TestCase
     cart_item = cart_items(:branded_configuration)
     # We'll attach actual file in integration test
     assert_respond_to cart_item, :design
+  end
+
+  # Pack-based pricing tests
+  test "subtotal_amount for standard product with pack pricing" do
+    # Create a product variant with pack pricing
+    product = products(:one)
+    variant = ProductVariant.create!(
+      product: product,
+      name: "1000 pack",
+      sku: "TEST-PACK-1000",
+      price: 100.00,  # £100 per pack
+      pac_size: 1000,  # 1000 units per pack
+      active: true
+    )
+
+    # User orders 1500 units (needs 2 packs)
+    cart_item = CartItem.create!(
+      cart: @cart,
+      product_variant: variant,
+      quantity: 1500,  # units
+      price: variant.price  # pack price
+    )
+
+    # Should calculate: 2 packs * £100 = £200
+    assert_equal 200.00, cart_item.subtotal_amount
+    assert_equal 0.10, cart_item.unit_price  # £100/1000 = £0.10 per unit
+  end
+
+  test "subtotal_amount for standard product with exact pack quantity" do
+    # Create a product variant with pack pricing
+    product = products(:one)
+    variant = ProductVariant.create!(
+      product: product,
+      name: "500 pack",
+      sku: "TEST-PACK-500",
+      price: 50.00,  # £50 per pack
+      pac_size: 500,  # 500 units per pack
+      active: true
+    )
+
+    # User orders exactly 1000 units (needs exactly 2 packs)
+    cart_item = CartItem.create!(
+      cart: @cart,
+      product_variant: variant,
+      quantity: 1000,  # units
+      price: variant.price  # pack price
+    )
+
+    # Should calculate: 2 packs * £50 = £100
+    assert_equal 100.00, cart_item.subtotal_amount
+    assert_equal 0.10, cart_item.unit_price  # £50/500 = £0.10 per unit
+  end
+
+  test "subtotal_amount for standard product with single pack" do
+    # Create a product variant with pack pricing
+    product = products(:one)
+    variant = ProductVariant.create!(
+      product: product,
+      name: "100 pack",
+      sku: "TEST-PACK-100",
+      price: 10.00,  # £10 per pack
+      pac_size: 100,  # 100 units per pack
+      active: true
+    )
+
+    # User orders 50 units (needs 1 pack)
+    cart_item = CartItem.create!(
+      cart: @cart,
+      product_variant: variant,
+      quantity: 50,  # units (less than pack size)
+      price: variant.price  # pack price
+    )
+
+    # Should calculate: 1 pack * £10 = £10 (can't buy partial packs)
+    assert_equal 10.00, cart_item.subtotal_amount
+    assert_equal 0.10, cart_item.unit_price  # £10/100 = £0.10 per unit
   end
 end

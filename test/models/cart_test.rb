@@ -115,4 +115,77 @@ class CartTest < ActiveSupport::TestCase
       cart_with_items.destroy
     end
   end
+
+  # Pack-based pricing tests
+  test "subtotal_amount calculates correctly for standard product with pack pricing" do
+    cart = Cart.create
+    product = products(:one)
+
+    # Create variant with pack pricing: £100 per pack of 1000 units
+    variant = ProductVariant.create!(
+      product: product,
+      name: "1000 pack",
+      sku: "TEST-CART-PACK-1000",
+      price: 100.00,
+      pac_size: 1000,
+      active: true
+    )
+
+    # Add 1500 units to cart (requires 2 packs)
+    cart.cart_items.create!(
+      product_variant: variant,
+      quantity: 1500,
+      price: variant.price
+    )
+
+    # Should calculate: 2 packs × £100 = £200
+    assert_equal 200.00, cart.subtotal_amount
+    assert_equal 40.00, cart.vat_amount  # 20% of £200
+    assert_equal 240.00, cart.total_amount
+  end
+
+  test "subtotal_amount with multiple pack-based products" do
+    cart = Cart.create
+
+    # First standard product with pack pricing
+    product1 = products(:one)
+    variant1 = ProductVariant.create!(
+      product: product1,
+      name: "500 pack",
+      sku: "TEST-CART-PACK-500",
+      price: 50.00,
+      pac_size: 500,
+      active: true
+    )
+
+    # Second standard product with different pack pricing
+    product2 = products(:two)
+    variant2 = ProductVariant.create!(
+      product: product2,
+      name: "1000 pack",
+      sku: "TEST-CART-PACK-1000",
+      price: 80.00,
+      pac_size: 1000,
+      active: true
+    )
+
+    # Add first product: 750 units (needs 2 packs) = £100
+    cart.cart_items.create!(
+      product_variant: variant1,
+      quantity: 750,
+      price: variant1.price
+    )
+
+    # Add second product: 2500 units (needs 3 packs) = £240
+    cart.cart_items.create!(
+      product_variant: variant2,
+      quantity: 2500,
+      price: variant2.price
+    )
+
+    # Total: £100 + £240 = £340
+    assert_equal 340.00, cart.subtotal_amount
+    assert_equal 68.00, cart.vat_amount  # 20% of £340
+    assert_equal 408.00, cart.total_amount
+  end
 end
