@@ -22,14 +22,14 @@
               <div class="card-body">
                 <h3 class="card-title text-lg"><%= addon.name %></h3>
 
-                <% min_price = addon.branded_product_prices.minimum(:price_per_unit) %>
+                <% min_price = addon.branded_product_prices.map(&:price_per_unit).min %>
                 <% if min_price %>
                   <p class="text-lg font-bold text-primary">
                     from £<%= sprintf("%.3f", min_price) %>/unit
                   </p>
                 <% end %>
 
-                <% min_qty = addon.branded_product_prices.minimum(:quantity_tier) %>
+                <% min_qty = addon.branded_product_prices.map(&:quantity_tier).min %>
                 <% if min_qty %>
                   <p class="text-sm text-gray-600">
                     Min: <%= number_with_delimiter(min_qty) %> units
