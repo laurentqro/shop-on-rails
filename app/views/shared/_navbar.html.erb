@@ -14,7 +14,6 @@
         <li class="text-lg font-medium"><%= link_to "Bags", category_path('bags'), class: current_page?(category_path('bags')) ? "text-accent" : "" %></li>
         <li class="text-lg font-medium"><%= link_to "Accessories", category_path('accessories'), class: current_page?(category_path('accessories')) ? "text-accent" : "" %></li>
         <li class="text-lg font-medium"><%= link_to "Branded Products", "/branded-products", class: current_page?("/branded-products") ? "text-accent" : "" %></li>
-        <li class="text-lg font-medium"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
       </ul>
     </div>
     <%= link_to root_path, class: "btn btn-ghost text-xl group hover:bg-transparent hover:border-transparent hover:shadow-none" do %>
@@ -26,7 +25,6 @@
     <ul class="menu menu-horizontal px-1">
       <li class="text-lg font-medium"><%= link_to "Shop All", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
       <li class="text-lg font-medium"><%= link_to "Branded Products", "/branded-products", class: current_page?("/branded-products") ? "text-accent" : "" %></li>
-      <li class="text-lg font-medium"><%= link_to "Samples", samples_path, class: current_page?(samples_path) ? "text-accent" : "" %></li>
     </ul>
   </div>
 
