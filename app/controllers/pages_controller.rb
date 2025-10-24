@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   end
 
   def shop
-    @categories = Category.order(:sort_order, :name)
+    @categories = Category.order(:name)
     @products = Product.all
   end
 
