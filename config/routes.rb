@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       get :new_variant, on: :member
     end
     resources :product_variants, only: [ :edit, :update ]
+    resources :categories
     resources :orders, only: [ :index, :show ]
     resources :branded_orders, only: [ :index, :show ] do
       member do

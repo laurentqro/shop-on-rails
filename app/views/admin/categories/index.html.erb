@@ -1,0 +1,46 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Categories</h1>
+    <%= link_to "New Category", new_admin_category_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Slug</th>
+          <th>Description</th>
+          <th>Products</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @categories.each do |category| %>
+          <tr>
+            <td>
+              <% if category.image.attached? %>
+                <%= image_tag category.image, class: "w-16 h-16 object-cover rounded", alt: category.name %>
+              <% else %>
+                <div class="w-16 h-16 bg-gradient-to-br from-primary/20 to-secondary/20 rounded flex items-center justify-center">
+                  <span class="text-xl font-bold text-primary/30"><%= category.name[0] %></span>
+                </div>
+              <% end %>
+            </td>
+            <td class="font-medium"><%= category.name %></td>
+            <td><code class="text-sm"><%= category.slug %></code></td>
+            <td class="max-w-xs truncate"><%= category.description %></td>
+            <td><%= category.products.count %> products</td>
+            <td>
+              <div class="flex gap-2">
+                <%= link_to "Edit", edit_admin_category_path(category), class: "btn btn-sm btn-primary" %>
+                <%= button_to "Delete", admin_category_path(category), method: :delete, class: "btn btn-sm btn-error", form: { data: { turbo_confirm: "Are you sure? This will affect #{category.products.count} products." } } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
