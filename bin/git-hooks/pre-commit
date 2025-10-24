@@ -1,0 +1,29 @@
+#!/bin/bash
+# Pre-commit hook to run RuboCop on staged Ruby files
+
+# Get list of staged Ruby files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(rb|rake)$|Gemfile|Rakefile')
+
+# Exit early if no Ruby files are staged
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+echo "Running RuboCop on staged files..."
+
+# Run RuboCop only on staged files
+bundle exec rubocop $STAGED_FILES
+
+RUBOCOP_EXIT=$?
+
+# If RuboCop found issues, prevent commit
+if [ $RUBOCOP_EXIT -ne 0 ]; then
+  echo ""
+  echo "❌ RuboCop found issues. Please fix them before committing."
+  echo "   You can run: bundle exec rubocop -a to auto-fix some issues"
+  echo "   Or skip this hook with: git commit --no-verify"
+  exit 1
+fi
+
+echo "✅ RuboCop passed!"
+exit 0
