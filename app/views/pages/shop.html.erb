@@ -4,17 +4,11 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
     <% @categories.each do |category| %>
       <div class="rounded-lg shadow-sm hover:shadow-md transition">
-        <figure>
-          <%= link_to category_path(category.slug) do %>
-            <% if category.image.attached? %>
-              <%= image_tag category.image, alt: category.name, class: "w-full h-64 object-cover rounded-t-lg" %>
-            <% else %>
-              <div class="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
-                <span class="text-4xl font-bold text-primary/30"><%= category.name[0] %></span>
-              </div>
-            <% end %>
-          <% end %>
-        </figure>
+        <%= link_to category_path(category.slug) do %>
+          <div class="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
+            <span class="text-4xl font-bold text-primary/30"><%= category.name[0] %></span>
+          </div>
+        <% end %>
         <div class="p-4 text-center">
           <%= link_to category_path(category.slug), class: "text-xl font-medium mb-2 hover:text-primary transition" do %>
             <%= category.name %>
