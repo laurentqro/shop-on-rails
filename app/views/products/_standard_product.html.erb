@@ -144,6 +144,25 @@
                 <% end %>
               </div>
 
+              <div class="bg-base-200 rounded-lg p-4 mb-4 space-y-3">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                  <span class="font-medium">Delivered in 3-4 weeks</span>
+                </div>
+                <div class="divider my-0"></div>
+                <div class="flex justify-between items-baseline">
+                  <div>
+                    <p class="text-lg font-semibold">Total (excl. VAT)</p>
+                    <p class="text-sm text-base-content/60">Free shipping on all orders</p>
+                  </div>
+                  <p class="text-2xl font-bold" data-product-options-target="priceDisplay">
+                    <%= number_to_currency(@selected_variant.price) %>
+                  </p>
+                </div>
+              </div>
+
               <%= f.submit "Add to basket", class: "btn btn-primary btn-lg w-full" %>
             <% end %>
           </div>
