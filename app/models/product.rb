@@ -23,7 +23,7 @@ class Product < ApplicationRecord
   scope :catalog_products, -> { where(product_type: [ "standard", "customizable_template" ]) }
   scope :customized_for_organization, ->(org) { unscoped.where(product_type: "customized_instance", organization: org) }
 
-  belongs_to :category
+  belongs_to :category, counter_cache: true
   belongs_to :organization, optional: true
   belongs_to :parent_product, class_name: "Product", optional: true
 

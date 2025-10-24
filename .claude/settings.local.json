@@ -67,7 +67,9 @@
       "Read(//Users/laurentcurau/Desktop/**)",
       "Bash(rails db:reset:*)",
       "Bash(RAILS_ENV=development rails db:reset:*)",
-      "Bash(git revert:*)"
+      "Bash(git revert:*)",
+      "Bash(ruby -e:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

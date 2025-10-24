@@ -4,7 +4,7 @@ module Admin
 
     # GET /admin/categories
     def index
-      @categories = Category.order(:name)
+      @categories = Category.includes(:products, image_attachment: :blob).order(:name)
     end
 
     # GET /admin/categories/new
