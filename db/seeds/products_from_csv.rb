@@ -30,6 +30,7 @@ CSV.foreach(csv_path, headers: true) do |row|
     material: row['material'],
     meta_title: row['meta_title'],
     meta_description: row['meta_description'],
+    description: row['description'],
     variants: []
   }
 
@@ -59,6 +60,7 @@ products_data.each do |key, data|
     p.category = category
     p.meta_title = data[:meta_title]
     p.meta_description = data[:meta_description]
+    p.description = data[:description]
     p.material = data[:material]
     p.active = true
     p.product_type = 'standard'
@@ -95,14 +97,14 @@ products_data.each do |key, data|
     variant_name = [variant_data[:size], variant_data[:colour]].compact.join(' ')
     variant_name = 'Standard' if variant_name.blank?
 
-    product.variants.find_or_create_by!(sku: variant_data[:sku]) do |v|
-      v.name = variant_name
-      v.price = variant_data[:price]
-      v.pac_size = variant_data[:pac_size]
-      v.stock_quantity = 10000
-      v.option_values = option_values
-      v.active = true
-    end
+    variant = product.variants.find_or_initialize_by(sku: variant_data[:sku])
+    variant.name = variant_name
+    variant.price = variant_data[:price]
+    variant.pac_size = variant_data[:pac_size]
+    variant.stock_quantity = 10000
+    variant.option_values = option_values
+    variant.active = true
+    variant.save!
   end
 
   puts "  ✓ #{product.name} (#{product.variants.count} variants)"
