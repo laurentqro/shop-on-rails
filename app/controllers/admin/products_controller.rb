@@ -4,7 +4,7 @@ module Admin
 
     # GET /products
     def index
-      @products = Product.all
+      @products = Product.includes(:variants).all
     end
 
     # GET /products/1
