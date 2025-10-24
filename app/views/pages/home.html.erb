@@ -79,8 +79,9 @@
         From pizza boxes to ice cream cups, every product is an opportunity to showcase your brand.
         Our eco-friendly supplies help you deliver quality while making a lasting impression.
       </p>
-      <% if Category.find_by(name: "Pizza Boxes") %>
-        <%= link_to "Shop Pizza Boxes", category_path(Category.find_by(name: "Pizza Boxes")), class: "btn btn-primary btn-lg" %>
+      <% mains_category = @categories.find { |c| c.slug == "mains" } %>
+      <% if mains_category %>
+        <%= link_to "Shop #{mains_category.name}", category_path(mains_category), class: "btn btn-primary btn-lg" %>
       <% else %>
         <%= link_to "Explore Products", shop_path, class: "btn btn-primary btn-lg" %>
       <% end %>
@@ -95,8 +96,9 @@
         Experience premium quality with our carefully curated selection of eco-friendly catering supplies.
         Built to perform, designed to impress, made to protect our planet.
       </p>
-      <% if Category.find_by(name: "Ice Cream Cups") %>
-        <%= link_to "Shop Ice Cream Cups", category_path(Category.find_by(name: "Ice Cream Cups")), class: "btn btn-primary btn-lg" %>
+      <% desserts_category = @categories.find { |c| c.slug == "desserts" } %>
+      <% if desserts_category %>
+        <%= link_to "Shop #{desserts_category.name}", category_path(desserts_category), class: "btn btn-primary btn-lg" %>
       <% else %>
         <%= link_to "View Collection", shop_path, class: "btn btn-primary btn-lg" %>
       <% end %>
