@@ -77,11 +77,11 @@
           <% if @product.active_variants.count > 1 %>
             <div data-controller="product-options"
                  data-product-options-variants-value="<%= @variants_json.to_json %>"
-                 class="space-y-3 my-4">
+                 class="space-y-1 my-4">
 
               <% @product_options.each do |option| %>
                 <div class="form-control w-full max-w-xs">
-                  <label class="label">
+                  <label class="label pb-1">
                     <span class="label-text font-semibold"><%= option.name %></span>
                   </label>
                   <%
