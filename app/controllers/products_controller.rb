@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
 
   def show
     # Check if this is for modal display
-    @in_modal = params[:modal] == 'true'
+    @in_modal = params[:modal] == "true"
 
     # Load product with appropriate associations based on type
     # We check product_type first to avoid N+1 queries
@@ -33,8 +33,8 @@ class ProductsController < ApplicationController
 
       # Render modal-specific configurator if needed
       if @in_modal
-        render partial: 'branded_configurator_modal', locals: { product: @product }
-        return
+        render partial: "branded_configurator_modal", locals: { product: @product }
+        nil
       end
     elsif base_product.standard? || base_product.customized_instance?
       # For standard products, need variants with their images
@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
           sku: v.sku,
           price: v.price.to_f,
           option_values: v.option_values,
-          image_url: v.image.attached? ? url_for(v.image.variant(resize_to_limit: [400, 400])) : nil
+          image_url: v.image.attached? ? url_for(v.image.variant(resize_to_limit: [ 400, 400 ])) : nil
         }
       end
     end

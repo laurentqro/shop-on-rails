@@ -14,7 +14,7 @@ module BrandedProducts
             id: lid.id,
             name: lid.name,
             slug: lid.slug,
-            image_url: lid.image.attached? ? url_for(lid.image.variant(resize_to_limit: [200, 200])) : nil,
+            image_url: lid.image.attached? ? url_for(lid.image.variant(resize_to_limit: [ 200, 200 ])) : nil,
             price: variant&.price || 0,
             pac_size: variant&.pac_size || 1000,
             sku: variant&.sku,

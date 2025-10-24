@@ -94,7 +94,7 @@ products_data.each do |key, data|
     option_values['Color'] = variant_data[:colour] if variant_data[:colour].present?
 
     # Create variant name from options
-    variant_name = [variant_data[:size], variant_data[:colour]].compact.join(' ')
+    variant_name = [ variant_data[:size], variant_data[:colour] ].compact.join(' ')
     variant_name = 'Standard' if variant_name.blank?
 
     variant = product.variants.find_or_initialize_by(sku: variant_data[:sku])
