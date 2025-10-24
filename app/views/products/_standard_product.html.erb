@@ -74,6 +74,10 @@
             <span class="text-base-content/60 font-medium text-lg"><%= @product.colour %></span>
           <% end %>
 
+          <p class="text-base-content/70 my-4">
+            <%= @product.description %>
+          </p>
+
           <% if @product.active_variants.count > 1 %>
             <div data-controller="product-options"
                  data-product-options-variants-value="<%= @variants_json.to_json %>"
@@ -143,10 +147,6 @@
               <%= f.submit "Add to basket", class: "btn btn-primary btn-lg w-full" %>
             <% end %>
           </div>
-
-          <p class="text-base-content/70 my-4">
-            <%= @product.description %>
-          </p>
 
           <% if @selected_variant.variant_attributes.any? %>
             <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
