@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find_by!(slug: params[:id])
+    @product = Product.includes(active_variants: { image_attachment: :blob }).find_by!(slug: params[:id])
 
     # Check if this is for modal display
     @in_modal = params[:modal] == 'true'
