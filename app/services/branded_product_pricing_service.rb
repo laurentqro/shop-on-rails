@@ -30,13 +30,15 @@ class BrandedProductPricingService
 
   def available_sizes
     # Sort sizes numerically (8oz, 12oz, 16oz, not 12oz, 16oz, 8oz)
-    @product.branded_product_prices.distinct.pluck(:size).sort_by { |size| size.to_i }
+    # Use map instead of pluck to utilize eager-loaded association
+    @product.branded_product_prices.map(&:size).uniq.sort_by { |size| size.to_i }
   end
 
   def available_quantities(size)
+    # Use select and map instead of where/pluck to utilize eager-loaded association
     @product.branded_product_prices
-            .where(size: size)
-            .pluck(:quantity_tier)
+            .select { |p| p.size == size }
+            .map(&:quantity_tier)
             .sort
   end
 
