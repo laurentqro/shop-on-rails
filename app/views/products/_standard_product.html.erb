@@ -103,17 +103,6 @@
             </div>
           <% end %>
 
-          <div class="my-2">
-            <p class="text-xl lg:text-2xl font-semibold text-secondary" data-product-options-target="priceDisplay">
-              <%= number_to_currency(@selected_variant.price) %>
-            </p>
-            <% if @selected_variant.pac_size.present? && @selected_variant.pac_size > 1 %>
-              <p class="text-sm text-base-content/60">
-                Pack of <%= @selected_variant.pac_size %> units
-              </p>
-            <% end %>
-          </div>
-
           <%
             pac_size = @selected_variant.pac_size || 1
             min_qty = pac_size
@@ -138,6 +127,17 @@
                 <label class="label">
                   <span class="label-text-alt">Pack size: <%= pac_size %> units</span>
                 </label>
+              </div>
+
+              <div class="my-4">
+                <p class="text-2xl lg:text-3xl font-semibold text-secondary" data-product-options-target="priceDisplay">
+                  <%= number_to_currency(@selected_variant.price) %>
+                </p>
+                <% if @selected_variant.pac_size.present? && @selected_variant.pac_size > 1 %>
+                  <p class="text-sm text-base-content/60">
+                    Pack of <%= @selected_variant.pac_size %> units
+                  </p>
+                <% end %>
               </div>
 
               <%= f.submit "Add to basket", class: "btn btn-primary btn-lg w-full" %>
