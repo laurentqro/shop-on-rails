@@ -22,6 +22,9 @@ Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
 
 module ActiveSupport
   class TestCase
+    # Include N+1 query detection helpers
+    include NPlusOneHelpers
+
     # Disable parallel tests for accurate SimpleCov coverage
     # parallelize(workers: :number_of_processors)
 
