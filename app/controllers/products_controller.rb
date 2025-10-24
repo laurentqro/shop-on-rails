@@ -6,12 +6,17 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.includes(active_variants: { image_attachment: :blob }).find_by!(slug: params[:id])
-
     # Check if this is for modal display
     @in_modal = params[:modal] == 'true'
 
-    if @product.customizable_template?
+    # Load product with appropriate associations based on type
+    # We check product_type first to avoid N+1 queries
+    base_product = Product.find_by!(slug: params[:id])
+
+    if base_product.customizable_template?
+      # For branded products, only need category, image, and branded_product_prices
+      @product = Product.includes(:category, :branded_product_prices, image_attachment: :blob)
+                       .find_by!(slug: params[:id])
       # Load data for configurator
       service = BrandedProductPricingService.new(@product)
       @available_sizes = service.available_sizes
@@ -31,7 +36,10 @@ class ProductsController < ApplicationController
         render partial: 'branded_configurator_modal', locals: { product: @product }
         return
       end
-    elsif @product.standard? || @product.customized_instance?
+    elsif base_product.standard? || base_product.customized_instance?
+      # For standard products, need variants with their images
+      @product = Product.includes(:category, active_variants: { image_attachment: :blob })
+                       .find_by!(slug: params[:id])
       # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?
         @product.active_variants.find_by(id: params[:variant_id])
