@@ -46,7 +46,7 @@
         <!-- Step 1: Select Size -->
         <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="sizeStep">
           <input type="radio" name="config-accordion" checked />
-          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
+          <div class="collapse-title text-lg flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="sizeIndicator">1</span>
             Select Size
           </div>
@@ -54,7 +54,7 @@
             <div class="flex gap-2 pt-4">
           <% Array(@available_sizes).each do |size| %>
             <button type="button"
-                    class="bg-white border-2 border-gray-300 text-black font-semibold hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
+                    class="bg-white border-2 border-gray-300 text-black hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
                     data-branded-configurator-target="sizeOption"
                     data-size="<%= size %>"
                     data-action="click->branded-configurator#selectSize">
@@ -68,21 +68,21 @@
         <!-- Step 2: Select Finish -->
         <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="finishStep">
           <input type="radio" name="config-accordion" />
-          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
+          <div class="collapse-title text-lg flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="finishIndicator">2</span>
             Select Finish
           </div>
           <div class="collapse-content">
             <div class="flex gap-2 pt-4">
           <button type="button"
-                  class="bg-white border-2 border-gray-300 text-black font-semibold hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
+                  class="bg-white border-2 border-gray-300 text-black hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
                   data-branded-configurator-target="finishOption"
                   data-finish="Matt"
                   data-action="click->branded-configurator#selectFinish">
             Matt
           </button>
           <button type="button"
-                  class="bg-white border-2 border-gray-300 text-black font-semibold hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
+                  class="bg-white border-2 border-gray-300 text-black hover:border-primary rounded-full px-6 py-3 transition cursor-pointer"
                   data-branded-configurator-target="finishOption"
                   data-finish="Gloss"
                   data-action="click->branded-configurator#selectFinish">
@@ -95,7 +95,7 @@
         <!-- Step 3: Select Quantity -->
         <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="quantityStep">
           <input type="radio" name="config-accordion" />
-          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
+          <div class="collapse-title text-lg flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="quantityIndicator">3</span>
             Select Quantity
           </div>
@@ -107,7 +107,7 @@
                  data-quantity="<%= quantity %>"
                  data-action="click->branded-configurator#selectQuantity">
               <div class="flex items-center gap-4">
-                <div class="font-semibold text-black"><%= number_with_delimiter(quantity) %></div>
+                <div class="text-black"><%= number_with_delimiter(quantity) %></div>
                 <div class="text-gray-500"
                      data-branded-configurator-target="pricePerUnit">
                   <!-- Price per unit filled by JS -->
@@ -118,7 +118,7 @@
                      data-branded-configurator-target="savingsBadge">
                   <!-- Savings % filled by JS -->
                 </div>
-                <div class="font-semibold text-black"
+                <div class="text-black"
                      data-branded-configurator-target="totalPrice">
                   <!-- Total price filled by JS -->
                 </div>
@@ -132,7 +132,7 @@
         <!-- Step 4: Add Matching Lids (Optional) -->
         <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="lidsStep">
           <input type="radio" name="config-accordion" />
-          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
+          <div class="collapse-title text-lg flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="lidsIndicator">4</span>
             Add Matching Lids (Optional)
           </div>
@@ -160,7 +160,7 @@
         <!-- Step 5: Upload Design -->
         <div class="collapse collapse-arrow bg-base-200" data-branded-configurator-target="designStep">
           <input type="radio" name="config-accordion" />
-          <div class="collapse-title text-lg font-semibold flex items-center gap-2">
+          <div class="collapse-title text-lg flex items-center gap-2">
             <span class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-300 text-white text-sm font-bold" data-branded-configurator-target="designIndicator">5</span>
             Upload Your Design
           </div>
@@ -191,25 +191,20 @@
         <!-- Error text shown here -->
       </div>
 
-      <!-- Price Summary -->
-      <div class="card bg-base-200">
-        <div class="card-body">
-          <h3 class="card-title text-lg">Price Summary</h3>
-          <div class="space-y-2">
-            <div class="flex justify-between">
-              <span>Subtotal:</span>
-              <span data-branded-configurator-target="subtotal" class="font-semibold">£0.00</span>
-            </div>
-            <div class="flex justify-between">
-              <span>VAT (20%):</span>
-              <span data-branded-configurator-target="vat" class="font-semibold">£0.00</span>
-            </div>
-            <div class="divider my-1"></div>
-            <div class="flex justify-between text-lg">
-              <span class="font-bold">Total:</span>
-              <span data-branded-configurator-target="total" class="font-bold text-primary">£0.00</span>
-            </div>
+      <!-- Delivery Info & Price Summary -->
+      <div class="my-8 space-y-3 rounded-lg pt-4 px-4">
+        <div class="flex items-center gap-2 text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          <span class="font-medium">Delivered in 3-4 weeks</span>
+        </div>
+        <div class="mt-8 grid grid-cols-[1fr_auto] gap-4 items-start">
+          <div>
+            <p class="text-lg">Total (excl. VAT)</p>
+            <p class="text-xs text-base-content/60">Free shipping on all orders</p>
           </div>
+          <p class="text-2xl font-semibold whitespace-nowrap text-right" data-branded-configurator-target="total">£0.00</p>
         </div>
       </div>
 
@@ -220,14 +215,6 @@
               disabled>
         Add to Cart
       </button>
-
-      <!-- Delivery Info -->
-      <div class="alert">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <span>Delivered in 3-4 weeks • Free shipping on orders over £500</span>
-        </div>
       </div>
     </div>
   </div>
