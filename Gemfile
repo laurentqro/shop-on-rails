@@ -42,7 +42,7 @@ gem "image_processing", "~> 1.2"
 gem "aws-sdk-s3", require: false
 
 # Stripe gem for payments
-gem "stripe", "~> 17.0"
+gem "stripe", "~> 17.1"
 
 # Mailgun gem for email sending
 gem "mailgun-ruby"
