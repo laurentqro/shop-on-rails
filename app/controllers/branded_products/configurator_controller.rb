@@ -1,7 +1,6 @@
 module BrandedProducts
   class ConfiguratorController < ApplicationController
     allow_unauthenticated_access
-    skip_before_action :verify_authenticity_token
 
     def calculate_price
       product = Product.find_by(id: params[:product_id])
