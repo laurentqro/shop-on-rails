@@ -45,6 +45,11 @@ export default class extends Controller {
     this.loadFromUrlParams()
   }
 
+  getCSRFToken() {
+    const meta = document.querySelector("[name='csrf-token']")
+    return meta ? meta.content : ""
+  }
+
   loadFromUrlParams() {
     const params = new URLSearchParams(window.location.search)
 
@@ -303,7 +308,7 @@ export default class extends Controller {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
+          "X-CSRF-Token": this.getCSRFToken()
         },
         body: JSON.stringify({
           product_id: this.productIdValue,
@@ -560,7 +565,7 @@ export default class extends Controller {
       const response = await fetch("/cart/cart_items", {
         method: "POST",
         headers: {
-          "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
+          "X-CSRF-Token": this.getCSRFToken(),
           "Accept": "text/vnd.turbo-stream.html"
         },
         body: formData

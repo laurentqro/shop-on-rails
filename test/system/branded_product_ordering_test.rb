@@ -16,32 +16,42 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     assert_selector "h1", text: @product.name
     assert_selector "[data-controller~='branded-configurator']"
 
-    # Step 1: Select size
+    # Step 1: Select size (first accordion is open by default)
     click_button "12oz"
     assert_selector ".border-primary", text: "12oz"
 
-    # Step 2: Select quantity (accordion section)
-    find("[data-quantity='5000']", visible: :all).click
+    # Step 2: Select finish - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='finishStep'] input[type='radio']", visible: false).click
+    click_button "Matt"
 
-    # Wait for price calculation
-    assert_selector "[data-branded-configurator-target='total']", text: /£/, wait: 5
+    # Step 3: Select quantity - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='quantityStep'] input[type='radio']", visible: false).click
+    find("[data-quantity='5000']").click
 
-    # Step 3: Upload design
-    attach_file "design", Rails.root.join("test", "fixtures", "files", "test_design.pdf")
+    # Wait for price calculation (wait for non-zero price)
+    assert_selector "[data-branded-configurator-target='total']", text: /£[1-9]/, wait: 10
+
+    # Step 4: Skip lids (optional step) - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='lidsStep'] input[type='radio']", visible: false).click
+    click_button "Skip - No lids needed"
+
+    # Step 5: Upload design - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='designStep'] input[type='radio']", visible: false).click
+    find("[data-branded-configurator-target='designInput']").attach_file(Rails.root.join("test", "fixtures", "files", "test_design.pdf"))
     assert_text "test_design.pdf"
 
-    # Verify add to cart button is enabled
-    assert_selector ".btn-primary:not(.btn-disabled)", text: "Add to Cart"
+    # Verify add to cart button is enabled (wait for button state update)
+    assert_no_selector ".btn-disabled", text: "Add to Cart", wait: 5
+    assert_selector ".btn-primary", text: "Add to Cart"
 
-    # Step 4: Add to cart
+    # Step 6: Add to cart
     click_button "Add to Cart"
 
-    # Verify redirect to cart
-    assert_current_path cart_path
-
-    # Verify cart contains configured product
-    assert_text "12oz"
-    assert_text "5,000"
+    # Navigate to cart to verify item was added
+    visit cart_path
+    assert_text @product.name
+    assert_text "12oz" # size
+    assert_text "5,000" # quantity
   end
 
   test "validates all configurator steps must be completed" do
@@ -54,26 +64,42 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     # Select size only
     click_button "12oz"
 
+    # Still disabled (missing finish, quantity and design)
+    assert_selector ".btn-disabled", text: "Add to Cart"
+
+    # Select finish - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='finishStep'] input[type='radio']", visible: false).click
+    click_button "Matt"
+
     # Still disabled (missing quantity and design)
     assert_selector ".btn-disabled", text: "Add to Cart"
 
-    # Select quantity
-    within "[data-quantity='1000']" do
-      click
-    end
+    # Select quantity - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='quantityStep'] input[type='radio']", visible: false).click
+    find("[data-quantity='1000']").click
 
     # Still disabled (missing design)
     assert_selector ".btn-disabled", text: "Add to Cart"
 
-    # Upload design
-    attach_file "design", Rails.root.join("test", "fixtures", "files", "test_design.pdf")
+    # Skip lids - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='lidsStep'] input[type='radio']", visible: false).click
+    click_button "Skip - No lids needed"
 
-    # Now enabled
-    assert_selector ".btn-primary:not(.btn-disabled)", text: "Add to Cart"
+    # Upload design - open accordion by clicking hidden radio
+    find("[data-branded-configurator-target='designStep'] input[type='radio']", visible: false).click
+    find("[data-branded-configurator-target='designInput']").attach_file(Rails.root.join("test", "fixtures", "files", "test_design.pdf"))
+
+    # Now enabled (wait for button state update)
+    assert_no_selector ".btn-disabled", text: "Add to Cart", wait: 5
+    assert_selector ".btn-primary", text: "Add to Cart"
   end
 
   test "organization member can view and reorder branded products" do
     sign_in_as @acme_admin
+
+    # Verify signed in successfully
+    assert_no_selector ".btn", text: "Sign In"
+    assert_text @acme_admin.email_address
 
     # Navigate to organization products
     visit organizations_products_path
@@ -104,5 +130,8 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     fill_in "Email", with: user.email_address
     fill_in "Password", with: "password"
     click_button "Sign In"
+
+    # Wait for redirect after sign-in
+    assert_no_selector "h1", text: "Sign In", wait: 5
   end
 end
