@@ -11,7 +11,7 @@
 
     <%= yield :head %>
 
-    <%= vite_client_tag %>
+    <%= vite_client_tag if Rails.env.development? %>
     <%= vite_javascript_tag "application" %>
     <%= vite_stylesheet_tag "application" %>
 
