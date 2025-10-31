@@ -29,7 +29,7 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     find("[data-quantity='5000']").click
 
     # Wait for price calculation (wait for non-zero price)
-    assert_selector "[data-branded-configurator-target='total']", text: /£[1-9]/, wait: 10
+    assert_selector "[data-branded-configurator-target='total']", text: /£[1-9]/
 
     # Step 4: Skip lids (optional step) - open accordion by clicking hidden radio
     find("[data-branded-configurator-target='lidsStep'] input[type='radio']", visible: false).click
@@ -40,8 +40,8 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     find("[data-branded-configurator-target='designInput']").attach_file(Rails.root.join("test", "fixtures", "files", "test_design.pdf"))
     assert_text "test_design.pdf"
 
-    # Verify add to cart button is enabled (wait for button state update)
-    assert_no_selector ".btn-disabled", text: "Add to Cart", wait: 5
+    # Verify add to cart button is enabled
+    assert_no_selector ".btn-disabled", text: "Add to Cart"
     assert_selector ".btn-primary", text: "Add to Cart"
 
     # Step 6: Add to cart
@@ -89,8 +89,8 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     find("[data-branded-configurator-target='designStep'] input[type='radio']", visible: false).click
     find("[data-branded-configurator-target='designInput']").attach_file(Rails.root.join("test", "fixtures", "files", "test_design.pdf"))
 
-    # Now enabled (wait for button state update)
-    assert_no_selector ".btn-disabled", text: "Add to Cart", wait: 5
+    # Now enabled
+    assert_no_selector ".btn-disabled", text: "Add to Cart"
     assert_selector ".btn-primary", text: "Add to Cart"
   end
 
@@ -131,7 +131,7 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
     fill_in "Password", with: "password"
     click_button "Sign In"
 
-    # Wait for redirect after sign-in
-    assert_no_selector "h1", text: "Sign In", wait: 5
+    # Verify redirect after sign-in
+    assert_no_selector "h1", text: "Sign In"
   end
 end
