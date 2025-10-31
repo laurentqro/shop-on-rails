@@ -14,16 +14,14 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
 
     # Verify configurator displayed
     assert_selector "h1", text: @product.name
-    assert_selector "[data-controller='branded-configurator']"
+    assert_selector "[data-controller~='branded-configurator']"
 
     # Step 1: Select size
     click_button "12oz"
-    assert_selector ".btn-primary", text: "12oz"
+    assert_selector ".border-primary", text: "12oz"
 
-    # Step 2: Select quantity
-    within "[data-quantity='5000']" do
-      click
-    end
+    # Step 2: Select quantity (accordion section)
+    find("[data-quantity='5000']", visible: :all).click
 
     # Wait for price calculation
     assert_selector "[data-branded-configurator-target='total']", text: /£/, wait: 5
