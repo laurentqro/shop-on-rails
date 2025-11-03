@@ -7,7 +7,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Left: Product Image -->
       <div>
-        <% image_source = product.image %>
+        <% image_source = product.product_photo %>
         <% if image_source&.attached? %>
           <figure class="rounded-lg overflow-hidden shadow-lg">
             <%= image_tag image_source.variant(resize_to_limit: [600, 600]), alt: product.name, class: "w-full h-auto" %>

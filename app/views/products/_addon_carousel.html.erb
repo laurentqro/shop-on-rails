@@ -8,8 +8,8 @@
           <div class="swiper-slide">
             <div class="card bg-white border-2 border-gray-200 hover:border-primary transition h-full">
               <figure class="p-4">
-                <% if addon.image.attached? %>
-                  <%= image_tag addon.image.variant(resize_to_limit: [300, 300]),
+                <% if addon.product_photo.attached? %>
+                  <%= image_tag addon.product_photo.variant(resize_to_limit: [300, 300]),
                                alt: addon.name,
                                class: "w-full h-48 object-contain" %>
                 <% else %>

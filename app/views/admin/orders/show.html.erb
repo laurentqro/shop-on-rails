@@ -39,7 +39,7 @@
         <% @order.order_items.each do |item| %>
           <div class="p-6 flex items-center space-x-4">
             <% if item.product_variant&.image&.attached? %>
-              <%= image_tag vite_asset_path(item.product_variant.image), class: "h-16 w-16 object-cover rounded-lg", alt: item.product_variant.display_name %>
+              <%= image_tag vite_asset_path(item.product_variant.product_photo), class: "h-16 w-16 object-cover rounded-lg", alt: item.product_variant.display_name %>
             <% else %>
               <div class="h-16 w-16 bg-gray-200 rounded-lg flex items-center justify-center">
                 <span class="text-gray-400 text-xs">No image</span>
