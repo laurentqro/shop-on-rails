@@ -24,6 +24,8 @@ module ActiveSupport
   class TestCase
     # Include N+1 query detection helpers
     include NPlusOneHelpers
+    # Include fixture file upload helper for Active Storage tests
+    include ActionDispatch::TestProcess::FixtureFile
 
     # Disable parallel tests for accurate SimpleCov coverage
     # parallelize(workers: :number_of_processors)

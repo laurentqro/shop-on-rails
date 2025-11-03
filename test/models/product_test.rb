@@ -165,4 +165,86 @@ class ProductTest < ActiveSupport::TestCase
     product = products(:acme_branded_cups)
     assert_equal products(:branded_double_wall_template), product.parent_product
   end
+
+  # Photo attachment tests
+  test "can attach product_photo" do
+    product = products(:one)
+    file = fixture_file_upload("product.jpg", "image/jpeg")
+
+    product.product_photo.attach(file)
+
+    assert product.product_photo.attached?
+  end
+
+  test "can attach lifestyle_photo" do
+    product = products(:one)
+    file = fixture_file_upload("lifestyle.jpg", "image/jpeg")
+
+    product.lifestyle_photo.attach(file)
+
+    assert product.lifestyle_photo.attached?
+  end
+
+  test "primary_photo returns product_photo when both attached" do
+    product = products(:one)
+    product.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+    product.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    assert_equal product.product_photo, product.primary_photo
+  end
+
+  test "primary_photo returns lifestyle_photo when only lifestyle attached" do
+    product = products(:one)
+    product.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    assert_equal product.lifestyle_photo, product.primary_photo
+  end
+
+  test "primary_photo returns nil when no photos attached" do
+    product = products(:one)
+
+    assert_nil product.primary_photo
+  end
+
+  test "photos returns array of attached photos" do
+    product = products(:one)
+    product.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+    product.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    photos = product.photos
+
+    assert_equal 2, photos.length
+    assert_includes photos, product.product_photo
+    assert_includes photos, product.lifestyle_photo
+  end
+
+  test "photos returns only attached photos" do
+    product = products(:one)
+    product.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+
+    photos = product.photos
+
+    assert_equal 1, photos.length
+    assert_equal product.product_photo, photos.first
+  end
+
+  test "has_photos? returns true when product_photo attached" do
+    product = products(:one)
+    product.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+
+    assert product.has_photos?
+  end
+
+  test "has_photos? returns true when lifestyle_photo attached" do
+    product = products(:one)
+    product.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    assert product.has_photos?
+  end
+
+  test "has_photos? returns false when no photos attached" do
+    product = products(:one)
+
+    assert_not product.has_photos?
+  end
 end

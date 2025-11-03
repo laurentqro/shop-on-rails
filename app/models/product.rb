@@ -7,7 +7,8 @@
 # Key relationships:
 # - belongs_to :category - Product must be in a category
 # - has_many :variants - ProductVariant records (different sizes/options)
-# - has_one_attached :image - Main product image (Active Storage)
+# - has_one_attached :product_photo - Main product photo
+# - has_one_attached :lifestyle_photo - Lifestyle/context photo
 #
 # URL structure:
 # - Uses slugs for SEO-friendly URLs (generated from name/SKU/colour)
@@ -36,7 +37,27 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
 
-  has_one_attached :image
+  has_one_attached :product_photo
+  has_one_attached :lifestyle_photo
+
+  # Returns the primary photo (with smart fallback)
+  # Priority: product_photo first, then lifestyle_photo
+  def primary_photo
+    return product_photo if product_photo.attached?
+    return lifestyle_photo if lifestyle_photo.attached?
+    nil
+  end
+
+  # Returns all attached photos as an array
+  # Useful for galleries or carousels on detail pages
+  def photos
+    [ product_photo, lifestyle_photo ].select(&:attached?)
+  end
+
+  # Check if any photo is available
+  def has_photos?
+    product_photo.attached? || lifestyle_photo.attached?
+  end
 
   enum :product_type, {
     standard: "standard",
