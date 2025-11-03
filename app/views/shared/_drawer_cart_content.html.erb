@@ -10,8 +10,8 @@
           <div class="flex items-center space-x-3 p-3 bg-base-100 rounded-lg">
             <% if cart_item.product_variant.product_photo.attached? %>
               <%= image_tag cart_item.product_variant.product_photo, class: "w-12 h-12 object-cover rounded", alt: cart_item.product_variant.display_name %>
-            <% elsif cart_item.product.image.attached? %>
-              <%= image_tag cart_item.product.image, class: "w-12 h-12 object-cover rounded", alt: cart_item.product.name %>
+            <% elsif cart_item.product.product_photo.attached? %>
+              <%= image_tag cart_item.product.product_photo, class: "w-12 h-12 object-cover rounded", alt: cart_item.product.name %>
             <% else %>
               <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
                 <span class="text-xs text-gray-500">No img</span>
