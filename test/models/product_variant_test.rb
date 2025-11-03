@@ -329,4 +329,69 @@ class ProductVariantTest < ActiveSupport::TestCase
     @variant.update(pac_size: 1000)
     assert_equal 1000, @variant.minimum_order_units
   end
+
+  # Photo attachment tests
+  test "can attach product_photo" do
+    variant = product_variants(:one)
+    file = fixture_file_upload("product.jpg", "image/jpeg")
+
+    variant.product_photo.attach(file)
+
+    assert variant.product_photo.attached?
+  end
+
+  test "can attach lifestyle_photo" do
+    variant = product_variants(:one)
+    file = fixture_file_upload("lifestyle.jpg", "image/jpeg")
+
+    variant.lifestyle_photo.attach(file)
+
+    assert variant.lifestyle_photo.attached?
+  end
+
+  test "primary_photo returns product_photo when both attached" do
+    variant = product_variants(:one)
+    variant.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+    variant.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    assert_equal variant.product_photo, variant.primary_photo
+  end
+
+  test "primary_photo returns lifestyle_photo when only lifestyle attached" do
+    variant = product_variants(:one)
+    variant.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    assert_equal variant.lifestyle_photo, variant.primary_photo
+  end
+
+  test "primary_photo returns nil when no photos attached" do
+    variant = product_variants(:one)
+
+    assert_nil variant.primary_photo
+  end
+
+  test "photos returns array of attached photos" do
+    variant = product_variants(:one)
+    variant.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+    variant.lifestyle_photo.attach(fixture_file_upload("lifestyle.jpg", "image/jpeg"))
+
+    photos = variant.photos
+
+    assert_equal 2, photos.length
+    assert_includes photos, variant.product_photo
+    assert_includes photos, variant.lifestyle_photo
+  end
+
+  test "has_photos? returns true when photos attached" do
+    variant = product_variants(:one)
+    variant.product_photo.attach(fixture_file_upload("product.jpg", "image/jpeg"))
+
+    assert variant.has_photos?
+  end
+
+  test "has_photos? returns false when no photos attached" do
+    variant = product_variants(:one)
+
+    assert_not variant.has_photos?
+  end
 end
