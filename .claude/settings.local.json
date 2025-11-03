@@ -69,7 +69,11 @@
       "Bash(RAILS_ENV=development rails db:reset:*)",
       "Bash(git revert:*)",
       "Bash(ruby -e:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Skill(superpowers:executing-plans)",
+      "Bash(printf:*)",
+      "Bash(test/fixtures/files/product.jpg)",
+      "Bash(test/fixtures/files/lifestyle.jpg)"
     ],
     "deny": [],
     "ask": []

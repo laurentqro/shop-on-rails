@@ -62,7 +62,7 @@ module BrandedProducts
     def copy_design_to_product(product)
       return unless @order_item.design.attached?
 
-      product.image.attach(@order_item.design.blob)
+      product.product_photo.attach(@order_item.design.blob)
     end
 
     def update_order_status

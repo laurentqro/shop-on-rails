@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   allow_unauthenticated_access
 
   def index
-    @products = Product.includes(:category, :active_variants, image_attachment: :blob).all
+    @products = Product.includes(:category, :active_variants, product_photo_attachment: :blob).all
   end
 
   def show
@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
 
     if base_product.customizable_template?
       # For branded products, only need category, image, and branded_product_prices
-      @product = Product.includes(:category, :branded_product_prices, image_attachment: :blob)
+      @product = Product.includes(:category, :branded_product_prices, product_photo_attachment: :blob)
                        .find_by!(slug: params[:id])
       # Load data for configurator
       service = BrandedProductPricingService.new(@product)
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
       unless @in_modal
         @addon_products = Product.where(product_type: "customizable_template")
                                 .where.not(id: @product.id)
-                                .includes(:branded_product_prices, image_attachment: :blob)
+                                .includes(:branded_product_prices, product_photo_attachment: :blob)
                                 .order(:sort_order)
                                 .limit(10)
       end
@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
       end
     elsif base_product.standard? || base_product.customized_instance?
       # For standard products, need variants with their images
-      @product = Product.includes(:category, active_variants: { image_attachment: :blob })
+      @product = Product.includes(:category, active_variants: { product_photo_attachment: :blob })
                        .find_by!(slug: params[:id])
       # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?
@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
           sku: v.sku,
           price: v.price.to_f,
           option_values: v.option_values,
-          image_url: v.image.attached? ? url_for(v.image.variant(resize_to_limit: [ 400, 400 ])) : nil
+          image_url: v.product_photo.attached? ? url_for(v.product_photo.variant(resize_to_limit: [ 400, 400 ])) : nil
         }
       end
     end

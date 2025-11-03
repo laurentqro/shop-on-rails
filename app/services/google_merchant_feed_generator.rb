@@ -1,5 +1,5 @@
 class GoogleMerchantFeedGenerator
-  def initialize(products = Product.includes(:category, :active_variants, image_attachment: :blob))
+  def initialize(products = Product.includes(:category, :active_variants, product_photo_attachment: :blob))
     @products = products
   end
 
@@ -85,7 +85,7 @@ class GoogleMerchantFeedGenerator
   end
 
   def variant_image_url(variant, product)
-    image = variant.image.attached? ? variant.image : product.image
+    image = variant.product_photo.attached? ? variant.product_photo : product.product_photo
     return "" unless image&.attached?
 
     Rails.application.routes.url_helpers.url_for(image)

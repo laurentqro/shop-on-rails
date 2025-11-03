@@ -14,7 +14,7 @@ class CartsController < ApplicationController
 
   def eager_load_cart
     # Eager load cart items with their associations to prevent N+1 queries
-    Current.cart.cart_items.includes(product_variant: { product: :image_attachment }).load if Current.cart
+    Current.cart.cart_items.includes(product_variant: { product: :product_photo_attachment }).load if Current.cart
   end
 
   def cart_params

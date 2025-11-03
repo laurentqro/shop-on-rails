@@ -21,7 +21,7 @@ module ProductHelper
     # Find all lid products that have variants matching the size
     hot_cups_extras.products
                    .where("name LIKE ?", "%Lid%")
-                   .includes(:active_variants, image_attachment: :blob)
+                   .includes(:active_variants, product_photo_attachment: :blob)
                    .select { |product|
                      product.active_variants.any? { |variant|
                        variant.name.include?(lid_size)

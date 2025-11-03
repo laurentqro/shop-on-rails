@@ -4,8 +4,8 @@
       <%= link_to product_path(cart_item.product, variant_id: cart_item.product_variant.id), data: { turbo: false } do %>
         <% if cart_item.product_variant.product_photo.attached? %>
           <%= image_tag cart_item.product_variant.product_photo, class: "w-20 h-20 object-cover rounded-md shadow", alt: cart_item.product_variant.display_name %>
-        <% elsif cart_item.product.image.attached? %>
-          <%= image_tag cart_item.product.image, class: "w-20 h-20 object-cover rounded-md shadow", alt: cart_item.product.name %>
+        <% elsif cart_item.product.product_photo.attached? %>
+          <%= image_tag cart_item.product.product_photo, class: "w-20 h-20 object-cover rounded-md shadow", alt: cart_item.product.name %>
         <% else %>
           <div class="w-20 h-20 bg-gray-200 rounded-md shadow flex items-center justify-center text-gray-500 text-xs">
             No Image

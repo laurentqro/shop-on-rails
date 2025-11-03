@@ -66,7 +66,7 @@ class BrandedProducts::InstanceCreatorServiceTest < ActiveSupport::TestCase
       reorder_price: 0.18
     )
 
-    assert result.product.image.attached?
+    assert result.product.product_photo.attached?
   end
 
   test "generates slug from name" do
