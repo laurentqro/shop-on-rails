@@ -176,6 +176,23 @@ rails credentials:edit
 - Use `product.default_variant` for single variant products
 - Price range calculated from all active variants
 
+### Working with Product Photos
+
+Products and variants support two photo types:
+- **Product Photo** (`:product_photo`) - Close-up product shot
+- **Lifestyle Photo** (`:lifestyle_photo`) - Staged in real-life context
+
+Both photos are optional. Helper methods:
+- `product.primary_photo` - Returns product_photo if present, else lifestyle_photo
+- `product.photos` - Array of all attached photos
+- `product.has_photos?` - Returns true if any photo attached
+
+**Product Cards**: Display product_photo by default, hover shows lifestyle_photo (when both present)
+
+**Admin**: Separate upload fields for each photo type
+
+**Cart/Thumbnails**: Use `primary_photo` for smart fallback
+
 ### Working with Cart
 - Use `Current.cart` to access current user's cart
 - Cart automatically handles guest vs authenticated users
