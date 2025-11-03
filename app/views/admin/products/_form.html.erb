@@ -39,8 +39,23 @@
       <%= form.label :category, class: "label text-base" %>
       <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, {}, class: "select select-bordered" %>
 
-      <%= form.label :image, class: "label text-base" %>
-      <%= form.file_field :image, class: "file-input file-input-bordered" %>
+      <%= form.label :product_photo, "Product Photo", class: "label text-base" %>
+      <%= form.file_field :product_photo, accept: 'image/*', class: "file-input file-input-bordered" %>
+      <% if form.object.product_photo.attached? %>
+        <div class="mt-2">
+          <%= image_tag form.object.product_photo.variant(resize_to_limit: [200, 200]), class: "rounded shadow" %>
+          <p class="text-sm text-gray-600 mt-1">Current product photo</p>
+        </div>
+      <% end %>
+
+      <%= form.label :lifestyle_photo, "Lifestyle Photo", class: "label text-base" %>
+      <%= form.file_field :lifestyle_photo, accept: 'image/*', class: "file-input file-input-bordered" %>
+      <% if form.object.lifestyle_photo.attached? %>
+        <div class="mt-2">
+          <%= image_tag form.object.lifestyle_photo.variant(resize_to_limit: [200, 200]), class: "rounded shadow" %>
+          <p class="text-sm text-gray-600 mt-1">Current lifestyle photo</p>
+        </div>
+      <% end %>
 
       <%= form.label :description, class: "label text-base" %>
       <%= form.text_area :description, rows: 4, class: "textarea textarea-bordered w-full" %>
