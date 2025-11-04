@@ -33,9 +33,6 @@
       <%= form.label :name, "Name (required)", class: "label text-base" %>
       <%= form.text_field :name, class: "input", required: true %>
 
-      <%= form.label :pac_size, "Pack Size", class: "label text-base" %>
-      <%= form.text_field :pac_size, class: "input" %>
-
       <%= form.label :category, class: "label text-base" %>
       <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, {}, class: "select select-bordered" %>
 

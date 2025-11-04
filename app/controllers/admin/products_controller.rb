@@ -65,7 +65,6 @@ module Admin
         :sample_eligible,
         :name,
         :description,
-        :pac_size,
         :colour,
         :category_id,
         :product_photo,
