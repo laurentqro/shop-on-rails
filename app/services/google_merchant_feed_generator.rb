@@ -1,5 +1,5 @@
 class GoogleMerchantFeedGenerator
-  def initialize(products = Product.includes(:category, :active_variants, product_photo_attachment: :blob))
+  def initialize(products = Product.includes(:category, :active_variants).with_attached_product_photo)
     @products = products
   end
 
