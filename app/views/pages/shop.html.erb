@@ -8,6 +8,10 @@
           <%= link_to category_path(category.slug) do %>
             <% if category.image.attached? %>
               <%= image_tag category.image, alt: category.name, class: "w-full h-64 object-cover rounded-t-lg" %>
+            <% elsif category_icon_path(category).present? %>
+              <div class="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
+                <%= vite_image_tag category_icon_path(category), class: 'w-32 h-32 object-contain', alt: "#{category.name} icon" %>
+              </div>
             <% else %>
               <div class="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-t-lg flex items-center justify-center">
                 <span class="text-4xl font-bold text-primary/30"><%= category.name[0] %></span>

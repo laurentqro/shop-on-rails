@@ -1,30 +1,47 @@
 <!-- Category Sub-Navigation -->
 <div class="bg-base-200 border-b border-base-300 hidden lg:block">
-  <div class="container mx-auto px-4">
-    <ul class="menu menu-horizontal gap-1 py-2 justify-center">
+  <div class="container mx-auto px-4 flex justify-center">
+    <ul class="menu menu-horizontal gap-1 py-2">
       <li>
-        <%= link_to category_path('drinks'), class: "text-lg font-medium flex items-center gap-1 #{current_page?(category_path('drinks')) ? 'text-accent' : ''}" do %>
-          🍹 Drinks
+        <%= link_to category_path('cups-and-lids'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('cups-and-lids')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/cold-cups.svg', class: 'w-6 h-6 object-contain', alt: 'Cups & Lids icon' %>
+          Cups & Lids
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('mains'), class: "text-lg font-medium flex items-center gap-1 #{current_page?(category_path('mains')) ? 'text-accent' : ''}" do %>
-          🍔 Mains
+        <%= link_to category_path('ice-cream-cups'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('ice-cream-cups')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/ice-cream-cups.svg', class: 'w-6 h-6 object-contain', alt: 'Ice Cream Cups icon' %>
+          Ice Cream Cups
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('desserts'), class: "text-lg font-medium flex items-center gap-1 #{current_page?(category_path('desserts')) ? 'text-accent' : ''}" do %>
-          🍰 Desserts
+        <%= link_to category_path('napkins'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('napkins')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/napkins.svg', class: 'w-6 h-6 object-contain', alt: 'Napkins icon' %>
+          Napkins
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('bags'), class: "text-lg font-medium flex items-center gap-1 #{current_page?(category_path('bags')) ? 'text-accent' : ''}" do %>
-          🛍️ Bags
+        <%= link_to category_path('pizza-boxes'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('pizza-boxes')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/pizza-boxes.svg', class: 'w-6 h-6 object-contain', alt: 'Pizza Boxes icon' %>
+          Pizza Boxes
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('accessories'), class: "text-lg font-medium flex items-center gap-1 #{current_page?(category_path('accessories')) ? 'text-accent' : ''}" do %>
-          🔧 Accessories
+        <%= link_to category_path('straws'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('straws')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/straws.svg', class: 'w-6 h-6 object-contain', alt: 'Straws icon' %>
+          Straws
+        <% end %>
+      </li>
+      <li>
+        <%= link_to category_path('takeaway-containers'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('takeaway-containers')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/kraft-food-containers.svg', class: 'w-6 h-6 object-contain', alt: 'Takeaway Containers icon' %>
+          Takeaway Containers
+        <% end %>
+      </li>
+      <li>
+        <%= link_to category_path('takeaway-extras'), class: "text-lg font-medium flex items-center gap-2 #{current_page?(category_path('takeaway-extras')) ? 'text-accent' : ''}" do %>
+          <%= vite_image_tag 'images/graphics/take-away-extras.svg', class: 'w-6 h-6 object-contain', alt: 'Takeaway Extras icon' %>
+          Takeaway Extras
         <% end %>
       </li>
     </ul>

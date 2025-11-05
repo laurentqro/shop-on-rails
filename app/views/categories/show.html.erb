@@ -10,7 +10,12 @@
 <%= @category.meta_description %>
 <% end %>
 
-<h1 class="text-4xl py-4 mb-2"><%= @category.name %></h1>
+<h1 class="text-4xl py-4 mb-2 flex items-center gap-3">
+  <% if category_icon_path(@category).present? %>
+    <%= vite_image_tag category_icon_path(@category), class: 'w-10 h-10 object-contain', alt: "#{@category.name} icon" %>
+  <% end %>
+  <%= @category.name %>
+</h1>
 
 <% if @category.description.present? %>
   <div class="prose prose-sm mb-6">

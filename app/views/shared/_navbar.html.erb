@@ -8,11 +8,13 @@
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li class="text-lg font-medium"><%= link_to "Shop All", shop_path, class: current_page?(shop_path) ? "text-accent" : "" %></li>
-        <li class="text-lg font-medium"><%= link_to "Drinks", category_path('drinks'), class: current_page?(category_path('drinks')) ? "text-accent" : "" %></li>
-        <li class="text-lg font-medium"><%= link_to "Mains", category_path('mains'), class: current_page?(category_path('mains')) ? "text-accent" : "" %></li>
-        <li class="text-lg font-medium"><%= link_to "Desserts", category_path('desserts'), class: current_page?(category_path('desserts')) ? "text-accent" : "" %></li>
-        <li class="text-lg font-medium"><%= link_to "Bags", category_path('bags'), class: current_page?(category_path('bags')) ? "text-accent" : "" %></li>
-        <li class="text-lg font-medium"><%= link_to "Accessories", category_path('accessories'), class: current_page?(category_path('accessories')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Cups & Lids", category_path('cups-and-lids'), class: current_page?(category_path('cups-and-lids')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Ice Cream Cups", category_path('ice-cream-cups'), class: current_page?(category_path('ice-cream-cups')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Napkins", category_path('napkins'), class: current_page?(category_path('napkins')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Pizza Boxes", category_path('pizza-boxes'), class: current_page?(category_path('pizza-boxes')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Straws", category_path('straws'), class: current_page?(category_path('straws')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Takeaway Containers", category_path('takeaway-containers'), class: current_page?(category_path('takeaway-containers')) ? "text-accent" : "" %></li>
+        <li class="text-lg font-medium"><%= link_to "Takeaway Extras", category_path('takeaway-extras'), class: current_page?(category_path('takeaway-extras')) ? "text-accent" : "" %></li>
         <li class="text-lg font-medium"><%= link_to "Branded Products", "/branded-products", class: current_page?("/branded-products") ? "text-accent" : "" %></li>
       </ul>
     </div>

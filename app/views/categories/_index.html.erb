@@ -4,6 +4,10 @@
       <figure class="bg-neutral/5">
         <% if category.image.attached? %>
           <%= image_tag category.image, alt: category.name, class: "w-full h-64 object-cover" %>
+        <% elsif category_icon_path(category).present? %>
+          <div class="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+            <%= vite_image_tag category_icon_path(category), class: 'w-32 h-32 object-contain', alt: "#{category.name} icon" %>
+          </div>
         <% else %>
           <div class="w-full h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
             <span class="text-6xl font-bold text-primary/30"><%= category.name[0] %></span>
@@ -12,7 +16,9 @@
       </figure>
       <div class="card-body">
         <div class="flex flex-col items-center justify-center">
-          <h2 class="card-title text-2xl mb-2 text-center"><%= category.name %></h2>
+          <h2 class="card-title text-2xl mb-2 text-center">
+            <%= category.name %>
+          </h2>
           <% if category.description.present? %>
             <p class="text-neutral/70 mb-4 text-center"><%= category.description %></p>
           <% end %>
