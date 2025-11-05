@@ -39,7 +39,15 @@
       <% if cart_item.configured? %>
         <%= number_to_currency(cart_item.unit_price, precision: 4) %>/unit
       <% else %>
-        <%= number_to_currency(cart_item.price) %>
+        <div>
+          <%= number_to_currency(cart_item.price) %> / pack
+          <% pac_size = cart_item.product_variant.pac_size || 1 %>
+          <% if pac_size > 1 %>
+            <div class="text-xs text-gray-500">
+              (<%= number_to_currency(cart_item.price / pac_size, precision: 4) %> / unit)
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
 
@@ -47,7 +55,7 @@
       <% if cart_item.configured? %>
         <%
           # Branded products: offer standard quantity tiers
-          current_qty = cart_item.configuration["quantity"].to_i
+          current_qty = cart_item.quantity
           quantity_options = [1000, 2000, 3000, 5000, 7500, 10000, 15000, 20000, 30000]
           quantity_options << current_qty unless quantity_options.include?(current_qty)
           quantity_options.sort!
@@ -60,7 +68,7 @@
                           ),
                           {},
                           class: "select select-sm select-bordered",
-                          onchange: "this.form.requestSubmit()" %>
+                          onchange: "this.form.requestSubmit(); this.blur()" %>
         <% end %>
       <% else %>
         <%
@@ -75,20 +83,22 @@
                           options_for_select(
                             quantity_options.map { |q|
                               num_packs = q / pac_size
-                              ["#{number_with_delimiter(q)} units (#{num_packs} #{num_packs == 1 ? 'pack' : 'packs'})", q]
+                              ["#{num_packs} #{num_packs == 1 ? 'pack' : 'packs'} (#{number_with_delimiter(q)} units)", q]
                             },
                             cart_item.quantity
                           ),
                           {},
                           class: "select select-sm select-bordered",
-                          onchange: "this.form.requestSubmit()" %>
+                          onchange: "this.form.requestSubmit(); this.blur()" %>
         <% end %>
       <% end %>
     </div>
 
     <div class="text-right text-gray-700">
       <span class="md:hidden font-semibold">Total: </span>
-      <%= number_to_currency(cart_item.line_total) %>
+      <span id="cart_item_<%= cart_item.id %>_total">
+        <%= number_to_currency(cart_item.line_total) %>
+      </span>
     </div>
 
     <div class="text-right md:text-center">

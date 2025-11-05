@@ -29,6 +29,7 @@ class CartItemsController < ApplicationController
         format.html { redirect_to cart_path, notice: "Item removed from cart." }
       end
     elsif @cart_item.update(quantity: new_quantity)
+      @cart_item.reload
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to cart_path, notice: "Cart updated." }

@@ -34,6 +34,9 @@ application.register("branded-configurator", BrandedConfiguratorController)
 import ProductCardHoverController from "../javascript/controllers/product_card_hover_controller"
 application.register("product-card-hover", ProductCardHoverController)
 
+import ProductOptionsController from "../javascript/controllers/product_options_controller"
+application.register("product-options", ProductOptionsController)
+
 // Configure Stimulus development experience
 application.debug = false
 window.Stimulus = application

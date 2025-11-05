@@ -65,7 +65,9 @@
           <% end %>
         </figure>
 
-        <div class="card-body lg:w-1/2">
+        <div class="card-body lg:w-1/2"
+             data-controller="product-options"
+             data-product-options-variants-value="<%= @variants_json.to_json %>">
           <h2 class="card-title text-3xl lg:text-4xl">
             <%= @product.name %>
           </h2>
@@ -79,29 +81,35 @@
           </p>
 
           <% if @product.active_variants.count > 1 %>
-            <div data-controller="product-options"
-                 data-product-options-variants-value="<%= @variants_json.to_json %>"
-                 class="space-y-1 my-4">
+            <div class="space-y-4 my-4">
 
               <% @product_options.each do |option| %>
-                <div class="form-control w-full max-w-xs">
-                  <label class="label pb-1">
+                <div class="w-full">
+                  <label class="label pb-2">
                     <span class="label-text font-semibold"><%= option.name %></span>
                   </label>
                   <%
                     # Get unique values for this option from all variants
                     option_values = @product.active_variants.map { |v| v.option_values[option.name] }.compact.uniq
                     selected_value = @selected_variant.option_values[option.name]
+                    target_name = option.name.downcase
                   %>
-                  <select class="select select-bordered select-lg w-full"
-                          data-product-options-target="<%= option.name.downcase %>Select"
-                          data-action="change->product-options#updateSelection">
+                  <div class="flex flex-wrap gap-2">
                     <% option_values.each do |value| %>
-                      <option value="<%= value %>" <%= 'selected' if value == selected_value %>>
+                      <button type="button"
+                              class="relative bg-white border-2 border-gray-300 text-black hover:border-primary rounded-lg px-6 py-3 cursor-pointer font-medium"
+                              data-product-options-target="<%= target_name %>Button"
+                              data-value="<%= value %>"
+                              data-action="click->product-options#select<%= option.name.capitalize %>">
                         <%= value %>
-                      </option>
+                        <span class="option-checkmark hidden absolute -top-2 -right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                          </svg>
+                        </span>
+                      </button>
                     <% end %>
-                  </select>
+                  </div>
                 </div>
               <% end %>
             </div>
@@ -126,7 +134,7 @@
                   <span class="label-text font-semibold">Select quantity:</span>
                 </label>
                 <%= select_tag "cart_item[quantity]",
-                              options_for_select(quantity_options.map { |q| ["#{number_with_delimiter(q)} units (#{q / pac_size} #{(q / pac_size) == 1 ? 'pack' : 'packs'})", q] }, pac_size),
+                              options_for_select(quantity_options.map { |q| ["#{q / pac_size} #{(q / pac_size) == 1 ? 'pack' : 'packs'} (#{number_with_delimiter(q)} units)", q] }, pac_size),
                               class: "select select-bordered select-lg w-full" %>
               </div>
 
