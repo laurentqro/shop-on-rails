@@ -4,7 +4,9 @@ class CheckoutsController < ApplicationController
 
   def create
     cart = Current.cart
-    line_items = cart.cart_items.map do |item|
+    # Eager load associations to prevent N+1 queries when building Stripe line items
+    cart_items = cart.cart_items.includes(:product, :product_variant)
+    line_items = cart_items.map do |item|
       {
         quantity: item.quantity,
         price_data: {
