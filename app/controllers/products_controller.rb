@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
       end
     elsif base_product.standard? || base_product.customized_instance?
       # For standard products, need variants with their images
-      @product = Product.includes(:category, active_variants: :product_photo_attachment)
+      @product = Product.includes(:category)
                        .with_attached_product_photo
                        .find_by!(slug: params[:id])
       # Logic for standard products and customized instances (both have variants)
