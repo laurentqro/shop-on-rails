@@ -5,14 +5,29 @@ class CheckoutsController < ApplicationController
   def create
     cart = Current.cart
     line_items = cart.cart_items.map do |item|
+      # For standard products with pack pricing: send packs as quantity
+      # For branded/configured products: send units as quantity
+      if item.configured? || item.product_variant.pac_size.blank? || item.product_variant.pac_size.zero?
+        # Unit-based pricing (branded products or products without packs)
+        quantity = item.quantity
+        unit_amount = (item.price.to_f * 100).round
+        product_name = item.product.name
+      else
+        # Pack-based pricing (standard products)
+        packs_needed = (item.quantity.to_f / item.product_variant.pac_size).ceil
+        quantity = packs_needed
+        unit_amount = (item.price.to_f * 100).round
+        product_name = "#{item.product.name} (#{item.product_variant.pac_size} per pack)"
+      end
+
       {
-        quantity: item.quantity,
+        quantity: quantity,
         price_data: {
           currency: "gbp",
           product_data: {
-            name: item.product.name
+            name: product_name
           },
-          unit_amount: (item.price.to_f * 100).round,
+          unit_amount: unit_amount,
           tax_behavior: "exclusive"
         },
         tax_rates: [ tax_rate.id ]
