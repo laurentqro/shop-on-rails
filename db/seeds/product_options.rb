@@ -15,7 +15,7 @@ end
 end
 
 # Color Option
-color_option = ProductOption.find_or_create_by!(name: "Color") do |option|
+color_option = ProductOption.find_or_create_by!(name: "Colour") do |option|
   option.display_type = "swatch"
   option.required = true
   option.position = 2
