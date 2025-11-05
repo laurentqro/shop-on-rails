@@ -45,6 +45,8 @@ class ProductsController < ApplicationController
       @product = Product.includes(:category)
                        .with_attached_product_photo
                        .find_by!(slug: params[:id])
+      # Eager load variant product photos for @variants_json mapping
+      @product.active_variants.includes(:product_photo_attachment).load
       # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?
         @product.active_variants.find_by(id: params[:variant_id])
