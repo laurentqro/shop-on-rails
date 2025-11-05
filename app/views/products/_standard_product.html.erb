@@ -121,6 +121,9 @@
             max_qty = pac_size * 10
             # Generate quantity options as multiples of pack size
             quantity_options = (1..10).map { |i| pac_size * i }
+            # Check if quantity parameter is in URL and is valid
+            url_quantity = params[:quantity].to_i
+            default_quantity = quantity_options.include?(url_quantity) ? url_quantity : pac_size
           %>
           <div class="card-actions space-y-3 my-4">
             <%= form_with url: cart_cart_items_path, method: :post, class: "w-full space-y-3", local: false, data: { controller: "cart-drawer", action: "turbo:submit-end->cart-drawer#open" } do |f| %>
@@ -134,8 +137,9 @@
                   <span class="label-text font-semibold">Select quantity:</span>
                 </label>
                 <%= select_tag "cart_item[quantity]",
-                              options_for_select(quantity_options.map { |q| ["#{q / pac_size} #{(q / pac_size) == 1 ? 'pack' : 'packs'} (#{number_with_delimiter(q)} units)", q] }, pac_size),
-                              class: "select select-bordered select-lg w-full" %>
+                              options_for_select(quantity_options.map { |q| ["#{q / pac_size} #{(q / pac_size) == 1 ? 'pack' : 'packs'} (#{number_with_delimiter(q)} units)", q] }, default_quantity),
+                              class: "select select-bordered select-lg w-full",
+                              onchange: "const params = new URLSearchParams(window.location.search); params.set('quantity', this.value); window.history.replaceState({}, '', window.location.pathname + '?' + params.toString())" %>
               </div>
 
               <div class="my-8 space-y-3">
