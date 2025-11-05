@@ -25,48 +25,18 @@ CSV.foreach(Rails.root.join('lib', 'data', 'categories.csv'), headers: true) do 
 end
 puts "Categories metadata loaded."
 
-# Create BrandYour-style categories
-drinks_category = Category.find_or_create_by!(
-  name: "Drinks",
-  slug: "drinks",
-  description: "Cups and straws for all your beverages - hot and cold",
-  meta_title: "Drinks Packaging - Cups & Straws | Afida",
-  meta_description: "Eco-friendly cups and straws for hot and cold drinks. Sustainable beverage packaging."
-)
+# Create categories from the metadata loaded from CSV
+puts "Creating categories..."
+categories_metadata.each do |slug, metadata|
+  Category.find_or_create_by!(slug: slug) do |category|
+    category.name = metadata[:name]
+    category.meta_title = metadata[:meta_title]
+    category.meta_description = metadata[:meta_description]
+  end
+  puts "  Created/Updated category: #{metadata[:name]} (#{slug})"
+end
 
-mains_category = Category.find_or_create_by!(
-  name: "Mains",
-  slug: "mains",
-  description: "Food packaging for main courses - pizza boxes, containers",
-  meta_title: "Food Packaging - Boxes & Containers | Afida",
-  meta_description: "Eco-friendly food packaging for pizzas, takeaway meals, and more."
-)
-
-desserts_category = Category.find_or_create_by!(
-  name: "Desserts",
-  slug: "desserts",
-  description: "Packaging for desserts and sweet treats",
-  meta_title: "Dessert Packaging - Ice Cream Cups | Afida",
-  meta_description: "Sustainable packaging for ice cream, desserts, and sweet treats."
-)
-
-bags_category = Category.find_or_create_by!(
-  name: "Bags",
-  slug: "bags",
-  description: "Takeaway and carrier bags for your orders",
-  meta_title: "Takeaway Bags - Kraft & Paper Bags | Afida",
-  meta_description: "Eco-friendly takeaway bags and carrier bags for your business."
-)
-
-accessories_category = Category.find_or_create_by!(
-  name: "Accessories",
-  slug: "accessories",
-  description: "Lids, napkins, cutlery, and other accessories",
-  meta_title: "Accessories - Lids, Napkins & More | Afida",
-  meta_description: "Complete your order with lids, napkins, cutlery, and accessories."
-)
-
-# Keep branded products category
+# Keep branded products category for custom products
 branded_category = Category.find_or_create_by!(
   name: "Branded Products",
   slug: "branded-products",
@@ -74,44 +44,7 @@ branded_category = Category.find_or_create_by!(
   meta_title: "Branded Products - Custom Packaging | Afida",
   meta_description: "Custom branded packaging for your business."
 )
-
-# Helper method to seed products from YAML files
-def seed_products_from_yaml(file_path, category)
-  puts "Seeding products from #{file_path}..."
-
-  yaml_data = YAML.load_file(file_path)
-  products_data = yaml_data['products'] || []
-
-  products_data.each do |product_data|
-    # Extract product attributes (everything except variants)
-    product_attributes = product_data.except('variants')
-
-    # Find or create the product
-    product = Product.find_or_initialize_by(name: product_attributes['name'])
-
-    # Update product attributes
-    product.assign_attributes(product_attributes)
-    product.category = category
-    product.save!
-    puts "  Created/Updated product: #{product.name}"
-    # Handle variants if they exist
-    if product_data['variants']
-      product_data['variants'].each do |variant_data|
-        # Find or create variant by SKU (assuming SKU is unique)
-        if variant_data['sku']
-          variant = ProductVariant.find_or_initialize_by(sku: variant_data['sku'])
-          variant.assign_attributes(variant_data)
-          variant.product = product
-          variant.save!
-
-          puts "Created/Updated variant: #{variant.name} (#{variant.sku})"
-        else
-          puts "Warning: Variant missing SKU: #{variant_data}"
-        end
-      end
-    end
-  end
-end
+puts "  Created/Updated category: Branded Products (branded-products)"
 
 # Load product options first (required for products with options)
 load Rails.root.join('db', 'seeds', 'product_options.rb')
