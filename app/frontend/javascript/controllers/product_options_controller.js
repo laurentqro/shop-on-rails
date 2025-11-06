@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Handles Size/Colour option selection on product pages with button selectors
 // Finds matching variant based on selected options
 export default class extends Controller {
-  static targets = ["sizeButton", "colourButton", "priceDisplay", "unitPriceDisplay", "imageDisplay", "variantSkuInput", "quantitySelect"]
+  static targets = ["sizeButton", "colourButton", "priceDisplay", "unitPriceDisplay", "imageDisplay", "variantSkuInput", "quantitySelect", "packSizeDisplay", "skuDisplay"]
 
   static values = {
     variants: Array,  // All product variants with their option_values
@@ -130,7 +130,21 @@ export default class extends Controller {
     this.currentVariant = variant
 
     // Update pack size for the new variant
-    this.pacSizeValue = variant.pac_size || 1
+    const newPacSize = variant.pac_size || 1
+    this.pacSizeValue = newPacSize
+
+    // Update quantity dropdown options with new pack size
+    this.updateQuantityOptions(newPacSize)
+
+    // Update pack size display
+    if (this.hasPackSizeDisplayTarget) {
+      this.packSizeDisplayTarget.textContent = `Pack size: ${this.formatNumber(newPacSize)} units`
+    }
+
+    // Update SKU display
+    if (this.hasSkuDisplayTarget) {
+      this.skuDisplayTarget.textContent = `SKU: ${variant.sku}`
+    }
 
     // Update price with quantity
     this.updatePrice()
@@ -197,5 +211,37 @@ export default class extends Controller {
 
     const newUrl = `${window.location.pathname}?${params.toString()}`
     window.history.replaceState({}, '', newUrl)
+  }
+
+  // Regenerate quantity dropdown options when pack size changes
+  updateQuantityOptions(pacSize) {
+    if (!this.hasQuantitySelectTarget) return
+
+    // Clear existing options
+    this.quantitySelectTarget.innerHTML = ''
+
+    // Generate new options: 1-10 packs with correct unit counts
+    for (let i = 1; i <= 10; i++) {
+      const units = pacSize * i
+      const packText = i === 1 ? 'pack' : 'packs'
+      const label = `${i} ${packText} (${this.formatNumber(units)} units)`
+
+      const option = document.createElement('option')
+      option.value = units
+      option.textContent = label
+
+      this.quantitySelectTarget.appendChild(option)
+    }
+
+    // Reset to first option (1 pack)
+    this.quantitySelectTarget.selectedIndex = 0
+
+    // Trigger price update with new quantity
+    this.updatePrice()
+  }
+
+  // Format number with commas (e.g., 1000 -> "1,000")
+  formatNumber(number) {
+    return new Intl.NumberFormat('en-GB').format(number)
   }
 }
