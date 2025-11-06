@@ -80,8 +80,8 @@
         <%
           variant = cart_item.product_variant
           pac_size = variant.pac_size || 1
-          # Generate multiples of pack size (1x to 10x packs), max 10,000 units
-          max_quantity = [10 * pac_size, 10000].min
+          # Generate multiples of pack size (1x to 10x packs), max 30,000 units
+          max_quantity = [10 * pac_size, 30000].min
           quantity_options = (1..10).map { |i| pac_size * i }.select { |q| q <= max_quantity }
           # Always include current quantity if it's not already in the list
           quantity_options << cart_item.quantity unless quantity_options.include?(cart_item.quantity)
