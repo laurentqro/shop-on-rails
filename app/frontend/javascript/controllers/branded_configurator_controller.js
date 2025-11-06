@@ -180,29 +180,31 @@ export default class extends Controller {
     const card = document.createElement('div')
     card.className = 'card bg-white border-2 border-gray-200 hover:border-primary transition'
     card.innerHTML = `
-      <figure class="p-4">
-        ${lid.image_url ?
-          `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-32 object-contain" />` :
-          '<div class="w-full h-32 bg-gray-100 flex items-center justify-center"><span class="text-4xl">📦</span></div>'
-        }
-      </figure>
-      <div class="card-body p-4">
-        <h3 class="card-title text-sm">${lid.name}</h3>
-        <p class="text-lg font-bold">£${parseFloat(lid.price).toFixed(2)}</p>
-        <p class="text-xs text-gray-500">Pack of ${lid.pac_size.toLocaleString()}</p>
-
-        <select class="select select-sm select-bordered w-full mt-2" data-lid-quantity="${lid.sku}">
-          ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
-            `<option value="${q.value}">${q.label}</option>`
-          ).join('')}
-        </select>
-
-        <button class="btn btn-primary btn-sm mt-2"
-                data-action="click->branded-configurator#addLidToCart"
-                data-lid-sku="${lid.sku}"
-                data-lid-name="${lid.name}">
-          + Add
-        </button>
+      <div class="flex flex-row items-center p-4 gap-4">
+        <figure class="flex-shrink-0 w-24 h-24">
+          ${lid.image_url ?
+            `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-full object-contain" />` :
+            '<div class="w-full h-full bg-gray-100 flex items-center justify-center rounded"><span class="text-3xl">📦</span></div>'
+          }
+        </figure>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-sm truncate">${lid.name}</h3>
+          <p class="text-lg font-bold">£${parseFloat(lid.price).toFixed(2)}</p>
+          <p class="text-xs text-gray-500">Pack of ${lid.pac_size.toLocaleString()}</p>
+        </div>
+        <div class="flex-shrink-0 flex flex-col gap-2 w-48">
+          <select class="select select-sm select-bordered w-full" data-lid-quantity="${lid.sku}">
+            ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
+              `<option value="${q.value}">${q.label}</option>`
+            ).join('')}
+          </select>
+          <button class="btn btn-primary btn-sm w-full"
+                  data-action="click->branded-configurator#addLidToCart"
+                  data-lid-sku="${lid.sku}"
+                  data-lid-name="${lid.name}">
+            + Add
+          </button>
+        </div>
       </div>
     `
     return card
