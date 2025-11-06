@@ -67,6 +67,7 @@ class ProductsController < ApplicationController
           id: v.id,
           sku: v.sku,
           price: v.price.to_f,
+          pac_size: v.pac_size || 1,
           option_values: v.option_values,
           image_url: v.product_photo.attached? ? url_for(v.product_photo.variant(resize_to_limit: [ 400, 400 ])) : nil
         }

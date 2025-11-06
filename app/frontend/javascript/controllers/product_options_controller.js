@@ -3,11 +3,14 @@ import { Controller } from "@hotwired/stimulus"
 // Handles Size/Colour option selection on product pages with button selectors
 // Finds matching variant based on selected options
 export default class extends Controller {
-  static targets = ["sizeButton", "colourButton", "priceDisplay", "imageDisplay", "variantSkuInput"]
+  static targets = ["sizeButton", "colourButton", "priceDisplay", "unitPriceDisplay", "imageDisplay", "variantSkuInput", "quantitySelect"]
 
   static values = {
-    variants: Array  // All product variants with their option_values
+    variants: Array,  // All product variants with their option_values
+    pacSize: Number   // Pack size for current variant
   }
+
+  currentVariant = null
 
   connect() {
     // Read URL parameters
@@ -69,6 +72,11 @@ export default class extends Controller {
     this.updateSelection()
   }
 
+  updateQuantity(event) {
+    // Recalculate total price when quantity changes
+    this.updatePrice()
+  }
+
   selectButtonVisual(button) {
     button.classList.remove('border-gray-300')
     button.classList.add('border-primary')
@@ -118,14 +126,14 @@ export default class extends Controller {
   }
 
   updateDisplay(variant) {
-    // Update price
-    if (this.hasPriceDisplayTarget) {
-      const formatter = new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'GBP'
-      })
-      this.priceDisplayTarget.textContent = formatter.format(variant.price)
-    }
+    // Store current variant for price calculations
+    this.currentVariant = variant
+
+    // Update pack size for the new variant
+    this.pacSizeValue = variant.pac_size || 1
+
+    // Update price with quantity
+    this.updatePrice()
 
     // Update hidden SKU input for cart form
     if (this.hasVariantSkuInputTarget) {
@@ -139,6 +147,35 @@ export default class extends Controller {
 
     // Update URL to reflect selection (optional)
     this.updateUrl(variant)
+  }
+
+  updatePrice() {
+    if (!this.hasPriceDisplayTarget || !this.currentVariant) return
+
+    // Format currency
+    const formatter = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP'
+    })
+
+    // Update unit price (price per pack)
+    if (this.hasUnitPriceDisplayTarget) {
+      this.unitPriceDisplayTarget.textContent = `${formatter.format(this.currentVariant.price)} / pack`
+    }
+
+    // Get selected quantity in units
+    const quantityInUnits = this.hasQuantitySelectTarget
+      ? parseInt(this.quantitySelectTarget.value)
+      : this.pacSizeValue
+
+    // Calculate number of packs (quantity is in units, price is per pack)
+    const numberOfPacks = quantityInUnits / this.pacSizeValue
+
+    // Calculate total price (variant price is per pack)
+    const totalPrice = this.currentVariant.price * numberOfPacks
+
+    // Update total price display
+    this.priceDisplayTarget.textContent = formatter.format(totalPrice)
   }
 
   updateUrl(variant) {
