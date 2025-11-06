@@ -178,22 +178,22 @@ export default class extends Controller {
 
   createLidCard(lid) {
     const card = document.createElement('div')
-    card.className = 'card bg-white border-2 border-gray-200 hover:border-primary transition'
+    card.className = 'card bg-white border-2 border-gray-200 hover:border-primary transition overflow-hidden'
     card.innerHTML = `
-      <div class="flex flex-row items-center p-4 gap-4">
-        <figure class="flex-shrink-0 w-24 h-24">
+      <div class="flex flex-row items-stretch p-4 gap-4">
+        <figure class="flex-shrink-0 w-24 h-24 self-center">
           ${lid.image_url ?
             `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-full object-contain" />` :
             '<div class="w-full h-full bg-gray-100 flex items-center justify-center rounded"><span class="text-3xl">📦</span></div>'
           }
         </figure>
-        <div class="flex-1 min-w-0">
-          <h3 class="font-semibold text-sm truncate">${lid.name}</h3>
-          <p class="text-lg font-bold">£${parseFloat(lid.price).toFixed(2)}</p>
+        <div class="flex-1 min-w-0 self-center">
+          <h3 class="font-semibold text-base truncate mb-1">${lid.name}</h3>
+          <p class="text-xl font-bold mb-0.5">£${parseFloat(lid.price).toFixed(2)}</p>
           <p class="text-xs text-gray-500">Pack of ${lid.pac_size.toLocaleString()}</p>
         </div>
-        <div class="flex-shrink-0 flex flex-col gap-2 w-48">
-          <select class="select select-sm select-bordered w-full" data-lid-quantity="${lid.sku}">
+        <div class="flex-shrink-0 flex flex-col justify-center gap-2 w-52">
+          <select class="select select-sm select-bordered w-full bg-white" data-lid-quantity="${lid.sku}">
             ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
               `<option value="${q.value}">${q.label}</option>`
             ).join('')}
