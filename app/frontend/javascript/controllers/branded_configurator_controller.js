@@ -216,12 +216,14 @@ export default class extends Controller {
   }
 
   generateLidQuantityOptions(pac_size, cupQuantity) {
-    // Generate pack multiples up to 10 packs or 30,000 units (whichever is smaller)
+    // Generate pack multiples up to 10 packs or 10,000 units (whichever is smaller)
     const MAX_QUANTITY = 30000
     const options = []
+
+    // Add pack multiples up to 10,000 units
     for (let i = 1; i <= 10; i++) {
       const quantity = pac_size * i
-      if (quantity > MAX_QUANTITY) break
+      if (quantity > 10000) break
       const numPacks = i
       options.push({
         value: quantity,
@@ -229,6 +231,17 @@ export default class extends Controller {
         selected: quantity === cupQuantity
       })
     }
+
+    // Add 5,000-unit increments from 15,000 to 30,000
+    for (let quantity = 15000; quantity <= MAX_QUANTITY; quantity += 5000) {
+      const numPacks = Math.ceil(quantity / pac_size)
+      options.push({
+        value: quantity,
+        label: `${quantity.toLocaleString()} units (${numPacks} ${numPacks === 1 ? 'pack' : 'packs'})`,
+        selected: quantity === cupQuantity
+      })
+    }
+
     return options
   }
 
