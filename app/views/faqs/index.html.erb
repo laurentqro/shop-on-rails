@@ -1,0 +1,109 @@
+<% content_for :title, "Frequently Asked Questions" %>
+
+<div class="container mx-auto px-4 py-8 max-w-5xl">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h1>
+    <p class="text-lg text-gray-600">Find answers to common questions about our packaging products and services</p>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="mb-8">
+    <%= form_with url: faq_path, method: :get, class: "max-w-2xl mx-auto", data: { controller: "faq-search", turbo_frame: "faq-content" } do |f| %>
+      <div class="relative">
+        <%= f.search_field :q,
+            value: @search_query,
+            placeholder: "Search FAQs...",
+            class: "input input-bordered w-full pr-12",
+            data: { faq_search_target: "input", action: "input->faq-search#search" } %>
+        <button type="submit" class="btn btn-ghost btn-sm absolute right-2 top-1/2 -translate-y-1/2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="faq-content">
+    <% if @search_results %>
+      <!-- Search Results -->
+      <div class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">
+          Search Results for "<%= @search_query %>"
+          <span class="text-sm text-gray-500">(<%= @search_results.size %> <%= "result".pluralize(@search_results.size) %>)</span>
+        </h2>
+
+        <% if @search_results.empty? %>
+          <div class="alert alert-info">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>No results found. Try different keywords or browse categories below.</span>
+          </div>
+        <% else %>
+          <div class="space-y-4">
+            <% @search_results.each do |result| %>
+              <div class="card bg-base-100 shadow-sm border border-base-300">
+                <div class="card-body">
+                  <div class="badge badge-primary badge-sm mb-2"><%= result[:category_title] %></div>
+                  <h3 class="card-title text-lg"><%= result[:question] %></h3>
+                  <p class="text-gray-600"><%= result[:answer] %></p>
+                  <a href="#<%= result[:category_id] %>-<%= result[:question_id] %>" class="link link-primary text-sm">View in category</a>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="divider my-8">OR BROWSE ALL CATEGORIES</div>
+      </div>
+    <% end %>
+
+    <!-- Quick Links -->
+    <div class="mb-8 p-6 bg-base-200 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4">Quick Links</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <% @categories.each do |category| %>
+          <a href="#<%= category["id"] %>" class="btn btn-sm btn-outline">
+            <%= category["title"] %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- FAQ Categories Accordion -->
+    <div class="space-y-4" data-controller="faq-accordion">
+      <% @categories.each do |category| %>
+        <div class="card bg-base-100 shadow-sm border border-base-300" id="<%= category["id"] %>">
+          <div class="card-body">
+            <h2 class="card-title text-2xl mb-4 flex items-center justify-between cursor-pointer"
+                data-action="click->faq-accordion#toggle"
+                data-faq-accordion-target="header">
+              <%= category["title"] %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform" data-faq-accordion-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </h2>
+
+            <div class="space-y-6 hidden" data-faq-accordion-target="content">
+              <% category["questions"].each do |q| %>
+                <div class="border-l-4 border-primary pl-4" id="<%= category["id"] %>-<%= q["id"] %>">
+                  <h3 class="font-semibold text-lg mb-2"><%= q["question"] %></h3>
+                  <p class="text-gray-600 leading-relaxed"><%= q["answer"] %></p>
+                </div>
+              <% end %>
+
+              <!-- Contact CTA -->
+              <div class="alert alert-info mt-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                  <div class="font-semibold">Still have questions about <%= category["title"].downcase %>?</div>
+                  <div class="text-sm">Contact us at <a href="mailto:info@afida.com" class="link">info@afida.com</a> or call <a href="tel:02033027719" class="link">0203 302 7719</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

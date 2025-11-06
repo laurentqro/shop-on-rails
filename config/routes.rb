@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get "privacy", to: "pages#privacy"
   get "cookies-policy", to: "pages#cookies_policy"
 
+  # FAQ page
+  get "faq", to: "faqs#index"
+
   resources :products, only: [ :index, :show ], path: "product"
   resources :categories, only: [ :show ], path: "category"
 
