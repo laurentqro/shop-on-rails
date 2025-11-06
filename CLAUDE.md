@@ -221,3 +221,113 @@ Use Stripe test mode card numbers:
 - Available at `/feeds/google-merchant.xml`
 - Auto-generates product feed for Google Shopping
 - Includes product data, pricing, images, and availability
+
+## SEO Implementation
+
+### Overview
+
+Comprehensive SEO implementation with structured data, sitemaps, canonical URLs, and meta tags across all pages.
+
+### Structured Data (JSON-LD)
+
+**Available helpers** (`app/helpers/seo_helper.rb`):
+
+```ruby
+# Product structured data with Schema.org Product markup
+product_structured_data(product, variant)
+
+# Organization structured data (Afida company info)
+organization_structured_data
+
+# Breadcrumb navigation structured data
+breadcrumb_structured_data(items)
+
+# Canonical URL tag
+canonical_url(url = nil)
+```
+
+**Implemented on:**
+- Product pages: Product + Breadcrumb structured data
+- Branded product pages: Product (AggregateOffer) + Breadcrumb
+- Category pages: CollectionPage + Breadcrumb
+- All pages: Organization structured data (in head via footer partial)
+
+### Sitemaps
+
+**XML Sitemap:**
+- Route: `/sitemap.xml`
+- Controller: `SitemapsController`
+- Service: `SitemapGeneratorService` (generates sitemap with priorities and change frequencies)
+- Includes: Home, static pages, all categories, all products, FAQs
+
+**Robots.txt:**
+- Route: `/robots.txt` (dynamic controller)
+- Controller: `RobotsController`
+- Includes sitemap reference, allows all except `/admin/`, `/cart`, `/checkout`
+
+### Meta Tags
+
+**All pages include:**
+- Title tag (via `content_for :title`)
+- Meta description (via `content_for :meta_description`)
+- Canonical URL (automatic via `application.html.erb`)
+
+**Product and Category pages:**
+- Use database fields `meta_title` and `meta_description` when present
+- Fallback to generated values when blank
+- Products: Falls back to "#{name} | #{category.name} | Afida"
+- Categories: Uses `meta_title` and `meta_description` from database
+
+**Home and important pages:**
+- Open Graph tags (og:title, og:description, og:type, og:url)
+- Twitter Card tags
+- Custom optimized titles and descriptions
+
+### SEO Validation
+
+**Rake task:**
+```bash
+rails seo:validate
+```
+
+**What it checks:**
+- Products missing custom meta_title or meta_description
+- Categories missing meta_title or meta_description
+- Displays summary of SEO coverage
+
+### Testing
+
+**System tests:**
+- `test/system/seo_test.rb` - Canonical URLs on product/category pages
+- `test/system/product_structured_data_test.rb` - Structured data on products
+- `test/system/home_page_seo_test.rb` - Home page meta tags
+
+**Integration tests:**
+- `test/integration/comprehensive_seo_test.rb` - End-to-end SEO validation
+- `test/integration/product_meta_tags_test.rb` - Database field fallback behavior
+
+**Service tests:**
+- `test/services/sitemap_generator_service_test.rb` - Sitemap XML generation
+
+**Helper tests:**
+- `test/helpers/seo_helper_test.rb` - Structured data helper methods
+
+### Next Steps
+
+After deploying SEO updates:
+1. Run `rails seo:validate` to check coverage
+2. Test sitemap at `yoursite.com/sitemap.xml`
+3. Verify robots.txt at `yoursite.com/robots.txt`
+4. Test structured data with [Google Rich Results Test](https://search.google.com/test/rich-results)
+5. Submit sitemap to Google Search Console
+6. Monitor search performance and rankings
+
+### Configuration
+
+**Required environment variables:**
+- `APP_HOST` - Used by sitemap generator (e.g., "afida.co.uk")
+- Set to production domain in production environment
+
+**Database fields:**
+- Products: `meta_title`, `meta_description` (optional, with fallback)
+- Categories: `meta_title`, `meta_description` (required)
