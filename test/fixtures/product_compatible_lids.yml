@@ -1,0 +1,15 @@
+one:
+  product_id: <%= ActiveRecord::FixtureSet.identify(:branded_cup_8oz) %>
+  compatible_lid_id: <%= ActiveRecord::FixtureSet.identify(:flat_lid_8oz) %>
+  default: true
+  sort_order: 1
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+two:
+  product_id: <%= ActiveRecord::FixtureSet.identify(:branded_cup_8oz) %>
+  compatible_lid_id: <%= ActiveRecord::FixtureSet.identify(:domed_lid_8oz) %>
+  default: false
+  sort_order: 2
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

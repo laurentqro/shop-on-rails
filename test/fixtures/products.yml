@@ -72,3 +72,33 @@ recyclable_lids_white:
   active: true
   sort_order: 3
   product_type: standard
+
+branded_cup_8oz:
+  name: Branded Cup 8oz
+  slug: branded-cup-8oz
+  sku: CUP-BRAND-8
+  category: branded
+  active: true
+  product_type: branded
+  meta_title: Branded Cup 8oz
+  meta_description: Customizable 8oz branded cup
+
+flat_lid_8oz:
+  name: Flat Lid - 8oz
+  slug: flat-lid-8oz
+  sku: LID-FLAT-8
+  category: hot_cups_extras
+  active: true
+  product_type: standard
+  meta_title: Flat Lid 8oz
+  meta_description: Standard flat lid for 8oz cups
+
+domed_lid_8oz:
+  name: Domed Lid - 8oz
+  slug: domed-lid-8oz
+  sku: LID-DOME-8
+  category: hot_cups_extras
+  active: true
+  product_type: standard
+  meta_title: Domed Lid 8oz
+  meta_description: Domed lid with extra room for 8oz cups
