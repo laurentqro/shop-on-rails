@@ -80,7 +80,7 @@
         <div class="join join-vertical w-full">
           <% category["questions"].each do |q| %>
             <div class="collapse collapse-arrow join-item bg-base-100 border border-base-300">
-              <input type="checkbox" name="faq-<%= category["id"] %>" />
+              <input type="radio" name="faq-accordion" />
               <div class="collapse-title text-lg" id="<%= category["id"] %>-<%= q["id"] %>">
                 <%= q["question"] %>
               </div>

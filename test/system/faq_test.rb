@@ -16,13 +16,28 @@ class FaqTest < ApplicationSystemTestCase
 
     # All questions start closed
     within "#about-products" do
-      # DaisyUI accordion uses checkbox inputs now (can open multiple)
+      # DaisyUI accordion uses radio inputs (only one open at a time)
       first_question = first(".collapse")
-      checkbox = first_question.find('input[type="checkbox"]', visible: false)
+      radio = first_question.find('input[type="radio"]', visible: false)
 
       # Open the question
-      checkbox.click
-      assert checkbox.checked?
+      radio.click
+      assert radio.checked?
+    end
+
+    # Opening another question should close the first
+    within "#custom-printing" do
+      first_question = first(".collapse")
+      radio = first_question.find('input[type="radio"]', visible: false)
+      radio.click
+      assert radio.checked?
+    end
+
+    # First question should now be closed
+    within "#about-products" do
+      first_question = first(".collapse")
+      radio = first_question.find('input[type="radio"]', visible: false)
+      assert_not radio.checked?
     end
   end
 
