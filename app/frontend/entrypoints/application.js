@@ -40,6 +40,9 @@ application.register("product-options", ProductOptionsController)
 import FaqSearchController from "../javascript/controllers/faq_search_controller"
 application.register("faq-search", FaqSearchController)
 
+import FaqDeepLinkController from "../javascript/controllers/faq_deep_link_controller"
+application.register("faq-deep-link", FaqDeepLinkController)
+
 // Configure Stimulus development experience
 application.debug = false
 window.Stimulus = application
