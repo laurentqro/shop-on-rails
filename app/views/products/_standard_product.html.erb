@@ -91,6 +91,8 @@
                   <%
                     # Get unique values for this option from all variants
                     option_values = @product.active_variants.map { |v| v.option_values[option.name] }.compact.uniq
+                    # Sort by numeric value (extract numbers from strings like "8oz", "12oz")
+                    option_values = option_values.sort_by { |v| v.scan(/\d+/).first.to_i }
                     selected_value = @selected_variant.option_values[option.name]
                     target_name = option.name.downcase
                   %>
