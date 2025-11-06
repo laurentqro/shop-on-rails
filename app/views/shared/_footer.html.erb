@@ -51,8 +51,10 @@
       </a>
     </div>
   </nav>
+</footer>
 
+<% content_for :head do %>
   <script type="application/ld+json">
     <%= raw organization_structured_data %>
   </script>
-</footer>
+<% end %>
