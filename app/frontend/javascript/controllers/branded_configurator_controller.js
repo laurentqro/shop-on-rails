@@ -192,18 +192,18 @@ export default class extends Controller {
         <!-- Content -->
         <div class="flex-1 min-w-0">
           <h3 class="font-semibold text-lg mb-1">${lid.name}</h3>
-          <div class="text-2xl font-bold text-gray-900">£${parseFloat(lid.price).toFixed(2)}</div>
+          <div class="text-base text-gray-900">£${parseFloat(lid.price).toFixed(2)}</div>
           <div class="text-sm text-gray-500 mt-1">Pack of ${lid.pac_size.toLocaleString()}</div>
         </div>
 
-        <!-- Actions -->
-        <div class="flex-shrink-0 flex items-center gap-3">
-          <select class="px-4 py-2.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white" style="min-width: 200px;" data-lid-quantity="${lid.sku}">
+        <!-- Actions (vertical stack) -->
+        <div class="flex-shrink-0 flex flex-col gap-2" style="min-width: 200px;">
+          <select class="px-4 py-2.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white w-full" data-lid-quantity="${lid.sku}">
             ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
               `<option value="${q.value}">${q.label}</option>`
             ).join('')}
           </select>
-          <button class="px-6 py-2.5 text-sm font-medium text-white bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap"
+          <button class="px-6 py-2.5 text-sm font-medium text-white bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full"
                   data-action="click->branded-configurator#addLidToCart"
                   data-lid-sku="${lid.sku}"
                   data-lid-name="${lid.name}">
