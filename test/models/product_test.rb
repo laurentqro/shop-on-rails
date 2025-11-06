@@ -247,4 +247,25 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_not product.has_photos?
   end
+
+  # Compatible cup sizes tests
+  test "compatible_cup_sizes can store array of sizes" do
+    product = products(:one)
+    product.compatible_cup_sizes = [ "8oz", "12oz", "16oz" ]
+    assert product.save
+
+    product.reload
+    assert_equal [ "8oz", "12oz", "16oz" ], product.compatible_cup_sizes
+  end
+
+  test "compatible_cup_sizes defaults to empty array" do
+    product = Product.new(
+      name: "Test Product",
+      category: categories(:one),
+      slug: "test-product-slug"
+    )
+    assert product.save
+
+    assert_equal [], product.compatible_cup_sizes
+  end
 end

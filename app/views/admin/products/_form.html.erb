@@ -95,6 +95,30 @@
     <% end %>
   </fieldset>
 
+  <% if @product.persisted? %>
+    <div class="divider my-8"></div>
+
+    <fieldset class="fieldset my-8">
+      <legend class="fieldset-legend text-2xl font-medium">Compatible Cup Sizes (for lids)</legend>
+      <p class="text-sm text-base-content/70 mb-4">
+        Select which cup sizes this lid is compatible with. This is used to match lids with cups in the branded configurator.
+      </p>
+
+      <div class="form-control">
+        <%= form.label :compatible_cup_sizes, "Compatible Cup Sizes", class: "label" %>
+        <div class="flex flex-wrap gap-3">
+          <% %w[4oz 6oz 8oz 10oz 12oz 16oz 20oz].each do |size| %>
+            <label class="label cursor-pointer gap-2 border border-base-300 rounded-lg px-4 py-2">
+              <%= check_box_tag 'product[compatible_cup_sizes][]', size, @product.compatible_cup_sizes&.include?(size), class: "checkbox checkbox-sm" %>
+              <span class="label-text"><%= size %></span>
+            </label>
+          <% end %>
+        </div>
+        <%= hidden_field_tag 'product[compatible_cup_sizes][]', '', id: nil %>
+      </div>
+    </fieldset>
+  <% end %>
+
   <div class="inline mt-8 flex justify-end">
     <%= form.submit class: "btn btn-primary" %>
   </div>

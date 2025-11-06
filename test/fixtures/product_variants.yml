@@ -167,3 +167,47 @@ recyclable_lid_white_90mm:
   active: true
   sort_order: 3
   option_values: {}
+
+branded_cup_8oz_variant_small:
+  product: branded_cup_8oz
+  name: Small Pack
+  sku: CUP-BRAND-8-1000
+  pac_size: 1000
+  price: 120.00
+  stock_quantity: 500
+  active: true
+  sort_order: 1
+  option_values: {}
+
+flat_lid_8oz_variant:
+  product: flat_lid_8oz
+  name: Standard Pack
+  sku: LID-FLAT-8-1000
+  pac_size: 1000
+  price: 15.00
+  stock_quantity: 500
+  active: true
+  sort_order: 1
+  option_values: {}
+
+domed_lid_8oz_variant:
+  product: domed_lid_8oz
+  name: Standard Pack
+  sku: LID-DOME-8-1000
+  pac_size: 1000
+  price: 18.00
+  stock_quantity: 500
+  active: true
+  sort_order: 1
+  option_values: {}
+
+sip_lid_8oz_variant:
+  product: sip_lid_8oz
+  name: Standard Pack
+  sku: LID-SIP-8-1000
+  pac_size: 1000
+  price: 20.00
+  stock_quantity: 0
+  active: true
+  sort_order: 1
+  option_values: {}

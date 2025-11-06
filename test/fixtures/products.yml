@@ -56,6 +56,7 @@ paper_lids:
   active: true
   sort_order: 1
   product_type: standard
+  compatible_cup_sizes: ["8oz", "12oz"]
 
 recyclable_lids_black:
   name: Recyclable Sip Lids for Hot Cups - Black
@@ -64,6 +65,7 @@ recyclable_lids_black:
   active: true
   sort_order: 2
   product_type: standard
+  compatible_cup_sizes: ["8oz", "12oz"]
 
 recyclable_lids_white:
   name: Recyclable Sip Lids for Hot Cups - White
@@ -72,3 +74,50 @@ recyclable_lids_white:
   active: true
   sort_order: 3
   product_type: standard
+  compatible_cup_sizes: ["8oz", "12oz"]
+
+branded_cup_8oz:
+  name: Branded Cup 8oz
+  slug: branded-cup-8oz
+  sku: CUP-BRAND-8
+  category: branded
+  active: true
+  product_type: standard
+  meta_title: Branded Cup 8oz
+  meta_description: Customizable 8oz branded cup
+
+flat_lid_8oz:
+  name: Flat Lid - 8oz
+  slug: flat-lid-8oz
+  sku: LID-FLAT-8
+  category: hot_cups_extras
+  active: true
+  product_type: standard
+  short_description: Standard closure for 8oz cups
+  meta_title: Flat Lid 8oz
+  meta_description: Standard flat lid for 8oz cups
+  compatible_cup_sizes: ["8oz"]
+
+domed_lid_8oz:
+  name: Domed Lid - 8oz
+  slug: domed-lid-8oz
+  sku: LID-DOME-8
+  category: hot_cups_extras
+  active: true
+  product_type: standard
+  short_description: Extra room for toppings
+  meta_title: Domed Lid 8oz
+  meta_description: Domed lid with extra room for 8oz cups
+  compatible_cup_sizes: ["8oz"]
+
+sip_lid_8oz:
+  name: Sip Lid - 8oz
+  slug: sip-lid-8oz
+  sku: LID-SIP-8
+  category: hot_cups_extras
+  active: true
+  product_type: standard
+  short_description: Built-in drinking spout
+  meta_title: Sip Lid 8oz
+  meta_description: Sip lid with built-in spout for 8oz cups
+  compatible_cup_sizes: ["8oz"]

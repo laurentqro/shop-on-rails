@@ -193,6 +193,42 @@ Both photos are optional. Helper methods:
 
 **Cart/Thumbnails**: Use `primary_photo` for smart fallback
 
+### Working with Lid Compatibility
+
+Products can define which cup sizes they're compatible with using the `compatible_cup_sizes` array field.
+
+**Use Case**: Lid products define which cup sizes they fit (e.g., "8oz", "12oz", "16oz")
+
+**Database Field**:
+- `products.compatible_cup_sizes` - String array (PostgreSQL)
+- Example: `["8oz", "12oz", "16oz"]`
+
+**Admin Setup**:
+1. Edit a lid product in the admin
+2. Check the cup sizes this lid is compatible with
+3. Available sizes: 4oz, 6oz, 8oz, 10oz, 12oz, 16oz, 20oz
+4. Save the product
+
+**Querying Compatible Lids**:
+```ruby
+# Find all lids compatible with 8oz cups
+Product.where("? = ANY(compatible_cup_sizes)", "8oz")
+
+# Helper method
+compatible_lids_for_cup("8oz")  # Returns array of lid products
+```
+
+**Configurator Integration**:
+- Branded product configurator uses `compatible_lids_for_cup` helper
+- Filters lid options based on selected cup size
+- Only shows lids that have the cup size in their `compatible_cup_sizes` array
+
+**Architecture Notes**:
+- **Product-level**: Compatibility is set at product level (not variant level)
+- **Variant matching**: Configurator finds matching size variant from compatible lid product
+- **Flexibility**: A lid product can be compatible with multiple cup sizes
+- **Admin-controlled**: No code changes needed to update compatibility
+
 ### Working with Cart
 - Use `Current.cart` to access current user's cart
 - Cart automatically handles guest vs authenticated users

@@ -1,31 +1,12 @@
 module ProductHelper
-  # Map cup sizes to compatible lid sizes
-  LID_SIZE_MAP = {
-    "4oz" => "62mm",
-    "6oz" => "80mm",
-    "8oz" => "80mm",
-    "10oz" => "90mm",
-    "12oz" => "90mm",
-    "16oz" => "90mm",
-    "20oz" => "90mm"
-  }.freeze
-
   def compatible_lids_for_cup(cup_size)
-    lid_size = LID_SIZE_MAP[cup_size]
-    return [] unless lid_size
+    return [] if cup_size.blank?
 
-    # Fetch from Hot Cups Extras category
-    hot_cups_extras = Category.find_by(slug: "hot-cups-extras")
-    return [] unless hot_cups_extras
-
-    # Find all lid products that have variants matching the size
-    hot_cups_extras.products
-                   .where("name LIKE ?", "%Lid%")
-                   .includes(:active_variants).with_attached_product_photo
-                   .select { |product|
-                     product.active_variants.any? { |variant|
-                       variant.name.include?(lid_size)
-                     }
-                   }
+    # Find all products that list this cup size as compatible
+    Product.where("? = ANY(compatible_cup_sizes)", cup_size)
+           .where(product_type: "standard")
+           .includes(:active_variants)
+           .with_attached_product_photo
+           .select { |product| product.active_variants.any? }
   end
 end
