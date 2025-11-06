@@ -572,7 +572,7 @@ export default class extends Controller {
       })
 
       if (response.ok) {
-        // Turbo Stream will handle the updates and trigger the cart-drawer controller
+        // Turbo Stream will update the basket counter
         const text = await response.text()
         if (text) {
           Turbo.renderStreamMessage(text)
@@ -581,15 +581,10 @@ export default class extends Controller {
             // In modal: dispatch event to close modal
             window.dispatchEvent(new CustomEvent('addon:added'))
           } else {
-            // Normal flow: open drawer
-            console.log('Dispatching turbo:submit-end event')
-            const submitEndEvent = new CustomEvent("turbo:submit-end", {
-              bubbles: true,
-              detail: { success: true }
-            })
-            console.log('Event created:', submitEndEvent)
-            this.element.dispatchEvent(submitEndEvent)
-            console.log('Event dispatched from:', this.element)
+            // Normal flow: Show success message and reset form
+            alert('Product added to cart! View your cart in the navigation.')
+            // Optionally reset the form or redirect
+            // window.location.href = '/cart'
           }
         }
       } else {

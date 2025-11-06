@@ -40,14 +40,10 @@
   <%= render "shared/breadcrumbs", product: @product %>
 <% end %>
 
-<div class="drawer drawer-end">
-  <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content">
-    <div class="container mx-auto py-8 min-h-screen">
-      <div data-controller="branded-configurator cart-drawer"
-           data-branded-configurator-product-id-value="<%= @product.id %>"
-           data-branded-configurator-vat-rate-value="0.2"
-           data-action="turbo:submit-end->cart-drawer#open">
+<div class="container mx-auto py-8 min-h-screen">
+  <div data-controller="branded-configurator"
+       data-branded-configurator-product-id-value="<%= @product.id %>"
+       data-branded-configurator-vat-rate-value="0.2">
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left: Product Images -->
@@ -246,7 +242,6 @@
         Add to Cart
       </button>
       </div>
-    </div>
   </div>
 
   <!-- Add-ons Carousel -->
@@ -272,11 +267,4 @@
       <button data-action="click->addon#closeModal">close</button>
     </form>
   </dialog>
-
-  <div class="drawer-side">
-    <label for="cart-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-    <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4 overflow-y-auto">
-      <%= render "shared/drawer_cart_content" %>
-    </div>
-  </div>
 </div>
