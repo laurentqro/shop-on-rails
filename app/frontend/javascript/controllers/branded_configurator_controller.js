@@ -180,30 +180,30 @@ export default class extends Controller {
     const card = document.createElement('div')
     card.className = 'bg-white border-2 border-gray-200 rounded-lg hover:border-primary transition-colors'
     card.innerHTML = `
-      <div class="flex items-center gap-4 p-4">
+      <div class="flex items-center gap-6 p-4">
         <!-- Image -->
-        <div class="flex-shrink-0 w-20 h-20">
+        <div class="flex-shrink-0 w-24 h-24">
           ${lid.image_url ?
             `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-full object-contain" />` :
-            '<div class="w-full h-full bg-gray-100 flex items-center justify-center rounded text-3xl">📦</div>'
+            '<div class="w-full h-full bg-gray-100 flex items-center justify-center rounded text-4xl">📦</div>'
           }
         </div>
 
         <!-- Content -->
         <div class="flex-1 min-w-0">
-          <h3 class="font-semibold text-base truncate">${lid.name}</h3>
-          <div class="text-xl font-bold text-gray-900">£${parseFloat(lid.price).toFixed(2)}</div>
-          <div class="text-sm text-gray-500">Pack of ${lid.pac_size.toLocaleString()}</div>
+          <h3 class="font-semibold text-lg mb-1">${lid.name}</h3>
+          <div class="text-2xl font-bold text-gray-900">£${parseFloat(lid.price).toFixed(2)}</div>
+          <div class="text-sm text-gray-500 mt-1">Pack of ${lid.pac_size.toLocaleString()}</div>
         </div>
 
         <!-- Actions -->
-        <div class="flex-shrink-0 flex flex-col gap-2" style="width: 200px;">
-          <select class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" data-lid-quantity="${lid.sku}">
+        <div class="flex-shrink-0 flex items-center gap-3">
+          <select class="px-4 py-2.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white" style="min-width: 200px;" data-lid-quantity="${lid.sku}">
             ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
               `<option value="${q.value}">${q.label}</option>`
             ).join('')}
           </select>
-          <button class="w-full px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-focus rounded-md transition-colors"
+          <button class="px-6 py-2.5 text-sm font-medium text-white bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap"
                   data-action="click->branded-configurator#addLidToCart"
                   data-lid-sku="${lid.sku}"
                   data-lid-name="${lid.name}">
