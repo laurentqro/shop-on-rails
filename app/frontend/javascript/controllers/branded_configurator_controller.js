@@ -477,7 +477,7 @@ export default class extends Controller {
         }
 
         // Show success feedback
-        button.textContent = 'Added to basket'
+        button.textContent = '✓ Added to basket'
         button.classList.remove('bg-primary', 'hover:bg-primary-focus')
         button.classList.add('bg-success', 'hover:bg-success')
 
