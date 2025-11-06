@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get "samples", to: "pages#samples"
   get "about", to: "pages#about"
   get "contact", to: "pages#contact"
-  get "terms", to: "pages#terms"
-  get "privacy", to: "pages#privacy"
+  get "terms-conditions", to: "pages#terms_conditions"
+  get "privacy-policy", to: "pages#privacy_policy"
   get "cookies-policy", to: "pages#cookies_policy"
 
   # FAQ page

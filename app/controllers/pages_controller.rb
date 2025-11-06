@@ -23,10 +23,10 @@ class PagesController < ApplicationController
   def contact
   end
 
-  def terms
+  def terms_conditions
   end
 
-  def privacy
+  def privacy_policy
   end
 
   def cookies_policy
