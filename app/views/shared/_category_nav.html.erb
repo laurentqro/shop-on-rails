@@ -41,7 +41,7 @@
       <li>
         <%= link_to category_path('takeaway-extras'), class: "text-lg font-medium flex items-center gap-2" do %>
           <%= vite_image_tag 'images/graphics/take-away-extras.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('takeaway-extras')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Takeaway Extras icon' %>
-          <span class="<%= current_page?(category_path('takeaway-extras')) ? 'text-accent' : '' %}">Takeaway Extras</span>
+          <span class="<%= current_page?(category_path('takeaway-extras')) ? 'text-accent' : '' %>">Takeaway Extras</span>
         <% end %>
       </li>
     </ul>
