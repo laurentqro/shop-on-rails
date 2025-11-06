@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
   # Product feeds
   get "feeds/google-merchant.xml", to: "feeds#google_merchant", as: :google_merchant_feed
+  get "sitemap.xml", to: "sitemaps#show", defaults: { format: :xml }, as: :sitemap
 
   get "up" => "rails/health#show", as: :rails_health_check
 end
