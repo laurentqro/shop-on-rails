@@ -10,7 +10,7 @@ class NavigationTest < ApplicationSystemTestCase
       click_link "FAQs"
     end
 
-    assert_current_path faq_path
+    assert_current_path faqs_path
     assert_selector "h1", text: "Frequently Asked Questions"
   end
 end

@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class FaqTest < ApplicationSystemTestCase
   test "visiting FAQ page shows all categories" do
-    visit faq_path
+    visit faqs_path
 
     assert_selector "h1", text: "Frequently Asked Questions"
     assert_selector "h2", count: 10 # 10 category headers
@@ -12,7 +12,7 @@ class FaqTest < ApplicationSystemTestCase
   end
 
   test "accordion opens and closes questions" do
-    visit faq_path
+    visit faqs_path
 
     # All questions start closed
     within "#about-products" do
@@ -42,7 +42,7 @@ class FaqTest < ApplicationSystemTestCase
   end
 
   test "search finds relevant questions" do
-    visit faq_path
+    visit faqs_path
 
     fill_in "q", with: "branded"
 
@@ -54,7 +54,7 @@ class FaqTest < ApplicationSystemTestCase
   end
 
   test "quick links navigate to categories" do
-    visit faq_path
+    visit faqs_path
 
     within ".bg-base-200" do
       click_link "Custom Printing & Branding"
@@ -65,7 +65,7 @@ class FaqTest < ApplicationSystemTestCase
   end
 
   test "contact CTA appears at bottom of page" do
-    visit faq_path
+    visit faqs_path
 
     assert_text "Still have questions?"
     assert_link "info@afida.com"

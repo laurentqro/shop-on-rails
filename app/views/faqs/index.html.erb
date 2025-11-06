@@ -9,7 +9,7 @@
 
   <!-- Search Bar -->
   <div class="mb-8">
-    <%= form_with url: faq_path, method: :get, class: "max-w-2xl mx-auto", data: { controller: "faq-search", turbo_frame: "faq-content" } do |f| %>
+    <%= form_with url: faqs_path, method: :get, class: "max-w-2xl mx-auto", data: { controller: "faq-search", turbo_frame: "faq-content" } do |f| %>
       <div class="relative">
         <%= f.search_field :q,
             value: @search_query,

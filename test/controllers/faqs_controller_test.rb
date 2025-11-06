@@ -4,12 +4,12 @@ require "test_helper"
 
 class FaqsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get faq_url
+    get faqs_url
     assert_response :success
   end
 
   test "index loads all categories" do
-    get faq_url
+    get faqs_url
     assert_response :success
     assert_select "h1", text: "Frequently Asked Questions"
     # Verify we see accordion items for all questions (33 questions total across 10 categories)
@@ -17,18 +17,18 @@ class FaqsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "index performs search when query present" do
-    get faq_url, params: { q: "branded" }
+    get faqs_url, params: { q: "branded" }
     assert_response :success
     assert_select "h2", text: /Search Results/
   end
 
   test "index accessible without authentication" do
-    get faq_url
+    get faqs_url
     assert_response :success
   end
 
   test "search query is displayed in results" do
-    get faq_url, params: { q: "shipping" }
+    get faqs_url, params: { q: "shipping" }
     assert_response :success
     assert_select "h2", text: /Search Results for "shipping"/
   end
