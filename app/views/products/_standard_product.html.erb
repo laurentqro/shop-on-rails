@@ -43,6 +43,18 @@
     <meta property="product:price:amount" content="<%= @selected_variant.price %>">
     <meta property="product:price:currency" content="GBP">
   <% end %>
+
+  <script type="application/ld+json">
+    <%= raw product_structured_data(@product, @selected_variant) %>
+  </script>
+
+  <script type="application/ld+json">
+    <%= raw breadcrumb_structured_data([
+      { name: "Home", url: root_url },
+      { name: @product.category.name, url: category_url(@product.category) },
+      { name: @product.name, url: product_url(@product) }
+    ]) %>
+  </script>
 <% end %>
 
 <% content_for :breadcrumbs do %>
