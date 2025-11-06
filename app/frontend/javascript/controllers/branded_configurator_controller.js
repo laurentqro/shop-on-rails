@@ -207,7 +207,7 @@ export default class extends Controller {
                   data-action="click->branded-configurator#addLidToCart"
                   data-lid-sku="${lid.sku}"
                   data-lid-name="${lid.name}">
-            + Add
+            Add to basket
           </button>
         </div>
       </div>
@@ -477,13 +477,13 @@ export default class extends Controller {
         }
 
         // Show success feedback
-        button.textContent = '✓ Added'
+        button.textContent = 'Added to basket'
         button.classList.remove('bg-primary', 'hover:bg-primary-focus')
         button.classList.add('bg-success', 'hover:bg-success')
 
         // Reset after 2 seconds
         setTimeout(() => {
-          button.textContent = '+ Add'
+          button.textContent = 'Add to basket'
           button.classList.remove('bg-success', 'hover:bg-success')
           button.classList.add('bg-primary', 'hover:bg-primary-focus')
           button.disabled = false
@@ -494,7 +494,7 @@ export default class extends Controller {
     } catch (error) {
       this.showError(`Failed to add ${name}`)
       button.disabled = false
-      button.textContent = '+ Add'
+      button.textContent = 'Add to basket'
     }
   }
 
