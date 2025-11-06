@@ -40,7 +40,6 @@ end
 branded_category = Category.find_or_create_by!(
   name: "Branded Products",
   slug: "branded-products",
-  description: "Custom branded packaging with your design",
   meta_title: "Branded Products - Custom Packaging | Afida",
   meta_description: "Custom branded packaging for your business."
 )

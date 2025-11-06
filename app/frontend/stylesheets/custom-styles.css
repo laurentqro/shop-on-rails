@@ -218,38 +218,6 @@ h3, h4, h5, h6 {
   }
 }
 
-/* Logo conveyor belt animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.logo-conveyor {
-  display: flex;
-  animation: scroll 25s linear infinite;
-  width: fit-content;
-}
-
-.logo-conveyor img {
-  object-fit: contain;
-  max-height: 64px;
-  width: auto;
-  min-width: 100px;
-  max-width: 180px;
-}
-
-@media (min-width: 768px) {
-  .logo-conveyor img {
-    max-height: 80px;
-    min-width: 120px;
-    max-width: 200px;
-  }
-}
-
 /* Playful logo hover animation */
 @keyframes wiggle-bounce {
   0%, 100% {
