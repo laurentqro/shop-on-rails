@@ -19,6 +19,10 @@
 # - Use Product.unscoped to access inactive products
 #
 class Product < ApplicationRecord
+  PROFIT_MARGINS = %w[high medium low].freeze
+  SEASONAL_TYPES = %w[year_round seasonal holiday].freeze
+  B2B_PRIORITIES = %w[high medium low].freeze
+
   default_scope { where(active: true).order(:sort_order, :name) }
   scope :featured, -> { where(featured: true) }
   scope :catalog_products, -> { where(product_type: [ "standard", "customizable_template" ]) }
@@ -71,6 +75,10 @@ class Product < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validates :parent_product_id, presence: true, if: :customized_instance?
   validates :organization_id, presence: true, if: :customized_instance?
+
+  validates :profit_margin, inclusion: { in: PROFIT_MARGINS }, allow_nil: true
+  validates :seasonal_type, inclusion: { in: SEASONAL_TYPES }, allow_nil: true
+  validates :b2b_priority, inclusion: { in: B2B_PRIORITIES }, allow_nil: true
 
   # Generates a SEO-friendly slug from product attributes
   # Combines SKU, name, and colour to create unique, descriptive URL

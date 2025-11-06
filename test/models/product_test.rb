@@ -268,4 +268,27 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal [], product.compatible_cup_sizes
   end
+
+  test "should have custom label fields" do
+    product = products(:one)
+
+    product.profit_margin = "high"
+    product.best_seller = true
+    product.seasonal_type = "year_round"
+    product.b2b_priority = "high"
+
+    assert product.save
+    assert_equal "high", product.profit_margin
+    assert product.best_seller
+    assert_equal "year_round", product.seasonal_type
+    assert_equal "high", product.b2b_priority
+  end
+
+  test "should validate profit_margin values" do
+    product = products(:one)
+    product.profit_margin = "invalid"
+
+    assert_not product.valid?
+    assert_includes product.errors[:profit_margin], "is not included in the list"
+  end
 end
