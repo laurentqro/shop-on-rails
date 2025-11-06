@@ -1,9 +1,9 @@
 <% content_for :title do %>
-  <%= @product.name %> | <%= @product.category.name %> | Afida
+  <%= @product.meta_title.presence || "#{@product.name} | #{@product.category.name} | Afida" %>
 <% end %>
 
 <% content_for :meta_description do %>
-  <%= @product.description %>
+  <%= @product.meta_description.presence || @product.description %>
 <% end %>
 
 <% content_for :head do %>
