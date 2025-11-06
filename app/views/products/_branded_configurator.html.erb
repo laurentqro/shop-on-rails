@@ -6,6 +6,36 @@
   <%= @product.description %>
 <% end %>
 
+<% content_for :head do %>
+  <script type="application/ld+json">
+    <%= raw({
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": @product.name,
+      "description": @product.description,
+      "brand": {
+        "@type": "Brand",
+        "name": "Afida"
+      },
+      "image": @product.product_photo.attached? ? url_for(@product.product_photo) : nil,
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "GBP",
+        "availability": "https://schema.org/InStock",
+        "url": product_url(@product)
+      }
+    }.compact.to_json) %>
+  </script>
+
+  <script type="application/ld+json">
+    <%= raw breadcrumb_structured_data([
+      { name: "Home", url: root_url },
+      { name: @product.category.name, url: category_url(@product.category) },
+      { name: @product.name, url: product_url(@product) }
+    ]) %>
+  </script>
+<% end %>
+
 <% content_for :breadcrumbs do %>
   <%= render "shared/breadcrumbs", product: @product %>
 <% end %>
