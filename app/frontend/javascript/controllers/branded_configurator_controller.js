@@ -203,7 +203,7 @@ export default class extends Controller {
               `<option value="${q.value}">${q.label}</option>`
             ).join('')}
           </select>
-          <button class="px-6 py-2.5 text-sm font-medium text-white bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full"
+          <button class="px-6 py-2.5 text-sm font-medium text-black bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full"
                   data-action="click->branded-configurator#addLidToCart"
                   data-lid-sku="${lid.sku}"
                   data-lid-name="${lid.name}">
@@ -446,7 +446,7 @@ export default class extends Controller {
     const button = event.currentTarget
     const sku = button.dataset.lidSku
     const name = button.dataset.lidName
-    const quantitySelect = button.closest('.card-body').querySelector('select')
+    const quantitySelect = button.parentElement.querySelector('select')
     const quantity = parseInt(quantitySelect.value)
 
     // Disable button during request
@@ -478,14 +478,14 @@ export default class extends Controller {
 
         // Show success feedback
         button.textContent = '✓ Added'
-        button.classList.remove('btn-primary')
-        button.classList.add('btn-success')
+        button.classList.remove('bg-primary', 'hover:bg-primary-focus')
+        button.classList.add('bg-success', 'hover:bg-success')
 
         // Reset after 2 seconds
         setTimeout(() => {
           button.textContent = '+ Add'
-          button.classList.remove('btn-success')
-          button.classList.add('btn-primary')
+          button.classList.remove('bg-success', 'hover:bg-success')
+          button.classList.add('bg-primary', 'hover:bg-primary-focus')
           button.disabled = false
         }, 2000)
       } else {
