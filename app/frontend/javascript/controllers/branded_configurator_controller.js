@@ -216,10 +216,12 @@ export default class extends Controller {
   }
 
   generateLidQuantityOptions(pac_size, cupQuantity) {
-    // Generate pack multiples up to 10 packs
+    // Generate pack multiples up to 10 packs or 10,000 units (whichever is smaller)
+    const MAX_QUANTITY = 10000
     const options = []
     for (let i = 1; i <= 10; i++) {
       const quantity = pac_size * i
+      if (quantity > MAX_QUANTITY) break
       const numPacks = i
       options.push({
         value: quantity,

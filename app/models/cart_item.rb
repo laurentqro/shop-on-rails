@@ -5,7 +5,7 @@ class CartItem < ApplicationRecord
 
   has_one_attached :design
 
-  validates :quantity, presence: true, numericality: { greater_than: 0 }
+  validates :quantity, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10000 }
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates_uniqueness_of :product_variant, scope: :cart, unless: :configured?
   validates :calculated_price, presence: true, if: :configured?
