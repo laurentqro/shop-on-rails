@@ -34,6 +34,11 @@ class Product < ApplicationRecord
   has_many :option_assignments, class_name: "ProductOptionAssignment", dependent: :destroy
   has_many :options, through: :option_assignments, source: :product_option
   has_many :branded_product_prices, dependent: :destroy
+  has_many :product_compatible_lids, dependent: :destroy
+  has_many :compatible_lids,
+           -> { unscope(:order).order("product_compatible_lids.sort_order") },
+           through: :product_compatible_lids,
+           source: :compatible_lid
 
   accepts_nested_attributes_for :variants, allow_destroy: true, reject_if: :all_blank
 
@@ -107,5 +112,16 @@ class Product < ApplicationRecord
     max = prices.max
 
     min == max ? min : [ min, max ]
+  end
+
+  # Returns the default compatible lid product
+  # Returns nil if no default is set
+  def default_compatible_lid
+    product_compatible_lids.find_by(default: true)&.compatible_lid
+  end
+
+  # Check if this product has any compatible lids
+  def has_compatible_lids?
+    compatible_lids.any?
   end
 end

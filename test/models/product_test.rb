@@ -247,4 +247,45 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_not product.has_photos?
   end
+
+  # Compatible lids tests
+  test "has many compatible_lids associations" do
+    product = products(:branded_cup_8oz)
+    assert_respond_to product, :product_compatible_lids
+    assert_respond_to product, :compatible_lids
+  end
+
+  test "compatible_lids returns products ordered by sort_order" do
+    product = products(:branded_cup_8oz)
+    lids = product.compatible_lids
+
+    assert_includes lids, products(:flat_lid_8oz)
+    assert_includes lids, products(:domed_lid_8oz)
+
+    # Verify order matches sort_order from join table
+    assert_equal products(:flat_lid_8oz), lids.first
+    assert_equal products(:domed_lid_8oz), lids.second
+  end
+
+  test "default_compatible_lid returns the default lid" do
+    product = products(:branded_cup_8oz)
+    default_lid = product.default_compatible_lid
+
+    assert_equal products(:flat_lid_8oz), default_lid
+  end
+
+  test "default_compatible_lid returns nil when no default set" do
+    product = products(:one)
+    assert_nil product.default_compatible_lid
+  end
+
+  test "has_compatible_lids? returns true when lids exist" do
+    product = products(:branded_cup_8oz)
+    assert product.has_compatible_lids?
+  end
+
+  test "has_compatible_lids? returns false when no lids exist" do
+    product = products(:one)
+    assert_not product.has_compatible_lids?
+  end
 end
