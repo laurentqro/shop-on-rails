@@ -580,12 +580,8 @@ export default class extends Controller {
           if (this.inModalValue) {
             // In modal: dispatch event to close modal
             window.dispatchEvent(new CustomEvent('addon:added'))
-          } else {
-            // Normal flow: Show success message and reset form
-            alert('Product added to cart! View your cart in the navigation.')
-            // Optionally reset the form or redirect
-            // window.location.href = '/cart'
           }
+          // Product added to cart - basket counter updated via Turbo Stream
         }
       } else {
         const data = await response.json()
