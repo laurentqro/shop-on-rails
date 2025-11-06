@@ -63,7 +63,7 @@
       <h2 class="text-xl font-semibold mb-4">Quick Links</h2>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
         <% @categories.each do |category| %>
-          <a href="#<%= category["id"] %>" class="btn btn-sm btn-outline">
+          <a href="#<%= category["id"] %>" class="btn btn-sm btn-primary text-black">
             <%= category["title"] %>
           </a>
         <% end %>
