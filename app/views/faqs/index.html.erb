@@ -1,6 +1,6 @@
 <% content_for :title, "Frequently Asked Questions" %>
 
-<div class="container mx-auto px-4 py-8 max-w-5xl" data-controller="faq-deep-link">
+<div class="container mx-auto px-4 py-8 max-w-5xl">
   <!-- Header -->
   <div class="text-center mb-12">
     <h1 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h1>
@@ -70,35 +70,36 @@
       </div>
     </div>
 
-    <!-- FAQ Categories Accordion -->
-    <div class="join join-vertical w-full">
-      <% @categories.each_with_index do |category, index| %>
-        <div class="collapse collapse-arrow join-item bg-base-100 border border-base-300" id="<%= category["id"] %>">
-          <input type="radio" name="faq-accordion" <%= 'checked="checked"' if index == 0 %> />
-          <div class="collapse-title text-2xl font-semibold">
-            <%= category["title"] %>
-          </div>
-          <div class="collapse-content">
-            <div class="space-y-6 pt-4">
-              <% category["questions"].each do |q| %>
-                <div class="border-l-4 border-primary pl-4" id="<%= category["id"] %>-<%= q["id"] %>">
-                  <h3 class="font-semibold text-lg mb-2"><%= q["question"] %></h3>
-                  <p class="text-gray-600 leading-relaxed"><%= q["answer"] %></p>
-                </div>
-              <% end %>
+    <!-- FAQ Questions by Category -->
+    <% @categories.each do |category| %>
+      <!-- Category Header -->
+      <div class="mb-6" id="<%= category["id"] %>">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4"><%= category["title"] %></h2>
 
-              <!-- Contact CTA -->
-              <div class="alert alert-info mt-6">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <div>
-                  <div class="font-semibold">Still have questions about <%= category["title"].downcase %>?</div>
-                  <div class="text-sm">Contact us at <a href="mailto:info@afida.com" class="link">info@afida.com</a> or call <a href="tel:02033027719" class="link">0203 302 7719</a></div>
-                </div>
+        <!-- Questions Accordion -->
+        <div class="join join-vertical w-full">
+          <% category["questions"].each do |q| %>
+            <div class="collapse collapse-arrow join-item bg-base-100 border border-base-300">
+              <input type="checkbox" name="faq-<%= category["id"] %>" />
+              <div class="collapse-title text-lg" id="<%= category["id"] %>-<%= q["id"] %>">
+                <%= q["question"] %>
+              </div>
+              <div class="collapse-content">
+                <p class="text-gray-600 leading-relaxed pt-2"><%= q["answer"] %></p>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+    <% end %>
+
+    <!-- Contact CTA -->
+    <div class="alert alert-info mt-8">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div>
+        <div class="font-semibold">Still have questions?</div>
+        <div class="text-sm">Contact us at <a href="mailto:info@afida.com" class="link">info@afida.com</a> or call <a href="tel:02033027719" class="link">0203 302 7719</a></div>
+      </div>
     </div>
   </div>
 

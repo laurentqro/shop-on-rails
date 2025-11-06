@@ -12,8 +12,8 @@ class FaqsControllerTest < ActionDispatch::IntegrationTest
     get faq_url
     assert_response :success
     assert_select "h1", text: "Frequently Asked Questions"
-    # Verify we see all 10 accordion categories
-    assert_select ".collapse", count: 10
+    # Verify we see accordion items for all questions (33 questions total across 10 categories)
+    assert_select ".collapse", count: 33
   end
 
   test "index performs search when query present" do

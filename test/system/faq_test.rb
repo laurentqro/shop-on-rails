@@ -7,22 +7,22 @@ class FaqTest < ApplicationSystemTestCase
     visit faq_path
 
     assert_selector "h1", text: "Frequently Asked Questions"
-    assert_selector ".collapse", count: 10 # 10 categories
+    assert_selector "h2", count: 10 # 10 category headers
+    assert_selector ".collapse", count: 33 # 33 question accordions
   end
 
-  test "accordion opens and closes categories" do
+  test "accordion opens and closes questions" do
     visit faq_path
 
-    # First category should be open by default
+    # All questions start closed
     within "#about-products" do
-      # DaisyUI accordion uses radio inputs
-      assert_selector 'input[type="radio"]:checked'
-    end
+      # DaisyUI accordion uses checkbox inputs now (can open multiple)
+      first_question = first(".collapse")
+      checkbox = first_question.find('input[type="checkbox"]', visible: false)
 
-    # Click another category to open it
-    within "#custom-printing" do
-      find('input[type="radio"]').click
-      assert_selector 'input[type="radio"]:checked'
+      # Open the question
+      checkbox.click
+      assert checkbox.checked?
     end
   end
 
@@ -49,15 +49,11 @@ class FaqTest < ApplicationSystemTestCase
     assert_equal "custom-printing", URI.parse(current_url).fragment
   end
 
-  test "contact CTA appears in each category" do
+  test "contact CTA appears at bottom of page" do
     visit faq_path
 
-    # Open a category
-    within "#ordering-delivery" do
-      find('input[type="radio"]').click
-      assert_text "Still have questions"
-      assert_link "info@afida.com"
-      assert_link "0203 302 7719"
-    end
+    assert_text "Still have questions?"
+    assert_link "info@afida.com"
+    assert_link "0203 302 7719"
   end
 end
