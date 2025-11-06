@@ -200,7 +200,7 @@ export default class extends Controller {
         <div class="flex-shrink-0 flex flex-col gap-2" style="min-width: 200px;">
           <select class="px-4 py-2.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white w-full" data-lid-quantity="${lid.sku}">
             ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
-              `<option value="${q.value}">${q.label}</option>`
+              `<option value="${q.value}" ${q.selected ? 'selected' : ''}>${q.label}</option>`
             ).join('')}
           </select>
           <button class="px-6 py-2.5 text-sm font-medium text-black bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full"
