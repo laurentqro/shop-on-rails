@@ -1,47 +1,47 @@
 <!-- Category Sub-Navigation -->
 <div class="bg-base-200 border-b border-base-300 hidden lg:block">
   <div class="container mx-auto px-4 flex justify-center">
-    <ul class="menu menu-horizontal gap-1 py-2">
+    <ul class="flex gap-6 py-4">
       <li>
-        <%= link_to category_path('cups-and-lids'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/cold-cups.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('cups-and-lids')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Cups & Lids icon' %>
-          <span class="<%= current_page?(category_path('cups-and-lids')) ? 'text-accent' : '' %>">Cups & Lids</span>
+        <%= link_to category_path('cups-and-lids'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('cups-and-lids')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/cold-cups.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('cups-and-lids')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Cups & Lids icon' %>
+          <span class="text-lg font-medium">Cups & Lids</span>
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('ice-cream-cups'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/ice-cream-cups.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('ice-cream-cups')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Ice Cream Cups icon' %>
-          <span class="<%= current_page?(category_path('ice-cream-cups')) ? 'text-accent' : '' %>">Ice Cream Cups</span>
+        <%= link_to category_path('ice-cream-cups'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('ice-cream-cups')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/ice-cream-cups.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('ice-cream-cups')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Ice Cream Cups icon' %>
+          <span class="text-lg font-medium">Ice Cream Cups</span>
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('napkins'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/napkins.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('napkins')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Napkins icon' %>
-          <span class="<%= current_page?(category_path('napkins')) ? 'text-accent' : '' %>">Napkins</span>
+        <%= link_to category_path('napkins'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('napkins')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/napkins.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('napkins')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Napkins icon' %>
+          <span class="text-lg font-medium">Napkins</span>
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('pizza-boxes'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/pizza-boxes.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('pizza-boxes')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Pizza Boxes icon' %>
-          <span class="<%= current_page?(category_path('pizza-boxes')) ? 'text-accent' : '' %>">Pizza Boxes</span>
+        <%= link_to category_path('pizza-boxes'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('pizza-boxes')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/pizza-boxes.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('pizza-boxes')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Pizza Boxes icon' %>
+          <span class="text-lg font-medium">Pizza Boxes</span>
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('straws'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/straws.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('straws')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Straws icon' %>
-          <span class="<%= current_page?(category_path('straws')) ? 'text-accent' : '' %>">Straws</span>
+        <%= link_to category_path('straws'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('straws')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/straws.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('straws')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Straws icon' %>
+          <span class="text-lg font-medium">Straws</span>
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('takeaway-containers'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/kraft-food-containers.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('takeaway-containers')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Takeaway Containers icon' %>
-          <span class="<%= current_page?(category_path('takeaway-containers')) ? 'text-accent' : '' %>">Takeaway Containers</span>
+        <%= link_to category_path('takeaway-containers'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('takeaway-containers')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/kraft-food-containers.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('takeaway-containers')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Takeaway Containers icon' %>
+          <span class="text-lg font-medium">Takeaway Containers</span>
         <% end %>
       </li>
       <li>
-        <%= link_to category_path('takeaway-extras'), class: "text-lg font-medium flex items-center gap-2" do %>
-          <%= vite_image_tag 'images/graphics/take-away-extras.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('takeaway-extras')) ? 'brightness-150 hue-rotate-90' : ''}", alt: 'Takeaway Extras icon' %>
-          <span class="<%= current_page?(category_path('takeaway-extras')) ? 'text-accent' : '' %>">Takeaway Extras</span>
+        <%= link_to category_path('takeaway-extras'), class: "flex items-center gap-2 hover:text-accent transition-colors #{current_page?(category_path('takeaway-extras')) ? 'text-accent' : 'text-base-content'}" do %>
+          <%= vite_image_tag 'images/graphics/take-away-extras.svg', class: "w-6 h-6 object-contain #{current_page?(category_path('takeaway-extras')) ? '[filter:brightness(0)_saturate(100%)_invert(69%)_sepia(57%)_saturate(3508%)_hue-rotate(100deg)_brightness(97%)_contrast(94%)]' : ''}", alt: 'Takeaway Extras icon' %>
+          <span class="text-lg font-medium">Takeaway Extras</span>
         <% end %>
       </li>
     </ul>
