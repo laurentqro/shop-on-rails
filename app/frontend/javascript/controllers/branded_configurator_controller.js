@@ -582,6 +582,9 @@ export default class extends Controller {
             window.dispatchEvent(new CustomEvent('addon:added'))
           }
           // Product added to cart - basket counter updated via Turbo Stream
+
+          // Reset the configurator form
+          this.resetConfigurator()
         }
       } else {
         const data = await response.json()
@@ -590,5 +593,85 @@ export default class extends Controller {
     } catch (error) {
       this.showError("Failed to add to cart. Please try again.")
     }
+  }
+
+  resetConfigurator() {
+    // Reset state variables
+    this.selectedSize = null
+    this.selectedFinish = null
+    this.selectedQuantity = null
+    this.calculatedPrice = null
+
+    // Reset size buttons
+    this.sizeOptionTargets.forEach(el => {
+      el.classList.remove("border-primary", "border-4")
+      el.classList.add("border-gray-300", "border-2")
+    })
+
+    // Reset finish buttons
+    this.finishOptionTargets.forEach(el => {
+      el.classList.remove("border-primary", "border-4")
+      el.classList.add("border-gray-300", "border-2")
+    })
+
+    // Reset quantity cards
+    this.quantityOptionTargets.forEach(el => {
+      el.classList.remove("border-primary", "border-4")
+      el.classList.add("border-gray-300", "border-2")
+    })
+
+    // Reset design file input
+    if (this.hasDesignInputTarget) {
+      this.designInputTarget.value = ""
+    }
+
+    // Hide design preview
+    if (this.hasDesignPreviewTarget) {
+      this.designPreviewTarget.classList.add("hidden")
+    }
+
+    // Reset step indicators
+    const indicators = ['size', 'finish', 'quantity', 'lids', 'design']
+    indicators.forEach(step => {
+      const indicatorTarget = `${step}IndicatorTarget`
+      if (this[indicatorTarget]) {
+        this[indicatorTarget].textContent = ''
+        this[indicatorTarget].classList.remove('bg-success')
+        this[indicatorTarget].classList.add('bg-gray-300')
+      }
+    })
+
+    // Reset pricing display
+    if (this.hasSubtotalTarget) {
+      this.subtotalTarget.textContent = '£0.00'
+    }
+    if (this.hasVatTarget) {
+      this.vatTarget.textContent = '£0.00'
+    }
+    if (this.hasTotalTarget) {
+      this.totalTarget.textContent = '£0.00'
+    }
+
+    // Clear lids container (if not in modal)
+    if (!this.inModalValue && this.hasLidsContainerTarget) {
+      this.lidsContainerTarget.innerHTML = ''
+    }
+
+    // Collapse all accordion steps and open the first one (size)
+    if (this.hasSizeStepTarget) {
+      const radioInput = this.sizeStepTarget.querySelector('input[type="radio"]')
+      if (radioInput) {
+        radioInput.checked = true
+      }
+    }
+
+    // Update add to cart button state
+    this.updateAddToCartButton()
+
+    // Clear any error messages
+    this.clearError()
+
+    // Clear URL parameters
+    window.history.replaceState({}, '', window.location.pathname)
   }
 }
