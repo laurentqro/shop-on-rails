@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_03_163950) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -148,6 +148,19 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_03_163950) do
     t.index [ "billing_email" ], name: "index_organizations_on_billing_email"
   end
 
+  create_table "product_compatible_lids", force: :cascade do |t|
+    t.bigint "compatible_lid_id", null: false
+    t.datetime "created_at", null: false
+    t.boolean "default", default: false, null: false
+    t.bigint "product_id", null: false
+    t.integer "sort_order", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index [ "compatible_lid_id" ], name: "index_product_compatible_lids_on_compatible_lid_id"
+    t.index [ "product_id", "compatible_lid_id" ], name: "index_product_compatible_lids_on_product_and_lid", unique: true
+    t.index [ "product_id", "sort_order" ], name: "index_product_compatible_lids_on_product_id_and_sort_order"
+    t.index [ "product_id" ], name: "index_product_compatible_lids_on_product_id"
+  end
+
   create_table "product_option_assignments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "position", default: 0, null: false
@@ -277,6 +290,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_03_163950) do
   add_foreign_key "orders", "organizations"
   add_foreign_key "orders", "users"
   add_foreign_key "orders", "users", column: "placed_by_user_id"
+  add_foreign_key "product_compatible_lids", "products"
+  add_foreign_key "product_compatible_lids", "products", column: "compatible_lid_id"
   add_foreign_key "product_option_assignments", "product_options"
   add_foreign_key "product_option_assignments", "products"
   add_foreign_key "product_option_values", "product_options"
