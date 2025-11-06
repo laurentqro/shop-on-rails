@@ -70,10 +70,13 @@
       "Bash(git revert:*)",
       "Bash(ruby -e:*)",
       "Bash(find:*)",
-      "Skill(superpowers:executing-plans)",
-      "Bash(printf:*)",
-      "Bash(test/fixtures/files/product.jpg)",
-      "Bash(test/fixtures/files/lifestyle.jpg)"
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:using-git-worktrees)",
+      "Bash(RAILS_ENV=test bin/rails:*)",
+      "Skill(superpowers:writing-plans)",
+      "Skill(superpowers:systematic-debugging)",
+      "Bash(rails db:seed:*)",
+      "Bash(bin/vite build:*)"
     ],
     "deny": [],
     "ask": []

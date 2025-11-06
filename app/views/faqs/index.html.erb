@@ -71,20 +71,15 @@
     </div>
 
     <!-- FAQ Categories Accordion -->
-    <div class="space-y-4" data-controller="faq-accordion">
-      <% @categories.each do |category| %>
-        <div class="card bg-base-100 shadow-sm border border-base-300" id="<%= category["id"] %>">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-4 flex items-center justify-between cursor-pointer"
-                data-action="click->faq-accordion#toggle"
-                data-faq-accordion-target="header">
-              <%= category["title"] %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform" data-faq-accordion-target="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </h2>
-
-            <div class="space-y-6 hidden" data-faq-accordion-target="content">
+    <div class="join join-vertical w-full">
+      <% @categories.each_with_index do |category, index| %>
+        <div class="collapse collapse-arrow join-item bg-base-100 border border-base-300" id="<%= category["id"] %>">
+          <input type="radio" name="faq-accordion" <%= 'checked="checked"' if index == 0 %> />
+          <div class="collapse-title text-2xl font-semibold">
+            <%= category["title"] %>
+          </div>
+          <div class="collapse-content">
+            <div class="space-y-6 pt-4">
               <% category["questions"].each do |q| %>
                 <div class="border-l-4 border-primary pl-4" id="<%= category["id"] %>-<%= q["id"] %>">
                   <h3 class="font-semibold text-lg mb-2"><%= q["question"] %></h3>
