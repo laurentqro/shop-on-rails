@@ -3,6 +3,6 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find_by!(slug: params[:id])
-    @products = @category.products.catalog_products.includes(:product_photo_attachment)
+    @products = @category.products.catalog_products.includes(:product_photo_attachment, :lifestyle_photo_attachment)
   end
 end
