@@ -65,7 +65,7 @@ export default class extends Controller {
       }
     }
 
-    // Pre-select finish if in URL (normalize: "matte" → "Matt", "gloss" → "Gloss")
+    // Pre-select finish if in URL (normalize: "matte" → "Matte", "gloss" → "Gloss")
     const finishParam = params.get('finish')
     if (finishParam) {
       const normalizedFinish = finishParam.charAt(0).toUpperCase() + finishParam.slice(1).toLowerCase()

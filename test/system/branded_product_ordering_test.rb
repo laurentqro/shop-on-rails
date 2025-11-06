@@ -22,7 +22,7 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
 
     # Step 2: Select finish - open accordion by clicking hidden radio
     find("[data-branded-configurator-target='finishStep'] input[type='radio']", visible: false).click
-    click_button "Matt"
+    click_button "Matte"
 
     # Step 3: Select quantity - open accordion by clicking hidden radio
     find("[data-branded-configurator-target='quantityStep'] input[type='radio']", visible: false).click
@@ -69,7 +69,7 @@ class BrandedProductOrderingTest < ApplicationSystemTestCase
 
     # Select finish - open accordion by clicking hidden radio
     find("[data-branded-configurator-target='finishStep'] input[type='radio']", visible: false).click
-    click_button "Matt"
+    click_button "Matte"
 
     # Still disabled (missing quantity and design)
     assert_selector ".btn-disabled", text: "Add to Cart"
