@@ -32,10 +32,9 @@
   <meta property="og:url" content="<%= polymorphic_url(@product) %>">
   <meta property="og:site_name" content="Afida">
   <% if @selected_variant&.primary_photo&.attached? %>
-    <meta property="og:image" itemprop="image" content="<%= polymorphic_url(@selected_variant.primary_photo.variant(resize_to_limit: [800, 600], format: :jpg, quality: 85).processed) %>">
+    <meta property="og:image" itemprop="image" content="<%= polymorphic_url(@selected_variant.primary_photo.variant(resize_to_limit: [800, 600])) %>">
     <meta property="og:image:width" content="800">
     <meta property="og:image:height" content="600">
-    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:alt" content="<%= @product.name %>">
   <% end %>
   <% if @selected_variant %>
