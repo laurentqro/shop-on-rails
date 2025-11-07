@@ -41,12 +41,11 @@ class ProductsController < ApplicationController
         nil
       end
     elsif base_product.standard? || base_product.customized_instance?
-      # For standard products, need variants with their images
+      # For standard products, need variants with their images (not product-level photos)
       @product = Product.includes(:category)
-                       .with_attached_product_photo
                        .find_by!(slug: params[:id])
-      # Eager load variant product photos for @variants_json mapping
-      @product.active_variants.includes(:product_photo_attachment).load
+      # Eager load variant product photos and lifestyle photos for @variants_json mapping
+      @product.active_variants.includes(:product_photo_attachment, :lifestyle_photo_attachment).load
       # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?
         @product.active_variants.find_by(id: params[:variant_id])
@@ -69,7 +68,7 @@ class ProductsController < ApplicationController
           price: v.price.to_f,
           pac_size: v.pac_size || 1,
           option_values: v.option_values,
-          image_url: v.product_photo.attached? ? url_for(v.product_photo.variant(resize_to_limit: [ 400, 400 ])) : nil
+          image_url: v.primary_photo&.attached? ? url_for(v.primary_photo.variant(resize_to_limit: [ 800, 800 ])) : nil
         }
       end
     end

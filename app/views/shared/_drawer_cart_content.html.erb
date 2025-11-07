@@ -8,15 +8,7 @@
       <% Current.cart.cart_items.includes(:product, product_variant: [:product_photo_attachment, product: [:product_photo_attachment, :branded_product_prices]]).each do |cart_item| %>
         <% if cart_item.product.present? && cart_item.product_variant.present? %>
           <div class="flex items-center space-x-3 p-3 bg-base-100 rounded-lg">
-            <% if cart_item.product_variant.product_photo.attached? %>
-              <%= image_tag cart_item.product_variant.product_photo, class: "w-12 h-12 object-cover rounded", alt: cart_item.product_variant.display_name %>
-            <% elsif cart_item.product.product_photo.attached? %>
-              <%= image_tag cart_item.product.product_photo, class: "w-12 h-12 object-cover rounded", alt: cart_item.product.name %>
-            <% else %>
-              <div class="w-12 h-12 bg-gray-200 rounded flex items-center justify-center">
-                <span class="text-xs text-gray-500">No img</span>
-              </div>
-            <% end %>
+            <%= product_photo_tag(cart_item.product_variant.primary_photo, alt: cart_item.product_variant.display_name, class: "w-12 h-12 rounded") %>
 
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium truncate"><%= cart_item.product.name %></p>

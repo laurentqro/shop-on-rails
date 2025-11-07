@@ -21,9 +21,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="<%= @product.name %>">
   <meta name="twitter:description" content="<%= @product.description %>">
-  <% image_source = @selected_variant&.product_photo&.attached? ? @selected_variant.product_photo : @product.product_photo %>
-  <% if image_source&.attached? %>
-    <meta name="twitter:image" content="<%= polymorphic_url(image_source.variant(resize_to_limit: [1200, 630])) %>">
+  <% if @selected_variant&.primary_photo&.attached? %>
+    <meta name="twitter:image" content="<%= polymorphic_url(@selected_variant.primary_photo.variant(resize_to_limit: [1200, 630])) %>">
   <% end %>
 
   <!-- Open Graph meta tags (also used by Twitter and WhatsApp) -->
@@ -32,8 +31,8 @@
   <meta property="og:description" content="<%= @product.description %>">
   <meta property="og:url" content="<%= polymorphic_url(@product) %>">
   <meta property="og:site_name" content="Afida">
-  <% if image_source&.attached? %>
-    <meta property="og:image" itemprop="image" content="<%= polymorphic_url(image_source.variant(resize_to_limit: [800, 600], format: :jpg, quality: 85).processed) %>">
+  <% if @selected_variant&.primary_photo&.attached? %>
+    <meta property="og:image" itemprop="image" content="<%= polymorphic_url(@selected_variant.primary_photo.variant(resize_to_limit: [800, 600], format: :jpg, quality: 85).processed) %>">
     <meta property="og:image:width" content="800">
     <meta property="og:image:height" content="600">
     <meta property="og:image:type" content="image/jpeg">
@@ -65,22 +64,19 @@
   <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
     <div class="container mx-auto py-8 min-h-screen">
-      <div class="card lg:card-side bg-base-100 shadow-sm">
+      <div class="card lg:card-side bg-base-100 shadow-sm"
+           data-controller="product-options"
+           data-product-options-variants-value="<%= @variants_json.to_json %>"
+           data-product-options-pac-size-value="<%= @selected_variant.pac_size || 1 %>">
         <figure class="lg:w-1/2">
-          <% image_source = @selected_variant&.product_photo&.attached? ? @selected_variant.product_photo : @product.product_photo %>
-          <% if image_source&.attached? %>
-            <%= image_tag image_source.variant(resize_to_limit: [400, 400]), alt: @product.name %>
-          <% else %>
-            <div class="w-full h-full bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
-              <span class="text-gray-500">Image not available</span>
-            </div>
-          <% end %>
+          <%= product_photo_tag(@selected_variant.primary_photo,
+                                alt: @product.name,
+                                class: "w-full h-full object-cover",
+                                variant: { resize_to_limit: [800, 800] },
+                                data: { product_options_target: "imageDisplay" }) %>
         </figure>
 
-        <div class="card-body lg:w-1/2"
-             data-controller="product-options"
-             data-product-options-variants-value="<%= @variants_json.to_json %>"
-             data-product-options-pac-size-value="<%= @selected_variant.pac_size || 1 %>">
+        <div class="card-body lg:w-1/2">
           <h2 class="card-title text-3xl lg:text-4xl">
             <%= @product.name %>
           </h2>

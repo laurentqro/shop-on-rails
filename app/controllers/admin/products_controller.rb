@@ -85,6 +85,8 @@ module Admin
             :stock_quantity,
             :active,
             :sort_order,
+            :product_photo,
+            :lifestyle_photo,
             :length_in_mm,
             :height_in_mm,
             :width_in_mm,

@@ -30,20 +30,21 @@ class ProductVariant < ApplicationRecord
   has_one_attached :product_photo
   has_one_attached :lifestyle_photo
 
-  # Returns the primary photo (with smart fallback)
+  # Returns the primary photo for this variant ONLY (no product fallback)
   # Priority: product_photo first, then lifestyle_photo
+  # Returns nil if no variant photos attached (caller should show placeholder)
   def primary_photo
     return product_photo if product_photo.attached?
     return lifestyle_photo if lifestyle_photo.attached?
     nil
   end
 
-  # Returns all attached photos as an array
+  # Returns all attached photos for this variant ONLY (no product fallback)
   def photos
     [ product_photo, lifestyle_photo ].select(&:attached?)
   end
 
-  # Check if any photo is available
+  # Check if variant has any photos (no product fallback)
   def has_photos?
     product_photo.attached? || lifestyle_photo.attached?
   end
