@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "terms-conditions", to: "pages#terms_conditions"
   get "privacy-policy", to: "pages#privacy_policy"
   get "cookies-policy", to: "pages#cookies_policy"
+  get "pattern-demo", to: "pages#pattern_demo" if Rails.env.development?
 
   # FAQ page
   get "faqs", to: "faqs#index"

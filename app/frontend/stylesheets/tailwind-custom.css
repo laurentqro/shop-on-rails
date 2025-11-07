@@ -13,6 +13,8 @@
   /* DaisyUI button color overrides */
   --color-primary: #79ebc0;
   --color-primary-content: #000000;
+  --color-secondary: #ff6b9d;
+  --color-secondary-content: #ffffff;
 }
 
 /* Override all DaisyUI button styles */

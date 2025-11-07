@@ -31,4 +31,7 @@ class PagesController < ApplicationController
 
   def cookies_policy
   end
+
+  def pattern_demo
+  end
 end

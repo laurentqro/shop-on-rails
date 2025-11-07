@@ -77,6 +77,7 @@ rails c                 # Shorthand
 - TailwindCSS 4 for utility-first styling
 - DaisyUI component library for pre-built UI components
 - Custom styles in `app/frontend/stylesheets/`
+- Pattern backgrounds available via `patterns.css` (see Pattern Backgrounds section below)
 
 ### Backend Architecture
 
@@ -228,6 +229,80 @@ compatible_lids_for_cup("8oz")  # Returns array of lid products
 - **Variant matching**: Configurator finds matching size variant from compatible lid product
 - **Flexibility**: A lid product can be compatible with multiple cup sizes
 - **Admin-controlled**: No code changes needed to update compatibility
+
+### Pattern Backgrounds
+
+Subtle repeating background patterns using product illustrations are available for adding visual interest to pages and sections.
+
+**Files**:
+- Pattern CSS: `app/frontend/stylesheets/patterns.css`
+- Imported in: `app/frontend/entrypoints/application.css`
+
+**Basic Usage**:
+```html
+<!-- Light grey background (default) -->
+<div class="pattern-bg pattern-bg-grey">
+  Your content here
+</div>
+
+<!-- White background -->
+<div class="pattern-bg pattern-bg-white">
+  Your content here
+</div>
+
+<!-- Apply to entire page -->
+<body class="pattern-bg pattern-bg-grey">
+  ...
+</body>
+```
+
+**Available Color Variants**:
+- `pattern-bg-grey` - Light grey (#f9fafb) - default
+- `pattern-bg-white` - Pure white
+- `pattern-bg-warm` - Warm grey (#fafaf9)
+- `pattern-bg-cool` - Cool grey (#f8fafc)
+- `pattern-bg-custom` - Use with CSS variable for custom color
+
+**Custom Colors**:
+```html
+<div class="pattern-bg pattern-bg-custom"
+     style="--pattern-bg-color: #e0f2fe;">
+  Your content
+</div>
+```
+
+**Opacity Variants**:
+- Default: 6% opacity (subtle)
+- `pattern-subtle` - Extra subtle (4% opacity)
+- `pattern-visible` - More prominent (10% opacity)
+
+**Combining Variants**:
+```html
+<!-- Extra subtle white background -->
+<div class="pattern-bg pattern-subtle pattern-bg-white">
+  ...
+</div>
+
+<!-- More visible grey background -->
+<div class="pattern-bg pattern-visible pattern-bg-grey">
+  ...
+</div>
+```
+
+**Demo Page**:
+Visit `/pattern-demo` in development to see all variants and usage examples.
+
+**Pattern Content**:
+- Includes all 10 product types (boxes, cups, pizza boxes, napkins, straws, etc.)
+- Random positioning, rotation, and scaling for organic appearance
+- SVG-based (scalable and crisp at any size)
+- Embedded as data URI in CSS (no extra HTTP requests)
+
+**Best Practices**:
+- Use sparingly - pattern works best on hero sections or full-page backgrounds
+- Choose subtle opacity for content-heavy sections
+- Test readability with your content before deploying
+- Consider using `pattern-bg-white` with borders for card-like elements
 
 ### Working with Cart
 - Use `Current.cart` to access current user's cart
