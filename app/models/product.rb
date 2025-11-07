@@ -15,7 +15,7 @@
 # - Example: /products/pizza-box-kraft
 #
 # Default scope:
-# - Only returns active products ordered by sort_order, then name
+# - Only returns active products ordered by position, then name
 # - Use Product.unscoped to access inactive products
 #
 class Product < ApplicationRecord
@@ -23,7 +23,7 @@ class Product < ApplicationRecord
   SEASONAL_TYPES = %w[year_round seasonal holiday].freeze
   B2B_PRIORITIES = %w[high medium low].freeze
 
-  default_scope { where(active: true).order(:sort_order, :name) }
+  default_scope { where(active: true).order(:position, :name) }
   scope :featured, -> { where(featured: true) }
   scope :catalog_products, -> { where(product_type: [ "standard", "customizable_template" ]) }
   scope :customized_for_organization, ->(org) { unscoped.where(product_type: "customized_instance", organization: org) }
