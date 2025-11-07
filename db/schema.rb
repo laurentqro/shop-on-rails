@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_07_235050) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_07_235404) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -241,6 +241,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_07_235050) do
     t.string "name", null: false
     t.bigint "organization_id"
     t.bigint "parent_product_id"
+    t.integer "position"
     t.string "product_type", default: "standard", null: false
     t.string "profit_margin"
     t.boolean "sample_eligible", default: false
@@ -248,12 +249,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_07_235050) do
     t.string "short_description"
     t.string "sku"
     t.string "slug"
-    t.integer "sort_order"
     t.datetime "updated_at", null: false
     t.decimal "vat_rate", precision: 5, scale: 2, default: "20.0"
     t.index [ "active" ], name: "index_products_on_active"
     t.index [ "base_sku" ], name: "index_products_on_base_sku", unique: true
     t.index [ "best_seller" ], name: "index_products_on_best_seller"
+    t.index [ "category_id", "position" ], name: "index_products_on_category_id_and_position"
     t.index [ "category_id" ], name: "index_products_on_category_id"
     t.index [ "featured" ], name: "index_products_on_featured"
     t.index [ "organization_id", "product_type" ], name: "index_products_on_organization_id_and_product_type"
