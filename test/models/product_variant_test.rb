@@ -424,4 +424,29 @@ class ProductVariantTest < ActiveSupport::TestCase
 
     assert variant.valid?
   end
+
+  test "should accept valid GTIN-8" do
+    variant = product_variants(:one)
+    variant.gtin = "12345678" # 8 digits
+
+    assert variant.valid?
+  end
+
+  test "should accept valid GTIN-12" do
+    variant = product_variants(:one)
+    variant.gtin = "123456789012" # 12 digits
+
+    assert variant.valid?
+  end
+
+  test "should reject duplicate GTIN" do
+    variant1 = product_variants(:one)
+    variant2 = product_variants(:two)
+
+    variant1.update!(gtin: "1234567890123")
+    variant2.gtin = "1234567890123"
+
+    assert_not variant2.valid?
+    assert_includes variant2.errors[:gtin], "has already been taken"
+  end
 end
