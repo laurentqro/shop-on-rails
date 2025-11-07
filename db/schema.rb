@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_07_000054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -198,6 +198,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
     t.datetime "created_at", null: false
     t.integer "depth_in_mm"
     t.integer "diameter_in_mm"
+    t.string "gtin"
     t.integer "height_in_mm"
     t.integer "length_in_mm"
     t.string "name", null: false
@@ -213,6 +214,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
     t.integer "weight_in_g"
     t.integer "width_in_mm"
     t.index [ "active" ], name: "index_product_variants_on_active"
+    t.index [ "gtin" ], name: "index_product_variants_on_gtin", unique: true, where: "(gtin IS NOT NULL)"
     t.index [ "option_values" ], name: "index_product_variants_on_option_values", using: :gin
     t.index [ "product_id", "sku" ], name: "index_product_variants_on_product_id_and_sku", unique: true
     t.index [ "product_id", "sort_order" ], name: "index_product_variants_on_product_id_and_sort_order"
@@ -221,9 +223,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
 
   create_table "products", force: :cascade do |t|
     t.boolean "active", default: true
+    t.string "b2b_priority"
     t.string "base_sku"
+    t.boolean "best_seller", default: false
     t.bigint "category_id"
     t.string "colour"
+    t.string "compatible_cup_sizes", default: [], array: true
     t.jsonb "configuration_data", default: {}
     t.datetime "created_at", null: false
     t.text "description"
@@ -235,7 +240,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
     t.bigint "organization_id"
     t.bigint "parent_product_id"
     t.string "product_type", default: "standard", null: false
+    t.string "profit_margin"
     t.boolean "sample_eligible", default: false
+    t.string "seasonal_type", default: "year_round"
     t.string "short_description"
     t.string "sku"
     t.string "slug"
@@ -244,12 +251,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_06_210620) do
     t.decimal "vat_rate", precision: 5, scale: 2, default: "20.0"
     t.index [ "active" ], name: "index_products_on_active"
     t.index [ "base_sku" ], name: "index_products_on_base_sku", unique: true
+    t.index [ "best_seller" ], name: "index_products_on_best_seller"
     t.index [ "category_id" ], name: "index_products_on_category_id"
     t.index [ "featured" ], name: "index_products_on_featured"
     t.index [ "organization_id", "product_type" ], name: "index_products_on_organization_id_and_product_type"
     t.index [ "organization_id" ], name: "index_products_on_organization_id"
     t.index [ "parent_product_id" ], name: "index_products_on_parent_product_id"
     t.index [ "product_type" ], name: "index_products_on_product_type"
+    t.index [ "profit_margin" ], name: "index_products_on_profit_margin"
     t.index [ "slug" ], name: "index_products_on_slug", unique: true
   end
 

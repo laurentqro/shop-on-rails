@@ -248,44 +248,47 @@ class ProductTest < ActiveSupport::TestCase
     assert_not product.has_photos?
   end
 
-  # Compatible lids tests
-  test "has many compatible_lids associations" do
-    product = products(:branded_cup_8oz)
-    assert_respond_to product, :product_compatible_lids
-    assert_respond_to product, :compatible_lids
-  end
-
-  test "compatible_lids returns products ordered by sort_order" do
-    product = products(:branded_cup_8oz)
-    lids = product.compatible_lids
-
-    assert_includes lids, products(:flat_lid_8oz)
-    assert_includes lids, products(:domed_lid_8oz)
-
-    # Verify order matches sort_order from join table
-    assert_equal products(:flat_lid_8oz), lids.first
-    assert_equal products(:domed_lid_8oz), lids.second
-  end
-
-  test "default_compatible_lid returns the default lid" do
-    product = products(:branded_cup_8oz)
-    default_lid = product.default_compatible_lid
-
-    assert_equal products(:flat_lid_8oz), default_lid
-  end
-
-  test "default_compatible_lid returns nil when no default set" do
+  # Compatible cup sizes tests
+  test "compatible_cup_sizes can store array of sizes" do
     product = products(:one)
-    assert_nil product.default_compatible_lid
+    product.compatible_cup_sizes = [ "8oz", "12oz", "16oz" ]
+    assert product.save
+
+    product.reload
+    assert_equal [ "8oz", "12oz", "16oz" ], product.compatible_cup_sizes
   end
 
-  test "has_compatible_lids? returns true when lids exist" do
-    product = products(:branded_cup_8oz)
-    assert product.has_compatible_lids?
+  test "compatible_cup_sizes defaults to empty array" do
+    product = Product.new(
+      name: "Test Product",
+      category: categories(:one),
+      slug: "test-product-slug"
+    )
+    assert product.save
+
+    assert_equal [], product.compatible_cup_sizes
   end
 
-  test "has_compatible_lids? returns false when no lids exist" do
+  test "should have custom label fields" do
     product = products(:one)
-    assert_not product.has_compatible_lids?
+
+    product.profit_margin = "high"
+    product.best_seller = true
+    product.seasonal_type = "year_round"
+    product.b2b_priority = "high"
+
+    assert product.save
+    assert_equal "high", product.profit_margin
+    assert product.best_seller
+    assert_equal "year_round", product.seasonal_type
+    assert_equal "high", product.b2b_priority
+  end
+
+  test "should validate profit_margin values" do
+    product = products(:one)
+    product.profit_margin = "invalid"
+
+    assert_not product.valid?
+    assert_includes product.errors[:profit_margin], "is not included in the list"
   end
 end

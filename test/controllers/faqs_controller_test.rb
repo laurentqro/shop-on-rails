@@ -11,7 +11,7 @@ class FaqsControllerTest < ActionDispatch::IntegrationTest
   test "index loads all categories" do
     get faqs_url
     assert_response :success
-    assert_select "h1", text: "Frequently Asked Questions"
+    assert_select "h1", text: "Frequently Asked Questions (FAQs)"
     # Verify we see accordion items for all questions (33 questions total across 10 categories)
     assert_select ".collapse", count: 33
   end

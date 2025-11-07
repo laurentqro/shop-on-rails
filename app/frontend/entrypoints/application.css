@@ -3,3 +3,4 @@
 @import "../stylesheets/application.tailwind.css";
 @plugin "daisyui";
 @import "../stylesheets/custom-styles.css";
+@import "../stylesheets/patterns.css";

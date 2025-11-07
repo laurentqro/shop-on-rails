@@ -1,0 +1,149 @@
+<%# Pattern Background Demo Page %>
+<% content_for :title, "Pattern Background Demo" %>
+
+<div class="min-h-screen">
+  <!-- Hero Section with Pattern -->
+  <section class="pattern-bg pattern-bg-grey py-20">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold mb-4">Pattern Background Demo</h1>
+      <p class="text-lg text-gray-600 max-w-2xl">
+        A subtle repeating pattern using product illustrations from our catalog.
+        This creates visual interest without overwhelming the content.
+      </p>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 space-y-12">
+
+      <!-- Light Grey (Default) -->
+      <div class="pattern-bg pattern-bg-grey rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2">Light Grey Background</h2>
+        <p class="text-gray-600">Default pattern with light grey background (#f9fafb)</p>
+        <p class="text-sm text-gray-500 mt-4">Classes: <code>pattern-bg pattern-bg-grey</code></p>
+      </div>
+
+      <!-- White Background -->
+      <div class="pattern-bg pattern-bg-white border border-gray-200 rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2">White Background</h2>
+        <p class="text-gray-600">Clean white background with subtle pattern</p>
+        <p class="text-sm text-gray-500 mt-4">Classes: <code>pattern-bg pattern-bg-white</code></p>
+      </div>
+
+      <!-- Warm Grey -->
+      <div class="pattern-bg pattern-bg-warm rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2">Warm Grey Background</h2>
+        <p class="text-gray-600">Warmer grey tone (#fafaf9)</p>
+        <p class="text-sm text-gray-500 mt-4">Classes: <code>pattern-bg pattern-bg-warm</code></p>
+      </div>
+
+      <!-- Cool Grey -->
+      <div class="pattern-bg pattern-bg-cool rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2">Cool Grey Background</h2>
+        <p class="text-gray-600">Cooler blue-grey tone (#f8fafc)</p>
+        <p class="text-sm text-gray-500 mt-4">Classes: <code>pattern-bg pattern-bg-cool</code></p>
+      </div>
+
+      <!-- Primary Color -->
+      <div class="pattern-bg pattern-bg-primary rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2 text-black">Primary Color Background</h2>
+        <p class="text-black opacity-90">Uses custom theme primary color (#79ebc0)</p>
+        <p class="text-sm text-black opacity-75 mt-4">Classes: <code>pattern-bg pattern-bg-primary</code></p>
+      </div>
+
+      <!-- Secondary Color -->
+      <div class="pattern-bg pattern-bg-secondary rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2 text-white">Secondary Color Background</h2>
+        <p class="text-white opacity-90">Uses custom theme secondary color (#ff6b9d)</p>
+        <p class="text-sm text-white opacity-75 mt-4">Classes: <code>pattern-bg pattern-bg-secondary</code></p>
+      </div>
+
+      <!-- Extra Subtle -->
+      <div class="pattern-bg pattern-subtle pattern-bg-white border border-gray-200 rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2">Extra Subtle Variant</h2>
+        <p class="text-gray-600">Even more subtle pattern (4% opacity)</p>
+        <p class="text-sm text-gray-500 mt-4">Classes: <code>pattern-bg pattern-subtle pattern-bg-white</code></p>
+      </div>
+
+      <!-- More Visible -->
+      <div class="pattern-bg pattern-visible pattern-bg-grey rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-2">More Visible Variant</h2>
+        <p class="text-gray-600">More prominent pattern (10% opacity)</p>
+        <p class="text-sm text-gray-500 mt-4">Classes: <code>pattern-bg pattern-visible pattern-bg-grey</code></p>
+      </div>
+
+      <!-- Custom Color Example -->
+      <div class="pattern-bg pattern-bg-custom rounded-lg p-8" style="--pattern-bg-color: #e0f2fe;">
+        <h2 class="text-2xl font-bold mb-2">Custom Color Example</h2>
+        <p class="text-gray-600">Use any custom color with CSS variable</p>
+        <p class="text-sm text-gray-500 mt-4">
+          Classes: <code>pattern-bg pattern-bg-custom</code><br>
+          Style: <code>--pattern-bg-color: #e0f2fe;</code>
+        </p>
+      </div>
+
+      <!-- Full Width Content Example -->
+      <div class="pattern-bg pattern-bg-grey rounded-lg p-12">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6">Full Content Section</h2>
+          <p class="text-lg text-gray-700 mb-4">
+            This demonstrates how the pattern works with longer content. The subtle background
+            adds visual interest without competing with your content.
+          </p>
+          <p class="text-gray-600 mb-4">
+            The pattern includes all 10 product types: boxes, hot cups, cold cups, pizza boxes,
+            ice cream cups, napkins, straws, kraft containers, and more.
+          </p>
+          <div class="flex gap-4 mt-8">
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-outline">Secondary Button</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Usage Guide -->
+  <section class="bg-white py-16">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold mb-8">Usage Guide</h2>
+
+      <div class="prose max-w-none">
+        <h3>Basic Usage</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>&lt;div class="pattern-bg pattern-bg-grey"&gt;
+  Your content here
+&lt;/div&gt;</code></pre>
+
+        <h3>Apply to Body</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>&lt;body class="pattern-bg pattern-bg-grey"&gt;
+  ...
+&lt;/body&gt;</code></pre>
+
+        <h3>Custom Color</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>&lt;div class="pattern-bg pattern-bg-custom"
+     style="--pattern-bg-color: #your-color;"&gt;
+  Your content here
+&lt;/div&gt;</code></pre>
+
+        <h3>Primary Color</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>&lt;div class="pattern-bg pattern-bg-primary"&gt;
+  &lt;div class="text-black"&gt;Your content here&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3>Secondary Color</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>&lt;div class="pattern-bg pattern-bg-secondary"&gt;
+  &lt;div class="text-white"&gt;Your content here&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <h3>Combine with Opacity Variants</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>&lt;!-- Extra subtle --&gt;
+&lt;div class="pattern-bg pattern-subtle pattern-bg-white"&gt;...&lt;/div&gt;
+
+&lt;!-- More visible --&gt;
+&lt;div class="pattern-bg pattern-visible pattern-bg-grey"&gt;...&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </section>
+</div>

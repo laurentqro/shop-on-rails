@@ -43,6 +43,9 @@ application.register("faq-search", FaqSearchController)
 import AddonController from "../javascript/controllers/addon_controller"
 application.register("addon", AddonController)
 
+import NestedFormController from "../javascript/controllers/nested_form_controller"
+application.register("nested-form", NestedFormController)
+
 // Configure Stimulus development experience
 application.debug = false
 window.Stimulus = application

@@ -178,41 +178,52 @@ export default class extends Controller {
 
   createLidCard(lid) {
     const card = document.createElement('div')
-    card.className = 'card bg-white border-2 border-gray-200 hover:border-primary transition'
+    card.className = 'bg-white border-2 border-gray-200 rounded-lg hover:border-primary transition-colors'
     card.innerHTML = `
-      <figure class="p-4">
-        ${lid.image_url ?
-          `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-32 object-contain" />` :
-          '<div class="w-full h-32 bg-gray-100 flex items-center justify-center"><span class="text-4xl">📦</span></div>'
-        }
-      </figure>
-      <div class="card-body p-4">
-        <h3 class="card-title text-sm">${lid.name}</h3>
-        <p class="text-lg font-bold">£${parseFloat(lid.price).toFixed(2)}</p>
-        <p class="text-xs text-gray-500">Pack of ${lid.pac_size.toLocaleString()}</p>
+      <div class="flex items-center gap-6 p-4">
+        <!-- Image -->
+        <div class="flex-shrink-0 w-24 h-24">
+          ${lid.image_url ?
+            `<img src="${lid.image_url}" alt="${lid.name}" class="w-full h-full object-contain" />` :
+            '<div class="w-full h-full bg-gray-100 flex items-center justify-center rounded text-4xl">📦</div>'
+          }
+        </div>
 
-        <select class="select select-sm select-bordered w-full mt-2" data-lid-quantity="${lid.sku}">
-          ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
-            `<option value="${q.value}">${q.label}</option>`
-          ).join('')}
-        </select>
+        <!-- Content -->
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-lg mb-1">${lid.name}</h3>
+          <div class="text-base text-gray-900">£${parseFloat(lid.price).toFixed(2)}</div>
+          <div class="text-sm text-gray-500 mt-1">Pack of ${lid.pac_size.toLocaleString()}</div>
+        </div>
 
-        <button class="btn btn-primary btn-sm mt-2"
-                data-action="click->branded-configurator#addLidToCart"
-                data-lid-sku="${lid.sku}"
-                data-lid-name="${lid.name}">
-          + Add
-        </button>
+        <!-- Actions (vertical stack) -->
+        <div class="flex-shrink-0 flex flex-col gap-2" style="min-width: 200px;">
+          <select class="px-4 py-2.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white w-full" data-lid-quantity="${lid.sku}">
+            ${this.generateLidQuantityOptions(lid.pac_size, this.selectedQuantity).map(q =>
+              `<option value="${q.value}" ${q.selected ? 'selected' : ''}>${q.label}</option>`
+            ).join('')}
+          </select>
+          <button class="px-6 py-2.5 text-sm font-medium text-black bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full"
+                  data-action="click->branded-configurator#addLidToCart"
+                  data-lid-sku="${lid.sku}"
+                  data-lid-name="${lid.name}">
+            Add to basket
+          </button>
+        </div>
       </div>
     `
     return card
   }
 
   generateLidQuantityOptions(pac_size, cupQuantity) {
-    // Generate pack multiples up to 10 packs
+    // Generate pack multiples up to 10 packs or 10,000 units (whichever is smaller)
+    const MAX_QUANTITY = 30000
     const options = []
+
+    // Add pack multiples up to 10,000 units
     for (let i = 1; i <= 10; i++) {
       const quantity = pac_size * i
+      if (quantity > 10000) break
       const numPacks = i
       options.push({
         value: quantity,
@@ -220,6 +231,17 @@ export default class extends Controller {
         selected: quantity === cupQuantity
       })
     }
+
+    // Add 5,000-unit increments from 15,000 to 30,000
+    for (let quantity = 15000; quantity <= MAX_QUANTITY; quantity += 5000) {
+      const numPacks = Math.ceil(quantity / pac_size)
+      options.push({
+        value: quantity,
+        label: `${quantity.toLocaleString()} units (${numPacks} ${numPacks === 1 ? 'pack' : 'packs'})`,
+        selected: quantity === cupQuantity
+      })
+    }
+
     return options
   }
 
@@ -439,7 +461,7 @@ export default class extends Controller {
     const button = event.currentTarget
     const sku = button.dataset.lidSku
     const name = button.dataset.lidName
-    const quantitySelect = button.closest('.card-body').querySelector('select')
+    const quantitySelect = button.parentElement.querySelector('select')
     const quantity = parseInt(quantitySelect.value)
 
     // Disable button during request
@@ -470,15 +492,15 @@ export default class extends Controller {
         }
 
         // Show success feedback
-        button.textContent = '✓ Added'
-        button.classList.remove('btn-primary')
-        button.classList.add('btn-success')
+        button.textContent = '✓ Added to basket'
+        button.classList.remove('bg-primary', 'hover:bg-primary-focus')
+        button.classList.add('bg-success', 'hover:bg-success')
 
         // Reset after 2 seconds
         setTimeout(() => {
-          button.textContent = '+ Add'
-          button.classList.remove('btn-success')
-          button.classList.add('btn-primary')
+          button.textContent = 'Add to basket'
+          button.classList.remove('bg-success', 'hover:bg-success')
+          button.classList.add('bg-primary', 'hover:bg-primary-focus')
           button.disabled = false
         }, 2000)
       } else {
@@ -487,7 +509,7 @@ export default class extends Controller {
     } catch (error) {
       this.showError(`Failed to add ${name}`)
       button.disabled = false
-      button.textContent = '+ Add'
+      button.textContent = 'Add to basket'
     }
   }
 

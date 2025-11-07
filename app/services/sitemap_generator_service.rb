@@ -18,8 +18,8 @@ class SitemapGeneratorService
         add_url(xml, about_url, priority: "0.5", changefreq: "monthly")
         add_url(xml, contact_url, priority: "0.5", changefreq: "monthly")
         add_url(xml, faqs_url, priority: "0.6", changefreq: "weekly")
-        add_url(xml, terms_url, priority: "0.3", changefreq: "yearly")
-        add_url(xml, privacy_url, priority: "0.3", changefreq: "yearly")
+        add_url(xml, terms_conditions_url, priority: "0.3", changefreq: "yearly")
+        add_url(xml, privacy_policy_url, priority: "0.3", changefreq: "yearly")
 
         # Categories
         Category.find_each do |category|

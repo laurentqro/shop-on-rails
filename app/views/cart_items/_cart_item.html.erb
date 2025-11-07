@@ -80,8 +80,24 @@
         <%
           variant = cart_item.product_variant
           pac_size = variant.pac_size || 1
-          # Generate multiples of pack size (1x to 10x packs)
-          quantity_options = (1..10).map { |i| pac_size * i }
+          max_quantity = 30000
+
+          # Generate pack multiples up to 10,000 units
+          quantity_options = []
+          (1..10).each do |i|
+            quantity = pac_size * i
+            break if quantity > 10000
+            quantity_options << quantity
+          end
+
+          # Add 5,000-unit increments from 15,000 to 30,000
+          (15000..max_quantity).step(5000).each do |quantity|
+            quantity_options << quantity
+          end
+
+          # Always include current quantity if it's not already in the list
+          quantity_options << cart_item.quantity unless quantity_options.include?(cart_item.quantity)
+          quantity_options.sort!
         %>
 
         <%= form_with(model: cart_item, url: cart_cart_item_path(cart_item), method: :patch, local: false) do |form| %>

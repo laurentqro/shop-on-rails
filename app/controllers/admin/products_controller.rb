@@ -93,7 +93,8 @@ module Admin
             :volume_in_ml,
             :diameter_in_mm
           ]
-        ]
+        ],
+        compatible_cup_sizes: []
       ])
     end
   end

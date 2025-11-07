@@ -76,7 +76,16 @@
       "Skill(superpowers:writing-plans)",
       "Skill(superpowers:systematic-debugging)",
       "Bash(rails db:seed:*)",
-      "Bash(bin/vite build:*)"
+      "Bash(bin/vite build:*)",
+      "Bash(if [ -f .kamal/secrets ])",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(fi)",
+      "Skill(superpowers:subagent-driven-development)",
+      "Bash(rails db:migrate:status:*)",
+      "Bash(bundle exec rubocop:*)",
+      "WebSearch",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "ask": []

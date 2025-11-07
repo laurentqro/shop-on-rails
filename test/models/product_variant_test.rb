@@ -394,4 +394,59 @@ class ProductVariantTest < ActiveSupport::TestCase
 
     assert_not variant.has_photos?
   end
+
+  # GTIN validation tests
+  test "should accept valid GTIN-13" do
+    variant = product_variants(:one)
+    variant.gtin = "1234567890123" # 13 digits
+
+    assert variant.valid?
+  end
+
+  test "should accept valid GTIN-14" do
+    variant = product_variants(:one)
+    variant.gtin = "12345678901234" # 14 digits
+
+    assert variant.valid?
+  end
+
+  test "should reject invalid GTIN format" do
+    variant = product_variants(:one)
+    variant.gtin = "123" # too short
+
+    assert_not variant.valid?
+    assert_includes variant.errors[:gtin], "must be 8, 12, 13, or 14 digits"
+  end
+
+  test "GTIN should be optional" do
+    variant = product_variants(:one)
+    variant.gtin = nil
+
+    assert variant.valid?
+  end
+
+  test "should accept valid GTIN-8" do
+    variant = product_variants(:one)
+    variant.gtin = "12345678" # 8 digits
+
+    assert variant.valid?
+  end
+
+  test "should accept valid GTIN-12" do
+    variant = product_variants(:one)
+    variant.gtin = "123456789012" # 12 digits
+
+    assert variant.valid?
+  end
+
+  test "should reject duplicate GTIN" do
+    variant1 = product_variants(:one)
+    variant2 = product_variants(:two)
+
+    variant1.update!(gtin: "1234567890123")
+    variant2.gtin = "1234567890123"
+
+    assert_not variant2.valid?
+    assert_includes variant2.errors[:gtin], "has already been taken"
+  end
 end

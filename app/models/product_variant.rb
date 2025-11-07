@@ -55,6 +55,10 @@ class ProductVariant < ApplicationRecord
   validates :sku, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :name, presence: true
+  validates :gtin,
+            format: { with: /\A\d{8}|\d{12}|\d{13}|\d{14}\z/, message: "must be 8, 12, 13, or 14 digits" },
+            uniqueness: true,
+            allow_blank: true
 
   # Inherit these attributes from parent product
   delegate :category, :description, :meta_title, :meta_description, :colour, to: :product
