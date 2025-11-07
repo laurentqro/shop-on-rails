@@ -1,6 +1,6 @@
 module Admin
   class ProductsController < ApplicationController
-    before_action :set_product, only: %i[ show edit update destroy new_variant ]
+    before_action :set_product, only: %i[ show edit update destroy new_variant destroy_product_photo destroy_lifestyle_photo ]
 
     # GET /products
     def index
@@ -49,6 +49,24 @@ module Admin
     def destroy
       @product.destroy!
       redirect_to admin_products_path, notice: "Product was successfully destroyed.", status: :see_other
+    end
+
+    # DELETE /admin/products/:id/product_photo
+    def destroy_product_photo
+      @product.product_photo.purge
+      respond_to do |format|
+        format.turbo_stream
+        format.html { head :ok }
+      end
+    end
+
+    # DELETE /admin/products/:id/lifestyle_photo
+    def destroy_lifestyle_photo
+      @product.lifestyle_photo.purge
+      respond_to do |format|
+        format.turbo_stream
+        format.html { head :ok }
+      end
     end
 
     private

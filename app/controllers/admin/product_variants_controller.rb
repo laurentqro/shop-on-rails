@@ -1,5 +1,5 @@
 class Admin::ProductVariantsController < ApplicationController
-  before_action :set_product_variant, only: [ :edit, :update ]
+  before_action :set_product_variant, only: [ :edit, :update, :destroy_product_photo, :destroy_lifestyle_photo ]
 
   def edit
   end
@@ -9,6 +9,24 @@ class Admin::ProductVariantsController < ApplicationController
       redirect_to admin_product_variant_path(@product_variant), notice: "Product variant updated successfully"
     else
       render :edit
+    end
+  end
+
+  # DELETE /admin/product_variants/:id/product_photo
+  def destroy_product_photo
+    @product_variant.product_photo.purge
+    respond_to do |format|
+      format.turbo_stream
+      format.html { head :ok }
+    end
+  end
+
+  # DELETE /admin/product_variants/:id/lifestyle_photo
+  def destroy_lifestyle_photo
+    @product_variant.lifestyle_photo.purge
+    respond_to do |format|
+      format.turbo_stream
+      format.html { head :ok }
     end
   end
 

@@ -49,9 +49,18 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "products#index"
     resources :products do
-      get :new_variant, on: :member
+      member do
+        get :new_variant
+        delete :product_photo, to: "products#destroy_product_photo"
+        delete :lifestyle_photo, to: "products#destroy_lifestyle_photo"
+      end
     end
-    resources :product_variants, only: [ :edit, :update ]
+    resources :product_variants, only: [ :edit, :update ] do
+      member do
+        delete :product_photo, to: "product_variants#destroy_product_photo"
+        delete :lifestyle_photo, to: "product_variants#destroy_lifestyle_photo"
+      end
+    end
     resources :categories
     resources :orders, only: [ :index, :show ]
     resources :branded_orders, only: [ :index, :show ] do

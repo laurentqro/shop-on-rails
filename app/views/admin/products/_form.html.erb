@@ -1,4 +1,4 @@
-<%= form_with(model: [:admin, product], class: "contents", local: false) do |form| %>
+<%= form_with(model: [:admin, product], local: true, data: { turbo: false }) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+  <%# Status Section - Always Visible %>
   <fieldset class="fieldset mt-8">
     <legend class="fieldset-legend text-2xl font-medium">Status</legend>
 
@@ -24,9 +25,12 @@
       <%= form.label :sample_eligible, class: "label text-base" %>
       <%= form.check_box :sample_eligible, class: "toggle toggle-primary toggle-lg" %>
     </div>
+  </fieldset>
 
-    <div class="divider my-8"></div>
+  <div class="divider my-8"></div>
 
+  <%# Details Section - Always Visible %>
+  <fieldset class="fieldset">
     <legend class="fieldset-legend text-2xl font-medium">Details</legend>
 
     <div class="grid grid-cols-2 gap-y-4 py-4">
@@ -37,26 +41,70 @@
       <%= form.select :category_id, Category.all.map { |category| [category.name, category.id] }, {}, class: "select select-bordered" %>
 
       <%= form.label :product_photo, "Product Photo", class: "label text-base" %>
-      <div>
-        <%= form.file_field :product_photo, accept: 'image/*', class: "file-input file-input-bordered" %>
-        <% if form.object.product_photo.attached? %>
-          <div class="mt-4">
-            <%= image_tag form.object.product_photo.variant(resize_to_limit: [200, 200]), class: "rounded shadow" %>
-            <p class="text-sm text-gray-600 mt-1">Current product photo</p>
-          </div>
-        <% end %>
-      </div>
+      <%= turbo_frame_tag "product_photo_#{form.object.id}" do %>
+        <div>
+          <%= form.file_field :product_photo, accept: 'image/*', class: "file-input file-input-bordered" %>
+          <% if form.object.product_photo.attached? %>
+            <div class="mt-4 relative inline-block">
+              <%= image_tag form.object.product_photo.variant(resize_to_limit: [200, 200]), class: "rounded shadow" %>
+              <%= link_to product_photo_admin_product_path(form.object),
+                    class: "absolute top-1 right-1 p-1 hover:bg-base-200 rounded cursor-pointer",
+                    data: {
+                      turbo_method: :delete,
+                      turbo_frame: "product_photo_#{form.object.id}",
+                      turbo_confirm: "Delete this photo?"
+                    } do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-base-content hover:text-error transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              <% end %>
+              <p class="text-sm text-gray-600 mt-1">Current product photo</p>
+            </div>
+          <% else %>
+            <div class="mt-4">
+              <div class="w-[200px] h-[200px] bg-base-200 rounded flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-base-content/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">No product photo</p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
       <%= form.label :lifestyle_photo, "Lifestyle Photo", class: "label text-base" %>
-      <div>
-        <%= form.file_field :lifestyle_photo, accept: 'image/*', class: "file-input file-input-bordered" %>
-        <% if form.object.lifestyle_photo.attached? %>
-          <div class="mt-4">
-            <%= image_tag form.object.lifestyle_photo.variant(resize_to_limit: [200, 200]), class: "rounded shadow" %>
-            <p class="text-sm text-gray-600 mt-1">Current lifestyle photo</p>
-          </div>
-        <% end %>
-      </div>
+      <%= turbo_frame_tag "lifestyle_photo_#{form.object.id}" do %>
+        <div>
+          <%= form.file_field :lifestyle_photo, accept: 'image/*', class: "file-input file-input-bordered" %>
+          <% if form.object.lifestyle_photo.attached? %>
+            <div class="mt-4 relative inline-block">
+              <%= image_tag form.object.lifestyle_photo.variant(resize_to_limit: [200, 200]), class: "rounded shadow" %>
+              <%= link_to lifestyle_photo_admin_product_path(form.object),
+                    class: "absolute top-1 right-1 p-1 hover:bg-base-200 rounded cursor-pointer",
+                    data: {
+                      turbo_method: :delete,
+                      turbo_frame: "lifestyle_photo_#{form.object.id}",
+                      turbo_confirm: "Delete this photo?"
+                    } do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-base-content hover:text-error transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              <% end %>
+              <p class="text-sm text-gray-600 mt-1">Current lifestyle photo</p>
+            </div>
+          <% else %>
+            <div class="mt-4">
+              <div class="w-[200px] h-[200px] bg-base-200 rounded flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-base-content/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                </div>
+                <p class="text-sm text-gray-600 mt-1">No lifestyle photo</p>
+              </div>
+          <% end %>
+        </div>
+      <% end %>
 
       <%= form.label :description, class: "label text-base" %>
       <%= form.text_area :description, rows: 4, class: "textarea textarea-bordered w-full" %>
@@ -65,27 +113,8 @@
 
   <div class="divider my-8"></div>
 
-  <fieldset class="fieldset my-8">
-    <legend class="fieldset-legend text-2xl font-medium">SEO Stuff</legend>
-
-    <div class="grid grid-cols-2 gap-y-4 py-4">
-      <%= form.label :slug, class: "label text-base" %>
-      <%= form.text_field :slug, class: "input" %>
-
-      <%= form.label :meta_title, "Meta Title (max 60 characters)", class: "label text-base" %>
-      <%= form.text_field :meta_title, class: "input", placeholder: "This is the title of the product. It should be 50-60 characters long.", maxlength: 60 %>
-
-      <%= form.label :meta_description, "Meta Description (max 160 characters)", class: "label text-base" %>
-      <%= form.text_area :meta_description, rows: 4, class: "textarea textarea-bordered w-full", placeholder: "This is a description of the product. It should be 150-160 characters long.", maxlength: 160 %>
-
-      <%= form.label :meta_image, class: "label text-base" %>
-      <%= form.file_field :meta_image, class: "file-input file-input-bordered" %>
-    </div>
-  </fieldset>
-
-  <div class="divider my-8"></div>
-
-  <fieldset class="fieldset my-8">
+  <%# Variants Section - Always Visible with Collapsible Variants %>
+  <fieldset class="fieldset">
     <legend class="fieldset-legend text-2xl font-medium">Variants</legend>
 
     <%= turbo_frame_tag "variants" do %>
@@ -99,31 +128,66 @@
     <% end %>
   </fieldset>
 
-  <% if @product.persisted? %>
+  <div class="divider my-8"></div>
+
+  <%# SEO Section - Collapsible %>
+  <div class="collapse collapse-arrow border border-neutral rounded-md">
+    <input type="checkbox" />
+    <div class="collapse-title text-xl font-medium">
+      SEO Settings
+    </div>
+    <div class="collapse-content">
+      <fieldset class="fieldset">
+        <div class="grid grid-cols-2 gap-y-4 py-4">
+          <%= form.label :slug, class: "label text-base" %>
+          <%= form.text_field :slug, class: "input" %>
+
+          <%= form.label :meta_title, "Meta Title (max 60 characters)", class: "label text-base" %>
+          <%= form.text_field :meta_title, class: "input", placeholder: "This is the title of the product. It should be 50-60 characters long.", maxlength: 60 %>
+
+          <%= form.label :meta_description, "Meta Description (max 160 characters)", class: "label text-base" %>
+          <%= form.text_area :meta_description, rows: 4, class: "textarea textarea-bordered w-full", placeholder: "This is a description of the product. It should be 150-160 characters long.", maxlength: 160 %>
+
+          <%= form.label :meta_image, class: "label text-base" %>
+          <%= form.file_field :meta_image, class: "file-input file-input-bordered" %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <% if @product.persisted? && @product.name.downcase.include?('lid') %>
     <div class="divider my-8"></div>
 
-    <fieldset class="fieldset my-8">
-      <legend class="fieldset-legend text-2xl font-medium">Compatible Cup Sizes (for lids)</legend>
-      <p class="text-sm text-base-content/70 mb-4">
-        Select which cup sizes this lid is compatible with. This is used to match lids with cups in the branded configurator.
-      </p>
-
-      <div class="form-control">
-        <%= form.label :compatible_cup_sizes, "Compatible Cup Sizes", class: "label" %>
-        <div class="flex flex-wrap gap-3">
-          <% %w[4oz 6oz 8oz 10oz 12oz 16oz 20oz].each do |size| %>
-            <label class="label cursor-pointer gap-2 border border-base-300 rounded-lg px-4 py-2">
-              <%= check_box_tag 'product[compatible_cup_sizes][]', size, @product.compatible_cup_sizes&.include?(size), class: "checkbox checkbox-sm" %>
-              <span class="label-text"><%= size %></span>
-            </label>
-          <% end %>
-        </div>
-        <%= hidden_field_tag 'product[compatible_cup_sizes][]', '', id: nil %>
+    <%# Compatible Cup Sizes Section - Collapsible (Conditional for lids) %>
+    <div class="collapse collapse-arrow border border-neutral rounded-md">
+      <input type="checkbox" />
+      <div class="collapse-title text-xl font-medium">
+        Compatible Cup Sizes
       </div>
-    </fieldset>
+      <div class="collapse-content">
+        <fieldset class="fieldset">
+          <p class="text-sm text-base-content/70 mb-4">
+            Select which cup sizes this lid is compatible with. This is used to match lids with cups in the branded configurator.
+          </p>
+
+          <div class="form-control">
+            <%= form.label :compatible_cup_sizes, "Compatible Cup Sizes", class: "label" %>
+            <div class="flex flex-wrap gap-3">
+              <% %w[4oz 6oz 8oz 10oz 12oz 16oz 20oz].each do |size| %>
+                <label class="label cursor-pointer gap-2 border border-base-300 rounded-lg px-4 py-2">
+                  <%= check_box_tag 'product[compatible_cup_sizes][]', size, @product.compatible_cup_sizes&.include?(size), class: "checkbox checkbox-sm" %>
+                  <span class="label-text"><%= size %></span>
+                </label>
+              <% end %>
+            </div>
+            <%= hidden_field_tag 'product[compatible_cup_sizes][]', '', id: nil %>
+          </div>
+        </fieldset>
+      </div>
+    </div>
   <% end %>
 
-  <div class="inline mt-8 flex justify-end">
-    <%= form.submit class: "btn btn-primary" %>
+  <div class="mt-8 flex justify-end">
+    <%= form.submit "Update Product", class: "btn btn-primary" %>
   </div>
 <% end %>
