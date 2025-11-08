@@ -19,6 +19,8 @@
 # - Use Product.unscoped to access inactive products
 #
 class Product < ApplicationRecord
+  acts_as_list scope: :category_id
+
   PROFIT_MARGINS = %w[high medium low].freeze
   SEASONAL_TYPES = %w[year_round seasonal holiday].freeze
   B2B_PRIORITIES = %w[high medium low].freeze
