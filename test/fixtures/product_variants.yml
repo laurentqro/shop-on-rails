@@ -14,7 +14,7 @@ one:
   diameter_in_mm: 1
   pac_size: 1
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 two:
@@ -31,7 +31,7 @@ two:
   diameter_in_mm: 1
   pac_size: 1
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 single_wall_8oz_white:
@@ -88,7 +88,7 @@ paper_lid_80mm:
   pac_size: 1000
   stock_quantity: 10000
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 paper_lid_90mm:
@@ -99,7 +99,7 @@ paper_lid_90mm:
   pac_size: 1000
   stock_quantity: 10000
   active: true
-  sort_order: 2
+  position: 2
   option_values: {}
 
 recyclable_lid_black_62mm:
@@ -110,7 +110,7 @@ recyclable_lid_black_62mm:
   pac_size: 1000
   stock_quantity: 5000
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 recyclable_lid_black_80mm:
@@ -121,7 +121,7 @@ recyclable_lid_black_80mm:
   pac_size: 1000
   stock_quantity: 8000
   active: true
-  sort_order: 2
+  position: 2
   option_values: {}
 
 recyclable_lid_black_90mm:
@@ -132,7 +132,7 @@ recyclable_lid_black_90mm:
   pac_size: 1000
   stock_quantity: 8000
   active: true
-  sort_order: 3
+  position: 3
   option_values: {}
 
 recyclable_lid_white_62mm:
@@ -143,7 +143,7 @@ recyclable_lid_white_62mm:
   pac_size: 1000
   stock_quantity: 5000
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 recyclable_lid_white_80mm:
@@ -154,7 +154,7 @@ recyclable_lid_white_80mm:
   pac_size: 1000
   stock_quantity: 8000
   active: true
-  sort_order: 2
+  position: 2
   option_values: {}
 
 recyclable_lid_white_90mm:
@@ -165,7 +165,7 @@ recyclable_lid_white_90mm:
   pac_size: 1000
   stock_quantity: 8000
   active: true
-  sort_order: 3
+  position: 3
   option_values: {}
 
 branded_cup_8oz_variant_small:
@@ -176,7 +176,7 @@ branded_cup_8oz_variant_small:
   price: 120.00
   stock_quantity: 500
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 flat_lid_8oz_variant:
@@ -187,7 +187,7 @@ flat_lid_8oz_variant:
   price: 15.00
   stock_quantity: 500
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 domed_lid_8oz_variant:
@@ -198,7 +198,7 @@ domed_lid_8oz_variant:
   price: 18.00
   stock_quantity: 500
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}
 
 sip_lid_8oz_variant:
@@ -209,5 +209,5 @@ sip_lid_8oz_variant:
   price: 20.00
   stock_quantity: 0
   active: true
-  sort_order: 1
+  position: 1
   option_values: {}

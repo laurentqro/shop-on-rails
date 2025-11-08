@@ -34,7 +34,8 @@ class Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
           slug: "test-category",
           description: "A test category",
           meta_title: "Test Category | Afida",
-          meta_description: "Test category description"
+          meta_description: "Test category description",
+          position: 100
         }
       }
     end
@@ -94,7 +95,8 @@ class Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     # Create a category without products for deletion test
     category_to_delete = Category.create!(
       name: "Deletable Category",
-      slug: "deletable-category"
+      slug: "deletable-category",
+      position: 100
     )
 
     assert_difference("Category.count", -1) do
@@ -139,7 +141,8 @@ class Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
     # Create a category without products for deletion test
     test_category = Category.create!(
       name: "URL Test Category",
-      slug: "url-test-category"
+      slug: "url-test-category",
+      position: 101
     )
 
     # Edit URL should use slug

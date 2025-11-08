@@ -23,7 +23,7 @@ single_wall_cups:
   slug: single-wall-cups
   category: cups
   active: true
-  sort_order: 1
+  position: 1
   product_type: standard
 
 branded_double_wall_template:
@@ -31,7 +31,7 @@ branded_double_wall_template:
   slug: double-wall-branded-cups
   category: branded
   active: true
-  sort_order: 1
+  position: 1
   product_type: customizable_template
   description: Custom branded double-wall cups for your business
 
@@ -54,7 +54,7 @@ paper_lids:
   slug: paper-sip-lids-for-hot-cups
   category: hot_cups_extras
   active: true
-  sort_order: 1
+  position: 1
   product_type: standard
   compatible_cup_sizes: ["8oz", "12oz"]
 
@@ -63,7 +63,7 @@ recyclable_lids_black:
   slug: recyclable-sip-lids-black
   category: hot_cups_extras
   active: true
-  sort_order: 2
+  position: 2
   product_type: standard
   compatible_cup_sizes: ["8oz", "12oz"]
 
@@ -72,7 +72,7 @@ recyclable_lids_white:
   slug: recyclable-sip-lids-white
   category: hot_cups_extras
   active: true
-  sort_order: 3
+  position: 3
   product_type: standard
   compatible_cup_sizes: ["8oz", "12oz"]
 

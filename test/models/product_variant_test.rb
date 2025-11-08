@@ -163,7 +163,7 @@ class ProductVariantTest < ActiveSupport::TestCase
     assert_equal "A Variant", variants.first.name
   end
 
-  test "by_sort_order scope orders by sort_order then name" do
+  test "by_position scope orders by position then name" do
     # Create a new product to avoid fixture interference
     product = Product.unscoped.create!(
       name: "Test Product",
@@ -176,7 +176,7 @@ class ProductVariantTest < ActiveSupport::TestCase
       name: "C Variant",
       sku: "C1",
       price: 10.0,
-      sort_order: 1
+      position: 1
     )
 
     variant_b = ProductVariant.create!(
@@ -184,7 +184,7 @@ class ProductVariantTest < ActiveSupport::TestCase
       name: "B Variant",
       sku: "B1",
       price: 10.0,
-      sort_order: 2
+      position: 2
     )
 
     variant_a = ProductVariant.create!(
@@ -192,10 +192,10 @@ class ProductVariantTest < ActiveSupport::TestCase
       name: "A Variant",
       sku: "A1",
       price: 10.0,
-      sort_order: 3
+      position: 3
     )
 
-    variants = product.variants.by_sort_order
+    variants = product.variants.by_position
     assert_equal "C Variant", variants.first.name
     assert_equal "B Variant", variants.second.name
     assert_equal "A Variant", variants.third.name

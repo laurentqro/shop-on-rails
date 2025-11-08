@@ -5,7 +5,8 @@ class CategoryTest < ActiveSupport::TestCase
     @category = categories(:one)
     @valid_attributes = {
       name: "Test Category",
-      slug: "test-category"
+      slug: "test-category",
+      position: 1
     }
   end
 
@@ -30,8 +31,8 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "allows same name with different slug" do
-    existing = Category.create!(name: "Eco Products", slug: "eco-products")
-    category = Category.new(name: "Eco Products", slug: "eco-products-uk")
+    existing = Category.create!(name: "Eco Products", slug: "eco-products", position: 10)
+    category = Category.new(name: "Eco Products", slug: "eco-products-uk", position: 11)
     assert category.valid?
   end
 
@@ -78,7 +79,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test "to_param returns slug for URL generation" do
-    category = Category.create!(name: "Eco Products", slug: "eco-products")
+    category = Category.create!(name: "Eco Products", slug: "eco-products", position: 12)
     assert_equal "eco-products", category.to_param
   end
 
