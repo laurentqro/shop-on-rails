@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  acts_as_list
+
   has_many :products
   has_one_attached :image
 
