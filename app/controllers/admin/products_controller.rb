@@ -79,7 +79,7 @@ module Admin
       end
 
       @products = if @selected_category
-        @selected_category.products.unscoped
+        Product.unscoped
           .where(category_id: @selected_category.id)
           .order(:position)
       else
