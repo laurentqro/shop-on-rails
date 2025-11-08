@@ -69,6 +69,40 @@ module Admin
       end
     end
 
+    # GET /admin/products/order
+    def order
+      @categories = Category.order(:position)
+      @selected_category = if params[:category_id]
+        Category.find(params[:category_id])
+      else
+        @categories.first
+      end
+
+      @products = if @selected_category
+        @selected_category.products.unscoped
+          .where(category_id: @selected_category.id)
+          .order(:position)
+      else
+        []
+      end
+    end
+
+    # PATCH /admin/products/:id/move_higher
+    def move_higher
+      @product = Product.unscoped.find_by!(slug: params[:id])
+      @product.move_higher
+
+      redirect_to order_admin_products_path(category_id: @product.category_id)
+    end
+
+    # PATCH /admin/products/:id/move_lower
+    def move_lower
+      @product = Product.unscoped.find_by!(slug: params[:id])
+      @product.move_lower
+
+      redirect_to order_admin_products_path(category_id: @product.category_id)
+    end
+
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_product

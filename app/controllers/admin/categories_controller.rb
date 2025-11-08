@@ -1,6 +1,6 @@
 module Admin
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[ edit update destroy ]
+    before_action :set_category, only: %i[ edit update destroy move_higher move_lower ]
 
     # GET /admin/categories
     def index
@@ -40,6 +40,33 @@ module Admin
     def destroy
       @category.destroy!
       redirect_to admin_categories_path, notice: "Category was successfully deleted.", status: :see_other
+    end
+
+    # GET /admin/categories/order
+    def order
+      @categories = Category.order(:position)
+    end
+
+    # PATCH /admin/categories/:id/move_higher
+    def move_higher
+      @category.move_higher
+      @categories = Category.order(:position)
+
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to order_admin_categories_path }
+      end
+    end
+
+    # PATCH /admin/categories/:id/move_lower
+    def move_lower
+      @category.move_lower
+      @categories = Category.order(:position)
+
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to order_admin_categories_path }
+      end
     end
 
     private
