@@ -1,0 +1,63 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Order Products</h1>
+    <%= link_to "Back to Products", admin_products_path, class: "btn btn-ghost" %>
+  </div>
+
+  <% if @categories.any? %>
+    <div class="mb-6">
+      <%= form_with url: order_admin_products_path, method: :get, class: "flex gap-4 items-center" do |f| %>
+        <%= f.label :category_id, "Category:", class: "font-semibold" %>
+        <%= f.select :category_id,
+            options_from_collection_for_select(@categories, :id, :name, @selected_category&.id),
+            {},
+            class: "select select-bordered w-64",
+            onchange: "this.form.requestSubmit()" %>
+      <% end %>
+    </div>
+
+    <% if @products.any? %>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <thead>
+            <tr>
+              <th class="w-24">Position</th>
+              <th>Name</th>
+              <th>SKU</th>
+              <th class="w-32">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td><%= product.position %></td>
+                <td><%= product.name %></td>
+                <td><%= product.sku %></td>
+                <td>
+                  <div class="flex gap-2">
+                    <%= button_to move_higher_admin_product_path(product),
+                        method: :patch,
+                        class: "btn btn-sm btn-ghost",
+                        disabled: product.first? do %>
+                      ↑
+                    <% end %>
+                    <%= button_to move_lower_admin_product_path(product),
+                        method: :patch,
+                        class: "btn btn-sm btn-ghost",
+                        disabled: product.last? do %>
+                      ↓
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="text-gray-500">No products in this category.</p>
+    <% end %>
+  <% else %>
+    <p class="text-gray-500">No categories available. Create categories first.</p>
+  <% end %>
+</div>

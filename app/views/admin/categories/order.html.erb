@@ -1,0 +1,46 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Order Categories</h1>
+    <%= link_to "Back to Categories", admin_categories_path, class: "btn btn-ghost" %>
+  </div>
+
+  <%= turbo_frame_tag "categories_list" do %>
+    <div class="overflow-x-auto">
+      <table class="table table-zebra w-full">
+        <thead>
+          <tr>
+            <th class="w-24">Position</th>
+            <th>Name</th>
+            <th class="w-32">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |category| %>
+            <tr>
+              <td><%= category.position %></td>
+              <td><%= category.name %></td>
+              <td>
+                <div class="flex gap-2">
+                  <%= button_to move_higher_admin_category_path(category),
+                      method: :patch,
+                      class: "btn btn-sm btn-ghost",
+                      disabled: category.first?,
+                      form: { data: { turbo_frame: "categories_list" } } do %>
+                    ↑
+                  <% end %>
+                  <%= button_to move_lower_admin_category_path(category),
+                      method: :patch,
+                      class: "btn btn-sm btn-ghost",
+                      disabled: category.last?,
+                      form: { data: { turbo_frame: "categories_list" } } do %>
+                    ↓
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
