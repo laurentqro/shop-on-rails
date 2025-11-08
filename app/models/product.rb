@@ -132,6 +132,6 @@ class Product < ApplicationRecord
 
   # Check if this product has any compatible lids
   def has_compatible_lids?
-    compatible_lids.any?
+    product_compatible_lids.exists?
   end
 end

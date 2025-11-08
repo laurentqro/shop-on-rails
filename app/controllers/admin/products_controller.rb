@@ -1,6 +1,6 @@
 module Admin
   class ProductsController < ApplicationController
-    before_action :set_product, only: %i[ show edit update destroy new_variant destroy_product_photo destroy_lifestyle_photo ]
+    before_action :set_product, only: %i[ show edit update destroy new_variant destroy_product_photo destroy_lifestyle_photo add_compatible_lid remove_compatible_lid set_default_compatible_lid update_compatible_lids ]
 
     # GET /products
     def index
@@ -101,6 +101,96 @@ module Admin
       @product.move_lower
 
       redirect_to order_admin_products_path(category_id: @product.category_id)
+    end
+
+    # POST /admin/products/:id/add_compatible_lid
+    def add_compatible_lid
+      lid = Product.find(params[:lid_id])
+
+      # Get the next sort_order value
+      next_sort_order = @product.product_compatible_lids.maximum(:sort_order).to_i + 1
+
+      # Set as default if it's the first lid
+      is_default = @product.product_compatible_lids.none?
+
+      @product.product_compatible_lids.create!(
+        compatible_lid: lid,
+        sort_order: next_sort_order,
+        default: is_default
+      )
+
+      redirect_to edit_admin_product_path(@product), notice: "Added #{lid.name} as compatible lid"
+    end
+
+    # DELETE /admin/products/:id/remove_compatible_lid
+    def remove_compatible_lid
+      lid = Product.find(params[:lid_id])
+      pcl = @product.product_compatible_lids.find_by(compatible_lid: lid)
+
+      if pcl
+        was_default = pcl.default?
+        pcl.destroy!
+
+        # If we removed the default lid, set the first remaining lid as default
+        if was_default && @product.product_compatible_lids.any?
+          @product.product_compatible_lids.order(:sort_order).first.update!(default: true)
+        end
+
+        redirect_to edit_admin_product_path(@product), notice: "Removed #{lid.name} from compatible lids"
+      else
+        redirect_to edit_admin_product_path(@product), alert: "Lid not found in compatible lids"
+      end
+    end
+
+    # PATCH /admin/products/:id/set_default_compatible_lid
+    def set_default_compatible_lid
+      lid = Product.find(params[:lid_id])
+      pcl = @product.product_compatible_lids.find_by(compatible_lid: lid)
+
+      if pcl
+        # Unset all other defaults
+        @product.product_compatible_lids.where(default: true).update_all(default: false)
+        # Set this one as default
+        pcl.update!(default: true)
+
+        redirect_to edit_admin_product_path(@product), notice: "Set #{lid.name} as default lid"
+      else
+        redirect_to edit_admin_product_path(@product), alert: "Lid not found in compatible lids"
+      end
+    end
+
+    # PATCH /admin/products/:id/update_compatible_lids
+    def update_compatible_lids
+      selected_lid_ids = params[:lid_ids]&.map(&:to_i) || []
+      default_lid_id = params[:default_lid_id]&.to_i
+      current_lid_ids = @product.product_compatible_lids.pluck(:compatible_lid_id)
+
+      # Determine which lids to add and remove
+      lids_to_add = selected_lid_ids - current_lid_ids
+      lids_to_remove = current_lid_ids - selected_lid_ids
+
+      # Remove unchecked lids
+      @product.product_compatible_lids.where(compatible_lid_id: lids_to_remove).destroy_all
+
+      # Add new lids
+      lids_to_add.each_with_index do |lid_id, index|
+        next_sort_order = @product.product_compatible_lids.maximum(:sort_order).to_i + 1 + index
+        is_default = (lid_id == default_lid_id) || (@product.product_compatible_lids.none? && index == 0)
+
+        @product.product_compatible_lids.create!(
+          compatible_lid_id: lid_id,
+          sort_order: next_sort_order,
+          default: is_default
+        )
+      end
+
+      # Update default if it changed among existing lids
+      if default_lid_id.present? && selected_lid_ids.include?(default_lid_id)
+        @product.product_compatible_lids.update_all(default: false)
+        @product.product_compatible_lids.find_by(compatible_lid_id: default_lid_id)&.update!(default: true)
+      end
+
+      redirect_to edit_admin_product_path(@product), notice: "Updated compatible lids"
     end
 
     private

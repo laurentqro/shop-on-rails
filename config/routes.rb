@@ -58,6 +58,10 @@ Rails.application.routes.draw do
         patch :move_lower
         delete :product_photo, to: "products#destroy_product_photo"
         delete :lifestyle_photo, to: "products#destroy_lifestyle_photo"
+        post :add_compatible_lid
+        delete :remove_compatible_lid
+        patch :set_default_compatible_lid
+        patch :update_compatible_lids
       end
     end
     resources :product_variants, only: [ :edit, :update ] do

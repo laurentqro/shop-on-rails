@@ -85,7 +85,9 @@
       "Bash(rails db:migrate:status:*)",
       "Bash(bundle exec rubocop:*)",
       "WebSearch",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(rails lid_compatibility:populate:*)",
+      "Bash(rails lid_compatibility:report:*)"
     ],
     "deny": [],
     "ask": []

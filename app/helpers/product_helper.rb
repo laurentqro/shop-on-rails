@@ -1,4 +1,39 @@
 module ProductHelper
+  # Get compatible lid products for a given cup product
+  # Uses the product_compatible_lids join table for accurate type + size matching
+  # @param cup_product [Product] The cup product
+  # @return [Array<Product>] Array of compatible lid products
+  def compatible_lids_for_cup_product(cup_product)
+    return [] if cup_product.blank?
+
+    cup_product.compatible_lids
+               .includes(:active_variants)
+               .with_attached_product_photo
+  end
+
+  # Get matching lid variants for a specific cup variant
+  # Finds compatible lid products, then matches by size
+  # @param cup_variant [ProductVariant] The cup variant (e.g., "8oz/227ml White")
+  # @return [Array<ProductVariant>] Array of matching lid variants
+  def matching_lid_variants_for_cup_variant(cup_variant)
+    return [] if cup_variant.blank?
+
+    cup_product = cup_variant.product
+    cup_size = extract_size_from_variant_name(cup_variant.name)
+
+    return [] if cup_size.blank?
+
+    cup_product.compatible_lids.flat_map do |lid_product|
+      # Find lid variants with matching size
+      lid_product.active_variants.select do |lid_variant|
+        extract_size_from_variant_name(lid_variant.name) == cup_size
+      end
+    end
+  end
+
+  # DEPRECATED: Use compatible_lids_for_cup_product instead
+  # This method uses the old compatible_cup_sizes array field
+  # Kept for backwards compatibility during migration
   def compatible_lids_for_cup(cup_size)
     return [] if cup_size.blank?
 
@@ -8,6 +43,13 @@ module ProductHelper
            .includes(:active_variants)
            .with_attached_product_photo
            .select { |product| product.active_variants.any? }
+  end
+
+  private
+
+  # Extract size from variant name (e.g., "8oz" from "8oz/227ml White")
+  def extract_size_from_variant_name(name)
+    name.to_s.match(/(\d+oz)/i)&.[](1)
   end
 
   # Display product/variant photo with placeholder if missing

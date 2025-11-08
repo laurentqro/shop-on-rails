@@ -37,6 +37,9 @@ application.register("product-card-hover", ProductCardHoverController)
 import ProductOptionsController from "../javascript/controllers/product_options_controller"
 application.register("product-options", ProductOptionsController)
 
+import CompatibleLidsController from "../javascript/controllers/compatible_lids_controller"
+application.register("compatible-lids", CompatibleLidsController)
+
 import FaqSearchController from "../javascript/controllers/faq_search_controller"
 application.register("faq-search", FaqSearchController)
 

@@ -4,24 +4,42 @@ module BrandedProducts
     allow_unauthenticated_access
 
     def compatible_lids
-      cup_size = params[:size]
-      lids = compatible_lids_for_cup(cup_size)
+      # Require product_id to properly match lid type (not just size)
+      cup_product = Product.find_by(id: params[:product_id])
+      return render json: { lids: [] } unless cup_product
 
-      render json: {
-        lids: lids.map { |lid|
-          variant = lid.active_variants.first
+      cup_size = params[:size]
+      return render json: { lids: [] } if cup_size.blank?
+
+      # Get compatible lid products (matches material type via join table)
+      compatible_lid_products = compatible_lids_for_cup_product(cup_product)
+
+      # For each compatible lid product, find variants matching the cup size
+      lid_variants_data = compatible_lid_products.flat_map do |lid_product|
+        # Find variants with matching size
+        matching_variants = lid_product.active_variants.select do |variant|
+          extract_size_from_variant_name(variant.name) == cup_size
+        end
+
+        # Map to JSON response format - return variant-level data
+        matching_variants.map do |variant|
           {
-            id: lid.id,
-            name: lid.name,
-            slug: lid.slug,
-            image_url: lid.product_photo.attached? ? url_for(lid.product_photo.variant(resize_to_limit: [ 200, 200 ])) : nil,
-            price: variant&.price || 0,
-            pac_size: variant&.pac_size || 1000,
-            sku: variant&.sku,
-            variant_id: variant&.id
+            product_id: lid_product.id,
+            product_name: lid_product.name,
+            product_slug: lid_product.slug,
+            variant_id: variant.id,
+            variant_name: variant.name,
+            name: "#{lid_product.name} - #{variant.name}", # Combined display name
+            image_url: (variant.product_photo.attached? ? url_for(variant.product_photo.variant(resize_to_limit: [ 200, 200 ])) : nil) ||
+                      (lid_product.product_photo.attached? ? url_for(lid_product.product_photo.variant(resize_to_limit: [ 200, 200 ])) : nil),
+            price: variant.price || 0,
+            pac_size: variant.pac_size || 1000,
+            sku: variant.sku
           }
-        }
-      }
+        end
+      end
+
+      render json: { lids: lid_variants_data }
     end
   end
 end

@@ -66,7 +66,9 @@
       <div class="card lg:card-side bg-base-100 shadow-sm"
            data-controller="product-options"
            data-product-options-variants-value="<%= @variants_json.to_json %>"
-           data-product-options-pac-size-value="<%= @selected_variant.pac_size || 1 %>">
+           data-product-options-pac-size-value="<%= @selected_variant.pac_size || 1 %>"
+           data-product-options-min-price-value="<%= @min_price.to_f %>"
+           data-product-options-has-selection-value="<%= @has_url_selection.to_s %>">
         <figure class="lg:w-1/2">
           <%= product_photo_tag(@selected_variant.primary_photo,
                                 alt: @product.name,
@@ -81,14 +83,18 @@
           </h2>
 
           <p class="text-xl text-black mt-2" data-product-options-target="unitPriceDisplay">
-            <%= number_to_currency(@selected_variant.price) %> / pack
+            <% if @has_url_selection %>
+              <%= number_to_currency(@selected_variant.price) %> / pack
+            <% else %>
+              from <%= number_to_currency(@min_price) %> / pack
+            <% end %>
           </p>
 
           <div class="flex items-center gap-3">
             <% if @product.colour.present? %>
               <span class="text-base-content/60 font-medium text-lg"><%= @product.colour %></span>
             <% end %>
-            <span class="text-sm text-base-content/50 font-mono" data-product-options-target="skuDisplay">
+            <span class="text-sm text-base-content/50 font-mono" data-product-options-target="skuDisplay" style="<%= 'display: none;' unless @has_url_selection %>">
               SKU: <%= @selected_variant.sku %>
             </span>
           </div>
@@ -161,6 +167,32 @@
                               data: { product_options_target: "quantitySelect", action: "change->product-options#updateQuantity" } %>
               </div>
 
+              <%# Compatible Lids Section - Only for cup products %>
+              <% if @product.name.downcase.include?('cup') && !@product.name.downcase.include?('lid') && @product.has_compatible_lids? %>
+                <div class="mt-6"
+                     data-controller="compatible-lids"
+                     data-compatible-lids-product-id-value="<%= @product.id %>"
+                     data-action="product-options:variant-changed@window->compatible-lids#onVariantChanged product-options:quantity-changed@window->compatible-lids#onQuantityChanged">
+
+                  <div class="divider"></div>
+
+                  <h3 class="text-lg font-semibold mb-3">Add a matching lid</h3>
+
+                  <!-- Loading State -->
+                  <div id="lids-loading" data-compatible-lids-target="loading" style="display: none;" class="text-center py-4">
+                    <span class="loading loading-spinner loading-md"></span>
+                    <p class="text-base-content/60 text-sm mt-2">Loading compatible lids...</p>
+                  </div>
+
+                  <!-- Lids Container -->
+                  <div data-compatible-lids-target="container" class="space-y-3">
+                    <!-- Lids will be loaded here dynamically -->
+                  </div>
+
+                  <div class="divider"></div>
+                </div>
+              <% end %>
+
               <div class="my-8 space-y-3">
                 <div class="flex items-center gap-2 text-secondary">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -174,12 +206,16 @@
                     <p class="text-xs text-base-content/60">Free delivery on all mainland UK orders over £100 excl. VAT</p>
                   </div>
                   <p class="text-2xl font-semibold whitespace-nowrap text-right" data-product-options-target="priceDisplay">
-                    <%= number_to_currency(@selected_variant.price) %>
+                    <% if @has_url_selection %>
+                      <%= number_to_currency(@selected_variant.price) %>
+                    <% else %>
+                      <%= number_to_currency(@min_price) %>
+                    <% end %>
                   </p>
                 </div>
               </div>
 
-              <%= f.submit "Add to basket", class: "btn btn-primary btn-lg w-full" %>
+              <%= f.submit "Add to basket", class: "btn btn-primary btn-lg w-full cursor-pointer", data: { product_options_target: "addToBasketButton" } %>
             <% end %>
           </div>
 

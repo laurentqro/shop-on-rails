@@ -196,39 +196,62 @@ Both photos are optional. Helper methods:
 
 ### Working with Lid Compatibility
 
-Products can define which cup sizes they're compatible with using the `compatible_cup_sizes` array field.
+Lid compatibility matches cup products with compatible lid products using a **join table** (`product_compatible_lids`). This ensures accurate matching based on both **material type** (e.g., paper vs plastic) and **size**.
 
-**Use Case**: Lid products define which cup sizes they fit (e.g., "8oz", "12oz", "16oz")
+**Use Case**: Cup products define which lid products are compatible with them
 
-**Database Field**:
-- `products.compatible_cup_sizes` - String array (PostgreSQL)
-- Example: `["8oz", "12oz", "16oz"]`
+**Database**:
+- `product_compatible_lids` - Join table between products
+  - `product_id` - The cup product
+  - `compatible_lid_id` - The compatible lid product
+  - `sort_order` - Display order (lower = shown first)
+  - `default` - Whether this is the default/recommended lid
+- Model: `ProductCompatibleLid`
 
 **Admin Setup**:
-1. Edit a lid product in the admin
-2. Check the cup sizes this lid is compatible with
-3. Available sizes: 4oz, 6oz, 8oz, 10oz, 12oz, 16oz, 20oz
-4. Save the product
+1. Edit a cup product in the admin (e.g., "Single Wall Hot Cup")
+2. Scroll to "Compatible Lids" section (visible for cup products only)
+3. Add compatible lid products from the dropdown
+4. Reorder lids by dragging (sort_order)
+5. Set one lid as the default (recommended option)
+6. Remove lids using the × button
 
-**Querying Compatible Lids**:
+**Helper Methods**:
 ```ruby
-# Find all lids compatible with 8oz cups
-Product.where("? = ANY(compatible_cup_sizes)", "8oz")
+# Get all compatible lid products for a cup
+compatible_lids_for_cup_product(cup_product)
+# Returns: Array of lid Product objects
 
-# Helper method
-compatible_lids_for_cup("8oz")  # Returns array of lid products
+# Get matching lid variants for a specific cup variant
+matching_lid_variants_for_cup_variant(cup_variant)
+# Returns: Array of lid ProductVariant objects with matching size
 ```
 
 **Configurator Integration**:
-- Branded product configurator uses `compatible_lids_for_cup` helper
-- Filters lid options based on selected cup size
-- Only shows lids that have the cup size in their `compatible_cup_sizes` array
+- Branded product configurator uses the join table
+- Passes `product_id` + `size` to `/branded_products/compatible_lids`
+- Backend filters by product compatibility (material type) THEN by size
+- Shows only lids that match both criteria
 
-**Architecture Notes**:
-- **Product-level**: Compatibility is set at product level (not variant level)
-- **Variant matching**: Configurator finds matching size variant from compatible lid product
-- **Flexibility**: A lid product can be compatible with multiple cup sizes
-- **Admin-controlled**: No code changes needed to update compatibility
+**Architecture**:
+- **Two-level matching**:
+  1. Product level: Material type (hot cup → hot lid, cold cup → cold lid)
+  2. Variant level: Size matching (8oz cup → 8oz lid)
+- **Cup-centric**: Cups define their compatible lids (not vice versa)
+- **Flexible**: Easy to add new lids or change compatibility
+- **Sortable & Defaultable**: Control display order and recommended option
+
+**Rake Tasks**:
+```bash
+# Populate default compatibility relationships
+rails lid_compatibility:populate
+
+# View current compatibility matrix
+rails lid_compatibility:report
+
+# Clear all compatibility data
+rails lid_compatibility:clear
+```
 
 ### Pattern Backgrounds
 

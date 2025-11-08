@@ -3,55 +3,57 @@ import { Controller } from "@hotwired/stimulus"
 // Handles Size/Colour option selection on product pages with button selectors
 // Finds matching variant based on selected options
 export default class extends Controller {
-  static targets = ["sizeButton", "colourButton", "priceDisplay", "unitPriceDisplay", "imageDisplay", "variantSkuInput", "quantitySelect", "packSizeDisplay", "skuDisplay"]
+  static targets = ["sizeButton", "colourButton", "priceDisplay", "unitPriceDisplay", "imageDisplay", "variantSkuInput", "quantitySelect", "packSizeDisplay", "skuDisplay", "addToBasketButton"]
 
   static values = {
-    variants: Array,  // All product variants with their option_values
-    pacSize: Number   // Pack size for current variant
+    variants: Array,    // All product variants with their option_values
+    pacSize: Number,    // Pack size for current variant
+    minPrice: Number,   // Minimum price across all variants
+    hasSelection: Boolean  // Whether URL has pre-selected variant
   }
 
   currentVariant = null
 
   connect() {
+    // Hide SKU initially when nothing is selected
+    if (this.hasSkuDisplayTarget) {
+      this.skuDisplayTarget.style.display = 'none'
+    }
+
+    // Disable add to basket button and show "from" price if no URL selection
+    if (!this.hasSelectionValue) {
+      this.showFromPrice()
+      this.disableAddToBasket()
+    }
+
     // Read URL parameters
     const params = new URLSearchParams(window.location.search)
     const urlSize = params.get('size')
     const urlColour = params.get('colour')
 
-    // Pre-select size button based on URL parameter or default to first
-    if (this.hasSizeButtonTarget) {
-      let buttonToSelect = this.sizeButtonTargets[0]
-
-      if (urlSize) {
-        const matchingButton = this.sizeButtonTargets.find(btn =>
-          btn.dataset.value === urlSize
-        )
-        if (matchingButton) {
-          buttonToSelect = matchingButton
-        }
+    // Only pre-select if URL parameters are present
+    if (urlSize && this.hasSizeButtonTarget) {
+      const matchingButton = this.sizeButtonTargets.find(btn =>
+        btn.dataset.value === urlSize
+      )
+      if (matchingButton) {
+        this.selectButtonVisual(matchingButton)
       }
-
-      this.selectButtonVisual(buttonToSelect)
     }
 
-    // Pre-select colour button based on URL parameter or default to first
-    if (this.hasColourButtonTarget) {
-      let buttonToSelect = this.colourButtonTargets[0]
-
-      if (urlColour) {
-        const matchingButton = this.colourButtonTargets.find(btn =>
-          btn.dataset.value === urlColour
-        )
-        if (matchingButton) {
-          buttonToSelect = matchingButton
-        }
+    if (urlColour && this.hasColourButtonTarget) {
+      const matchingButton = this.colourButtonTargets.find(btn =>
+        btn.dataset.value === urlColour
+      )
+      if (matchingButton) {
+        this.selectButtonVisual(matchingButton)
       }
-
-      this.selectButtonVisual(buttonToSelect)
     }
 
-    // Update selection to show correct variant on page load
-    this.updateSelection()
+    // Update selection only if URL parameters were provided
+    if (urlSize || urlColour) {
+      this.updateSelection()
+    }
   }
 
   selectSize(event) {
@@ -75,6 +77,10 @@ export default class extends Controller {
   updateQuantity(event) {
     // Recalculate total price when quantity changes
     this.updatePrice()
+
+    // Dispatch event for compatible lids to sync quantity
+    const quantity = parseInt(event.target.value)
+    this.dispatch('quantity-changed', { detail: { quantity: quantity } })
   }
 
   selectButtonVisual(button) {
@@ -106,6 +112,46 @@ export default class extends Controller {
 
     if (matchingVariant) {
       this.updateDisplay(matchingVariant)
+    } else {
+      // No variant matched - hide SKU and other variant-specific info
+      this.hideVariantInfo()
+    }
+  }
+
+  hideVariantInfo() {
+    // Hide SKU display when no variant is selected
+    if (this.hasSkuDisplayTarget) {
+      this.skuDisplayTarget.style.display = 'none'
+    }
+
+    // Revert to "from" price display
+    this.showFromPrice()
+
+    // Disable add to basket button
+    this.disableAddToBasket()
+  }
+
+  showFromPrice() {
+    // Show "from £x.xx / pack" using minimum price
+    if (this.hasUnitPriceDisplayTarget && this.hasMinPriceValue) {
+      this.unitPriceDisplayTarget.textContent = `from £${this.minPriceValue.toFixed(2)} / pack`
+    }
+    if (this.hasPriceDisplayTarget && this.hasMinPriceValue) {
+      this.priceDisplayTarget.textContent = `£${this.minPriceValue.toFixed(2)}`
+    }
+  }
+
+  disableAddToBasket() {
+    if (this.hasAddToBasketButtonTarget) {
+      this.addToBasketButtonTarget.disabled = true
+      this.addToBasketButtonTarget.classList.add('btn-disabled')
+    }
+  }
+
+  enableAddToBasket() {
+    if (this.hasAddToBasketButtonTarget) {
+      this.addToBasketButtonTarget.disabled = false
+      this.addToBasketButtonTarget.classList.remove('btn-disabled')
     }
   }
 
@@ -141,9 +187,10 @@ export default class extends Controller {
       this.packSizeDisplayTarget.textContent = `Pack size: ${this.formatNumber(newPacSize)} units`
     }
 
-    // Update SKU display
+    // Update SKU display and make it visible
     if (this.hasSkuDisplayTarget) {
       this.skuDisplayTarget.textContent = `SKU: ${variant.sku}`
+      this.skuDisplayTarget.style.display = ''
     }
 
     // Update price with quantity
@@ -153,6 +200,9 @@ export default class extends Controller {
     if (this.hasVariantSkuInputTarget) {
       this.variantSkuInputTarget.value = variant.sku
     }
+
+    // Enable add to basket button
+    this.enableAddToBasket()
 
     // Update image (show photo or placeholder)
     if (this.hasImageDisplayTarget) {
@@ -180,8 +230,21 @@ export default class extends Controller {
       }
     }
 
+    // Dispatch event for compatible lids controller
+    const rawSize = variant.option_values?.Size || variant.name
+    const size = this.extractSizeFromName(rawSize)
+    if (size) {
+      this.dispatch('variant-changed', { detail: { size: size } })
+    }
+
     // Update URL to reflect selection (optional)
     this.updateUrl(variant)
+  }
+
+  extractSizeFromName(name) {
+    // Extract size like "8oz" from variant name or option (e.g., "8oz" from "8oz/227ml")
+    const match = name?.match(/(\d+oz)/i)
+    return match ? match[1] : null
   }
 
   updatePrice() {

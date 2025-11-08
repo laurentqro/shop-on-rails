@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
       # For standard products, need variants with their images (not product-level photos)
       @product = Product.includes(:category)
                        .find_by!(slug: params[:id])
-      # Eager load variant product photos and lifestyle photos for @variants_json mapping
+      # Eager load variant photos for @variants_json mapping (primary_photo needs both)
       @product.active_variants.includes(:product_photo_attachment, :lifestyle_photo_attachment).load
       # Logic for standard products and customized instances (both have variants)
       @selected_variant = if params[:variant_id].present?
@@ -58,6 +58,12 @@ class ProductsController < ApplicationController
         redirect_to products_path, alert: "This product is currently unavailable."
         return
       end
+
+      # Calculate minimum price for "from" display
+      @min_price = @product.active_variants.minimum(:price)
+
+      # Check if this is an explicit selection (URL params present)
+      @has_url_selection = params[:size].present? || params[:colour].present? || params[:variant_id].present?
 
       # Prepare data for option selectors
       @product_options = @product.options.order(:position)

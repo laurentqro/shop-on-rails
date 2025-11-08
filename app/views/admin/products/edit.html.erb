@@ -4,4 +4,9 @@
   <h1 class="text-3xl font-bold mb-6">Edit Product: <%= @product.name %></h1>
 
   <%= render "form", product: @product %>
+
+  <%# Compatible Lids Section - Separate from product form to avoid nested form issues %>
+  <% if @product.persisted? && @product.name.downcase.include?('cup') && !@product.name.downcase.include?('lid') %>
+    <%= render 'compatible_lids', product: @product %>
+  <% end %>
 </div>

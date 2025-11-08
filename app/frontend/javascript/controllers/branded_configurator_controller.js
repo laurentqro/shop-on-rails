@@ -155,7 +155,8 @@ export default class extends Controller {
     this.lidsContainerTarget.innerHTML = ''
 
     try {
-      const response = await fetch(`/branded_products/compatible_lids?size=${this.selectedSize}`)
+      // Pass product_id to match lid type (not just size)
+      const response = await fetch(`/branded_products/compatible_lids?size=${this.selectedSize}&product_id=${this.productIdValue}`)
       const data = await response.json()
 
       document.getElementById('lids-loading').style.display = 'none'
@@ -203,7 +204,7 @@ export default class extends Controller {
               `<option value="${q.value}" ${q.selected ? 'selected' : ''}>${q.label}</option>`
             ).join('')}
           </select>
-          <button class="px-6 py-2.5 text-sm font-medium text-black bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full"
+          <button class="px-6 py-2.5 text-sm font-medium text-black bg-primary hover:bg-primary-focus rounded-md transition-colors whitespace-nowrap w-full cursor-pointer"
                   data-action="click->branded-configurator#addLidToCart"
                   data-lid-sku="${lid.sku}"
                   data-lid-name="${lid.name}">
