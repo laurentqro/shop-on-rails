@@ -51,7 +51,7 @@ class ProductVariant < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :by_name, -> { order(:name) }
-  scope :by_sort_order, -> { order(:sort_order, :name) }
+  scope :by_position, -> { order(:position, :name) }
 
   validates :sku, presence: true, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }

@@ -33,7 +33,7 @@ class Product < ApplicationRecord
   belongs_to :parent_product, class_name: "Product", optional: true
 
   has_many :variants, dependent: :destroy, class_name: "ProductVariant"
-  has_many :active_variants, -> { active.by_sort_order }, class_name: "ProductVariant"
+  has_many :active_variants, -> { active.by_position }, class_name: "ProductVariant"
   has_many :customized_instances, class_name: "Product", foreign_key: :parent_product_id
   has_many :option_assignments, class_name: "ProductOptionAssignment", dependent: :destroy
   has_many :options, through: :option_assignments, source: :product_option
