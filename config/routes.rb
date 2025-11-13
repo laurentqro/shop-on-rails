@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "privacy-policy", to: "pages#privacy_policy"
   get "cookies-policy", to: "pages#cookies_policy"
   get "pattern-demo", to: "pages#pattern_demo" if Rails.env.development?
+  get "sentry-test", to: "pages#sentry_test" if Rails.env.development?
 
   # FAQ page
   get "faqs", to: "faqs#index"

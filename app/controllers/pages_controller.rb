@@ -34,4 +34,37 @@ class PagesController < ApplicationController
 
   def pattern_demo
   end
+
+  def sentry_test
+    # This action is only available in development mode (see routes.rb)
+    error_type = params[:type] || "exception"
+
+    case error_type
+    when "exception"
+      begin
+        raise StandardError, "Test exception from browser - #{Time.current}"
+      rescue StandardError => e
+        Sentry.capture_exception(e)
+        render plain: "✓ Exception sent to Sentry!\n\nException: #{e.message}\n\nCheck your Sentry dashboard."
+      end
+    when "message"
+      Sentry.capture_message("Test message from browser - #{Time.current}", level: :info)
+      render plain: "✓ Message sent to Sentry!\n\nCheck your Sentry dashboard."
+    when "error"
+      # This will trigger a 500 error that Sentry will automatically catch
+      raise StandardError, "Unhandled error test - #{Time.current}"
+    else
+      render plain: <<~TEXT
+        Sentry Test Page (Development Only)
+
+        Available test types:
+        - /sentry-test (default exception test)
+        - /sentry-test?type=exception (captured exception)
+        - /sentry-test?type=message (info message)
+        - /sentry-test?type=error (unhandled error - triggers 500)
+
+        Check your Sentry dashboard after triggering a test.
+      TEXT
+    end
+  end
 end

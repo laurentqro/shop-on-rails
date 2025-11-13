@@ -81,3 +81,7 @@ group :test do
   gem "simplecov", require: false
 end
 gem "mocha"
+
+gem "sentry-ruby", "~> 6.1"
+
+gem "sentry-rails", "~> 6.1"
